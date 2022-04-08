@@ -13,6 +13,6 @@ export function createUser(user: IUser, users: IUser[]) {
 }
 
 export function deleteUser(id: number, users: IUser[]) {
-  users.splice(id - 1);
-  return users;
+  const dataUser = users.filter((user) => user.id !== id);
+  return dataUser;
 }

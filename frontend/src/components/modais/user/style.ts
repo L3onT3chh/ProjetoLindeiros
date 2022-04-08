@@ -10,7 +10,7 @@ export const ContainerUser = styled.div`
   padding: 0 40px;
 
   .btn-close {
-    margin-left: 90%;
+    margin-left: 95%;
   }
   .data-header {
     text-align: center;
@@ -38,7 +38,7 @@ export const ContainerUser = styled.div`
     width: 100%;
     background: rgba(255, 255, 255, 0.2);
     mix-blend-mode: normal;
-    border: 0.5px solid #c4c4c4;
+    border: 1px solid #c4c4c4;
     padding: 10px;
     border-radius: 14px;
   }
