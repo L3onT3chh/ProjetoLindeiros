@@ -1,0 +1,236 @@
+<html>
+
+<head>
+    <title>Titulo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/demandas.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header style="background-image: url(img/bg.jpg)">
+        <div class="cover" style="background-color: rgba(255,255,255,1);"></div>
+        <div class="inner">
+            <div class="logo" style="background-image: url(img/logo.png)"></div>
+            <div class="controls">
+                <div class="search">
+                    <input type="text" placeholder="Deseja procurar por algo?">
+                    <span class="button bgcolor-secondary">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <div class="access-list">
+                    <button id="btnPopLogin" onclick="popLoginForm(this)" class="btn border-secondary color-secondary" style="width: 135px;">Efetuar login <i class="fas fa-door-open" style="margin-left: 10px;"></i></button>
+
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="bgcolor-secondary">
+        <ul>
+            <a href="./index.html">
+                <li>Home</li>
+            </a>
+            <li>Estrutura</li>
+            <a href="./eixo.html">
+                <li>Eixos</li>
+            </a>
+            <a href="./demandas.html">
+                <li>Demandas</li>
+            </a>
+            <li>Notícias</li>
+            <li>Equipe técnica</li>
+            <li>Contato</li>
+        </ul>
+    </nav>
+    <div class="demandasSingle">
+        <div class="banner" style="background-image: url(img/cadastroBanner.jpg)">
+            <div class="cover"></div>
+            <div class="inner">
+                <div class="info">
+                    <h1 class="txtWhite">Desenvolvimento do projeto tal</h1>
+                    <p class="txtWhite descricao">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi iure dolore temporibus maiores libero sed cupiditate animi eligendi placeat.</p>
+                    <div class="group">
+                        <div class="line">
+                            <div class="progressBar">
+                                <p>Progresso em 65%</p>
+                                <div class="fluid bgcolor-secondary" style="width: 65%;"></div>
+                            </div>
+                        </div>
+                        <div class="line">
+                            <b class="txtWhite">Criado por</b>
+                            <ul class="autores">
+                                <li>Fulano de tal,</li>
+                                <li>Fulano de tal 1,</li>
+                                <li>Fulano de tal 2</li>
+                            </ul>
+                        </div>
+                        <div class="line">
+                            <div class="infoItem">
+                                <i class="fas fa-calendar-week txtWhite" style="margin-right: 10px;font-size:0.9rem;"></i>
+                                <p class="txtWhite">Última atualização em 12/2021</p>
+                            </div>
+                            <div class="infoItem">
+                                <i class="fas fa-exclamation-circle txtWhite" style="margin-right: 10px;font-size:0.9rem;transform: translateY(2px);"></i>
+                                <p class="txtWhite">Grande prioridade</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="controle">
+                    <div class="logo" style="background-image: url(img/logo.png)"></div>
+                    <div class="info">
+                        <div class="orcamento">
+                            <p>Orçamento</p>
+                            <h2>R$ 2.500,00</h2>
+                        </div>
+                        <div class="data">
+                            <p>Criado em</p>
+                            <h2>25 de set, 2021</h2>
+                        </div>
+                        <h3 class="title">Mais detalhes</h3>
+                        <ul class="lista">
+                            <li>
+                                <i class="fas fa-city"></i>
+                                <p>Aplicado em Santa Helena</p>
+                            </li>
+                            <li>
+                                <i class="far fa-lightbulb"></i>
+                                <p>Area agricola</p>
+                            </li>
+                            <li>
+                                <i class="fas fa-calendar-week"></i>
+                                <p>Conclusão esperada em 3 meses</p>
+                            </li>
+                            <li>
+                                <i class="fas fa-users"></i>
+                                <p>6 envolvidos</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="btnProposta bgcolor-secondary">Enviar proposta</button>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="objetivoGeral">
+                <h1 class="color-secondary" style="font-size: 1.7rem;">
+                    <i class="fas fa-circle color-secondary" style="font-size: 0.9rem;"></i>
+                    <i class="fas fa-circle color-secondary" style="font-size: 1.25rem;margin: 0 5px;"></i>
+                    Objetivo Geral
+                </h1>
+                <div class="text">
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro. Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro. Officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.
+                    </p>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro. Officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.
+                    </p>
+                </div>
+            </div>
+            <div class="objetivoEspecifico" style="margin-top: 50px;">
+                <h1 class="color-secondary" style="font-size: 1.7rem;">
+                    <i class="fas fa-circle color-secondary" style="font-size: 0.9rem;"></i>
+                    <i class="fas fa-circle color-secondary" style="font-size: 1.25rem;margin: 0 5px;"></i>
+                    Objetivo Específico
+                </h1>
+                <div class="text">
+                    <ul class="block">
+                        <li>
+                            <h3 class="color-secondary" style="margin: 0 0 5px;">Titulo específico</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.</p>
+                        </li>
+                        <li>
+                            <h3 class="color-secondary" style="margin: 0 0 5px;">Titulo específico</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.</p>
+                        </li>
+                    </ul>
+                    <ul class="block">
+                        <li>
+                            <h3 class="color-secondary" style="margin: 0 0 5px;">Titulo específico</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.</p>
+                        </li>
+                        <li>
+                            <h3 class="color-secondary" style="margin: 0 0 5px;">Titulo específico</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure minima esse quaerat numquam voluptatum fugiat deserunt, officia, ratione nihil recusandae sint obcaecati eum odit, assumenda maiores voluptates quis facilis porro.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="progressoDemanda">
+                <h1 class="color-secondary" style="font-size: 1.7rem;">
+                    <i class="fas fa-circle color-secondary" style="font-size: 0.9rem;"></i>
+                    <i class="fas fa-circle color-secondary" style="font-size: 1.25rem;margin: 0 5px;"></i>
+                    Progresso da demanda
+                </h1>
+                <div class="content">
+                    <div class="item">
+                        <div class="data"> 
+                            <i class="fas fa-circle color-secondary"></i>
+                            <p>Realizado em 21 de set, 2021</p>
+                        </div>
+                        <div class="detalhe">
+                            <h4>Modificação tal que foi feita</h4>
+                            <p><b>Feito por: </b>Guilherme a 3 meses atrás</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="data"> 
+                            <i class="fas fa-circle color-secondary"></i>
+                            <p>Realizado em 21 de set, 2021</p>
+                        </div>
+                        <div class="detalhe">
+                            <h4>Modificação tal que foi feita</h4>
+                            <p><b>Feito por: </b>Guilherme a 3 meses atrás</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="data"> 
+                            <i class="fas fa-circle color-secondary"></i>
+                            <p>Realizado em 21 de set, 2021</p>
+                        </div>
+                        <div class="detalhe">
+                            <h4>Modificação tal que foi feita</h4>
+                            <p><b>Feito por: </b>Guilherme a 3 meses atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="col">
+            <div class="logo" style="background-image: url(img/logo.png)"></div>
+            <p>Todos os direitos reservados</p>
+            <p style="text-align: center;">2021 - 2022</p>
+        </div>
+        <ul class="col">
+            <li class="color-secondary">Conteudo</li>
+            <li class="color-secondary">Home</li>
+            <li class="color-secondary">Estrutura</li>
+            <li class="color-secondary">Eixo</li>
+            <li class="color-secondary">Ações integradas</li>
+        </ul>
+        <ul class="col">
+            <li class="color-secondary">Sobre</li>
+            <li class="color-secondary">Equipe técnica</li>
+            <li class="color-secondary">Contato</li>
+        </ul>
+        <ul class="col">
+            <li class="color-secondary">Ação</li>
+            <li class="color-secondary">Demandas</li>
+        </ul>
+    </footer>
+    <div class="btnAdmin">
+        <p>Acesso restrito <i class="fas fa-door-open"></i></p>
+    </div>
+</body>
+<script src="./js/loginForm.js"></script>
+
+
+</html>

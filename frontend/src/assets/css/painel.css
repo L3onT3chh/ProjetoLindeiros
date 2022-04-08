@@ -1,0 +1,284 @@
+@font-face {
+    font-family: normal;
+    src: url('../font/SourceSansPro-Regular.ttf');
+}
+
+* {
+    box-sizing: border-box;
+    border: none;
+}
+
+body {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    font-family: normal;
+}
+
+input, textarea {
+    outline: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+p, h1 {
+    margin: 0;
+}
+
+.btn {
+    min-width: 100px;
+    min-height: 40px;
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+    padding: 0 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.bgcolor-secondary {
+    background-color: #1f1368;
+}
+
+.border-secondary {
+    border: 1px solid #1f1368;
+}
+
+.border-left-secondary {
+    border-left: 1px solid #1f1368;
+}
+
+.color-secondary {
+    color: #1f1368;
+}
+
+/*Painel css*/
+.topBar {
+    display: flex;
+    align-items: center;
+    height: 65px;
+    padding: 0 50px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.topBar .logo {
+    width: 125px;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.topBar .info {
+    width: 250px;
+    display: flex;
+    column-gap: 5%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px;
+}
+
+.topBar .info p {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.topBar .info b {
+    font-size: 1rem;
+}
+
+.topBar .btnLogOff {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.topBar .btnLogOff {
+    font-size: 1.05rem;
+    color: rgb(216, 97, 97);
+}
+
+.painelBody {
+    display: flex;
+}
+
+.painelBody .leftBar {
+    color: #fff;
+    width: 260px;
+    height: calc(100vh - 65px);
+}
+
+.painelBody .leftBar h1 {
+    height: 100px;
+    line-height: 100px;
+    padding-left: 20px;
+}
+
+.painelBody .leftBar ul {
+    margin: 0;
+    padding: 0;
+}
+
+.painelBody .leftBar ul li {
+    padding-left: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    column-gap: 5%;
+    cursor: pointer;
+    list-style: none;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #170f4e;
+}
+
+.painelBody .leftBar ul li.active{
+    background-color: #393074;
+    border-bottom: 1px solid #1f1368;
+}
+
+.painelBody .leftBar ul li:hover{
+    background-color: #393074;
+    border-bottom: 1px solid #1f1368;
+}
+
+.painelBody .leftBar ul li i{
+    font-size: 0.75rem;
+}
+
+.painelBody .leftBar ul li p{
+    font-size: 0.9rem;
+}
+
+.painelBody .content {
+    padding: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 260px);
+    height: calc(100vh - 65px);
+    background-color: #f5f5f5;
+}
+
+
+/*Usuario*/
+.painelBody .content .usuario{
+    width: 100%;
+}
+
+.painelBody .content .usuario .head, .painelBody .content .usuario .body{
+    width: 100%;
+}
+
+.painelBody .content .usuario .head .line{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+#btnAddUser{
+    cursor: pointer;
+    color: #fff;
+    padding: 0 25px;
+    height: 45px;
+    border-radius: 5px;
+}
+
+.painelBody .content .usuario .head .line .controls{
+    display: flex;
+}
+
+.painelBody .content .usuario .head .line .controls .input{
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.075);
+    height: 45px;
+    margin-right: 30px;
+    padding: 0 15px;
+}
+
+.painelBody .content .usuario .head .filter{
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    width: 100%;
+    height: 105px;
+    display: flex;
+    align-items: center;
+    padding: 0 25px;
+    border-bottom: 3px solid #1f1368;
+}
+
+.painelBody .content .usuario .head .filter .block{
+    width: 22.5%;
+    margin-right: 3.3%;
+}
+
+.painelBody .content .usuario .head .filter .block:last-of-type{
+    margin-right: 0;
+}
+
+.painelBody .content .usuario .head .filter select,
+.painelBody .content .usuario .head .filter input{
+    width: 100%;
+    height: 35px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.painelBody .content .usuario .head .filter p{
+    font-size: 0.9rem;
+    margin-bottom: 7.5px;
+}
+
+.content .usuario .body{
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.05);
+    background-color: #fff;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.content .usuario .body table{
+    width: 100%;
+    text-align: center;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.content .usuario .body table tr{
+    height: 50px;
+}
+
+.content .usuario .body table th{
+    color: #fff;
+}
+
+.content .usuario .body table td{
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.content .usuario .body table tr button:first-of-type{
+    margin-right: 5px;
+}
+
+.content .usuario .body table tr button{
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1 px solid rgba(0, 0, 0, 0.1);
+}

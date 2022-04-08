@@ -1,0 +1,95 @@
+<html>
+
+<head>
+    <title>Titulo</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/cadastro.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <nav class="bgcolor-secondary">
+        <ul>
+            <a href="index.html"><li>Home</li></a>
+            <li>Estrutura</li>
+            <a href="eixo.html"><li>Eixo</li></a>
+            <a href="./demandas.html"><li>Demandas</li></a>
+            <li>Ações integradas</li>
+            <li>Equipe técnica</li>
+            <li>Contato</li>
+        </ul>
+    </nav>
+    <div class="cadastro">
+        <div class="banner">
+            <div class="img" style="background-image: url(img/cadastroBanner.jpg)"></div>
+            <div class="cover"></div>
+            <div class="content">
+                <div class="cad-opt container" style="height: fit-content;width: 60%;margin-right: 5%;">
+                    <h1 class="border-left-secondary color-secondary">Qual seu tipo de cadastro?</h1>
+                    <div class="steps">
+                        <div class="primeiro">
+                            <div class="item">
+                                <img src="img/employees.png">
+                                <h2 class="color-secondary">Representante</h2>
+                                <p>Como representante de um dos municípios faça uma conta e crie suas demandas </p>
+                                <button class="btn color-secondary border-secondary">Escolher</button>
+                            </div>
+                            <div class="item">
+                                <img src="img/office-building.png">
+                                <h2 class="color-secondary">Empresa</h2>
+                                <p>Para empresas que possuem a  vontade de ajudar o município, crie sua conta e comece agora. </p>
+                                <button class="btn color-secondary border-secondary">Escolher</button>
+                            </div>
+                            <div class="item">
+                                <img src="img/school.png">
+                                <h2 class="color-secondary">Universidade</h2>
+                                <p>Para pessoas com grandes ideias que possam contribuir ao bem maior, clique para criar sua conta. </p>
+                                <button class="btn color-secondary border-secondary">Escolher</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <button class="btn color-secondary border-secondary" id="btnCadPrev">Anterior</button>
+                        <button class="btn bgcolor-secondary" id="btnCadNext">Proximo</button>
+                    </div>
+                </div>
+                <div class="cad-login container" style="height: fit-content;width: 35%;">
+                    <h1 class="border-left-secondary color-secondary">Ja possui uma conta?</h1>
+                    <form>
+                        <label for="loginEmail">Email:</label>
+                        <input type="text" placeholder="Seu email" name="loginEmail" id="loginEmail">
+                        <label for="loginSenha">Senha:</label>
+                        <input type="password" placeholder="Sua senha" name="loginSenha" id="loginSenha">
+                        <p id="esqueceuSenha">Esqueceu sua senha?</p>
+                        <button class="btn bgcolor-secondary">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="col">
+            <div class="logo" style="background-image: url(img/logo.png)"></div>
+            <p>Todos os direitos reservados</p>
+            <p style="text-align: center;">2021 - 2022</p>
+        </div>
+        <ul class="col">
+            <li class="color-secondary">Conteudo</li>
+            <li class="color-secondary">Home</li>
+            <li class="color-secondary">Estrutura</li>
+            <li class="color-secondary">Eixo</li>
+            <li class="color-secondary">Ações integradas</li>
+        </ul>
+        <ul class="col">
+            <li class="color-secondary">Sobre</li>
+            <li class="color-secondary">Equipe técnica</li>
+            <li class="color-secondary">Contato</li>
+        </ul>
+        <ul class="col">
+            <li class="color-secondary">Ação</li>
+            <li class="color-secondary">Demandas</li>
+        </ul>
+    </footer>
+</body>
+
+</html>

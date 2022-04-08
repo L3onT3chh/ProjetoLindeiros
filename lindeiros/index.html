@@ -1,0 +1,272 @@
+<html>
+
+<head>
+    <title>Titulo</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header style="background-image: url(img/bg.jpg)">
+        <div class="cover" style="background-color: rgba(255,255,255,1);"></div>
+        <div class="inner">
+            <div class="logo" style="background-image: url(img/logo.png)"></div>
+            <div class="controls">
+                <div class="search">
+                    <input type="text" placeholder="Deseja procurar por algo?">
+                    <span class="button bgcolor-secondary">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+                <div class="access-list">
+                    <button id="btnPopLogin" onclick="popLoginForm(this)" class="btn border-secondary color-secondary" style="width: 135px;">Efetuar login <i class="fas fa-door-open" style="margin-left: 10px;"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <nav class="bgcolor-secondary">
+        <ul>
+            <a href="./index.html"><li class="active color-secondary">Home</li></a>
+            <li>Estrutura</li>
+            <a href="./eixo.html"><li>Eixos</li></a>
+            <a href="./demandas.html"><li>Demandas</li></a>
+            <li>Notícias</li>
+            <li>Equipe técnica</li>
+            <li>Contato</li>
+        </ul>
+    </nav>
+    <div class="slider">
+        <div class="controls">
+            <i class="btnSliderLeft fas fa-arrow-left bgcolor-secondary" style="left: 15px;display:none;"></i>
+            <i class="btnSliderRight fas fa-arrow-right bgcolor-secondary" style="right: 15px;"></i>
+        </div>
+        <div class="slider-imgs" style="width: 200%; display: flex;">
+            <div style="background-image: url(https://www.lindeiros.org.br/upload/16546507855a58f055370943.88899673.png)"></div>
+            <div style="background-image: url(https://www.lindeiros.org.br/upload/180312592759adad53ec8cc1.96030545.png)"></div>
+        </div>
+        <div class="contributors" style="background-image: url(img/Rectangle.png)">
+            <div class="imgs">
+                <div style="background-image: url(contributors/image2.png)"></div>
+                <div style="background-image: url(contributors/image3.png)"></div>
+                <div style="background-image: url(contributors/image4.png)"></div>
+                <div style="background-image: url(contributors/image5.png)"></div>
+                <div style="background-image: url(contributors/image6.png)"></div>
+                <div style="background-image: url(contributors/image7.png)"></div>
+            </div>
+        </div>
+    </div>
+    <div class="recentPaper">
+        <h1 class="color-secondary">Eixos estruturantes</h1>
+        <div class="inner">
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-hotel color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Governança Inteligente</h2>
+                <h3 class="color-secondary">Eixo 1</h3>
+                <p>Implantar governança integrada e inteligente nos municípios nos municípios do oeste do Paraná para convergir os esforços e ...</p>
+                <a href="./eixo.html#1"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-id-card color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Gestão Pública</h2>
+                <h3 class="color-secondary">Eixo 2</h3>
+                <p>Coordenar ações para modernizar a gestão pública municipal com a formação continuada dos servidores públicos ...</p>
+                <a href="./eixo.html#2"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-tree color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Sustentabilidade</h2>
+                <h3 class="color-secondary">Eixo 3</h3>
+                <p>Promover a sustentabilidade efetiva para o desenvolvimento com ações coordenadas visando maior equilíbrio entre.</p>
+                <a href="./eixo.html#3"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-briefcase color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Negócios e renda</h2>
+                <h3 class="color-secondary">Eixo 4</h3>
+                <p>Promover a autonomia, o desenvolvimento humano, social e profissional visando geração de emprego e renda a partir ...</p>
+                <a href="./eixo.html#4"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-heartbeat color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Saúde</h2>
+                <h3 class="color-secondary">Eixo 5</h3>
+                <p>Diagnosticar a situação da saúde pública e qualidade de vida da população do oeste do Paraná para proposição de ações e ...</p>
+                <a href="./eixo.html#5"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-university color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Papel da universidade </h2>
+                <h3 class="color-secondary">Eixo 6</h3>
+                <p>Inserir as universidades públicas e particulares na promoção do desenvolvimento efetivo dos municípios do oeste do Paraná e na indução ...</p>
+                <a href="./eixo.html#6"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-seedling color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Agricultura Familiar</h2>
+                <h3 class="color-secondary">Eixo 7</h3>
+                <p>Desenvolver ações visando a qualidade de vida, uso equilibrado e racional dos recursos naturais, e, viabilidade econômica da agricultura familiar.</p>
+                <a href="./eixo.html#7"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-laptop-code color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Inovação</h2>
+                <h3 class="color-secondary">Eixo 8</h3>
+                <p>Promover e articular os ecossistemas de inovação e fomentar tecnologias visando a competitividade nos arranjos produtivos e prospecção de novos negócios.</p>
+                <a href="./eixo.html#8"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-drumstick-bite color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Segurança e Competitividade</h2>
+                <h3 class="color-secondary">Eixo 9</h3>
+                <p>Garantir a SEGURANÇA e a COMPETITIVIDADE da cadeia produtiva de proteínas animais e vegetal.</p>
+                <a href="./eixo.html#9"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-sitemap color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Infraestrutura</h2>
+                <h3 class="color-secondary">Eixo 10</h3>
+                <p>Diagnosticar e encaminhar as demandas de infraestrutura da região e municípios lindeiros.</p>
+                <a href="./eixo.html#10"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+            <div class="item">
+                <div class="icon">
+                    <i class="fas fa-shield-alt color-secondary"></i>
+                </div>
+                <h2 class="color-secondary">Segurança</h2>
+                <h3 class="color-secondary">Eixo 11</h3>
+                <p>Promover e desenvolver ações para Segurança Pública na Faixa de Fronteira.</p>
+                <a href="./eixo.html#11"><button class="btn color-secondary border-secondary">Ver mais</button></a>
+            </div>
+        </div>
+    </div>
+    <div class="description">
+        <div class="left">
+            <h1 class="border-left-secondary color-secondary">Objetivos</h1>
+            <p>O programa de governança, inovação e inteligência para desenvolvimento dos arranjos produtivos nos municípios lindeiros ao lago de Itaipu, tem por objetivo principal de transformar território de forma a contemplar as estruturas, ações e projetos em desenvolvimento, integrar as instituições com interesses comuns e coletivos e convergir com inteligência os esforços e recursos para atender efetivamente as demandas contemporâneas e as tendências disruptivas.</p>
+            <div style="background-image: url(img/idea.jpg)"></div>
+        </div>
+        <div class="right">
+            <div class="top">
+                <h1 class="color-secondary">Ultimas demandas</h1>
+                <a href="./demandas.html"><button class="btn bgcolor-secondary">Ver todas</button></a>
+            </div>
+            <div class="demandas">
+                <div class="item">
+                    <div class="img" style="background-image: url(img/logo.png)"></div>
+                    <div class="info">
+                        <h2 class="color-secondary">Campo de titulo da demanda</h2>
+                        <p>Município: Santa Helena</p>
+                        <p>Categoria: Área agrícola</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img" style="background-image: url(img/logo.png)"></div>
+                    <div class="info">
+                        <h2 class="color-secondary">Campo de titulo da demanda</h2>
+                        <p>Município: Santa Helena</p>
+                        <p>Categoria: Área agrícola</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img" style="background-image: url(img/logo.png)"></div>
+                    <div class="info">
+                        <h2 class="color-secondary">Campo de titulo da demanda</h2>
+                        <p>Município: Santa Helena</p>
+                        <p>Categoria: Área agrícola</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="img" style="background-image: url(img/logo.png)"></div>
+                    <div class="info">
+                        <h2 class="color-secondary">Campo de titulo da demanda</h2>
+                        <p>Município: Santa Helena</p>
+                        <p>Categoria: Área agrícola</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="newsletter bgcolor-secondary">
+        <div class="left">
+            <h1>Possui alguma duvida?</h1>
+            <p>Envie suas dúvidas ou sugestões no formulário ao lado.</p>
+        </div>
+        <div class="right">
+            <div class="block">
+                <input type="text" placeholder="Seu email">
+            </div>
+            <div class="block" style="position: relative;">
+                <textarea placeholder="escreva uma mensagem"></textarea>
+                <button class="btnEnviar bgcolor-secondary"><i class="fas fa-paper-plane" style="color:#fff;"></i></button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="col">
+            <div class="logo" style="background-image: url(img/logo.png)"></div>
+            <p>Todos os direitos reservados</p>
+            <p style="text-align: center;">2021 - 2022</p>
+        </div>
+        <ul class="col">
+            <li class="color-secondary">Conteudo</li>
+            <li class="color-secondary">Home</li>
+            <li class="color-secondary">Estrutura</li>
+            <li class="color-secondary">Eixo</li>
+            <li class="color-secondary">Ações integradas</li>
+        </ul>
+        <ul class="col">
+            <li class="color-secondary">Sobre</li>
+            <li class="color-secondary">Equipe técnica</li>
+            <li class="color-secondary">Contato</li>
+        </ul>
+        <ul class="col">
+            <li class="color-secondary">Ação</li>
+            <li class="color-secondary">Demandas</li>
+        </ul>
+    </footer>
+    <div class="btnAdmin">
+        <p>Acesso restrito <i class="fas fa-door-open"></i></p>
+    </div>
+</body>
+<script src="./js/loginForm.js"></script>
+<script>
+    var btnSliderLeft = document.getElementsByClassName('btnSliderLeft')[0];
+    var btnSliderRight = document.getElementsByClassName('btnSliderRight')[0];
+
+    btnSliderRight.onclick = ()=>{
+        document.getElementsByClassName('slider-imgs')[0].style.transform = 'translateX(-50%)'; 
+        btnSliderRight.style.display = "none";
+        btnSliderLeft.style.display = "block";
+    }
+
+    btnSliderLeft.onclick = ()=>{
+        document.getElementsByClassName('slider-imgs')[0].style.transform = 'translateX(0)'; 
+        btnSliderRight.style.display = "block";
+        btnSliderLeft.style.display = "none";
+    }
+</script>
+
+
+</html>

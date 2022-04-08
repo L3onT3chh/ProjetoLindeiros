@@ -1,0 +1,118 @@
+.equipe{
+    height: calc(100vh + 400px);
+}
+.equipe .header, .equipe .person {
+    padding-top: 35px;
+    display: flex;
+    align-items: flex-start;
+    margin: auto;
+}
+
+.equipe .header{
+    height: 400px;
+}
+
+.equipe .person{
+    padding: 0;
+    max-width: 1200px;
+    width: 100%;
+    left: 0;
+    right: 0;
+    top: 400px;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 1px 1px 4px 1px rgba(0,0,0,0.2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.equipe .person .item{
+    width: 25%;
+    height: 200px;
+    text-align: center;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+}
+
+.equipe .person .item:nth-of-type(4n){
+    border-right: none;
+}
+
+.equipe .person .item h2,
+.equipe .person .item h3,
+.equipe .person .item h4{
+    margin: 0;
+}
+
+.equipe .person .item h2{
+    font-size: 1.05rem;
+    margin: 2.5px 0;
+}
+
+.equipe .person .item h3{
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+.equipe .person .item h4{
+    font-size: 0.9rem;
+    font-weight: normal;
+    opacity: 0.9;
+}
+
+.equipe .header .left {
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-right: 10%;
+}
+
+.equipe .header .left {
+    width: 35%;
+}
+
+.equipe .header .left h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    color: #fff;
+    margin-right: 25px;
+}
+
+.equipe .header .right{
+    margin: 0;
+    padding: 0;
+}
+
+.equipe .header .right li{
+    line-height: 25px;
+    height: 25px;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    list-style: circle;
+    padding-left: 5px;
+    margin-left: 20px;
+}
+
+.equipe .header .right li a{
+    color: #fff;
+}
+
+.equipe .header .right li a:hover{
+    text-decoration: underline;
+}
+
+.equipe .header .right li:first-of-type{
+    font-size: 1.1rem;
+    font-weight: bolder;
+    margin-bottom: 15px;
+    list-style: none;
+    margin-left: 0px;
+}

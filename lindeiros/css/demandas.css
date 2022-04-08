@@ -1,0 +1,521 @@
+.demandas {
+    display: flex;
+    margin: auto;
+    width: 85%;
+    padding-top: 35px;
+}
+
+.demandas .filtros {
+    width: 30%;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.demandas .filtros .block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 50px;
+}
+
+.demandas .filtros .block:last-of-type {
+    margin-bottom: 0px;
+}
+
+.demandas .filtros .demandaStatus {
+    outline: none;
+    padding: 0 15px;
+    width: 100%;
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.demandas .filtros h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+.demandas .filtros ul {
+    margin: 0;
+    padding: 0;
+}
+
+.demandas .filtros ul li {
+    color: #222;
+    margin: 0;
+    padding: 0;
+    height: 37px;
+    cursor: pointer;
+}
+
+.demandas .filtros ul li label {
+    cursor: pointer;
+}
+
+.demandas .filtros ul li::selection, .demandas .filtros ul li label::selection {
+    background: transparent;
+}
+
+
+
+
+.demandas .lista {
+    width: 70%;
+}
+
+.demandas .lista .head {
+    background-color: #fff;
+    position: sticky;
+    z-index: 2;
+    top: 50px;
+    padding: 0 0 40px 50px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.demandas .lista .head .title {
+    display: flex;
+    align-items: center;
+}
+
+.demandas .lista .head .title span {
+    color: #fff;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 8px;
+    font-size: 1.15rem;
+    font-weight: normal;
+    margin-right: 20px;
+}
+
+.demandas .lista .head .title h2 {
+    font-weight: normal;
+    color: #222;
+}
+
+.demandas .lista .controls {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+}
+
+.demandas .lista .controls .input {
+    width: 70%;
+}
+
+.demandas .lista .controls .input input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0 15px;
+    width: calc(100% - 104px);
+    height: 100%;
+}
+
+.demandas .lista .controls .input button {
+    width: 100px;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+}
+
+.demandas .lista .controls .demandaOrder {
+    margin-left: 30px;
+    outline: none;
+    padding: 0 15px;
+    width: calc(30% - 30px);
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+#listaDemandas {
+    max-height: 1250px;
+}
+
+#listaDemandas .item {
+    width: 100%;
+    height: 250px;
+    padding: 0 35px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+#listaDemandas .item .img {
+    width: 250px;
+    height: 250px;
+    margin-right: 35px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#listaDemandas .item .conteudo {
+    padding: 10px 0;
+    width: calc(100% - 85px);
+}
+
+#listaDemandas .item .conteudo .title h2 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+#listaDemandas .item .conteudo .title h2 .etiqueta {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    margin-left: 15px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+#listaDemandas .item .conteudo .title .data {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    color: #222;
+}
+
+.etiqueta-recebe {
+    border: 1px solid rgba(31, 19, 104, 0.5) !important;
+    color: rgb(31, 19, 104, 0.8) !important;
+}
+
+.etiqueta-encerrado {
+    border: 1px solid rgba(229, 75, 75, 0.5) !important;
+    color: rgb(229, 75, 75, 0.8) !important;
+}
+
+.etiqueta-resolvido {
+    border: 1px solid rgba(21, 203, 137, 0.5) !important;
+    color: rgb(21, 203, 137, 0.8) !important;
+}
+
+#listaDemandas .item .conteudo .desc {
+    margin: 15px 0;
+}
+
+#listaDemandas .item .conteudo .desc p {
+    font-size: 0.85rem;
+    line-height: 21px;
+    opacity: 0.9;
+}
+
+#listaDemandas .item .conteudo button {
+    width: 150px;
+    height: 40px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.8s;
+}
+
+#listaDemandas .item .conteudo button:hover {
+    color: #1f1368;
+    transition: background 0.8s;
+    background-color: transparent;
+}
+
+.paginacao {
+    position: relative;
+    display: flex;
+    width: 90%;
+    margin: auto;
+    height: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-top: 35px;
+}
+
+.paginacao button {
+    width: 100px;
+    height: 50px;
+    color: #fff;
+}
+
+.paginacao button:first-of-type {
+    border-radius: 5px 0 0 5px;
+    position: absolute;
+    left: 0;
+}
+
+.paginacao button:last-of-type {
+    border-radius: 0 5px 5px 0;
+    position: absolute;
+    right: 0;
+}
+
+.paginacao .pags {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 100px;
+    width: calc(100% - 200px);
+    padding: 0;
+    margin: 0;
+}
+
+.paginacao .pags li {
+    padding: 0;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #333;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pagination-active {
+    filter: brightness(85%);
+    color: #fff !important;
+}
+
+/*Demanda item*/
+.demandasSingle .banner {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+}
+
+.demandasSingle .banner .cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.demandasSingle .banner .inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    z-index: 2;
+    height: 100%;
+    padding: 0 100px;
+}
+
+.demandasSingle .banner .inner .txtWhite {
+    color: #fff !important;
+}
+
+.demandasSingle .banner .inner .line,
+.demandasSingle .banner .inner .infoItem,
+.demandasSingle .banner .inner .autores {
+    display: flex;
+    align-items: center;
+}
+
+.demandasSingle .banner .inner .autores,
+.demandasSingle .banner .inner .autores li,
+.demandasSingle .banner .inner p {
+    margin: 0;
+    padding: 0;
+}
+
+.demandasSingle .banner .info h1 {
+    font-size: 2.5rem;
+}
+
+.demandasSingle .banner .info .descricao {
+    max-width: 500px;
+    margin: 10px 0 30px;
+}
+
+.demandasSingle .banner .info .progressBar {
+    position: relative;
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 50px;
+    width: 300px;
+    height: 25px;
+    border: 1px solid #fff;
+}
+
+.demandasSingle .banner .info .progressBar p {
+    position: relative;
+    z-index: 2;
+    line-height: 25px;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #ad9fff;
+}
+
+.demandasSingle .banner .info .progressBar .fluid {
+    transition: width 0.8s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+}
+
+.demandasSingle .banner .info .autores {
+    margin-left: 10px;
+}
+
+.demandasSingle .banner .info .autores li {
+    margin-right: 5px;
+}
+
+.demandasSingle .banner .info .infoItem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px;
+}
+
+.demandasSingle .banner .controle {
+    position: absolute;
+    z-index: 3;
+    background: #fff;
+    right: 100px;
+    top: 50px;
+    width: 300px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+}
+
+.demandasSingle .banner .controle .logo {
+    width: 100%;
+    height: 200px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center;
+    margin: auto;
+}
+
+.demandasSingle .banner .controle .info .orcamento,
+.demandasSingle .banner .controle .info .data {
+    margin-top: 15px;
+    padding-left: 25px;
+}
+
+.demandasSingle .banner .controle .info .orcamento p,
+.demandasSingle .banner .controle .info .data p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.demandasSingle .banner .controle .info .orcamento h2,
+.demandasSingle .banner .controle .info .data h2 {
+    color: #1f1368;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.demandasSingle .banner .controle .info .title {
+    color: #1f1368;
+    font-size: 1rem;
+    margin: 40px 0 10px 25px;
+}
+
+.demandasSingle .banner .controle .info .lista {
+    padding-left: 25px;
+}
+
+.demandasSingle .banner .controle .info .lista li {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    height: 30px;
+    line-height: 30px;
+}
+
+.demandasSingle .banner .controle .info .lista li,
+.demandasSingle .banner .controle .info .lista li i {
+    color: #1f1368;
+    font-size: 0.9rem;
+}
+
+.demandasSingle .banner .controle .info .lista li i {
+    width: 25px;
+    margin-right: 15px;
+}
+
+.demandasSingle .banner .controle .btnProposta {
+    cursor: pointer;
+    color: #fff;
+    width: 100%;
+    height: 50px;
+    margin-top: 30px;
+}
+
+.demandasSingle .body {
+    width: 60%;
+    padding-left: 100px;
+    padding-top: 50px;
+}
+
+.demandasSingle .body .text {
+    margin-top: 40px;
+}
+
+.demandasSingle .body .text p{
+    color: #333;
+    font-size: 1.1rem;
+    line-height: 30px;
+    margin-bottom: 15px;
+}
+
+.demandasSingle .body .objetivoEspecifico .text .block{
+    display: flex;
+    column-gap: 7.5%;
+}
+
+.demandasSingle .body .objetivoEspecifico .text .block,
+.demandasSingle .body .objetivoEspecifico .text .block li
+{
+    height: fit-content;
+    cursor: initial;
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+.demandasSingle .body .objetivoEspecifico .text .block h3{
+    font-size: 1.1rem;
+}
+
+.demandasSingle .body .progressoDemanda{
+    margin-top: 50px;
+}
+
+.demandasSingle .body .progressoDemanda .content{
+    position: relative;
+    margin-top: 50px;
+    padding: 10px 0 10px 25px;
+    border-left: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.demandasSingle .body .progressoDemanda .content .item{
+    border-radius: 5px;
+    margin-bottom: 30px;
+}
+
+.demandasSingle .body .progressoDemanda .content .data{
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.demandasSingle .body .progressoDemanda .content .data i{
+    position: absolute;
+    left: -6px;
+    font-size: 0.7rem;
+}
+
+.demandasSingle .body .progressoDemanda .content .detalhe{
+    padding: 15px 50px 15px 25px;
+    width: fit-content;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.demandasSingle .body .progressoDemanda .content .detalhe h4{
+    color: #333;
+    margin: 0;
+}
+
+.demandasSingle .body .progressoDemanda .content .detalhe p{
+    margin-top: 2.5px;
+    color: #333;
+    font-size: 0.85rem;
+}
