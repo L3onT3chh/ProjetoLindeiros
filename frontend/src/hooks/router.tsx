@@ -36,10 +36,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     callback: VoidFunction,
     Store: any
   ) => {
-    ProviderAuthentication.signin({ username, password }, () => {
-      setUser({ user, password });
-      callback();
-    }, Store);
+    ProviderAuthentication.signin(
+      { username, password },
+      () => {
+        setUser({ user, password });
+        callback();
+      },
+      Store
+    );
+
+    setUser(localStorage.getItem("token_jwt"));
   };
 
   let signout = (callback: VoidFunction) => {
@@ -59,9 +65,9 @@ export function useAuth() {
 }
 
 const RequireAuth = ({ children }: { children: JSX.Element }) => {
-  let auth = useAuth();
   let location = useLocation();
-  if (!auth.user) {
+
+  if (!localStorage.getItem("token_jwt")) {
     return <Navigate to="/cadastro" state={{ from: location }} replace />;
   }
 

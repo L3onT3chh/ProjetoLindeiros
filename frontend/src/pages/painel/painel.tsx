@@ -13,8 +13,12 @@ import { Container } from "../demands/style";
 import { PopUpUserCad } from "components/modais/user/cadUser";
 import { FindAllUser } from "API/Users/find.api";
 import { PopupDemandas } from "components/modais/demandas/demandas";
+import { useAuth } from "hooks/router";
+import { useNavigate } from "react-router-dom";
 
 export const Painel = () => {
+  const auth = useAuth();
+  const navigete = useNavigate();
   const [newUsers, _] = useState([...Users]);
   const [btnTrigger, setTrigger] = useState(false);
   const [btnTrigger1, setTrigger1] = useState(false);
@@ -36,7 +40,7 @@ export const Painel = () => {
             </div>
           </div>
           <button className="btnLogOff">
-            <Link to="/">
+            <Link to="/" onClick={() => auth.signout(() => {})}>
               <i className="fas fa-power-off" />
             </Link>
           </button>
@@ -51,15 +55,10 @@ export const Painel = () => {
                   <p>Inicio</p>
                 </li>
               </Link>
-              <li>
-                <button onClick={() => setTrigger1(true)}>
-                  <i className="fas fa-user-plus" />
-                  <p>Cadastro</p>
-                  <PopUpUserCad
-                    trigger={btnTrigger1}
-                    setTrigger={setTrigger1}
-                  />
-                </button>
+              <li onClick={() => setTrigger1(true)}>
+                <i className="fas fa-user-plus" />
+                <p>Cadastro</p>
+                <PopUpUserCad trigger={btnTrigger1} setTrigger={setTrigger1} />
               </li>
               <li className="active">
                 <i className="fas fa-users" />

@@ -8,26 +8,35 @@ interface IAuthUser {
 }
 
 export const Auth = async (user: IUserLogin): Promise<IAuthUser> => {
-  const response = await ApiConfig("/authenticate", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    data: JSON.stringify({
-      email: user.username,
-      password: user.password,
-    }),
-  }).then((response) => Promise.resolve(response));
-
-  const { jwt } = response.data;
-  if (jwt) {
+  try {
+    const DataAuth = await ApiConfig("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify({
+        email: user.username,
+        password: user.password,
+      }),
+    })
+      .then((response) => Promise.resolve(response.data))
+      .catch((err) => Promise.resolve(err));
+    const { User } = DataAuth.response;
+    if (User.id) {
+      return {
+        auth: true,
+        status: 200,
+        response: User.jwt,
+      };
+    }
     return {
       auth: true,
-      status: 200,
-      response: jwt,
+      status: 404,
+      response: "Usuário inválido",
+    };
+  } catch (e) {
+    return {
+      auth: false,
+      status: 400,
+      response: "Não foi possível realizar o login",
     };
   }
-  return {
-    auth: false,
-    status: 404,
-    response: "Not found user",
-  };
 };

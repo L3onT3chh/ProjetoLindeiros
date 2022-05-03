@@ -39,13 +39,19 @@ export const Cadastro = () => {
         <div className="banner">
           <div
             className="img"
-            style={{ backgroundImage: "url(assets/img/cadastroBanner.jpg)" }}
+            style={{
+              backgroundImage: "url(assets/img/cadastroBanner.jpg)",
+            }}
           />
           <div className="cover" />
           <div className="content">
             <div
               className="cad-opt container"
-              style={{ height: "fit-content", width: "60%", marginRight: "5%" }}
+              style={{
+                height: "fit-content",
+                width: "60%",
+                marginRight: "5%",
+              }}
             >
               <h1 className="border-left-secondary color-secondary">
                 Não possui cadastro?

@@ -25,15 +25,27 @@ const Header = () => {
               </span>
             </div>
             <div className="access-list">
-              <Link
-                to="/cadastro/"
-                style={{ width: 135 }}
-                className="btn border-secondary color-secondary"
-                id="btnPopLogin"
-              >
-                <i className="fas fa-door-open" style={{ marginLeft: 10 }} />
-                Efetuar login{" "}
-              </Link>
+              {!localStorage.getItem("token_jwt") ? (
+                <Link
+                  to="/cadastro/"
+                  style={{ width: 135 }}
+                  className="btn border-secondary color-secondary"
+                  id="btnPopLogin"
+                >
+                  <i className="fas fa-door-open" style={{ marginLeft: 10 }} />
+                  Efetuar login{" "}
+                </Link>
+              ) : (
+                <Link
+                  to="/painel/"
+                  style={{ width: 135 }}
+                  className="btn border-secondary color-secondary"
+                  id="btnPopLogin"
+                >
+                  <i className="fas fa-door-open" style={{ marginLeft: 10 }} />
+                  Painel{" "}
+                </Link>
+              )}
             </div>
           </div>
         </div>
