@@ -17,6 +17,8 @@ import { PopupDemandas } from "components/modais/demandas/demandas";
 export const Painel = () => {
   const [newUsers, _] = useState([...Users]);
   const [btnTrigger, setTrigger] = useState(false);
+  const [btnTrigger1, setTrigger1] = useState(false);
+  const [btnTrigger2, setTrigger2] = useState(false);
   FindAllUser();
   const handleRemoveUser = (id: number) => {
     // setNewUsers(deleteUser(id, newUsers));
@@ -50,8 +52,14 @@ export const Painel = () => {
                 </li>
               </Link>
               <li>
-                <i className="fas fa-user-plus" />
-                <p>Cadastro</p>
+                <button onClick={() => setTrigger1(true)}>
+                  <i className="fas fa-user-plus" />
+                  <p>Cadastro</p>
+                  <PopUpUserCad
+                    trigger={btnTrigger1}
+                    setTrigger={setTrigger1}
+                  />
+                </button>
               </li>
               <li className="active">
                 <i className="fas fa-users" />
@@ -76,7 +84,7 @@ export const Painel = () => {
                   </button>
 
                   <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} />
-                  {/* <PopUpUserCad trigger={btnTrigger} setTrigger={setTrigger} /> */}
+
                   <div className="controls">
                     <div className="input">
                       <input type="text" placeholder="Encontrar usuario" />
