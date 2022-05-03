@@ -1,8 +1,14 @@
-import React from "react";
-import { Router } from "./hooks/router";
+import React, { Fragment } from "react";
+import Router from "./hooks/router";
+
+import "react-notifications-component/dist/theme.css";
 
 const App = () => {
-  return <Router />;
+  return (
+    <Fragment>
+      <Router />
+    </Fragment>
+  );
 };
 
 export default App;

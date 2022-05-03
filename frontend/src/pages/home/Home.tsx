@@ -97,6 +97,7 @@ export const Home: React.FC = () => {
             <ContainerHome background={Images.image6}></ContainerHome>
             <ContainerHome background={Images.image7}></ContainerHome>
             <ContainerHome background={Images.image8}></ContainerHome>
+            <ContainerHome background={Images.image9}></ContainerHome>
           </div>
         </ContainerHome>
       </div>

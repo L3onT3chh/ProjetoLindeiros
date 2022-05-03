@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable jsx-a11y/alt-text */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { deleteUser } from "API/user/functions";
 // Styles
 import "assets/css/painel.css";
 import Users from "assets/data/user";
@@ -11,16 +11,16 @@ import { logo } from "assets/img";
 import user from "assets/img/user.png";
 import { Container } from "../demands/style";
 import { PopUpUserCad } from "components/modais/user/cadUser";
+import { FindAllUser } from "API/Users/find.api";
 import { PopupDemandas } from "components/modais/demandas/demandas";
 
 export const Painel = () => {
-  const [newUsers, setNewUsers] = useState([...Users]);
+  const [newUsers, _] = useState([...Users]);
   const [btnTrigger, setTrigger] = useState(false);
-
+  FindAllUser();
   const handleRemoveUser = (id: number) => {
-    setNewUsers(deleteUser(id, newUsers));
+    // setNewUsers(deleteUser(id, newUsers));
   };
-
   return (
     <>
       <div>
@@ -75,8 +75,8 @@ export const Painel = () => {
                     Adicionar novo usuario <i className="fas fa-user-plus" />
                   </button>
 
-                  {/* <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} /> */}
-                  <PopUpUserCad trigger={btnTrigger} setTrigger={setTrigger} />
+                  <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} />
+                  {/* <PopUpUserCad trigger={btnTrigger} setTrigger={setTrigger} /> */}
                   <div className="controls">
                     <div className="input">
                       <input type="text" placeholder="Encontrar usuario" />

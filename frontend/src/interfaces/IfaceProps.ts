@@ -8,8 +8,13 @@ export interface IfaceProps {
   color?: string;
 }
 
+export interface IUserLogin {
+  username: string;
+  password: string;
+}
+
 export interface IUser {
-  id: number;
+  id?: number;
   name: string;
   username: string;
   password: string;

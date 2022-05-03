@@ -4,27 +4,36 @@ import { useState } from "react";
 import "assets/css/cadastro.css";
 // Imagens
 import "assets/css/index.css";
-import Users from "assets/data/user";
 // Componets
 import Footer from "components/footer/Footer";
 import Header from "components/header/Header";
-import { IUser } from "interfaces/IfaceProps";
 import { ContactCad } from "components/modais/button/contact";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "hooks/router";
+
+import { ReactNotifications, Store } from "react-notifications-component";
 
 export const Cadastro = () => {
+  let navigate = useNavigate();
+  let auth = useAuth();
+
   const [username, setUser] = useState("");
   const [password, setPassword] = useState("");
 
   function handleConfirmationUser() {
-    const user = Users.filter(
-      (user: IUser) =>
-        user.username === username && user.password === password && user
-    )[0];
-    if (user) window.location.href = "http://localhost:3000/painel";
+    auth.signin(
+      username,
+      password,
+      () => {
+        navigate("/painel", { replace: true });
+      },
+      Store
+    );
   }
 
   return (
     <>
+      <ReactNotifications />
       <Header />
       <div className="cadastro">
         <div className="banner">
