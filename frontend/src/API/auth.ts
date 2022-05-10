@@ -16,7 +16,6 @@ const ProviderAuthentication = {
   isAuthentication: false,
   async signin(user: IUserLogin, callback: VoidFunction, Store: any) {
     const { status, response, auth } = await Auth(user);
-    console.log(response, status);
     if (status === 200) {
       localStorage.setItem("token_jwt", response);
       ProviderAuthentication.isAuthentication = auth;
@@ -26,7 +25,7 @@ const ProviderAuthentication = {
         type: "success",
         ...labelStore,
       });
-      setTimeout(callback, 2000);
+      setTimeout(callback, 1000);
       return true;
     }
     Store.addNotification({

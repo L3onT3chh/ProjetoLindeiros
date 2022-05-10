@@ -14,14 +14,17 @@ export interface IUserLogin {
 }
 
 export interface IUser {
-  id?: number;
-  name: string;
-  username: string;
-  password: string;
-  change: string;
-  email: string;
-  phone: string;
+  address: string;
+  born_date: Date;
   city: string;
+  cpf: string;
+  email: string;
+  id: string;
+  name: string;
+  password: string;
+  phone: string;
+  phone_ddd: string;
+  userType: string;
 }
 
 export interface IUserAuth {

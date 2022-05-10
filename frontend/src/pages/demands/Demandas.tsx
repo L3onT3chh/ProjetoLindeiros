@@ -24,7 +24,6 @@ export const Demandas = () => {
   const [demandasFilter, setDemandasFilter] = useState<any>([...demandaData]);
 
   useEffect(() => {
-    console.log("click");
     filter
       ? setDemandasFilter(
           demandaData.filter((item) => item.budget.area === filter)

@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
-import { useEffect, useState } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Styles
 import "assets/css/painel.css";
@@ -11,22 +11,28 @@ import { logo } from "assets/img";
 import user from "assets/img/user.png";
 import { Container } from "../demands/style";
 import { PopUpUserCad } from "components/modais/user/cadUser";
-import { FindAllUser } from "API/Users/find.api";
 import { PopupDemandas } from "components/modais/demandas/demandas";
 import { useAuth } from "hooks/router";
-import { useNavigate } from "react-router-dom";
+import { FindAllUser } from "API/Users/find.api";
+import { IUser } from "interfaces/IfaceProps";
 
 export const Painel = () => {
   const auth = useAuth();
-  const navigete = useNavigate();
-  const [newUsers, _] = useState([...Users]);
+  const [newUsers, setNewUsers] = useState<IUser[]>();
   const [btnTrigger, setTrigger] = useState(false);
   const [btnTrigger1, setTrigger1] = useState(false);
-  const [btnTrigger2, setTrigger2] = useState(false);
-  FindAllUser();
-  const handleRemoveUser = (id: number) => {
-    // setNewUsers(deleteUser(id, newUsers));
+
+  const handleAllUsers = async () => {
+    const data = await FindAllUser();
+    setNewUsers(data?.response);
   };
+
+  useEffect(() => {
+    handleAllUsers();
+  });
+
+  const handleRemoveUser = (id: string) => {};
+
   return (
     <>
       <div>
@@ -144,14 +150,14 @@ export const Painel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {newUsers.map((user) => (
+                    {newUsers?.map((user) => (
                       <tr key={user.id}>
                         <td>
                           <input type="checkbox" />
                         </td>
                         <td>{user.name}</td>
                         <td>{user.city}</td>
-                        <td>{user.username}</td>
+                        <td>{user.email}</td>
                         <td>{user.phone}</td>
                         <td>
                           <button>
