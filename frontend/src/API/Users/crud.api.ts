@@ -1,5 +1,5 @@
 import ApiConfig from ".config/api";
-import { IUpdateUser, IUser } from "interfaces/IfaceProps";
+import { IUpdateUser } from "interfaces/IfaceProps";
 
 type TResponseData = {
   response: IUpdateUser | string;

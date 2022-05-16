@@ -1,4 +1,4 @@
-import { createUser, updateUser } from "API/Users/crud.api";
+import { createUser } from "API/Users/crud.api";
 import { ReactChild, ReactChildren, useState } from "react";
 import { AiOutlineClose, AiOutlineUser } from "react-icons/ai";
 import { PopUp } from "../representantes/styled";
