@@ -7,7 +7,7 @@ export const NavBar = () => {
     <nav className="bgcolor-secondary">
       <ul>
         <Link to="/">
-          <li>Home 2.0</li>
+          <li>Home</li>
         </Link>
         <Link to="/eixos">
           <li>Eixos</li>
