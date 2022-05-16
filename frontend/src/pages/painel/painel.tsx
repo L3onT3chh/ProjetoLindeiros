@@ -15,6 +15,7 @@ import { PopupDemandas } from "components/modais/demandas/demandas";
 import { useAuth } from "hooks/router";
 import { FindAllUser } from "API/Users/find.api";
 import { IUser } from "interfaces/IfaceProps";
+import { deleteUser } from "API/Users/crud.api";
 
 export const Painel = () => {
   const auth = useAuth();
@@ -31,7 +32,9 @@ export const Painel = () => {
     handleAllUsers();
   });
 
-  const handleRemoveUser = (id: string) => {};
+  const handleRemoveUser = async (idUser: string) => {
+    await deleteUser({ idUser });
+  };
 
   return (
     <>
@@ -61,14 +64,18 @@ export const Painel = () => {
                   <p>Inicio</p>
                 </li>
               </Link>
-              <li onClick={() => setTrigger1(true)}>
+              <li onClick={() => setTrigger(true)}>
                 <i className="fas fa-user-plus" />
                 <p>Cadastro</p>
-                <PopUpUserCad trigger={btnTrigger1} setTrigger={setTrigger1} />
+                <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} />
               </li>
               <li className="active">
                 <i className="fas fa-users" />
                 <p>Usuarios</p>
+              </li>
+              <li className="active">
+                <i className="fas fa-users" />
+                <p>Professores</p>
               </li>
               <li>
                 <i className="fas fa-key" />
@@ -82,13 +89,16 @@ export const Painel = () => {
                 <div className="line">
                   <button
                     id="btnAddUser"
-                    onClick={() => setTrigger(true)}
+                    onClick={() => setTrigger1(true)}
                     className="bgcolor-secondary"
                   >
                     Adicionar novo usuario <i className="fas fa-user-plus" />
                   </button>
 
-                  <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} />
+                  <PopUpUserCad
+                    trigger={btnTrigger1}
+                    setTrigger={setTrigger1}
+                  />
 
                   <div className="controls">
                     <div className="input">

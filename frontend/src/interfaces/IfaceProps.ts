@@ -15,16 +15,24 @@ export interface IUserLogin {
 
 export interface IUser {
   address: string;
-  born_date: Date;
   city: string;
   cpf: string;
-  email: string;
   id: string;
+  email: string;
   name: string;
   password: string;
   phone: string;
   phone_ddd: string;
-  userType: string;
+}
+export interface IUpdateUser {
+  address: string;
+  city: string;
+  cpf: string;
+  email: string;
+  name: string;
+  password: string;
+  phone: string;
+  phone_ddd: string;
 }
 
 export interface IUserAuth {

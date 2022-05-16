@@ -9,9 +9,19 @@ export const Documents = () => {
       <Header />
       <ContainerDocuments>
         <div className="container">
-          <h1 className="title color-secondary">
-            <span>Documentos disponíveis</span>
-          </h1>
+          <div className="header-btn">
+            <h1 className="title color-secondary">
+              <span>Documentos disponíveis</span>
+            </h1>
+
+            {localStorage.getItem("token_jwt")?.toString() !== "" ? (
+              <button className="btn color-secondary border-secondary btn-docs">
+                Adicionar documento
+              </button>
+            ) : (
+              <></>
+            )}
+          </div>
 
           <CardDocs />
           <CardDocs />

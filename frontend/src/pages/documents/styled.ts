@@ -6,6 +6,17 @@ export const ContainerDocuments = styled.div`
     padding: 20px;
   }
 
+  .header-btn {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .btn-docs {
+      height: 40px;
+      margin-top: 40px;
+    }
+  }
+
   .itens .card-item {
     display: flex;
     flex-direction: row;

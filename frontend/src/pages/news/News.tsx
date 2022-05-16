@@ -17,9 +17,26 @@ export const News = () => {
       <div className="noticias">
         <div className="top">
           <div className="container">
-            <h1 className="title border-left-secondary color-secondary">
-              Noticías recentes
-            </h1>
+            <div
+              className="header_btn"
+              style={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between",
+                marginBottom: '10px'
+              }}
+            >
+              <h1 className="title border-left-secondary color-secondary">
+                Noticías recentes
+              </h1>
+              {localStorage.getItem("token_jwt")?.toString() !== "" ? (
+                <button className="btn color-secondary border-secondary btn-docs">
+                  Adicionar documento
+                </button>
+              ) : (
+                <></>
+              )}
+            </div>
             <div className="itens">
               <Link
                 to="itemNews"

@@ -37,7 +37,7 @@ const ProviderAuthentication = {
     return false;
   },
   signout(callback: VoidFunction) {
-    localStorage.removeItem("token_jwt");
+    localStorage.setItem("token_jwt", "");
     ProviderAuthentication.isAuthentication = false;
     setTimeout(callback, 100);
   },

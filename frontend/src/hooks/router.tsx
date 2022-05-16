@@ -93,6 +93,7 @@ function Router() {
         <Route path="contato" element={<Contato />} />
         <Route path="news" element={<News />} />
         <Route path="time" element={<Equipe />} />
+        <Route path="painel/teachers" element={() => {}} />
         <Route path="docs" element={<Documents />} />
         <Route path="itemNews" element={<NewsItems />} />
         <Route path="demandas/:id" element={<Demanda />} />

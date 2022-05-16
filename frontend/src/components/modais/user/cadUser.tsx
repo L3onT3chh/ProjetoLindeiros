@@ -1,4 +1,5 @@
-import { ReactChild, ReactChildren } from "react";
+import { createUser, updateUser } from "API/Users/crud.api";
+import { ReactChild, ReactChildren, useState } from "react";
 import { AiOutlineClose, AiOutlineUser } from "react-icons/ai";
 import { PopUp } from "../representantes/styled";
 import { ContainerUser } from "./style";
@@ -9,10 +10,47 @@ type IPopUp = {
   setTrigger: any;
 };
 
+const initialValueForm = {
+  name: "",
+  address: "",
+  cpf: "",
+  city: "",
+  phone_ddd: "",
+  phone: "",
+  email: "",
+  username: "",
+  password: "",
+  born_date: "",
+  user_type: "",
+};
+
 export const PopUpUserCad = (props: IPopUp) => {
+  const [userSave, updateFormData] = useState(initialValueForm);
+
+  const handleSaveData = (e: any) => {
+    updateFormData({
+      ...userSave,
+      [e.target.name]: e.target.value.trim(),
+    });
+  };
+
   return props.trigger ? (
     <PopUp>
-      <ContainerUser>
+      <ContainerUser
+        id="form-dataSend"
+        method="post"
+        action="#"
+        onSubmit={async (e: any) => {
+          e.preventDefault();
+          const data = await createUser({ userSave });
+          if (data?.status === 200) {
+            alert(data.message);
+          } else {
+            alert("Verifique os parâmetros e tente novamente");
+            props.setTrigger(false);
+          }
+        }}
+      >
         <button className="btn-close" onClick={() => props.setTrigger(false)}>
           <AiOutlineClose size={"24px"} />
         </button>
@@ -29,45 +67,62 @@ export const PopUpUserCad = (props: IPopUp) => {
 
             <div className="user-data-form">
               <input
+                onChange={handleSaveData}
+                required
                 className="text-field"
+                name="name"
                 type="text"
                 placeholder="Nome completo"
               />
               <input
+                onChange={handleSaveData}
+                required
                 className="text-field"
                 type="text"
+                name="address"
                 placeholder="Endereço completo"
               />
 
               <div className="user-personal">
                 <input
+                  onChange={handleSaveData}
+                  required
                   className="text-field"
                   type="text"
-                  required
                   placeholder="N° do CPF"
+                  name="cpf"
                 />
-                <input type="date" required placeholder="Data de nascimento" />
+                <input
+                  onChange={handleSaveData}
+                  type="date"
+                  required
+                  placeholder="Data de nascimento"
+                />
               </div>
 
               <div className="user-city">
                 <input
+                  onChange={handleSaveData}
                   className="text-field"
                   type="text"
                   placeholder="Município"
                   required
                   id="field-municipio"
+                  name="city"
                 />
                 <input
+                  onChange={handleSaveData}
                   required
                   id="field-uf"
                   type="text"
                   placeholder="UF"
                   minLength={2}
                   maxLength={2}
+                  name="uf_city"
                 />
               </div>
 
-              <select name="user-type" className="type-user">
+              <select required name="user-type" className="type-user">
                 <option className="text-field" value="">
                   Tipo de usuário
                 </option>
@@ -81,6 +136,8 @@ export const PopUpUserCad = (props: IPopUp) => {
 
               <div className="user-contact">
                 <input
+                  onChange={handleSaveData}
+                  name="phone_ddd"
                   className="text-field"
                   type="number"
                   placeholder="DDD"
@@ -90,14 +147,18 @@ export const PopUpUserCad = (props: IPopUp) => {
                   maxLength={3}
                 />
                 <input
+                  onChange={handleSaveData}
                   className="text-field"
                   type="phone"
                   id="field-phone"
                   required
                   placeholder="Telefone"
                   minLength={9}
+                  name="phone"
                 />
                 <input
+                  onChange={handleSaveData}
+                  name="email"
                   type="email"
                   className="text-field"
                   id="field-email"
@@ -108,15 +169,23 @@ export const PopUpUserCad = (props: IPopUp) => {
 
               <div className="user-login">
                 <input
+                  onChange={handleSaveData}
                   type="text"
                   required
+                  name="username"
                   className="text-field"
                   placeholder="Usuário"
                 />
               </div>
 
               <div className="user-valid-password">
-                <input type="password" required placeholder="Password" />
+                <input
+                  onChange={handleSaveData}
+                  type="password"
+                  name="password"
+                  required
+                  placeholder="Password"
+                />
                 <input
                   type="password"
                   required
