@@ -15,7 +15,7 @@ const Header = () => {
           <ContainerHeader
             className="logo"
             background={logo}
-            style={{ backgroundSize: "150px" }}
+            style={{ backgroundSize: "180px" }}
           />
           <div className="controls">
             <div className="search">

@@ -13,7 +13,7 @@ export const Demanda = () => {
   const [btnTrigger, setTrigger] = useState(false);
 
   const data = Demandas.filter((item) => item.id === Number(id) && item)[0];
-
+  console.log(data);
   return (
     <>
       <div>

@@ -2,17 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 
 import { useEffect, useState } from "react";
-import filterCity from "assets/data/cities";
-import demandaData from "assets/data/demandas";
-import filterEixos from "assets/data/eixos";
-import { logo } from "assets/img";
-import { CardDemanda } from "components/demanda/card";
-import Footer from "components/footer/Footer";
+import filterCity from "../../assets/data/cities";
+import demandaData from "../../assets/data/demandas";
+import filterEixos from "../../assets/data/eixos";
+import { logo } from "../../assets/img";
+import { CardDemanda } from "../../components/demanda/card";
+import Footer from "../../components/footer/Footer";
 // Components
-import Header from "components/header/Header";
-import { IDemandas } from "interfaces/IDemandas";
-import { IFilter } from "interfaces/IFilter";
-import { EStatusDemandas } from "interfaces/types";
+import Header from "../../components/header/Header";
+import { IDemandas } from "../../interfaces/IDemandas";
+import { IFilter } from "../../interfaces/IFilter";
+import { EStatusDemandas } from "../../interfaces/types";
 // Styles
 import { Container } from "./style";
 

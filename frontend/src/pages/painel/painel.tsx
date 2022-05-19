@@ -16,6 +16,7 @@ import { useAuth } from "hooks/router";
 import { FindAllUser } from "API/Users/find.api";
 import { IUser } from "interfaces/IfaceProps";
 import { deleteUser } from "API/Users/crud.api";
+import { PopPermission } from "components/modais/permission";
 
 export const Painel = () => {
   const auth = useAuth();
@@ -38,6 +39,7 @@ export const Painel = () => {
 
   return (
     <>
+      <PopPermission setTrigger={setTrigger} trigger={btnTrigger} />
       <div>
         <div className="topBar">
           <Container className="img" background={logo} />
@@ -64,18 +66,18 @@ export const Painel = () => {
                   <p>Inicio</p>
                 </li>
               </Link>
-              <li onClick={() => setTrigger(true)}>
+              <li onClick={() => setTrigger1(true)}>
                 <i className="fas fa-user-plus" />
                 <p>Cadastro</p>
-                <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} />
+                <PopUpUserCad trigger={btnTrigger1} setTrigger={setTrigger1} />
               </li>
               <li className="active">
                 <i className="fas fa-users" />
                 <p>Usuarios</p>
               </li>
-              <li className="active">
+              <li onClick={() => setTrigger(true)}>
                 <i className="fas fa-users" />
-                <p>Professores</p>
+                <p>Representantes</p>
               </li>
               <li>
                 <i className="fas fa-key" />
@@ -160,25 +162,29 @@ export const Painel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {newUsers?.map((user) => (
-                      <tr key={user.id}>
-                        <td>
-                          <input type="checkbox" />
-                        </td>
-                        <td>{user.name}</td>
-                        <td>{user.city}</td>
-                        <td>{user.email}</td>
-                        <td>{user.phone}</td>
-                        <td>
-                          <button>
-                            <i className="fas fa-pencil" />
-                          </button>
-                          <button onClick={(e) => handleRemoveUser(user.id)}>
-                            <i className="fas fa-trash" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                    {Object(newUsers?.length).length > 1 ? (
+                      newUsers?.map((user) => (
+                        <tr key={user.id}>
+                          <td>
+                            <input type="checkbox" />
+                          </td>
+                          <td>{user.name}</td>
+                          <td>{user.city}</td>
+                          <td>{user.email}</td>
+                          <td>{user.phone}</td>
+                          <td>
+                            <button>
+                              <i className="fas fa-pencil" />
+                            </button>
+                            <button onClick={(e) => handleRemoveUser(user.id)}>
+                              <i className="fas fa-trash" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <div></div>
+                    )}
                   </tbody>
                 </table>
               </section>

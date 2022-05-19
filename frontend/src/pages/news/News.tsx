@@ -31,7 +31,7 @@ export const News = () => {
               </h1>
               {localStorage.getItem("token_jwt")?.toString() !== "" ? (
                 <button className="btn color-secondary border-secondary btn-docs">
-                  Adicionar documento
+                  Adicionar Noticias
                 </button>
               ) : (
                 <></>
