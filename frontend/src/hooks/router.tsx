@@ -79,8 +79,8 @@ function Router() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="demandas" element={<Demandas />} />
-        <Route path="eixos" element={<Eixos />} />
+        <Route path="/demandas" element={<Demandas />} />
+        <Route path="/eixos" element={<Eixos />} />
         <Route
           path="painel"
           element={
@@ -89,15 +89,15 @@ function Router() {
             </RequireAuth>
           }
         />
-        <Route path="cadastro" element={<Cadastro />} />
-        <Route path="contato" element={<Contato />} />
-        <Route path="news" element={<News />} />
-        <Route path="time" element={<Equipe />} />
-        <Route path="painel/teachers" element={() => {}} />
-        <Route path="docs" element={<Documents />} />
-        <Route path="itemNews" element={<NewsItems />} />
-        <Route path="demandas/:id" element={<Demanda />} />
-        <Route path="validate/:user" element={<Demanda />} />
+        <Route path="/cadastro" element={<Cadastro />} />
+        <Route path="/contato" element={<Contato />} />
+        <Route path="/news" element={<News />} />
+        <Route path="/time" element={<Equipe />} />
+        <Route path="/painel/teachers" element={() => {}} />
+        <Route path="/docs" element={<Documents />} />
+        <Route path="/itemNews" element={<NewsItems />} />
+        <Route path="/demandas/:id" element={<Demanda />} />
+        <Route path="/validate/:user" element={() => {}} />
         <Route path="*" element={<li>Not found</li>} />
       </Routes>
     </AuthProvider>

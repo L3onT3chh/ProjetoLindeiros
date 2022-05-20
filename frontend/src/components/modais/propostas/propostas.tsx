@@ -44,7 +44,6 @@ export const PopupPropostas = (props: IPopupPropostas) => {
                   <option value=""></option>
                   <option value=""></option>
                 </select>
-
                 <div className="field-budget">
                   <input
                     type="text"
@@ -53,7 +52,8 @@ export const PopupPropostas = (props: IPopupPropostas) => {
                   />
                   <input type="text" required placeholder="Prazo de execução" />
                 </div>
-
+              </div>
+              <div className="right-field">
                 <select name="city-field" id="select-city-field">
                   <option value="">Selecione a cidade</option>
                   <option value="">Medianeira</option>
@@ -66,20 +66,6 @@ export const PopupPropostas = (props: IPopupPropostas) => {
                 </select>
 
                 <input type="text" required placeholder="Orçamento" />
-              </div>
-              <div className="right-field">
-                <h3>Informações do Proponente</h3>
-                <input type="text" required placeholder="Nome" />
-                <div className="field-user-data">
-                  <input
-                    type="email"
-                    required
-                    placeholder="E-mail de contato"
-                  />
-                  <input type="number" required placeholder="DDD" />
-                  <input type="phone" required placeholder="Telefone" />
-                </div>
-
                 <h3 id="h3_team">Equipe</h3>
                 <input type="text" required placeholder="Membros da equipe" />
                 <a href="/painel">

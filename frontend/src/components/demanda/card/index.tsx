@@ -4,26 +4,26 @@ import "assets/css/demandas.css";
 import { IDemandas } from "interfaces/IDemandas";
 
 interface IProps {
-    itemDemanda: IDemandas;
-  }
+  itemDemanda: IDemandas;
+}
 
-  export const CardDemanda = ({ itemDemanda }: IProps) => {
-    return (
-      <div className="conteudo">
-        <div className="title">
-          <h2 className="color-secondary">
-            {itemDemanda.name}
-            {"\n"}
-            <span className="etiqueta etiqueta-resolvido">
-              {itemDemanda.progress?.status}
-            </span>
-          </h2>
-          <p className="data">Criado em {itemDemanda.updated}</p>
-        </div>
-        <div className="desc">
-          <label
-            style={{
-              fontWeight: "bolder",
+export const CardDemanda = ({ itemDemanda }: IProps) => {
+  return (
+    <div className="conteudo">
+      <div className="title">
+        <h2 className="color-secondary">
+          {itemDemanda.name}
+          {"\n"}
+          <span className="etiqueta etiqueta-resolvido">
+            {itemDemanda.progress?.status}
+          </span>
+        </h2>
+        <p className="data">Criado em {itemDemanda.updated}</p>
+      </div>
+      <div className="desc">
+        <label
+          style={{
+            fontWeight: "bolder",
             color: "#555",
             fontSize: "0.9rem",
           }}

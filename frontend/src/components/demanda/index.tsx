@@ -1,8 +1,10 @@
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import "assets/css/demandas.css";
+
 // Style
 import "assets/css/index.css";
 import Demandas from "assets/data/demandas";
+
 // Components
 import SendDemandas from "./popUp";
 import { PopupPropostas } from "components/modais/propostas/propostas";
@@ -13,7 +15,6 @@ export const Demanda = () => {
   const [btnTrigger, setTrigger] = useState(false);
 
   const data = Demandas.filter((item) => item.id === Number(id) && item)[0];
-  console.log(data);
   return (
     <>
       <div>

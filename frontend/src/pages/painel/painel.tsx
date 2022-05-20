@@ -1,17 +1,12 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Styles
 import "assets/css/painel.css";
-import Users from "assets/data/user";
 import { logo } from "assets/img";
 // Images
 import user from "assets/img/user.png";
 import { Container } from "../demands/style";
 import { PopUpUserCad } from "components/modais/user/cadUser";
-import { PopupDemandas } from "components/modais/demandas/demandas";
 import { useAuth } from "hooks/router";
 import { FindAllUser } from "API/Users/find.api";
 import { IUser } from "interfaces/IfaceProps";
@@ -73,7 +68,7 @@ export const Painel = () => {
               </li>
               <li className="active">
                 <i className="fas fa-users" />
-                <p>Usuarios</p>
+                <p>Administradores</p>
               </li>
               <li onClick={() => setTrigger(true)}>
                 <i className="fas fa-users" />
@@ -162,29 +157,25 @@ export const Painel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Object(newUsers?.length).length > 1 ? (
-                      newUsers?.map((user) => (
-                        <tr key={user.id}>
-                          <td>
-                            <input type="checkbox" />
-                          </td>
-                          <td>{user.name}</td>
-                          <td>{user.city}</td>
-                          <td>{user.email}</td>
-                          <td>{user.phone}</td>
-                          <td>
-                            <button>
-                              <i className="fas fa-pencil" />
-                            </button>
-                            <button onClick={(e) => handleRemoveUser(user.id)}>
-                              <i className="fas fa-trash" />
-                            </button>
-                          </td>
-                        </tr>
-                      ))
-                    ) : (
-                      <div></div>
-                    )}
+                    {newUsers?.map((user) => (
+                      <tr key={user.id}>
+                        <td>
+                          <input type="checkbox" />
+                        </td>
+                        <td>{user.name}</td>
+                        <td>{user.city}</td>
+                        <td>{user.email}</td>
+                        <td>{user.phone}</td>
+                        <td>
+                          <button>
+                            <i className="fas fa-pencil" />
+                          </button>
+                          <button onClick={(_) => handleRemoveUser(user.id)}>
+                            <i className="fas fa-trash" />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </section>

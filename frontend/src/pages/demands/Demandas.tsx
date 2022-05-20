@@ -103,6 +103,7 @@ export const Demandas = () => {
                 ))}
               </ul>
             </div>
+
             <div className="block">
               <h2 className="color-secondary">Pesquisa por município</h2>
               <ul>
@@ -137,8 +138,14 @@ export const Demandas = () => {
                     id="pesquisaDemanda"
                     name="filter[texto]"
                   />
-                  <button className="bgcolor-secondary">
-                    <i className="fas fa-search" style={{ color: "#fff" }} />
+                  <button
+                    className="bgcolor-secondary"
+                    style={{ lineHeight: 2, borderRadius: 15, marginLeft: 3 }}
+                  >
+                    <i
+                      className="fas fa-search"
+                      style={{ padding: 5, color: "#fff" }}
+                    />
                   </button>
                 </div>
                 <select name="filter[order]" className="demandaOrder">

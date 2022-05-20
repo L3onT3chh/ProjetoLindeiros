@@ -72,7 +72,6 @@ export const ContainerProposta = styled.div`
     margin: 10px 0;
     width: 100%;
     background: rgba(255, 255, 255, 0.2);
-    mix-blend-mode: normal;
     border: 0.5px solid #c4c4c4;
     padding: 10px;
     border-radius: 14px;

@@ -51,15 +51,12 @@
 
 .demandas .filtros ul li label {
     cursor: pointer;
+    padding: 5px;
 }
 
 .demandas .filtros ul li::selection, .demandas .filtros ul li label::selection {
     background: transparent;
 }
-
-
-
-
 .demandas .lista {
     width: 70%;
 }
