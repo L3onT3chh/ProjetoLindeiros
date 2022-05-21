@@ -5,7 +5,7 @@ interface IAuthUser {
   auth: boolean;
   status: number;
   response: string;
-}
+} 
 
 export const Auth = async (user: IUserLogin): Promise<IAuthUser> => {
   try {
