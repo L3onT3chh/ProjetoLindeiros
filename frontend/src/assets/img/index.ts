@@ -1,4 +1,4 @@
-/* eslint-disable import/no-anonymous-default-export */
+import React from "react";
 import banner from "./banner.png";
 import bg from "./bg.jpg";
 import cadastroBanner from "./cadastroBanner.jpg";

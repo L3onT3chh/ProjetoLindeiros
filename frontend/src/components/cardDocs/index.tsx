@@ -19,7 +19,7 @@ export const CardDocs = () => {
         <div className="description-card">
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
+            industry. Lorem Ipsum has been the industry s standard dummy text
             ever since the 1500s...
           </p>
           <a href="/docs">Leia mais</a>

@@ -80,7 +80,11 @@ export const NewsItems = () => {
             <h2>Ver fotos</h2>
             <div className="itens">
               {Images.default.map((images) => (
-                <ContainerNews className="item" background={images.image} />
+                <ContainerNews
+                  className="item"
+                  key={images.image}
+                  background={images.image}
+                />
               ))}
             </div>
           </div>

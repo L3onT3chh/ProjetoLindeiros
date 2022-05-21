@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { bg, logo } from "assets/img";
 import { NavBar } from "../NavBar";
 import ContainerHeader from "./styled";
+import React from "react";
 
 const Header = () => {
   return (

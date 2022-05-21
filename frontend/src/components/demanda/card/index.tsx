@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 // Style
 import "assets/css/demandas.css";
 import { IDemandas } from "interfaces/IDemandas";
+import React from "react";
 
 interface IProps {
   itemDemanda: IDemandas;

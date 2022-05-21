@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactChild, ReactChildren } from "react";
 import { AiOutlineClose, AiOutlineUser } from "react-icons/ai";
 import { PopUp } from "../representantes/styled";

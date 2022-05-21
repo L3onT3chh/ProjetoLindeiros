@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 // Styles
@@ -157,25 +158,29 @@ export const Painel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {newUsers?.map((user) => (
-                      <tr key={user.id}>
-                        <td>
-                          <input type="checkbox" />
-                        </td>
-                        <td>{user.name}</td>
-                        <td>{user.city}</td>
-                        <td>{user.email}</td>
-                        <td>{user.phone}</td>
-                        <td>
-                          <button>
-                            <i className="fas fa-pencil" />
-                          </button>
-                          <button onClick={(_) => handleRemoveUser(user.id)}>
-                            <i className="fas fa-trash" />
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+                    {/* {newUsers ? (
+                      newUsers?.map((user) => (
+                        <tr key={user.id}>
+                          <td>
+                            <input type="checkbox" />
+                          </td>
+                          <td>{user.name}</td>
+                          <td>{user.city}</td>
+                          <td>{user.email}</td>
+                          <td>{user.phone}</td>
+                          <td>
+                            <button>
+                              <i className="fas fa-pencil" />
+                            </button>
+                            <button onClick={(_) => handleRemoveUser(user.id)}>
+                              <i className="fas fa-trash" />
+                            </button>
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <div></div>
+                    )} */}
                   </tbody>
                 </table>
               </section>

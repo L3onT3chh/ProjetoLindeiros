@@ -3,6 +3,7 @@ import { Button } from "components/buttons";
 import { useState } from "react";
 import { PopupRepresentantes } from "../representantes";
 import { Container } from "./styled";
+import React from "react";
 
 export const ContactCad = () => {
   const [btnTrigger, setBtnTrigger] = useState({

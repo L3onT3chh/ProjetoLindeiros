@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ImagensCities from "assets/banner/Banner Imagens";
@@ -140,7 +139,7 @@ export const Home: React.FC = () => {
           <div className="demandas">
             {filterDemandas
               ? filterDemandas.map((item: IDemandas) => (
-                  <div className="item">
+                  <div key={item.id} className="item">
                     <ContainerHome
                       className="img"
                       background={logo}

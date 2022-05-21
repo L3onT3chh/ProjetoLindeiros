@@ -5,6 +5,7 @@ import ImagesEixos from "assets/img/eixos";
 import { Eixo } from "components/eixo";
 import Footer from "components/footer/Footer";
 import Header from "components/header/Header";
+import React from "react";
 
 export const Eixos = () => {
   return (
@@ -14,7 +15,7 @@ export const Eixos = () => {
         {eixo.map((item) => {
           const image = ImagesEixos.filter((img) => img.sigle === item.url)[0];
           return (
-            <div className="item paxItem" id={`${item.eixo}`}>
+            <div className="item paxItem" key={item.eixo} id={`${item.eixo}`}>
               <div className="title">
                 <div className="icon">
                   <i className="fas fa-hotel color-secondary" />

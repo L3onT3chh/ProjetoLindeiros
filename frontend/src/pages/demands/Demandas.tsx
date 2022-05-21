@@ -1,7 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import filterCity from "../../assets/data/cities";
 import demandaData from "../../assets/data/demandas";
 import filterEixos from "../../assets/data/eixos";

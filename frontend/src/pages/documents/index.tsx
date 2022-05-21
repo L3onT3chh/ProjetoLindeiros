@@ -1,6 +1,7 @@
 import { CardDocs } from "components/cardDocs";
 import Footer from "components/footer/Footer";
 import Header from "components/header/Header";
+import React from "react";
 import { ContainerDocuments } from "./styled";
 
 export const Documents = () => {

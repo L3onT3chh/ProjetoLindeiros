@@ -1,6 +1,6 @@
 import { ContentCities } from "components/contentPopUp";
 import IRepresentante from "interfaces/Popup/IRepresentante";
-import { ReactChild, ReactChildren } from "react";
+import React, { ReactChild, ReactChildren } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { ContentBody, PopUp } from "./styled";
 
@@ -23,7 +23,7 @@ export const PopupRepresentantes = (props: TPopUpRepresentantes) => {
         <div className="data-content">
           {props.representates.length > 0 ? (
             props.representates.map((representante) => (
-              <ContentCities data={representante} />
+              <ContentCities key={representante.id} data={representante} />
             ))
           ) : (
             <div className="not-found-itens">

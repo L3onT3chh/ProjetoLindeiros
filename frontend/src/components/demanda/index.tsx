@@ -8,7 +8,7 @@ import Demandas from "assets/data/demandas";
 // Components
 import SendDemandas from "./popUp";
 import { PopupPropostas } from "components/modais/propostas/propostas";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export const Demanda = () => {
   const { id } = useParams();
@@ -117,7 +117,9 @@ export const Demanda = () => {
               </h1>
               <div className="text">
                 {data.objective.general.map((item) => (
-                  <p style={{ textAlign: "justify" }}>{item}</p>
+                  <p style={{ textAlign: "justify" }} key={item}>
+                    {item}
+                  </p>
                 ))}
               </div>
             </div>
@@ -182,7 +184,7 @@ export const Demanda = () => {
               </h1>
               <div className="content">
                 {data.progress.step.map((progress) => (
-                  <div className="item">
+                  <div key={progress.modify} className="item">
                     <div className="data">
                       <i className="fas fa-circle color-secondary" />
                       <p>Realizado em {progress.date}</p>

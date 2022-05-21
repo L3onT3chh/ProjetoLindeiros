@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/alt-text */
-import { useState } from "react";
+import React, { useState } from "react";
 // Style
 import "assets/css/cadastro.css";
 // Imagens
@@ -43,6 +42,7 @@ export const Cadastro = () => {
               backgroundImage: "url(assets/img/cadastroBanner.jpg)",
             }}
           />
+
           <div className="cover" />
           <div className="content">
             <div
