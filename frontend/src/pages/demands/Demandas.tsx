@@ -121,6 +121,16 @@ export const Demandas = () => {
           </aside>
           <div className="lista">
             <div className="head">
+              {localStorage.getItem("token_jwt")?.toString() !== "" ? (
+                <button
+                  style={{ float: "right" }}
+                  className="btn color-secondary border-secondary btn-docs"
+                >
+                  Adicionar demandas
+                </button>
+              ) : (
+                <></>
+              )}
               <div className="title">
                 <span className="bgcolor-secondary">
                   {Object.keys(demandaData).length}
