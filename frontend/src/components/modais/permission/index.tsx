@@ -1,4 +1,6 @@
-import React from "react";
+import { FindAllUser } from "API/Users/find.api";
+import { IUser } from "interfaces/IfaceProps";
+import React, { useState } from "react";
 import { ReactChild, ReactChildren } from "react";
 import { AiOutlineClose, AiOutlineUser } from "react-icons/ai";
 import { PopUp } from "../representantes/styled";
@@ -11,6 +13,31 @@ type IPopupPermission = {
 };
 
 export const PopPermission = (props: IPopupPermission) => {
+  const [userData, setUserData] = useState<IUser[]>();
+  const [userSelect, setUserSelect] = useState<IUser>();
+
+  const handleGetUserData = async () => {
+    const user = await FindAllUser();
+
+    user?.response ? setUserData(user.response) : setUserData([]);
+  };
+
+  const handleGetCid = (id: String) => {
+    const user = userData?.filter((user) => user.id == id);
+
+    user && setUserSelect(user[0]);
+  };
+
+  // ADICIONAR VALIDAÇÃO DE PERMISSÕES
+  // const handleUpdateUser = (permission: String) => {
+  //    if(userSelect){
+  //      const {  } = userSelect;
+
+  //    }
+  // }
+
+  handleGetUserData();
+
   return props.trigger ? (
     <PopUp>
       <ContainerPermission>
@@ -29,50 +56,28 @@ export const PopPermission = (props: IPopupPermission) => {
 
           <div className="selection_user">
             <select
+              onChange={(e) => handleGetCid(e.target.value)}
               required
               name="user-type"
               className="type-permission t-user"
             >
-              <option className="text-field" value="">
-                Tipo de usuário
-              </option>
-              <option className="text-field" value="">
-                Administrador
-              </option>
-              <option className="text-field" value="">
-                Associação comercial
-              </option>
-              <option className="text-field" value="">
-                Executivo
-              </option>
-              <option className="text-field" value="">
-                Legislativo
-              </option>
-              <option className="text-field" value="">
-                Universidade
-              </option>
-              <option className="text-field" value="">
-                Representante
-              </option>
+              {userData &&
+                userData?.map((user: IUser) => (
+                  <option key={user.id} className="text-field" value={user.id}>
+                    {user.name}
+                  </option>
+                ))}
             </select>
           </div>
 
           <div className="permission-form">
             <input
-              onChange={() => {}}
               required
               className="text-field"
               name="name"
               type="text"
-              placeholder="Nome do usuário"
-            />
-            <input
-              onChange={() => {}}
-              required
-              className="text-field"
-              name="name"
-              type="text"
-              placeholder="Cidade de permanência"
+              placeholder={userSelect?.city}
+              disabled
             />
             <select
               required

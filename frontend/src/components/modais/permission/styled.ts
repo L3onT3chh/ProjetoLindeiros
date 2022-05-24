@@ -32,8 +32,8 @@ export const ContainerPermission = styled.div`
   }
 
   .selection_user {
-    width: 60%;
-    margin: 40px auto;
+    width: 100%;
+    margin: 10px auto;
     .t-user {
       width: 100%;
       margin-left: auto;

@@ -62,20 +62,15 @@ export const Painel = () => {
                   <p>Inicio</p>
                 </li>
               </Link>
-              <li onClick={() => setTrigger1(true)}>
-                <i className="fas fa-user-plus" />
-                <p>Cadastro</p>
-                <PopUpUserCad trigger={btnTrigger1} setTrigger={setTrigger1} />
-              </li>
               <li className="active">
                 <i className="fas fa-users" />
                 <p>Administradores</p>
               </li>
-              <li onClick={() => setTrigger(true)}>
+              <li>
                 <i className="fas fa-users" />
                 <p>Representantes</p>
               </li>
-              <li>
+              <li onClick={() => setTrigger(true)}>
                 <i className="fas fa-key" />
                 <p>Permissões de usuario</p>
               </li>

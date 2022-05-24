@@ -1,8 +1,8 @@
 import ApiConfig from ".config/api";
-import { IUpdateUser } from "interfaces/IfaceProps";
+import { IUser } from "interfaces/IfaceProps";
 
 type TResponseData = {
-  response: IUpdateUser | string;
+  response: IUser | string;
   status: number;
   message: string;
 };
@@ -15,7 +15,7 @@ const headers = {
 
 type TParams = {
   idUser?: string;
-  userSave?: IUpdateUser;
+  userSave?: IUser;
 };
 
 export const deleteUser = async ({
@@ -99,7 +99,7 @@ export const updateUser = async ({
         message: "Request inválida, realize o login novamente",
       };
     }
-    const save = await ApiConfig("/user", {
+    const save = await ApiConfig("/user"+userSave?.id, {
       method: "PUT",
       headers,
       data: {
