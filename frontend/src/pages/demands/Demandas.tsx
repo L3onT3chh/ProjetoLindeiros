@@ -9,53 +9,68 @@ import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import { IDemandas } from "../../interfaces/IDemandas";
 import { IFilter } from "../../interfaces/IFilter";
-import { EStatusDemandas } from "../../interfaces/types";
 // Styles
 import { Container } from "./style";
 
 export const Demandas = () => {
-  const [filter, setFilter] = useState<string>("");
-  const [filterCities, setFilterCity] = useState<string>("");
-  const [filterStatus, setFilterStatus] = useState<string>("");
-
+  // New Implementation
+  const [checkedCities, setCheckedCities] = useState([] as any);
+  const [checkedEixos, setCheckedEixos] = useState([] as any);
   const [demandasFilter, setDemandasFilter] = useState<any>([...demandaData]);
 
   useEffect(() => {
-    filter
-      ? setDemandasFilter(
-          demandaData.filter((item) => item.budget.area === filter)
-        )
-      : setDemandasFilter(demandaData);
-  }, [filter]);
+    if (
+      (Object.keys(checkedEixos).length || Object.keys(checkedCities).length) >
+      0
+    ) {
+      var filteredDemandas: Array<any> = demandaData.filter(
+        (item: any) =>
+          checkedEixos.filter(
+            (eixo: any) => item.budget.area == eixo && item
+          ) == item.budget.area
+      );
 
-  useEffect(() => {
-    filterStatus !== ""
-      ? setDemandasFilter(
-          demandaData.map((item) => {
-            return (
-              item.progress.status === EStatusDemandas[filterStatus] && item
-            );
-          })
-        )
-      : "";
-  }, [filterStatus]);
+      var filteredCity: Array<any> = demandaData.filter(
+        (item: any) =>
+          checkedCities.filter(
+            (city: any) => item.budget.cityApplied == city && item
+          ) == item.budget.cityApplied
+      );
+      var arr = Array([]);
 
-  useEffect(() => {
-    filterCities && demandasFilter
-      ? setDemandasFilter(
-          demandasFilter.filter((item: any) =>
-            item.budget.cityApplied.includes(filterCities)
-          )
-        )
-      : setDemandasFilter(demandaData);
-  }, [filterCities]);
+      [new Set([...filteredCity, ...filteredDemandas])][0].forEach(
+        (item: any) => arr.push(item)
+      );
 
-  const handleSelectFunction = () => {
-    const select: any = document.getElementById("selectStatus");
-    var value = select.options[select.selectedIndex].value;
-    value === "All"
-      ? setDemandasFilter([...demandaData])
-      : setFilterStatus(value);
+      // Remove o primeiro elemento
+      arr.shift();
+
+      setDemandasFilter(arr);
+    } else {
+      setDemandasFilter([...demandaData]);
+    }
+  }, [checkedCities, checkedEixos]);
+
+  const handleCheckedEixos = (event: React.ChangeEvent<HTMLInputElement>) => {
+    var updateList = [...checkedEixos];
+    var value = event.target.value;
+    if (event.target.checked) {
+      updateList = [...checkedEixos, value];
+    } else {
+      updateList.splice(checkedEixos.indexOf(value), 1);
+    }
+    setCheckedEixos(updateList);
+  };
+
+  const handleChecketBtn = (event: React.ChangeEvent<HTMLInputElement>) => {
+    var updateList = [...checkedCities];
+    var value = event.target.value;
+    if (event.target.checked) {
+      updateList = [...checkedCities, value];
+    } else {
+      updateList.splice(checkedCities.indexOf(value), 1);
+    }
+    setCheckedCities(updateList);
   };
 
   return (
@@ -72,7 +87,6 @@ export const Demandas = () => {
                     id="selectStatus"
                     name="filter[status]"
                     className="demandaStatus"
-                    onChange={handleSelectFunction}
                   >
                     <option value="All">Selecione uma opção</option>
                     <option value="A">Recebendo propostas</option>
@@ -93,7 +107,8 @@ export const Demandas = () => {
                       name="filter[eixos]"
                       defaultValue={item.sigle}
                       id={item.sigle}
-                      onChange={() => setFilter(item.name)}
+                      value={item.name}
+                      onChange={handleCheckedEixos}
                     />{" "}
                     <label htmlFor={item.sigle}>{item.name}</label>
                   </li>
@@ -109,9 +124,11 @@ export const Demandas = () => {
                     <input
                       type="checkbox"
                       name="filter[cidades]"
+                      className="input_checked"
                       defaultValue={item.sigle}
                       id={item.sigle}
-                      onClick={() => setFilterCity(item.name)}
+                      value={item.name}
+                      onChange={handleChecketBtn}
                     />
                     <label htmlFor={item.sigle}>{item.name}</label>
                   </li>
@@ -162,11 +179,11 @@ export const Demandas = () => {
               </div>
             </div>
             <div style={{ marginTop: "50px" }} id="listaDemandas">
-              {demandasFilter &&
+              {Object.keys(demandasFilter).length >= 1 &&
                 demandasFilter.map((item: IDemandas) => {
                   return (
                     item && (
-                      <div className="item">
+                      <div className="item" key={item.id}>
                         <Container className="img" background={logo} />
                         <CardDemanda itemDemanda={item} />
                       </div>
