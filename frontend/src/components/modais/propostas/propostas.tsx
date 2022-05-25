@@ -65,7 +65,6 @@ export const PopupPropostas = (props: IPopupPropostas) => {
                   <option value="">Guaíra</option>
                 </select>
 
-                <input type="text" required placeholder="Orçamento" />
                 <h3 id="h3_team">Equipe</h3>
                 <input type="text" required placeholder="Membros da equipe" />
                 <a href="/painel">

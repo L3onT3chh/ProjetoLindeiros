@@ -206,7 +206,7 @@ export const Demandas = () => {
                 </div>
                 <select name="filter[order]" className="demandaOrder">
                   <option>Mais recente</option>
-                  <option>Mais antigas</option>
+                  <option>Mais antiga</option>
                 </select>
               </div>
             </div>

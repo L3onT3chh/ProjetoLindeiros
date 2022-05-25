@@ -25,7 +25,6 @@ export const deleteUser = async ({
     const token = localStorage.getItem("token_jwt")?.toString();
 
     if (token) headers.token = token;
-    console.log(idUser, token);
     await ApiConfig.delete(`/user/${idUser}`, {
       headers,
     })
@@ -99,7 +98,7 @@ export const updateUser = async ({
         message: "Request inválida, realize o login novamente",
       };
     }
-    const save = await ApiConfig("/user"+userSave?.id, {
+    const save = await ApiConfig("/user" + userSave?.id, {
       method: "PUT",
       headers,
       data: {

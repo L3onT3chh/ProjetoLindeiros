@@ -20,9 +20,12 @@ export const PopPermission = (props: IPopupPermission) => {
     const user = await FindAllUser();
 
     user?.response ? setUserData(user.response) : setUserData([]);
+    if (user?.response) {
+      setUserSelect(user?.response[0]);
+    }
   };
-
   const handleGetCid = (id: String) => {
+
     const user = userData?.filter((user) => user.id == id);
 
     user && setUserSelect(user[0]);
@@ -109,7 +112,6 @@ export const PopPermission = (props: IPopupPermission) => {
           </div>
         </div>
         <div className="btn-send-user">
-          <div></div>
           <button
             onClick={() => {
               props.setTrigger(false);

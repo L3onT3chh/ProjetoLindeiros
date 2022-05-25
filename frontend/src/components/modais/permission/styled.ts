@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContainerPermission = styled.div`
   max-width: 450px;
-  min-height: 650px;
+  min-height: 490px;
   background: #ffffff;
   box-shadow: -4px 6px 22px -4px rgba(0, 0, 0, 0.38);
   border-radius: 20px;
@@ -69,7 +69,7 @@ export const ContainerPermission = styled.div`
     width: 56%;
     display: flex;
     justify-content: flex-start;
-    margin-top: 50px;
+    margin-top: 20px;
   }
 
   .cad-user,

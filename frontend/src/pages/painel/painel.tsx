@@ -13,6 +13,7 @@ import { FindAllUser } from "API/Users/find.api";
 import { IUser } from "interfaces/IfaceProps";
 import { deleteUser } from "API/Users/crud.api";
 import { PopPermission } from "components/modais/permission";
+import filterCity from "assets/data/cities";
 
 export const Painel = () => {
   const auth = useAuth();
@@ -29,8 +30,12 @@ export const Painel = () => {
     handleAllUsers();
   });
 
-  const handleRemoveUser = async (idUser: string) => {
-    await deleteUser({ idUser });
+  const handleRemoveUser = async (nameUser: string) => {
+    const userFound = newUsers?.filter(
+      (user: IUser) => user.name === nameUser && user
+    )[0];
+
+    userFound && (await deleteUser({ idUser: userFound.id }));
   };
 
   return (
@@ -125,8 +130,11 @@ export const Painel = () => {
                   </div>
                   <div className="block">
                     <p>Por município</p>
-                    <select>
-                      <option />
+                    <select onChange={(e) => console.log(e.target.value)}>
+                      {newUsers &&
+                        filterCity.map((city) => (
+                          <option key={city.sigle}>{city.name}</option>
+                        ))}
                     </select>
                   </div>
                   <div className="block">
@@ -153,7 +161,7 @@ export const Painel = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* {newUsers ? (
+                    {newUsers ? (
                       newUsers?.map((user) => (
                         <tr key={user.id}>
                           <td>
@@ -167,7 +175,9 @@ export const Painel = () => {
                             <button>
                               <i className="fas fa-pencil" />
                             </button>
-                            <button onClick={(_) => handleRemoveUser(user.id)}>
+                            <button
+                              onClick={(_) => handleRemoveUser(user.name)}
+                            >
                               <i className="fas fa-trash" />
                             </button>
                           </td>
@@ -175,7 +185,7 @@ export const Painel = () => {
                       ))
                     ) : (
                       <div></div>
-                    )} */}
+                    )}
                   </tbody>
                 </table>
               </section>
