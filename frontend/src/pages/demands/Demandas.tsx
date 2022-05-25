@@ -1,3 +1,4 @@
+import { EStatusDemandas } from "interfaces/types";
 import React, { useEffect, useState } from "react";
 import filterCity from "../../assets/data/cities";
 import demandaData from "../../assets/data/demandas";
@@ -17,6 +18,18 @@ export const Demandas = () => {
   const [checkedCities, setCheckedCities] = useState([] as any);
   const [checkedEixos, setCheckedEixos] = useState([] as any);
   const [demandasFilter, setDemandasFilter] = useState<any>([...demandaData]);
+  const [filterStatus, setFilterStatus] = useState<string>("");
+  const [filterSearch, setFilterSearch] = useState<string>("");
+
+  useEffect(() => {
+    if (filterSearch != "") {
+      setDemandasFilter(
+        demandasFilter.filter((item: any) => item.name.includes(filterSearch))
+      );
+    } else {
+      setDemandasFilter([...demandaData]);
+    }
+  }, [filterSearch]);
 
   useEffect(() => {
     if (
@@ -47,9 +60,18 @@ export const Demandas = () => {
 
       setDemandasFilter(arr);
     } else {
-      setDemandasFilter([...demandaData]);
+      if (filterStatus != "" && filterStatus !== "All") {
+        const newDataDemandas = demandaData.filter(
+          (item: any) =>
+            item.progress.status === EStatusDemandas[filterStatus] && item
+        );
+
+        setDemandasFilter([...newDataDemandas]);
+      } else {
+        setDemandasFilter([...demandaData]);
+      }
     }
-  }, [checkedCities, checkedEixos]);
+  }, [checkedCities, checkedEixos, filterStatus]);
 
   const handleCheckedEixos = (event: React.ChangeEvent<HTMLInputElement>) => {
     var updateList = [...checkedEixos];
@@ -73,6 +95,14 @@ export const Demandas = () => {
     setCheckedCities(updateList);
   };
 
+  const handleSelectFunction = () => {
+    const select: any = document.getElementById("selectStatus");
+    var value = select.options[select.selectedIndex].value;
+    value === "All"
+      ? setDemandasFilter([...demandaData])
+      : setFilterStatus(value);
+  };
+
   return (
     <>
       <div>
@@ -87,6 +117,7 @@ export const Demandas = () => {
                     id="selectStatus"
                     name="filter[status]"
                     className="demandaStatus"
+                    onChange={handleSelectFunction}
                   >
                     <option value="All">Selecione uma opção</option>
                     <option value="A">Recebendo propostas</option>
@@ -161,6 +192,7 @@ export const Demandas = () => {
                     placeholder="Encontre uma demanda"
                     id="pesquisaDemanda"
                     name="filter[texto]"
+                    onChange={(e) => setFilterSearch(e.target.value)}
                   />
                   <button
                     className="bgcolor-secondary"
@@ -179,7 +211,7 @@ export const Demandas = () => {
               </div>
             </div>
             <div style={{ marginTop: "50px" }} id="listaDemandas">
-              {Object.keys(demandasFilter).length >= 1 &&
+              {Object.keys(demandasFilter).length >= 1 ? (
                 demandasFilter.map((item: IDemandas) => {
                   return (
                     item && (
@@ -189,7 +221,10 @@ export const Demandas = () => {
                       </div>
                     )
                   );
-                })}
+                })
+              ) : (
+                <div>Lista vazia</div>
+              )}
             </div>
             <div className="paginacao">
               <button className="btn-anterior bgcolor-secondary">
