@@ -32,6 +32,16 @@ export const Demandas = () => {
   }, [filterSearch]);
 
   useEffect(() => {
+    if (filterSearch != "") {
+      setDemandasFilter(
+        demandasFilter.filter((item: any) => item.name.includes(filterSearch))
+      );
+    } else {
+      setDemandasFilter([...demandaData]);
+    }
+  }, [filterSearch]);
+
+  useEffect(() => {
     if (
       (Object.keys(checkedEixos).length || Object.keys(checkedCities).length) >
       0
@@ -59,17 +69,15 @@ export const Demandas = () => {
       arr.shift();
 
       setDemandasFilter(arr);
+    }
+    if (filterStatus !== "All") {
+      const newDataDemandas = demandaData.filter(
+        (item: any) =>
+          item.progress.status === EStatusDemandas[filterStatus] && item
+      );
+      setDemandasFilter([...newDataDemandas]);
     } else {
-      if (filterStatus != "" && filterStatus !== "All") {
-        const newDataDemandas = demandaData.filter(
-          (item: any) =>
-            item.progress.status === EStatusDemandas[filterStatus] && item
-        );
-
-        setDemandasFilter([...newDataDemandas]);
-      } else {
-        setDemandasFilter([...demandaData]);
-      }
+      setDemandasFilter([...demandaData]);
     }
   }, [checkedCities, checkedEixos, filterStatus]);
 
@@ -205,8 +213,8 @@ export const Demandas = () => {
                   </button>
                 </div>
                 <select name="filter[order]" className="demandaOrder">
-                  <option>Mais recente</option>
-                  <option>Mais antiga</option>
+                  <option>Mais recentes</option>
+                  <option>Mais antigas</option>
                 </select>
               </div>
             </div>

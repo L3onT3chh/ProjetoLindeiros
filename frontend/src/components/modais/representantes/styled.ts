@@ -1,3 +1,4 @@
+import { IfaceProps } from "interfaces/IfaceProps";
 import styled from "styled-components";
 
 export const PopUp = styled.div`
@@ -20,8 +21,8 @@ export const PopUp = styled.div`
   }
 `;
 
-export const ContentBody = styled.div`
-  width: 70%;
+export const ContentBody = styled.div<IfaceProps>`
+  width: ${(props) => props.length || "70%"};
   height: 456px;
   background: #ffffff;
   box-shadow: -4px 6px 22px -4px rgba(0, 0, 0, 0.38);
@@ -96,6 +97,21 @@ export const ContentBody = styled.div`
       font-size: 38px;
       justify-content: center;
       align-items: center;
+    }
+  }
+`;
+
+export const ContentListUsers = styled.div`
+  width: 30%;
+
+  table {
+    position: absolute;
+    left: 12%;
+    top: 50px;
+    td {
+      border-bottom: 1px solid black;
+      width: 100px;
+      padding: 10px;
     }
   }
 `;

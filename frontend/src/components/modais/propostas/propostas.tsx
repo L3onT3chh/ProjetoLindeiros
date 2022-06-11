@@ -40,9 +40,9 @@ export const PopupPropostas = (props: IPopupPropostas) => {
                   placeholder="Descrição da proposta"
                 />
                 <select name="priority-field" id="select-priority-field">
-                  <option value="">Prioridade</option>
-                  <option value=""></option>
-                  <option value=""></option>
+                  <option value="1">Baixa</option>
+                  <option value="2">Média</option>
+                  <option value="3">Alta</option>
                 </select>
                 <div className="field-budget">
                   <input
@@ -73,6 +73,7 @@ export const PopupPropostas = (props: IPopupPropostas) => {
                 <input
                   type="file"
                   required
+                  style={{ border: 0 }}
                   placeholder="Adicionar Documento PDF"
                 />
                 <a href="/painel">

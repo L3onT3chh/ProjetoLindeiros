@@ -65,7 +65,9 @@ export const Demanda = () => {
                           transform: "translateY(2px)",
                         }}
                       />
-                      <p className="txtWhite">{data.priority}</p>
+                      <p className="txtWhite">
+                        Prioridade {data.priority.toLowerCase()}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -170,20 +172,30 @@ export const Demanda = () => {
                 </ul>
               </div>
             </div>
-            <div className="progressoDemanda">
-              <h1 className="color-secondary" style={{ fontSize: "1.7rem" }}>
-                <i
-                  className="fas fa-circle color-secondary"
-                  style={{ fontSize: "0.9rem" }}
-                />
-                <i
-                  className="fas fa-circle color-secondary"
-                  style={{ fontSize: "1.25rem", margin: "0 5px" }}
-                />
-                Progresso da proposta aceita
-              </h1>
-              <div className="content">
-                {data.progress.step.map((progress) => (
+
+            <button
+              style={{ marginBottom: "100px", marginTop: "40px" }}
+              id="btnAddUser"
+              // onClick={() => setTrigger1(true)}
+              className="bgcolor-secondary"
+            >
+              Status da proposta
+            </button>
+
+            {/* <div className="progressoDemanda"> */}
+            {/* <h1 className="color-secondary" style={{ fontSize: "1.7rem" }}> */}
+            {/* <i */}
+            {/* className="fas fa-circle color-secondary" */}
+            {/* style={{ fontSize: "0.9rem" }} */}
+            {/* /> */}
+            {/* <i */}
+            {/* className="fas fa-circle color-secondary" */}
+            {/* style={{ fontSize: "1.25rem", margin: "0 5px" }} */}
+            {/* /> */}
+            {/* Progresso da proposta aceita */}
+            {/* </h1> */}
+            {/* <div className="content"> */}
+            {/* {data.progress.step.map((progress) => (
                   <div key={progress.modify} className="item">
                     <div className="data">
                       <i className="fas fa-circle color-secondary" />
@@ -198,9 +210,9 @@ export const Demanda = () => {
                       </p>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
+                ))} */}
+            {/* </div> */}
+            {/* </div> */}
           </div>
         </div>
         <PopupPropostas trigger={btnTrigger} setTrigger={setTrigger} />

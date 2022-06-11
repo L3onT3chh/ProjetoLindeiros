@@ -6,6 +6,7 @@ export interface IfaceProps {
   name?: string;
   text?: string;
   color?: string;
+  length?: string;
 }
 
 export interface IUserLogin {

@@ -39,7 +39,7 @@ const demandas = [
     },
     author: ["Fulano de tal 1", "Fulano de tal 2", "Fulano de tal 3"],
     updated: "12/2021",
-    priority: "Grande prioridade",
+    priority: "Alta",
     budget: {
       value: 2500.0,
       createdAt: "25 de set, 2021",
@@ -105,7 +105,7 @@ const demandas = [
     },
     author: ["Fulano de tal 1", "Fulano de tal 2", "Fulano de tal 3"],
     updated: "12/2021",
-    priority: "Grande prioridade",
+    priority: "Alta",
     budget: {
       value: 2500.0,
       createdAt: "25 de set, 2021",
@@ -171,7 +171,7 @@ const demandas = [
     },
     author: ["Fulano de tal 1", "Fulano de tal 2", "Fulano de tal 3"],
     updated: "12/2021",
-    priority: "Grande prioridade",
+    priority: "Média",
     budget: {
       value: 2500.0,
       createdAt: "25 de set, 2021",
@@ -237,7 +237,7 @@ const demandas = [
     },
     author: ["Fulano de tal 1", "Fulano de tal 2", "Fulano de tal 3"],
     updated: "12/2021",
-    priority: "Grande prioridade",
+    priority: "Baixa",
     budget: {
       value: 2500.0,
       createdAt: "25 de set, 2021",

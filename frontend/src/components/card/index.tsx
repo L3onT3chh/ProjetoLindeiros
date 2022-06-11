@@ -17,11 +17,11 @@ export const Card = (props: IPropsCard) => {
       <h2 className="color-secondary">{props.title}</h2>
       <h3 className="color-secondary">Eixo {props.eixo}</h3>
       <p>{props.description}</p>
-      <Link to={"eixos#" + props.eixo}>
+      <a href={`eixos#${props.eixo}`}>
         <button className="btn color-secondary border-secondary">
           Ver mais
         </button>
-      </Link>
+      </a>
     </div>
   );
 };
