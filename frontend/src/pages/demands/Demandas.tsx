@@ -14,11 +14,10 @@ import { IFilter } from "../../interfaces/IFilter";
 import { Container } from "./style";
 
 export const Demandas = () => {
-  // New Implementation
   const [checkedCities, setCheckedCities] = useState([] as any);
   const [checkedEixos, setCheckedEixos] = useState([] as any);
   const [demandasFilter, setDemandasFilter] = useState<any>([...demandaData]);
-  const [filterStatus, setFilterStatus] = useState<string>("");
+  const [filterStatus, setFilterStatus] = useState<string>("All");
   const [filterSearch, setFilterSearch] = useState<string>("");
 
   useEffect(() => {
@@ -70,15 +69,6 @@ export const Demandas = () => {
 
       setDemandasFilter(arr);
     }
-    if (filterStatus !== "All") {
-      const newDataDemandas = demandaData.filter(
-        (item: any) =>
-          item.progress.status === EStatusDemandas[filterStatus] && item
-      );
-      setDemandasFilter([...newDataDemandas]);
-    } else {
-      setDemandasFilter([...demandaData]);
-    }
   }, [checkedCities, checkedEixos, filterStatus]);
 
   const handleCheckedEixos = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,7 +100,6 @@ export const Demandas = () => {
       ? setDemandasFilter([...demandaData])
       : setFilterStatus(value);
   };
-
   return (
     <>
       <div>

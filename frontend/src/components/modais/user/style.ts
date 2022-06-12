@@ -1,13 +1,19 @@
 import styled from "styled-components";
 
 export const ContainerUser = styled.form`
-  width: 31%;
-  height: 850px;
+  width: 60%;
+  height: 550px;
   background: #ffffff;
   box-shadow: -4px 6px 22px -4px rgba(0, 0, 0, 0.38);
   border-radius: 20px;
   transform: matrix(1, 0, 0, 1, 0, 0);
   padding: 0 40px;
+
+  .container-div_one,
+  .container-div_two {
+    width: 49%;
+    padding: 10px;
+  }
 
   .btn-close {
     margin-left: 95%;
@@ -17,6 +23,8 @@ export const ContainerUser = styled.form`
     border-bottom: 2px solid #dfdfdf;
   }
   .user-data-form {
+    display: flex;
+    flex-direction: row;
     width: 100%;
   }
 
@@ -109,10 +117,11 @@ export const ContainerUser = styled.form`
   }
 
   .btn-send-user {
-    width: 56%;
+    width: 100%;
     display: flex;
+    padding-top: 10px;
+    border-top: 0.5px solid #c4c4c4;
     justify-content: space-between;
-    margin-top: 50px;
   }
 
   .cad-user,

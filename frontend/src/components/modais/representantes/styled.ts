@@ -12,7 +12,7 @@ export const PopUp = styled.div`
   align-items: center;
   left: 0;
   position: fixed;
-  z-index: 2;
+  z-index: 1;
   .btn-close {
     margin-left: 96%;
     outline: none;
@@ -23,7 +23,8 @@ export const PopUp = styled.div`
 
 export const ContentBody = styled.div<IfaceProps>`
   width: ${(props) => props.length || "70%"};
-  height: 456px;
+  padding: 8px;
+  height: 550px;
   background: #ffffff;
   box-shadow: -4px 6px 22px -4px rgba(0, 0, 0, 0.38);
   border-radius: 20px;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 // Styles
 import "assets/css/painel.css";
@@ -10,8 +10,8 @@ import { Container } from "../demands/style";
 import { PopUpUserCad } from "components/modais/user/cadUser";
 import { useAuth } from "hooks/router";
 import { FindAllUser } from "API/Users/find.api";
-import { IUser } from "interfaces/IfaceProps";
 import { deleteUser } from "API/Users/crud.api";
+import { IUser } from "interfaces/IfaceProps";
 import { PopPermission } from "components/modais/permission";
 import filterCity from "assets/data/cities";
 import { PopupGetterRepresent } from "components/modais/representantes/getAllRepresent";
@@ -28,107 +28,6 @@ export const Painel = () => {
   const [btnTrigger, setTrigger] = useState(false);
   const [btnTrigger1, setTrigger1] = useState(false);
   const [btnTrigger2, setTrigger2] = useState(false);
-
-  const [checkedCities, setCheckedCities] = useState([] as any);
-  const [checkedEixos, setCheckedEixos] = useState([] as any);
-  const [UsersFilter, setUsersFilter] = useState<any>([]);
-  const [filterStatus, setFilterStatus] = useState<string>("");
-  const [filterSearch, setFilterSearch] = useState<string>("");
-  const [FilterCity, setFilterCity] = useState<string>("");
-
-  useEffect(() => {
-    if (filterSearch != "") {
-      setUsersFilter(
-        UsersFilter.filter((item: any) => item.name.includes(filterSearch))
-      );
-    } else {
-      setUsersFilter([...[]]);
-    }
-  }, [filterSearch]);
-
-  useEffect(() => {
-    if (filterSearch != "") {
-      setUsersFilter(
-        UsersFilter.filter((item: any) => item.name.includes(filterSearch))
-      );
-    }
-  }, [filterSearch]);
-
-  useEffect(() => {
-    if (FilterCity != "" && newUsers?.length != null) {
-      setNewUsers(
-        newUsers.filter((item: any) => item.city.includes(FilterCity))
-      );
-    }
-  }, [FilterCity]);
-
-  useEffect(() => {
-    if (
-      (Object.keys(checkedEixos).length || Object.keys(checkedCities).length) >
-      0
-    ) {
-      var filteredUsers: Array<any> = [].filter(
-        (item: any) =>
-          checkedEixos.filter(
-            (eixo: any) => item.budget.area == eixo && item
-          ) == item.budget.area
-      );
-
-      var filteredCity: Array<any> = [].filter(
-        (item: any) =>
-          checkedCities.filter(
-            (city: any) => item.budget.cityApplied == city && item
-          ) == item.budget.cityApplied
-      );
-      var arr = Array([]);
-
-      [new Set([...filteredCity, ...filteredUsers])][0].forEach((item: any) =>
-        arr.push(item)
-      );
-
-      // Remove o primeiro elemento
-      arr.shift();
-
-      setUsersFilter(arr);
-    }
-    if (filterStatus !== "All") {
-      setUsersFilter([...[]]);
-    } else {
-      setUsersFilter([...[]]);
-    }
-  }, [checkedCities, checkedEixos, filterStatus]);
-
-  const handleCheckedEixos = (event: React.ChangeEvent<HTMLInputElement>) => {
-    var updateList = [...checkedEixos];
-    var value = event.target.value;
-    if (event.target.checked) {
-      updateList = [...checkedEixos, value];
-    } else {
-      updateList.splice(checkedEixos.indexOf(value), 1);
-    }
-    setCheckedEixos(updateList);
-  };
-
-  const handleChecketBtn = (event: React.ChangeEvent<HTMLInputElement>) => {
-    var updateList = [...checkedCities];
-    var value = event.target.value;
-    if (event.target.checked) {
-      updateList = [...checkedCities, value];
-    } else {
-      updateList.splice(checkedCities.indexOf(value), 1);
-    }
-    setCheckedCities(updateList);
-  };
-
-  const handleSelectFunction = () => {
-    const select: any = document.getElementById("selectStatus");
-    var value = select.options[select.selectedIndex].value;
-    value === "All" ? setUsersFilter([...[]]) : setFilterStatus(value);
-  };
-
-  // useEffect(() => {
-  //   handleAllUsers();
-  // });
 
   const handleRemoveUser = async (nameUser: string) => {
     const userFound = newUsers?.filter(
@@ -238,7 +137,7 @@ export const Painel = () => {
                   </div>
                   <div className="block">
                     <p>Por município</p>
-                    <select onChange={(e) => setFilterCity(e.target.value)}>
+                    <select>
                       {newUsers &&
                         filterCity.map((city) => (
                           <option key={city.sigle}>{city.name}</option>
