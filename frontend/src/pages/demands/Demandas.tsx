@@ -1,3 +1,4 @@
+import { PopupDemandas } from "components/modais/demandas/demandas";
 import { EStatusDemandas } from "interfaces/types";
 import React, { useEffect, useState } from "react";
 import filterCity from "../../assets/data/cities";
@@ -19,6 +20,8 @@ export const Demandas = () => {
   const [demandasFilter, setDemandasFilter] = useState<any>([...demandaData]);
   const [filterStatus, setFilterStatus] = useState<string>("All");
   const [filterSearch, setFilterSearch] = useState<string>("");
+  const [btnTrigger, setTrigger] = useState(false);
+
 
   useEffect(() => {
     if (filterSearch != "") {
@@ -103,6 +106,7 @@ export const Demandas = () => {
   return (
     <>
       <div>
+      <PopupDemandas trigger={btnTrigger} setTrigger={setTrigger} /> 
         <Header />
         <div className="demandas">
           <aside className="filtros">
@@ -168,6 +172,7 @@ export const Demandas = () => {
             <div className="head">
               {localStorage.getItem("token_jwt")?.toString() !== "" ? (
                 <button
+                  onClick={() => setTrigger(true)}
                   style={{ float: "right" }}
                   className="btn color-secondary border-secondary btn-docs"
                 >

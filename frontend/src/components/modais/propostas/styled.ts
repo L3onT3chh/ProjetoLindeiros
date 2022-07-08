@@ -91,10 +91,6 @@ export const ContainerProposta = styled.div`
     .right-field {
       width: 48%;
     }
-
-    .right-field {
-      margin-top: -35px;
-    }
   }
 
   .field-user-data {
@@ -117,7 +113,6 @@ export const ContainerProposta = styled.div`
   }
 
   .btn-send-proposta {
-    width: 24%;
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
@@ -137,5 +132,29 @@ export const ContainerProposta = styled.div`
 
   .exit-proposta {
     background-color: #ee0202;
+  }
+`;
+
+export const ContainerStatus = styled.div`
+  width: 35%;
+  background: #ffffff;
+  box-shadow: -4px 6px 22px -4px rgba(0, 0, 0, 0.38);
+  border-radius: 20px;
+  padding: 30px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+
+  .btn-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+
+  .content {
+    overflow-y: "";
+  }
+
+  .item {
+    margin-top: 20px;
+    border-bottom: 0.5px solid #cfcfcf;
   }
 `;

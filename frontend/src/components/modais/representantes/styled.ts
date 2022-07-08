@@ -12,7 +12,8 @@ export const PopUp = styled.div`
   align-items: center;
   left: 0;
   position: fixed;
-  z-index: 1;
+  z-index: 2;
+
   .btn-close {
     margin-left: 96%;
     outline: none;

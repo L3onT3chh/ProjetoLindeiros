@@ -12,6 +12,7 @@ type IPopupDemandas = {
 };
 
 export const PopupDemandas = (props: IPopupDemandas) => {
+  console.log("oi")
   return props.trigger ? (
     <PopUp>
       <ContainerDemandas>

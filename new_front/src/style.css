@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    width: 100%;
+}
+
+ :root {
+    --color-font-primary: #FFFFFF;
+    --color-background: #1B4977;
+    --color-background-opacity: rgba(27, 73, 119, 0.9);
+    --color-background-home: #FAFAFA;
+    --navbar-color-button: #183B5E;
+    --color-font-global: #1B4977;
+    --color-background-alternative: #333333;
+}
+
+.link-a,
+.title-h1,
+.title-h1-white {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+}
+
+.title-h1,
+.title-h1-white {
+    line-height: 36px;
+    font-size: 33px;
+}
+
+.link-a {
+    font-size: 20px;
+    line-height: 18px;
+    text-decoration: none;
+}
+
+.title-h1-white {
+    color: var(--color-font-primary);
+}
+
+.title-h3,
+.title-h1-card {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+}
+
+.title-h3 {
+    font-size: 25px;
+    line-height: 30px;
+    color: var(--color-background-alternative);
+}
+
+.subtitle,
+.title-h1-card,
+.title-h2 {
+    color: var(--color-font-global);
+}
+
+.title-h1-card {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.title-h2 {
+    font-size: 16px;
+}
+
+.title-h3-italic {
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 450;
+    font-size: 30px;
+    line-height: 36px;
+    color: var(--color-font-primary);
+}
+
+.description-card {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    text-align: justify;
+}
+
+.subtitle-p {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    color: white;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    text-align: center;
+}
+
+.subtitle-p-white {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    color: white;
+}

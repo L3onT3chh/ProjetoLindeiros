@@ -9,10 +9,12 @@ import Demandas from "assets/data/demandas";
 import SendDemandas from "./popUp";
 import { PopupPropostas } from "components/modais/propostas/propostas";
 import React, { useState } from "react";
+import { StatusPropostas } from "components/modais/propostas/statusProposta";
 
 export const Demanda = () => {
   const { id } = useParams();
   const [btnTrigger, setTrigger] = useState(false);
+  const [btnTrigger2, setTrigger2] = useState(false);
 
   const data = Demandas.filter((item) => item.id === Number(id) && item)[0];
   return (
@@ -176,47 +178,19 @@ export const Demanda = () => {
             <button
               style={{ marginBottom: "100px", marginTop: "40px" }}
               id="btnAddUser"
-              // onClick={() => setTrigger1(true)}
+              onClick={() => setTrigger2(true)}
               className="bgcolor-secondary"
             >
               Status da proposta
             </button>
-
-            {/* <div className="progressoDemanda"> */}
-            {/* <h1 className="color-secondary" style={{ fontSize: "1.7rem" }}> */}
-            {/* <i */}
-            {/* className="fas fa-circle color-secondary" */}
-            {/* style={{ fontSize: "0.9rem" }} */}
-            {/* /> */}
-            {/* <i */}
-            {/* className="fas fa-circle color-secondary" */}
-            {/* style={{ fontSize: "1.25rem", margin: "0 5px" }} */}
-            {/* /> */}
-            {/* Progresso da proposta aceita */}
-            {/* </h1> */}
-            {/* <div className="content"> */}
-            {/* {data.progress.step.map((progress) => (
-                  <div key={progress.modify} className="item">
-                    <div className="data">
-                      <i className="fas fa-circle color-secondary" />
-                      <p>Realizado em {progress.date}</p>
-                    </div>
-                    <div className="detalhe">
-                      <h4>Modificação tal que foi feita</h4>
-                      <p>
-                        <b>Feito por: </b>Guilherme a{" "}
-                        {progress.finish.time + " " + progress.finish.period}{" "}
-                        atrás
-                      </p>
-                    </div>
-                  </div>
-                ))} */}
-            {/* </div> */}
-            {/* </div> */}
           </div>
         </div>
+        <StatusPropostas
+          id={id}
+          trigger={btnTrigger2}
+          setTrigger={setTrigger2}
+        />
         <PopupPropostas trigger={btnTrigger} setTrigger={setTrigger} />
-
         <SendDemandas />
       </div>
     </>

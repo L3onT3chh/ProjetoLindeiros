@@ -84,7 +84,6 @@ export const PopupPropostas = (props: IPopupPropostas) => {
           </div>
         </div>
         <div className="btn-send-proposta">
-          <div></div>
           <button
             onClick={() => {
               props.setTrigger(false);

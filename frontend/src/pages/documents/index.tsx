@@ -1,7 +1,8 @@
 import { CardDocs } from "components/cardDocs";
 import Footer from "components/footer/Footer";
 import Header from "components/header/Header";
-import React from "react";
+import { PopupDemandas } from "components/modais/demandas/demandas";
+import React, { useState } from "react";
 import { ContainerDocuments } from "./styled";
 
 export const Documents = () => {
@@ -23,7 +24,7 @@ export const Documents = () => {
               <></>
             )}
           </div>
-
+          {/* Remover os objetivos especificos */}
           <CardDocs />
           <CardDocs />
           <CardDocs />

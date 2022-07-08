@@ -362,7 +362,7 @@
 
 .demandasSingle .banner .controle {
     position: absolute;
-    z-index: 3;
+    z-index: 1;
     background: #fff;
     right: 100px;
     top: 50px;

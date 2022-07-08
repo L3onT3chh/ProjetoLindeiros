@@ -1,7 +1,15 @@
-import React from "react";
+import React, { Fragment } from "react";
+import NavBar from "./components/NavBar";
+import Router from "./hooks/routes";
+import "./style.css";
 
 function App() {
-  return <div className="App">Oii</div>;
+  return (
+    <>
+      <NavBar />
+      <Router />
+    </>
+  );
 }
 
 export default App;
