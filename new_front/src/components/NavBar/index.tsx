@@ -29,7 +29,7 @@ function NavBar() {
             </Link>
           </div>
           <div className="content-link">
-            <Link className="link-btn" to="/demands">
+            <Link className="link-btn" to="/demandas">
               <img className="img-btn" src={demandasIcon} alt="demandas-icon" />
               Demandas
             </Link>

@@ -2,16 +2,24 @@ import React from "react";
 import { ContainerNavMenu } from "../style";
 
 interface IProps {
-  childrens: string[];
+  childrens: {
+    name: string;
+    id: number;
+  }[];
+  setText: any;
 }
 
-function NavSubMenu({ childrens }: IProps) {
-  console.log(childrens);
+function NavSubMenu({ childrens, setText }: IProps) {
   return (
     <ContainerNavMenu>
-      {childrens.map((child) => (
-        <p key={child}>{child}</p>
-      ))}
+      <nav>
+        {childrens.map((child) => (
+          <ul key={child.id}>
+            {/* eslint-disable-next-line */}
+            <li onClick={() => setText(child.id)}>{child.name}</li>
+          </ul>
+        ))}
+      </nav>
     </ContainerNavMenu>
   );
 }

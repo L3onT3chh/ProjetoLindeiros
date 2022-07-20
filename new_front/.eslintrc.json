@@ -30,6 +30,19 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "jsx-a11y/no-noninteractive-element-interactions": [
+      "error",
+      {
+        "handlers": [
+          "onClick",
+          "onMouseDown",
+          "onMouseUp",
+          "onKeyPress",
+          "onKeyDown",
+          "onKeyUp"
+        ]
+      }
+    ],
     "quotes": [
       "error",
       "double",
@@ -49,6 +62,7 @@
          "devDependencies": true
       }
     ],
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "jsx-a11y/click-events-have-key-events": 0
   }
 }

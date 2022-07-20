@@ -37,7 +37,7 @@ export const ContainerPage = styled.div<SContainerProps>`
     height: 250px;
     background: rgba(0, 0, 0, 0.2);
     z-index: -1;
-    width: 100vw;
+    width: 100%;
   }
 
   .container-banner {
@@ -48,7 +48,7 @@ export const ContainerPage = styled.div<SContainerProps>`
     background-repeat: no-repeat;
     background-size: 100%;
     flex-direction: column;
-    width: 100vw;
+    width: 100%;
     padding: 25px 88px;
     height: 250px;
     justify-content: space-around;
@@ -94,6 +94,22 @@ export const ContainerPage = styled.div<SContainerProps>`
       display: flex;
       justify-content: space-around;
       margin: -100px auto;
+    }
+  }
+
+  .duvida {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 80%;
+    height: 350px;
+    top: 950px;
+    left: 9.4vw;
+    right: 9.4vw;
+
+    .duvida-msg {
+      margin-top: 80px;
+      width: 100%;
     }
   }
 `;

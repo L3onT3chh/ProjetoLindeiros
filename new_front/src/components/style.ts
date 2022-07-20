@@ -74,7 +74,7 @@ export const CardContentBody = styled.div`
 
 export const ContainerButton = styled.button<SContainerProps>`
   margin: ${(props) => props.top || "100px"} auto;
-  width: ${(props) => props.width || "250px"};
+  width: ${(props) => props.width || "250"}px;
   display: flex;
   box-sizing: border-box;
   height: ${(props) => props.height || "60px"};
@@ -348,6 +348,22 @@ export const ContainerInput = styled.div`
   }
 `;
 
+export const ContainerTextarea = styled.div`
+  h2 {
+    font-size: 18px;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px;
+    outline: 0;
+    height: 25vh;
+    background: var(--color-background-primary);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+`;
+
 export const ContainerDefault = styled.div`
   display: flex;
   flex-direction: column;
@@ -408,26 +424,83 @@ export const ContainerNavMenu = styled.div`
   align-self: center;
   border-bottom: 0.3rem solid var(--color-background);
 
-  p {
-    height: 43px;
+  nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 250px;
+    padding: 0;
+    margin: -1px;
+
+    li {
+      padding: 15px;
+      margin: 0 10px;
+    }
+
+    ul:active,
+    ul:focus,
+    ul:hover {
+      cursor: pointer;
+      background-color: var(--color-background);
+      color: white;
+      transition: ease-in-out;
+      transition-duration: 0.6s;
+    }
+
+    ul {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+    }
+  }
+`;
+
+export const ContainerSubMenu = styled.div`
+  position: relative;
+  text-align: justify;
+  justify-content: space-evenly;
+  top: 490px;
+  display: flex;
+  flex-wrap: wrap;
+  left: 9.4vw;
+  right: 9.4vw;
+  width: 80%;
+  height: 600px;
+`;
+
+export const ContainerMenuSuspenso = styled.div`
+  position: absolute;
+  right: 100px;
+  top: 60px;
+  display: flex;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.35);
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  z-index: 1;
+`;
+
+export const ContainerCardProposta = styled.div`
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  width: 313px;
+  height: 269px;
+  padding: 40px;
+  margin: 20px;
+
+  h2 {
     text-align: center;
-    margin: 0;
-    margin-bottom: -1px;
-    transition: ease-in-out;
-    transition-duration: 0.4s;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    margin-bottom: 30px;
   }
 
-  p:active,
-  p:focus,
-  p:hover {
-    font-size: 17px;
-    color: var(--color-font-primary);
-    background-color: var(--color-background);
+  .body {
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: -80px;
   }
 `;
