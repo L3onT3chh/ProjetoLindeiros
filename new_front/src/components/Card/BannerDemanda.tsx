@@ -9,7 +9,7 @@ function CardDemandas() {
       <ContainerCardDemandas>
         <span>
           <h1 className="title-h1">Confira todas as demandas</h1>
-          <ButtonCard value="Ver mais" />
+          <ButtonCard value="Ver mais" width="200" router="/demandas" />
         </span>
       </ContainerCardDemandas>
     </Card>

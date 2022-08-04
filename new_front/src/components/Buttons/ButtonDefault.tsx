@@ -1,14 +1,10 @@
 import React from "react";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerButton } from "../style";
 
-interface IProps {
-  value: string;
-  icon: string;
-}
-
-function ButtonDefault({ value, icon }: IProps) {
+function ButtonDefault({ value, icon, width }: IPropsGlobal) {
   return (
-    <ContainerButton>
+    <ContainerButton width={width}>
       {icon && <img src={icon} alt="" />}
       {value}
     </ContainerButton>

@@ -6,7 +6,7 @@ function SponsorList() {
   return (
     <ContainerSponsor>
       {imgSponsors.map((sponsor) => (
-        <img src={sponsor} alt="" />
+        <img src={sponsor} alt="" key={sponsor} />
       ))}
     </ContainerSponsor>
   );

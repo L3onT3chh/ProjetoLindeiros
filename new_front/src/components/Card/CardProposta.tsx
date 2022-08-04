@@ -5,15 +5,9 @@ import { GoCalendar } from "react-icons/go";
 import { MdOutlinePending } from "react-icons/md";
 import ButtonDefault from "../Buttons/ButtonDefault";
 import { ContainerCardProposta } from "../style";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 
-interface IProps {
-  title: string;
-  n_integrantes: number;
-  approve: boolean;
-  date: string;
-}
-
-function CardProposta({ title, n_integrantes, date, approve }: IProps) {
+function CardProposta({ title, n_integrantes, date, approve }: IPropsGlobal) {
   return (
     <ContainerCardProposta>
       <h2 className="title-h2">{title}</h2>

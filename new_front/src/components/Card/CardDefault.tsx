@@ -1,23 +1,27 @@
+/* eslint-disable react/require-default-props */
 import React from "react";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { Card, ContainerDefault } from "../style";
 
-interface IProps {
-  type: boolean;
-  icon: string;
-  title: string;
-  url: string;
-}
-
-function CardDefault({ icon, title, url, type }: IProps) {
+function CardDefault({
+  width,
+  height,
+  icon,
+  title,
+  url,
+  className,
+  borderIntern,
+}: IPropsGlobal) {
   return (
     <Card
-      width={type ? "224px" : "300px"}
+      className={className}
+      width={width || "300px"}
       shadow="10px 4px 10px rgba(0, 0, 0, 0.25)"
-      height={type ? "154px" : "300px"}
+      height={height || "300px"}
     >
       <ContainerDefault>
         <img src={icon} alt="icon" />
-        <span> </span>
+        {borderIntern ?? <span> </span>}
         <a className="subtitle" href={url}>
           {title}
         </a>

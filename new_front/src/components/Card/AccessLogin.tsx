@@ -1,14 +1,8 @@
 import React from "react";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerAccessLogin } from "../style";
 
-interface IProps {
-  title: string;
-  url: string;
-  icon: string;
-  description: string;
-}
-
-function AccessLogin({ title, url, icon, description }: IProps) {
+function AccessLogin({ title, url, icon, description }: IPropsGlobal) {
   return (
     <ContainerAccessLogin>
       <div className="logo">

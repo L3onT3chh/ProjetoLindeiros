@@ -1,13 +1,8 @@
 import React from "react";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerChip } from "../style";
 
-export interface IProps {
-  name: string;
-  path: string;
-  className: string;
-}
-
-function ChipsLink({ name, className, path }: IProps) {
+function ChipsLink({ name, className, path }: IPropsGlobal) {
   return (
     <ContainerChip className={className} href={path}>
       {name}

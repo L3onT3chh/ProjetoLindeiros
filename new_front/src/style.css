@@ -15,8 +15,12 @@ body {
     --color-background-opacity: rgba(27, 73, 119, 0.9);
     --color-background-home: #FAFAFA;
     --navbar-color-button: #183B5E;
+    --color-background-footer: #112D49;
     --color-font-global: #1B4977;
     --color-background-alternative: #333333;
+    --color-select: #B0B0B0;
+    --color-border: #EAEAEA;
+    --color-header: #F5F5F5;
 }
 
 .link-a,
@@ -56,9 +60,18 @@ body {
     color: var(--color-background-alternative);
 }
 
+.title-h3-alternative {
+    font-family: 'Inter';
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .subtitle,
 .title-h1-card,
-.title-h2 {
+.title-h2,
+.title-h3-alternative {
     color: var(--color-font-global);
 }
 
@@ -103,6 +116,8 @@ body {
     display: flex;
     align-items: flex-end;
     text-align: center;
+    text-decoration: none;
+    line-height: 30px;
 }
 
 .subtitle-p-white {

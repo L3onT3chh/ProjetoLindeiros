@@ -1,18 +1,10 @@
 import React from "react";
+import { ICard } from "../../interfaces/components.interface";
 import { Card, CardContentBody } from "../style";
 
-interface ICard {
-  title: string;
-  logo: {
-    alt: string;
-    src: string;
-  };
-  description: string;
-}
-
-function CardEixos({ title, logo, description }: ICard) {
+function CardEixos({ title, logo, description, className }: ICard) {
   return (
-    <Card>
+    <Card className={className} height="280px">
       <CardContentBody>
         <h2 className="title-h2">{title}</h2>
 

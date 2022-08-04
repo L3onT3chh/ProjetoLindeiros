@@ -1,0 +1,94 @@
+/* eslint-disable react/button-has-type */
+import React from "react";
+
+import {
+  addFile,
+  addNews,
+  addUser,
+  cityspcape,
+  eixo_one,
+} from "../../assets/icons";
+import CardDefault from "../../components/Card/CardDefault";
+import { StatisticGraph } from "../../components/Card/Statistic";
+import { ChipLeft } from "../../components/Chips/ChipLeft";
+import { MenuRight } from "../../components/SubMenu/MenuRight";
+import { ContainerPainel } from "../styled";
+
+export function InicioPainel() {
+  return (
+    <ContainerPainel>
+      <MenuRight />
+      <div className="container">
+        <div className="container-header-main">
+          <h1 className="title-h3">Seja bem vindo</h1>
+          <p className="subtitle">Por onde gostaria de começar?</p>
+        </div>
+        <div className="card-header">
+          <CardDefault
+            width="200px"
+            height="134px"
+            icon={addFile}
+            title="NOVA DEMANDA"
+            url="/painel/demandas/add"
+            borderIntern={false}
+            className="cardP"
+          />
+          <CardDefault
+            width="200px"
+            height="134px"
+            icon={addUser}
+            borderIntern={false}
+            title="NOVO USUÁRIO"
+            url="/painel/users/add"
+            className="cardP"
+          />
+          <CardDefault
+            width="200px"
+            height="134px"
+            icon={addNews}
+            borderIntern={false}
+            title="NOVA NOTICÍA"
+            url="/painel/news/add"
+            className="cardP"
+          />
+        </div>
+
+        <div className="statistic">
+          <StatisticGraph
+            className="content-box"
+            title="Nº de demandas por eixos"
+            width="643px"
+            height="317px"
+          />
+          <StatisticGraph
+            className="content-box"
+            title="Crescimento comparado com utimo mês"
+            width="323px"
+            height="317px"
+          />
+        </div>
+
+        <div className="chips-footer">
+          <ChipLeft
+            icon={eixo_one}
+            text="Segurança"
+            subtitle="Eixo com mais demandas"
+            className="content-box"
+          />
+          <ChipLeft
+            icon={cityspcape}
+            text="Foz do Iguaçu"
+            subtitle="Cidade com mais demandas"
+            className="content-box"
+          />
+          <ChipLeft
+            icon={eixo_one}
+            text="Segurança"
+            subtitle="Eixo com mais demandas"
+            className="content-box"
+          />
+        </div>
+      </div>
+    </ContainerPainel>
+  );
+}

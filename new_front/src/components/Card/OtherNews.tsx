@@ -1,14 +1,6 @@
 import React from "react";
+import { IOtherNewsProps } from "../../interfaces/components.interface";
 import { Card, ContainerOtherNews } from "../style";
-
-interface IOtherNewsProps {
-  description: string;
-  date: string;
-  logo: {
-    src: string;
-    alt: string;
-  };
-}
 
 function OtherNews({ description, date, logo }: IOtherNewsProps) {
   return (

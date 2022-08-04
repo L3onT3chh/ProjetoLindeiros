@@ -1,4 +1,6 @@
+import NavBar from "components/NavBar";
 import React from "react";
+
 import { addUser, lock } from "../assets/icons";
 import ButtonCard from "../components/Buttons/ButtonCard";
 import CardDefault from "../components/Card/CardDefault";
@@ -9,41 +11,51 @@ import { ContainerPage } from "./styled";
 
 function Login() {
   return (
-    <ContainerPage style={{ display: "flex", height: "100vh" }}>
-      <WelcomeLogin />
+    <>
+      <NavBar />
+      <ContainerPage style={{ display: "flex", height: "100vh" }}>
+        <WelcomeLogin />
 
-      <div className="login">
-        <SublinedText size="32" title="Login" />
+        <div className="login">
+          <SublinedText size="32" title="Login" />
 
-        <form className="form-login">
-          <InputStyle
-            title="Email"
-            type="email"
-            required
-            placeholder="Digite o seu e-mail"
-          />
-          <span> </span>
-          <InputStyle
-            title="Senha"
-            type="password"
-            required
-            placeholder="Digite a sua senha"
-          />
+          <form className="form-login">
+            <InputStyle
+              title="Email"
+              type="email"
+              required
+              placeholder="Digite o seu e-mail"
+            />
+            <span> </span>
+            <InputStyle
+              title="Senha"
+              type="password"
+              required
+              placeholder="Digite a sua senha"
+            />
 
-          <ButtonCard value="Entrar" width="100%" />
-        </form>
+            <ButtonCard router="/painel" value="Entrar" width="200" />
+          </form>
 
-        <div className="container-footer">
-          <CardDefault title="Esqueci minha senha" icon={lock} url=" " type />
-          <CardDefault
-            title="Não possui cadastro?"
-            icon={addUser}
-            url=" "
-            type
-          />
+          <div className="container-footer">
+            <CardDefault
+              width="224px"
+              height="154px"
+              title="Esqueci minha senha"
+              icon={lock}
+              url=" "
+            />
+            <CardDefault
+              width="224px"
+              height="154px"
+              title="Não possui cadastro?"
+              icon={addUser}
+              url=" "
+            />
+          </div>
         </div>
-      </div>
-    </ContainerPage>
+      </ContainerPage>
+    </>
   );
 }
 

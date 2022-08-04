@@ -30,6 +30,7 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
+    "prettier/prettier": "error",
     "jsx-a11y/no-noninteractive-element-interactions": [
       "error",
       {
@@ -43,6 +44,7 @@
         ]
       }
     ],
+    "no-console": "off",
     "quotes": [
       "error",
       "double",

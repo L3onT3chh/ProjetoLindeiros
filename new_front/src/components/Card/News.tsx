@@ -1,14 +1,10 @@
 import React from "react";
 import news from "../../assets/img/news.png";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 
 import { Card, ContainerNews } from "../style";
 
-interface INews {
-  title: string;
-  datePublished: string;
-}
-
-function CardNews({ title, datePublished }: INews) {
+function CardNews({ title, datePublished }: IPropsGlobal) {
   return (
     <Card width="100%" height="386px" background={news}>
       <ContainerNews>

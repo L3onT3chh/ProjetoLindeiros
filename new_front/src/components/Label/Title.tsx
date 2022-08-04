@@ -1,12 +1,8 @@
 import React from "react";
-import { SContainerProps } from "../../interfaces/global.interface";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerH1 } from "../style";
 
-interface IProps extends SContainerProps {
-  name: string;
-}
-
-function TitleDefault({ name, color, bold, font }: IProps) {
+function TitleDefault({ name, color, bold, font }: IPropsGlobal) {
   return (
     <ContainerH1 color={color} bold={bold} font={font ?? "35px"}>
       <span>{name}</span>

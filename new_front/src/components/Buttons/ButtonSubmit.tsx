@@ -1,12 +1,8 @@
 import React from "react";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ButtonSubmitStyle } from "../style";
 
-interface IProps {
-  icon: string;
-  className: string;
-}
-
-function ButtonSubmit({ icon, className }: IProps) {
+function ButtonSubmit({ icon, className }: IPropsGlobal) {
   return <ButtonSubmitStyle className={className} src={icon} alt="icon" />;
 }
 

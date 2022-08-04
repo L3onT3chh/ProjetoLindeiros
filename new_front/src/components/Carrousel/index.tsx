@@ -1,13 +1,8 @@
 import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 
-interface IPropsCarrousel {
-  title: string;
-  description: string;
-  image: Array<string>;
-}
-
-function CarrouselComp({ image, title, description }: IPropsCarrousel) {
+function CarrouselComp({ image, title, description }: IPropsGlobal) {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex: number) => {
@@ -20,20 +15,21 @@ function CarrouselComp({ image, title, description }: IPropsCarrousel) {
       onSelect={handleSelect}
       style={{ maxWidth: "100vw" }}
     >
-      {image.map((item: string) => (
-        <Carousel.Item key={item}>
-          <img
-            className="d-block w-100"
-            height="400"
-            src={item}
-            alt="Texto alternativo"
-          />
-          <Carousel.Caption>
-            <h3>{title}</h3>
-            <p>{description}</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      ))}
+      {image &&
+        image.map((item: string) => (
+          <Carousel.Item key={item}>
+            <img
+              className="d-block w-100"
+              height="500"
+              src={item}
+              alt="Texto alternativo"
+            />
+            <Carousel.Caption>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
     </Carousel>
   );
 }

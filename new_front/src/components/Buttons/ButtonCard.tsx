@@ -1,15 +1,13 @@
 /* eslint-disable react/require-default-props */
 import React from "react";
+import { Link } from "react-router-dom";
+import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerButton } from "../style";
 
-interface IProps {
-  value: string;
-  width?: string;
-}
-
-function ButtonCard({ value, width }: IProps) {
+function ButtonCard({ value, width, className, router }: IPropsGlobal) {
   return (
     <ContainerButton
+      className={className}
       background="#1B4977"
       color="white"
       width={width || "180px"}
@@ -18,7 +16,9 @@ function ButtonCard({ value, width }: IProps) {
       font="16px"
       top="37px"
     >
-      {value}
+      <Link to={router || ""} className="link-btn">
+        {value}
+      </Link>
     </ContainerButton>
   );
 }
