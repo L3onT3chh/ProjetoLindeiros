@@ -1,46 +1,49 @@
-import { IUserLogin } from "./../interfaces/IfaceProps";
-import { Auth } from "API";
+import API from "API";
+import { IUserLogin } from "../interfaces/data/user.interface";
 
-const labelStore = {
-  insert: "bottom",
-  container: "bottom-right",
-  animationIn: ["animate__animated", "animate__fadeIn"],
-  animationOut: ["animate__animated", "animate__fadeOut"],
-  dismiss: {
-    duration: 2000,
-    onScreen: true,
-  },
-};
+interface IAuthUser {
+  auth: boolean;
+  status: number;
+  response: string;
+}
 
-const ProviderAuthentication = {
-  isAuthentication: false,
-  async signin(user: IUserLogin, callback: VoidFunction, Store: any) {
-    const { status, response, auth } = await Auth(user);
-    if (status === 200) {
-      localStorage.setItem("token_jwt", response);
-      ProviderAuthentication.isAuthentication = auth;
-      Store.addNotification({
-        title: "Login realizado com sucesso!",
-        message: "Redirecionando para a página de login.",
-        type: "success",
-        ...labelStore,
-      });
-      setTimeout(callback, 1000);
-      return true;
+export const login = async (user: IUserLogin): Promise<IAuthUser> => {
+  try {
+    const DataAuth = await API("/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      data: JSON.stringify({
+        email: user.username,
+        password: user.password,
+      }),
+    })
+      .then((response) => Promise.resolve(response.data))
+      .catch((err) => Promise.resolve(err));
+
+    const { User } = DataAuth.response;
+    if (User.id) {
+      return {
+        auth: true,
+        status: 200,
+        response: User.jwt,
+      };
     }
-    Store.addNotification({
-      title: "Usuário inválido!",
-      message: "Verifique todos os campos",
-      type: "danger",
-      ...labelStore,
-    });
-    return false;
-  },
-  signout(callback: VoidFunction) {
-    localStorage.setItem("token_jwt", "");
-    ProviderAuthentication.isAuthentication = false;
-    setTimeout(callback, 100);
-  },
+    return {
+      auth: true,
+      status: 404,
+      response: "Usuário inválido",
+    };
+  } catch (e) {
+    return {
+      auth: false,
+      status: 400,
+      response: "Não foi possível realizar o login",
+    };
+  }
 };
 
-export { ProviderAuthentication };
+const logout = () => {
+  localStorage.removeItem("token_jwt");
+};
+
+export default [login, logout];

@@ -1,5 +1,0 @@
-{
-    "editor.fontFamily": "'Fira Code'", 
-    "editor.fontLigatures": true,
-    "typescript.preferences.importModuleSpecifier": "non-relative",
-}

@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
-
+    "target": "es2017",
     "baseUrl": "src",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -14,17 +19,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ]
+    "jsx": "react-jsx"
   },
   "include": [
-    "src",
-    "../new_version/lindeiros/js",
-    "../backend/data/user.js"
+    "src"
   ]
 }

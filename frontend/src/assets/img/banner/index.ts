@@ -10,4 +10,16 @@ import nine from "./9.png";
 import ten from "./10.png";
 import eleven from "./11.png";
 
-export { one, two, three, four, five, six, seven, eight, nine, ten, eleven };
+export default [
+  one,
+  two,
+  three,
+  four,
+  five,
+  six,
+  seven,
+  eight,
+  nine,
+  ten,
+  eleven,
+];

@@ -1,28 +1,21 @@
-import { CardDocs } from "components/cardDocs";
-import Footer from "components/footer/Footer";
-import Header from "components/header/Header";
-import { PopupDemandas } from "components/modais/demandas/demandas";
-import React, { useState } from "react";
+import React from "react";
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable react/button-has-type */
+import { CardDocs } from "components/CardDocs";
+// import { PopupDemandas } from "components/modais/demandas/demandas";
+import NavBar from "components/NavBar";
 import { ContainerDocuments } from "./styled";
 
-export const Documents = () => {
+export function Documents() {
   return (
     <>
-      <Header />
+      <NavBar />
       <ContainerDocuments>
         <div className="container">
           <div className="header-btn">
             <h1 className="title color-secondary">
               <span>Documentos disponíveis</span>
             </h1>
-
-            {localStorage.getItem("token_jwt")?.toString() !== "" ? (
-              <button className="btn color-secondary border-secondary btn-docs">
-                Adicionar documento
-              </button>
-            ) : (
-              <></>
-            )}
           </div>
           {/* Remover os objetivos especificos */}
           <CardDocs />
@@ -32,7 +25,6 @@ export const Documents = () => {
           <CardDocs />
         </div>
       </ContainerDocuments>
-      <Footer />
     </>
   );
-};
+}

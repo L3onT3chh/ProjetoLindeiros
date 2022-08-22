@@ -1,0 +1,8 @@
+{
+    "editor.fontFamily": "'Fira Code'", 
+    "editor.fontLigatures": true,
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "material-icon-theme.folders.color": "#4682B4",
+    "material-icon-theme.hidesExplorerArrows": true,
+    "typescript.suggest.autoImports": true
+}

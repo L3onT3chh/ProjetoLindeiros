@@ -1,19 +1,21 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+/* eslint-disable react/button-has-type */
+import NavBar from "components/NavBar";
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/css/index.css";
 // Styles
 import "../../assets/css/noticias.css";
-//Images
+// Images
 import * as ImagesEixos from "../../assets/img/eixos";
-import Footer from "../../components/footer/Footer";
 // Components
-import Header from "../../components/header/Header";
-import { Container } from "./styles";
+import { ContainerBackground } from "../styled";
 
-export const News = () => {
+// Refazer com styled component
+export function News() {
   return (
     <>
-      <Header />
+      <NavBar />
       <div className="noticias">
         <div className="top">
           <div className="container">
@@ -23,20 +25,9 @@ export const News = () => {
                 display: "flex",
                 width: "100%",
                 justifyContent: "space-between",
-                marginBottom: '10px'
+                marginBottom: "10px",
               }}
-            >
-              <h1 className="title border-left-secondary color-secondary">
-                Noticías recentes
-              </h1>
-              {localStorage.getItem("token_jwt")?.toString() !== "" ? (
-                <button className="btn color-secondary border-secondary btn-docs">
-                  Adicionar Noticias
-                </button>
-              ) : (
-                <></>
-              )}
-            </div>
+            />
             <div className="itens">
               <Link
                 to="itemNews"
@@ -182,7 +173,7 @@ export const News = () => {
               </h1>
               <div className="block">
                 <Link to="itemNews" className="item">
-                  <Container
+                  <ContainerBackground
                     background={ImagesEixos.default[4].image}
                     className="img"
                   />
@@ -196,7 +187,7 @@ export const News = () => {
                   </div>
                 </Link>
                 <Link to="itemNews" className="item">
-                  <Container
+                  <ContainerBackground
                     background={ImagesEixos.default[5].image}
                     className="img"
                   />
@@ -209,7 +200,7 @@ export const News = () => {
                   </div>
                 </Link>
                 <Link to="itemNews" className="item">
-                  <Container
+                  <ContainerBackground
                     background={ImagesEixos.default[6].image}
                     className="img"
                   />
@@ -222,7 +213,7 @@ export const News = () => {
                   </div>
                 </Link>
                 <Link to="itemNews" className="item">
-                  <Container
+                  <ContainerBackground
                     background={ImagesEixos.default[7].image}
                     className="img"
                   />
@@ -238,8 +229,7 @@ export const News = () => {
             </aside>
           </div>
         </div>
-        <Footer />
       </div>
     </>
   );
-};
+}
