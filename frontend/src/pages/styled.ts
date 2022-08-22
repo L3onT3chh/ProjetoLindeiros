@@ -6,6 +6,25 @@ export const ContainerPage = styled.div<SContainerProps>`
   z-index: 1;
   background-color: white;
 
+  .create-proposal {
+    position: absolute;
+    border: 1px solid var(--color-background);
+    padding: 10px;
+    right: 100px;
+    top: 150px;
+    border-radius: 10px;
+    background: white;
+    color: var(--color-background);
+    transition: ease-in-out 0.7s;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 5;
+
+    &:hover {
+      transform: scale(105%);
+    }
+  }
+
   .content-body {
     width: 80%;
     margin-top: 60px;

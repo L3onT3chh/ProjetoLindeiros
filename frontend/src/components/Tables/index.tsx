@@ -10,9 +10,10 @@ interface IProps {
   type?: string;
   fields: string[];
   data: IUser[];
+  text?: string;
 }
 
-export function TableDefaultUser({ fields, data, type }: IProps) {
+export function TableDefaultUser({ fields, data, type, text }: IProps) {
   const [newData, setNewData] = useState<IUser[]>();
   useEffect(() => {
     if (type === undefined) {
@@ -22,6 +23,17 @@ export function TableDefaultUser({ fields, data, type }: IProps) {
       setNewData(data);
     }
   }, [data, type]);
+
+  useEffect(() => {
+    if (text !== undefined && text !== "" && newData) {
+      setNewData(
+        newData.filter((item: IUser) => item.name.includes(text.trim())),
+      );
+    } else {
+      setNewData(data);
+    }
+  }, [text]);
+
   return (
     <table>
       <tr className="one-row-title">

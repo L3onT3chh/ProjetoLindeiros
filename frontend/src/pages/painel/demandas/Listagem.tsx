@@ -5,7 +5,7 @@ import { IPropsGlobal } from "interfaces/components.interface";
 import { ContainerPainel } from "pages/styled";
 import React from "react";
 
-export function ListagemDemanda({ type, children }: IPropsGlobal) {
+export function ListagemDemanda({ setState, type, children }: IPropsGlobal) {
   return (
     <ContainerPainel>
       <MenuRight />
@@ -20,6 +20,7 @@ export function ListagemDemanda({ type, children }: IPropsGlobal) {
             text="Pesqusiar demanda"
             background="#cecece"
             size="83%"
+            setState={setState}
             borderRadius="40px 0 0 40px"
           />
         </div>

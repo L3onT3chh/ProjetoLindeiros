@@ -7,11 +7,13 @@ interface IPros {
   title: string;
   placeholder: string;
   required?: boolean;
+  className?: string;
+  height?: string;
 }
 
-function TextArea({ title, placeholder, required }: IPros) {
+function TextArea({ height, title, placeholder, required, className }: IPros) {
   return (
-    <ContainerTextarea>
+    <ContainerTextarea height={height} className={className}>
       <textarea
         id={`textarea-${title}`}
         placeholder={placeholder}

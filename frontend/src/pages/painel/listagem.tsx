@@ -9,7 +9,7 @@ import { MenuRight } from "../../components/SubMenu/MenuRight";
 import ButtonCard from "../../components/Buttons/ButtonCard";
 import { InputSearch } from "../../components/Inputs/Search";
 
-export function Listagem({ type, children }: IPropsGlobal) {
+export function Listagem({ type, children, setState }: IPropsGlobal) {
   return (
     <ContainerPainel>
       <MenuRight />
@@ -24,6 +24,7 @@ export function Listagem({ type, children }: IPropsGlobal) {
             background="#cecece"
             size="83%"
             borderRadius="40px 0 0 40px"
+            setState={setState}
           />
         </div>
 
@@ -47,12 +48,14 @@ export function Listagem({ type, children }: IPropsGlobal) {
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
               options={["Município", "Administrador", "Representantes"]}
+              color="white"
               width="200px"
             />
           </div>
 
           <div className="content-body-painel-left">
             <SelectMenu
+              color="white"
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
               options={["Ordem crescente", "Administrador", "Representantes"]}

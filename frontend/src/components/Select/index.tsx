@@ -7,11 +7,13 @@ interface IProps {
   background?: string;
   iconFinal?: any;
   width?: string;
+  className?: string;
   color?: string;
   setSelected?: SetStateAction<any>;
 }
 
 export function SelectMenu({
+  className,
   color,
   options,
   background,
@@ -26,6 +28,7 @@ export function SelectMenu({
   };
   return (
     <ContainerSelect
+      className={className}
       background={background}
       color={color}
       icon={iconFinal}

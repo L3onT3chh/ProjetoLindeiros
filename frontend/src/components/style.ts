@@ -399,6 +399,36 @@ export const ContainerFooter = styled.div`
 
 export const ContainerChip = styled.a``;
 
+export const ContainerChipAdd = styled.div`
+  .content-chips-add {
+    height: 140px;
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+  }
+
+  .card-chip:nth-child(1n) {
+    margin-left: 25px;
+  }
+  .card-chip {
+    margin-top: 5px;
+    height: 50px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    width: 120px;
+  }
+`;
+
 export const ButtonSubmitStyle = styled.img<SContainerProps>`
   background-image: url(${(props) => props.background});
 `;
@@ -466,6 +496,26 @@ export const ContainerSublined = styled.div<SContainerProps>`
   }
 `;
 
+export const ContainerInputAdd = styled.div`
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+
+  input {
+    border-radius: 10px;
+    padding: 10px;
+    width: 80%;
+  }
+
+  .button-btn-add {
+    background-color: var(--color-background);
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    height: 100%;
+  }
+`;
+
 export const ContainerInput = styled.div`
   h2 {
     font-size: 18px;
@@ -481,7 +531,7 @@ export const ContainerInput = styled.div`
   }
 `;
 
-export const ContainerTextarea = styled.div`
+export const ContainerTextarea = styled.div<SContainerProps>`
   h2 {
     font-size: 18px;
   }
@@ -490,7 +540,7 @@ export const ContainerTextarea = styled.div`
     width: 100%;
     padding: 10px;
     outline: 0;
-    height: 25vh;
+    height: ${(props) => props.height || "25vh"};
     background: var(--color-background-primary);
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -554,6 +604,7 @@ export const ContainerProgress = styled.div`
 export const ContainerNavMenu = styled.div`
   display: flex;
   color: black;
+  z-index: 1;
   position: absolute;
   top: 400px;
   width: 80vw;
@@ -835,13 +886,13 @@ export const ContainerChipLeft = styled.div`
 
 export const ContainerPopup = styled.div<SContainerProps>`
   background: #ffffff;
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   transition: ease-in-out;
   visibility: ${(props) => (props.active ? "visible" : "hidden")};
   background: rgba(0, 0, 0, 0.5);
-  z-index: 3;
+  z-index: 7;
 
   .container-modal-popup {
     box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
@@ -920,9 +971,65 @@ export const ContainerPopup = styled.div<SContainerProps>`
 `;
 
 export const ContentProfile = styled.div`
-  .title-h3 {
-    font-size: 18px;
+  .content-default {
+    padding: 30px;
+
+    .content-basic-data {
+      .double-data {
+        display: flex;
+        justify-content: space-between;
+
+        .text-double {
+          width: 49%;
+        }
+      }
+
+      .text-areax {
+        height: auto;
+      }
+
+      .form-control-demand {
+        margin-top: 15px;
+      }
+
+      .select-demand-popup {
+        background-color: rgba(0, 0, 0, 0);
+      }
+    }
+    .content-data-time {
+      margin-top: 25px;
+    }
+    .title-h3 {
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .btns-popup {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 40px;
+
+      .btn-send,
+      .btn-close-two {
+        padding: 10px;
+        border-radius: 15px;
+        width: 48%;
+        font-size: 16px;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .btn-send {
+        background-color: var(--color-background);
+        color: white;
+      }
+      .btn-close-two {
+        background-color: white;
+        border: 1px solid var(--color-background);
+      }
+    }
   }
+
   .header-profile {
     height: 120px;
     width: 120px;

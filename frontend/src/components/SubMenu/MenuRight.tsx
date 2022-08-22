@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { PMeuPerfil } from "components/Popups/Profile";
 import { Link } from "react-router-dom";
-import PDefault from "components/Popups";
 import { MyProfile } from "components/Popups/subContent/Profile";
-import RegisterDemanda from "components/Popups/subContent/registersDemandas";
 import {
   demands,
   docs_icon,
@@ -18,7 +16,6 @@ import { ContainerMenuRight } from "../style";
 
 export function MenuRight() {
   const [openPopup, setOpenPopup] = useState(false);
-  const [openPermissions, setOpenPermissions] = useState(true);
   return (
     <>
       <PMeuPerfil
@@ -30,16 +27,6 @@ export function MenuRight() {
         <MyProfile />
       </PMeuPerfil>
 
-      <PDefault
-        height="809"
-        width="569"
-        title="Envio de proposta"
-        subtitle="Preencha todos os campos marcados *"
-        setTrigger={setOpenPermissions}
-        trigger={openPermissions}
-      >
-        <RegisterDemanda />
-      </PDefault>
       <ContainerMenuRight>
         <div className="container-header-painel">
           <h1 className="title-h1">Painel</h1>
@@ -56,11 +43,6 @@ export function MenuRight() {
           <ChipCard
             icon={users}
             optionsMenu={[
-              {
-                title: "Alterar permissão",
-                activePopUp: true,
-                setTrigger: () => setOpenPermissions(!openPermissions),
-              },
               {
                 title: "Listagem",
                 subitems: [
@@ -111,7 +93,7 @@ export function MenuRight() {
           <ChipCard
             icon={eixos_icon}
             optionsMenu={[
-              { title: "Inserir", urlMain: "painel/eixos/add" },
+              // { title: "Inserir", urlMain: "painel/eixos/add" },
               {
                 title: "Listagem",
                 urlMain: "painel/eixos",

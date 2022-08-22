@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Contato } from "pages/Contato";
 import { Documents } from "pages/documents";
 import { Eixos } from "pages/eixo";
@@ -39,6 +39,14 @@ const HandleDispatchData = () => {
 function Router() {
   HandleDispatchData();
   const { users, demands } = useSelector((state: IStateData) => state);
+  const [dataSearch, setDataSearch] = useState("");
+  const [dataSearchUser, setDataSearchUser] = useState("");
+  // const [selectSearch, setSelectSearch] = useState({
+  //   type: "",
+  //   local: "",
+  //   university: "",
+
+  // });
 
   return (
     <Routes>
@@ -57,16 +65,21 @@ function Router() {
       <Route
         path="/painel/users"
         element={
-          <Listagem type="Usuários">
-            <TableDefaultUser data={users.users} fields={[...fields]} />
+          <Listagem type="Usuários" setState={setDataSearchUser}>
+            <TableDefaultUser
+              data={users.users}
+              text={dataSearchUser}
+              fields={[...fields]}
+            />
           </Listagem>
         }
       />
       <Route
         path="/painel/demandas"
         element={
-          <ListagemDemanda type="Demanda">
+          <ListagemDemanda type="Demanda" setState={setDataSearch}>
             <TableDefaultData
+              text={dataSearch}
               dataDemand={demands.demand}
               fields={[
                 "Nome",

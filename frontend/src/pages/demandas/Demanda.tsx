@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from "react";
 import backgroundImage from "assets/img/background-demandas.png";
 import TextSublined from "components/Label/TextSublined";
@@ -15,9 +16,12 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
+import PDefault from "components/Popups";
+import RegisterProposal from "components/Popups/subContent/registersDemandas";
 
 export function Demanda() {
   const { name } = useParams();
+  const [OpenProposalCad, setOpenProposalCad] = useState(false);
 
   const { demand } = useSelector((state: IStateData) => state.demands);
   const [data, setData] = useState<IDemand[]>();
@@ -27,10 +31,19 @@ export function Demanda() {
       setData(filterData);
     }
   }, [demand, name]);
-  console.log(data);
   const [idNav, setIdNav] = useState(1);
   return data ? (
     <>
+      <PDefault
+        height="849"
+        width="569"
+        title="Envio de proposta"
+        subtitle="Preencha todos os campos marcados *"
+        setTrigger={setOpenProposalCad}
+        trigger={OpenProposalCad}
+      >
+        <RegisterProposal />
+      </PDefault>
       <NavBar />
       <ContainerPage background={backgroundImage}>
         <div className="banner-index" />
@@ -46,7 +59,16 @@ export function Demanda() {
               subtitle="fulano 1, fulano 2"
               bold
             />
+            {/* 
+                setTrigger: () => setOpenProposalCad(!OpenProposalCad),
+            */}
 
+            <button
+              className="create-proposal"
+              onClick={() => setOpenProposalCad(!OpenProposalCad)}
+            >
+              Cadastrar proposta
+            </button>
             <div className="data-info">
               <TitleDefault name="Ultima atualização em 12/2021" font="15" />
 

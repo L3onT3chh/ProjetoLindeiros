@@ -11,7 +11,7 @@ import { cityspcape } from "assets/icons";
 // import { findProposal } from "API/Demand/Proposital/crud";
 // import { findProposital } from "API/Demand/Proposital/find";
 
-export function TableDefaultData({ fields, dataDemand }: IPropsGlobal) {
+export function TableDefaultData({ fields, dataDemand, text }: IPropsGlobal) {
   const [newData, setNewData] = useState<IDemand[]>();
   const [dataClicked, setDataClicked] = useState<IDemand[]>();
   const [trigger, setTrigger] = useState(false);
@@ -34,6 +34,16 @@ export function TableDefaultData({ fields, dataDemand }: IPropsGlobal) {
       setTrigger(!trigger);
     }
   };
+
+  useEffect(() => {
+    if (text !== undefined && text !== "") {
+      setNewData(
+        newData?.filter((item: IDemand) => item.name.includes(text.trim())),
+      );
+    } else {
+      setNewData(dataDemand);
+    }
+  }, [newData, text, dataDemand]);
 
   return (
     <>
