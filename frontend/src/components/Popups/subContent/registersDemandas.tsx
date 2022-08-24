@@ -40,7 +40,8 @@ function RegisterProposal() {
           </div>
           <SelectMenu
             className="select-demand-popup form-control-demand"
-            options={["Selecione a cidade"]}
+            options={[]}
+            // ["Selecione a cidade"]
             width="100%"
           />
         </div>

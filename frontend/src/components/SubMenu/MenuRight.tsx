@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
 import {
   demands,
-  docs_icon,
-  eixos_icon,
-  news_icon,
+  // docs_icon,
+  // eixos_icon,
+  // news_icon,
   users,
 } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
@@ -78,7 +78,7 @@ export function MenuRight() {
             text="Demandas"
           />
 
-          <ChipCard
+          {/* <ChipCard
             icon={news_icon}
             optionsMenu={[
               { title: "Inserir", urlMain: "painel/news/add" },
@@ -88,9 +88,9 @@ export function MenuRight() {
               },
             ]}
             text="Noticías"
-          />
+          /> */}
 
-          <ChipCard
+          {/* <ChipCard
             icon={eixos_icon}
             optionsMenu={[
               // { title: "Inserir", urlMain: "painel/eixos/add" },
@@ -112,7 +112,7 @@ export function MenuRight() {
               },
             ]}
             text="Documentos"
-          />
+          /> */}
         </div>
       </ContainerMenuRight>
 

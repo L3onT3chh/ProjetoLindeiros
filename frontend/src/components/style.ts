@@ -894,6 +894,17 @@ export const ContainerPopup = styled.div<SContainerProps>`
   background: rgba(0, 0, 0, 0.5);
   z-index: 7;
 
+  .container-loading {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 7;
+    position: absolute;
+    top: 50%;
+    left: 46%;
+    right: 46%;
+  }
+
   .container-modal-popup {
     box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
     border-radius: 25px;

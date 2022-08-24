@@ -1,26 +1,34 @@
-/* eslint-disable react/require-default-props */
-/* eslint-disable no-param-reassign */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from "react";
 import { IUser } from "interfaces/data/user.interface";
 import { BsFillTrashFill } from "react-icons/bs";
 import { MdTipsAndUpdates } from "react-icons/md";
+import { ISets } from "interfaces/components.interface";
 
 interface IProps {
   type?: string;
   fields: string[];
   data: IUser[];
   text?: string;
+  configSets?: ISets;
 }
 
-export function TableDefaultUser({ fields, data, type, text }: IProps) {
+export function TableDefaultUser({
+  fields,
+  data,
+  type,
+  text,
+  configSets,
+}: IProps) {
   const [newData, setNewData] = useState<IUser[]>();
+
   useEffect(() => {
     if (type === undefined) {
       setNewData(data);
     } else if (type !== "") {
-      data = data.filter((item) => item.userType === type);
-      setNewData(data);
+      const auxData = data.filter((item) => item.userType === type);
+      setNewData(auxData);
     }
   }, [data, type]);
 
@@ -33,6 +41,21 @@ export function TableDefaultUser({ fields, data, type, text }: IProps) {
       setNewData(data);
     }
   }, [text]);
+
+  useEffect(() => {
+    const aux: any = [];
+    if (configSets) {
+      if (configSets.s1 !== undefined) {
+        console.log(configSets);
+        aux.push(
+          data?.filter((item: IUser) => item.userType === configSets.s1),
+        );
+      }
+      if (aux.length > 0) {
+        console.log(aux);
+      }
+    }
+  }, [configSets]);
 
   return (
     <table>

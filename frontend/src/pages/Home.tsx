@@ -2,7 +2,6 @@ import React from "react";
 import Banner from "assets/img/banner";
 import ImageEixos from "assets/icons/eixos";
 import { splitTitle } from "util/function";
-import { LoadingDefault } from "components/Loading";
 import CarrouselComp from "../components/Carrousel";
 import { ContainerPage } from "./styled";
 import CardDemandas from "../components/Card/BannerDemanda";
@@ -30,7 +29,6 @@ function Home() {
           image={[...Banner]}
           description="dsadadjasdja"
         />
-        <LoadingDefault />
 
         <div className="content-about content-body">
           <h1 className="title-h1">

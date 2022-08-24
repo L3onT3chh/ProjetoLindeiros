@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   fetchDemandsThunk,
   fetchDocumentThunk,
+  fetchTypesThunk,
   fetchUsersThunk,
 } from "app/reducers/thunks";
 import { AppDispatch } from "app/store";
@@ -33,20 +34,20 @@ const HandleDispatchData = () => {
     dispatch(fetchDocumentThunk());
     dispatch(fetchDemandsThunk());
     dispatch(fetchUsersThunk());
+    dispatch(fetchTypesThunk());
   }, []);
 };
 
 function Router() {
   HandleDispatchData();
-  const { users, demands } = useSelector((state: IStateData) => state);
+  const { users, demands, userTypes } = useSelector(
+    (state: IStateData) => state,
+  );
   const [dataSearch, setDataSearch] = useState("");
   const [dataSearchUser, setDataSearchUser] = useState("");
-  // const [selectSearch, setSelectSearch] = useState({
-  //   type: "",
-  //   local: "",
-  //   university: "",
-
-  // });
+  const [s1, setOne] = useState();
+  const [s2, setTwo] = useState();
+  const [s3, setThree] = useState();
 
   return (
     <Routes>
@@ -65,8 +66,15 @@ function Router() {
       <Route
         path="/painel/users"
         element={
-          <Listagem type="Usuários" setState={setDataSearchUser}>
+          <Listagem
+            active={users.loading}
+            type="Usuários"
+            configsSets={{ setOne, setTwo, setThree }}
+            setState={setDataSearchUser}
+            types={userTypes && userTypes.types}
+          >
             <TableDefaultUser
+              configSets={{ s1, s2, s3 }}
               data={users.users}
               text={dataSearchUser}
               fields={[...fields]}
@@ -77,7 +85,11 @@ function Router() {
       <Route
         path="/painel/demandas"
         element={
-          <ListagemDemanda type="Demanda" setState={setDataSearch}>
+          <ListagemDemanda
+            type="Demanda"
+            active={demands.loading}
+            setState={setDataSearch}
+          >
             <TableDefaultData
               text={dataSearch}
               dataDemand={demands.demand}

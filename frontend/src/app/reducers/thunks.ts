@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { findAllDocument } from "API/Document/crud";
+import { findAllTypes } from "API/Types/crud";
 import { findAllDemands } from "../../API/Demand/crud";
 import { findAllUsers } from "../../API/User/crud";
 
@@ -28,5 +29,13 @@ export const fetchDocumentThunk = createAsyncThunk(
   async () => {
     const document = await findAllDocument();
     return document;
+  },
+);
+
+export const fetchTypesThunk = createAsyncThunk(
+  "types/fetchTypes",
+  async () => {
+    const types = await findAllTypes(TOKEN);
+    return types;
   },
 );

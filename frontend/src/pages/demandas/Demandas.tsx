@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
 import { Link } from "react-router-dom";
-import { Cities, Eixos } from "assets/data/filters";
+// import { Cities, Eixos } from "assets/data/filters";
 
 export default function Demandas() {
   const data = useSelector((state: IStateData) => state);
@@ -84,7 +84,8 @@ export default function Demandas() {
                     <h1 className="title-h2">Pesquisa por municipio</h1>
                     <SelectMenu
                       setSelected={setDataFilterCity}
-                      options={Cities}
+                      options={[]}
+                      // Cities
                       background="rgba(0,0,0,0)"
                       color="black"
                     />
@@ -93,7 +94,8 @@ export default function Demandas() {
                     <h1 className="title-h2">Pesquisa por eixo</h1>
                     <SelectMenu
                       setSelected={setDataFilterEixos}
-                      options={Eixos}
+                      options={[]}
+                      // Eixos
                       background="rgba(0,0,0,0)"
                       color="black"
                     />
@@ -161,7 +163,12 @@ export default function Demandas() {
                 />
                 <SelectMenu
                   width="170px"
-                  options={["Recentes"]}
+                  options={[
+                    {
+                      label: "Recentes",
+                      key: "recentes",
+                    },
+                  ]}
                   background="#1B4977"
                 />
               </div>

@@ -6,3 +6,7 @@ export const splitTitle = (text: string) => {
     .toString()
     .replaceAll(",", " ");
 };
+
+// export const formatKey = (datas: any[]) => {
+// datas.map((item, index) => item.name, )
+// };

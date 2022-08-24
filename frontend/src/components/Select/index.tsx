@@ -1,16 +1,7 @@
 /* eslint-disable react/require-default-props */
-import React, { SetStateAction } from "react";
+import React from "react";
+import { IOptions, IPropsGlobal } from "interfaces/components.interface";
 import { ContainerSelect } from "../style";
-
-interface IProps {
-  options: Array<string>;
-  background?: string;
-  iconFinal?: any;
-  width?: string;
-  className?: string;
-  color?: string;
-  setSelected?: SetStateAction<any>;
-}
 
 export function SelectMenu({
   className,
@@ -20,7 +11,7 @@ export function SelectMenu({
   iconFinal,
   width,
   setSelected,
-}: IProps) {
+}: IPropsGlobal) {
   const handleClick = (option: string) => {
     if (setSelected) {
       setSelected(option);
@@ -36,12 +27,13 @@ export function SelectMenu({
       onChange={(e) => handleClick(e.target.selectedOptions[0].outerText)}
       // onChange={(e) => handleClick(e.target.value)}
     >
-      {options.map((option) => (
-        <option key={option}>
-          {option}
-          {"  "}
-        </option>
-      ))}
+      {options &&
+        options.map((option: IOptions) => (
+          <option key={option.key}>
+            {option.label}
+            {"  "}
+          </option>
+        ))}
     </ContainerSelect>
   );
 }

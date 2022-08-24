@@ -1,6 +1,8 @@
+import { SetStateAction } from "react";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
 import { IDataDocument } from "interfaces/data/document.interface";
 import { IDataUser } from "interfaces/data/user.interface";
+import { IDataTypes, ITypes } from "interfaces/data/types.interface";
 import { SContainerProps } from "./global.interface";
 
 export interface IPropsGlobal extends SContainerProps {
@@ -30,13 +32,16 @@ export interface IPropsGlobal extends SContainerProps {
   image?: Array<string>;
   optionsMenu?: ISubItens[];
   text?: string;
+  iconFinal?: any;
   author?: string;
   path?: string;
+  setSelected?: SetStateAction<any>;
   eixos?: Array<string>;
   cities?: Array<string>;
   statusFilter?: Array<string>;
   colorFont?: string;
   colorTitle?: string;
+  color?: string;
   router?: string;
   colorBackground?: string;
   link?: string;
@@ -46,7 +51,23 @@ export interface IPropsGlobal extends SContainerProps {
   borderRadius?: string;
   borderColor?: string;
   setState?: any;
+  configsSets?: ISets;
   dataDemand?: IDemand[];
+  options?: IOptions[];
+  types?: ITypes[];
+}
+
+export interface IOptions {
+  key: string;
+  label: string;
+}
+export interface ISets {
+  s1?: string;
+  s2?: string;
+  s3?: string;
+  setOne?: any;
+  setTwo?: any;
+  setThree?: any;
 }
 
 export interface IPopup {
@@ -97,4 +118,5 @@ export interface IStateData {
   users: IDataUser;
   demands: IDataDemand;
   documents: IDataDocument;
+  userTypes: IDataTypes;
 }
