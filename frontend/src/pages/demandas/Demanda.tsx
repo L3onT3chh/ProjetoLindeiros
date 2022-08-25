@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import PDefault from "components/Popups";
-import RegisterProposal from "components/Popups/subContent/registersDemandas";
+import RegisterProposal from "components/Popups/subContent/registersPropostas";
 
 export function Demanda() {
   const { name } = useParams();

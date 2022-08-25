@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from "react";
 import { IPropsGlobal } from "interfaces/components.interface";
@@ -107,6 +108,7 @@ export function TableDefaultData({ fields, dataDemand, text }: IPropsGlobal) {
             <div className="cards">
               {dataClicked[0].Proposal?.map((item: IProposal, index) => (
                 <CardPropostas
+                  key={index.toString()}
                   icon={cityspcape}
                   className="card-proposta"
                   author="Arlete Beuren"

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { fetchDocumentThunk } from "app/reducers/thunks";
+import { fetchDocumentsThunk } from "app/reducers/document/thunk";
 import { IDataDocument } from "interfaces/data/document.interface";
 
 const initialState: IDataDocument = {
@@ -13,11 +13,11 @@ export const documentSlice = createSlice({
   name: "document",
   initialState,
   extraReducers: (builder: ActionReducerMapBuilder<any>) => {
-    builder.addCase(fetchDocumentThunk.pending, (state: IDataDocument) => {
+    builder.addCase(fetchDocumentsThunk.pending, (state: IDataDocument) => {
       state.loading = true;
     });
     builder.addCase(
-      fetchDocumentThunk.fulfilled,
+      fetchDocumentsThunk.fulfilled,
       (state: IDataDocument, action) => {
         state.loading = false;
         state.document = action.payload;
@@ -25,7 +25,7 @@ export const documentSlice = createSlice({
       },
     );
     builder.addCase(
-      fetchDocumentThunk.rejected,
+      fetchDocumentsThunk.rejected,
       (state: IDataDocument, action) => {
         state.loading = false;
         state.document = [];

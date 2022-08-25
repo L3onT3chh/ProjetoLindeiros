@@ -1,12 +1,15 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-import React from "react";
-import { IPropsGlobal } from "interfaces/components.interface";
-// import { Cities } from "assets/data/filters";
+import React, { useState } from "react";
+import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { LoadingDefault } from "components/Loading";
-// import { ITypes } from "interfaces/data/types.interface";
-import { SelectMenu } from "../../components/Select";
+import { SelectMenu } from "components/Select";
+import { recent } from "assets/icons";
+import { Cities } from "assets/data/filters";
+import { formatKeyTypes } from "util/function";
+import PDefault from "components/Popups";
+import RegisterUser from "components/Popups/CreateUser";
+import { useSelector } from "react-redux";
 import { ContainerPainel } from "../styled";
-import { recent } from "../../assets/icons";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
 import ButtonCard from "../../components/Buttons/ButtonCard";
 import { InputSearch } from "../../components/Inputs/Search";
@@ -18,19 +21,38 @@ export function Listagem({
   configsSets,
   active,
 }: // types,
+
 IPropsGlobal) {
+  const { userTypes } = useSelector((state: IStateData) => state);
+  const [OpenUserCard, setOpenUserCard] = useState(false);
+
   return (
     <ContainerPainel>
       <LoadingDefault active={active} />
+      <PDefault
+        height="700"
+        width="517"
+        title="Cadastro de usuário"
+        subtitle="Preencha todos os campos marcados *"
+        setTrigger={setOpenUserCard}
+        trigger={OpenUserCard}
+      >
+        <RegisterUser />
+      </PDefault>
       <MenuRight />
       <div className="container">
         <div className="content-header">
           <div className="btn-header">
-            <ButtonCard value={`Adicionar ${type}`} />
+            <ButtonCard
+              router="painel/users/"
+              state={OpenUserCard}
+              setState={setOpenUserCard}
+              value={`Adicionar ${type}`}
+            />
           </div>
           <InputSearch
-            text="Pesquisar usuário"
             background="#cecece"
+            text="Pesquisar usuário"
             size="83%"
             borderRadius="40px 0 0 40px"
             setState={setState}
@@ -43,11 +65,7 @@ IPropsGlobal) {
               setSelected={configsSets && configsSets.setOne}
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
-              options={[
-                { key: "1", label: "Tipo de usuário" },
-                { key: "2", label: "Administrador" },
-                { key: "3", label: "Representantes" },
-              ]}
+              options={userTypes.types}
               width="200px"
               color="white"
             />
@@ -56,9 +74,9 @@ IPropsGlobal) {
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
               options={[
-                { label: "Instituição", key: "1" },
-                { label: "UTFPR", key: "2" },
-                { label: "UFPR", key: "3" },
+                { name: "Instituição", id: "1" },
+                { name: "UTFPR", id: "2" },
+                { name: "UFPR", id: "3" },
               ]}
               color="white"
               width="200px"
@@ -67,7 +85,7 @@ IPropsGlobal) {
               setSelected={configsSets && configsSets.setThree}
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
-              options={[]}
+              options={formatKeyTypes(["Municípios", ...Cities], {})}
               // ["Município", ...Cities]
               color="white"
               width="200px"

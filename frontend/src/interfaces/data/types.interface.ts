@@ -7,5 +7,5 @@ export interface IDataTypes extends IResponseData {
 export interface ITypes {
   id: string;
   name: string;
-  permission: number;
+  permission?: number;
 }

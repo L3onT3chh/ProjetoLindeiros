@@ -4,6 +4,8 @@ import { FiLogOut } from "react-icons/fi";
 import { PMeuPerfil } from "components/Popups/Profile";
 import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
+import RegisterDemandas from "components/Popups/subContent/registerDemandas";
+import PDefault from "components/Popups";
 import {
   demands,
   // docs_icon,
@@ -16,6 +18,7 @@ import { ContainerMenuRight } from "../style";
 
 export function MenuRight() {
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
   return (
     <>
       <PMeuPerfil
@@ -26,6 +29,17 @@ export function MenuRight() {
       >
         <MyProfile />
       </PMeuPerfil>
+
+      <PDefault
+        height="849"
+        width="569"
+        title="Envio de proposta"
+        subtitle="Preencha todos os campos marcados *"
+        setTrigger={setOpenPopupDemandas}
+        trigger={openPopupDemandas}
+      >
+        <RegisterDemandas />
+      </PDefault>
 
       <ContainerMenuRight>
         <div className="container-header-painel">
@@ -64,7 +78,11 @@ export function MenuRight() {
           <ChipCard
             icon={demands}
             optionsMenu={[
-              { title: "Inserir", urlMain: "painel/demandas/add" },
+              {
+                title: "Inserir",
+                activePopUp: true,
+                setTrigger: () => setOpenPopupDemandas(!openPopupDemandas),
+              },
               {
                 title: "Listagem",
                 subitems: [

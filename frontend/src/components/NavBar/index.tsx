@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { TokenUser } from "config";
 import { ContainerNavBar } from "../style";
 import {
   contactIcon,
@@ -58,10 +59,17 @@ function NavBar() {
           </div>
         </ul>
 
-        <Link className="link-login" to="/login">
-          <img className="img-btn" src={loginIcon} alt="login-icon" />
-          Efetuar login
-        </Link>
+        {TokenUser ? (
+          <Link className="link-login" to="/painel">
+            <img className="img-btn" src={loginIcon} alt="login-icon" />
+            Acessar painel
+          </Link>
+        ) : (
+          <Link className="link-login" to="/login">
+            <img className="img-btn" src={loginIcon} alt="login-icon" />
+            Efetur Login
+          </Link>
+        )}
       </div>
     </ContainerNavBar>
   );

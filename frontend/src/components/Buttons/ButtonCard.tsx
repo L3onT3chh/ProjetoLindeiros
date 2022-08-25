@@ -1,13 +1,22 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/require-default-props */
 import React from "react";
 import { Link } from "react-router-dom";
 import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerButton } from "../style";
 
-function ButtonCard({ value, width, className, router }: IPropsGlobal) {
+function ButtonCard({
+  value,
+  width,
+  className,
+  router,
+  setState,
+  state,
+}: IPropsGlobal) {
   return (
-    <Link to={`/${router}`} className="link-painel">
+    <Link className="link-painel" to={`${router}/`}>
       <ContainerButton
+        onClick={() => setState(!state)}
         className={className}
         background="#1B4977"
         color="white"

@@ -4,7 +4,7 @@ import { IPropsGlobal } from "interfaces/components.interface";
 import React, { useState } from "react";
 import { GrClose } from "react-icons/gr";
 
-function ChipAdd({ className }: IPropsGlobal) {
+function ChipAdd({ className, text }: IPropsGlobal) {
   const [data, setData] = useState([]);
 
   const handleRemoveItem = (value: string) => {
@@ -14,12 +14,12 @@ function ChipAdd({ className }: IPropsGlobal) {
 
   return (
     <ContainerChipAdd className={className}>
-      <InputAdd setState={setData} listValue={data} />
+      <InputAdd setState={setData} listValue={data} text={text} />
       <div className="content-chips-add">
         {data &&
           data.map((item: string) => (
             <span className="card-chip" key={item}>
-              <p>{item.toString().substring(0, 7)}</p>
+              <p>{item.toString().substring(0, 7)}...</p>
               <GrClose size={10} onClick={() => handleRemoveItem(item)} />
             </span>
           ))}

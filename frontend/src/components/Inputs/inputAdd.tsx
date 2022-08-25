@@ -4,7 +4,7 @@ import { ContainerInputAdd } from "components/style";
 import { GrAdd } from "react-icons/gr";
 import { IPropsGlobal } from "interfaces/components.interface";
 
-function InputAdd({ setState, listValue }: IPropsGlobal) {
+function InputAdd({ setState, listValue, text }: IPropsGlobal) {
   const [state, setInput] = useState("");
 
   const handleAdd = (value: string) => {
@@ -18,8 +18,8 @@ function InputAdd({ setState, listValue }: IPropsGlobal) {
     <ContainerInputAdd>
       <input
         type="text"
-        className="input-add-btn"
-        placeholder="Add a new item"
+        className="input-add-btn text-popup"
+        placeholder={text || "Adicione um novo item"}
         value={state}
         onChange={(e) => setInput(e.target.value)}
       />

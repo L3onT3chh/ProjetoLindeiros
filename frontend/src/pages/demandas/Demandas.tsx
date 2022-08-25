@@ -165,8 +165,8 @@ export default function Demandas() {
                   width="170px"
                   options={[
                     {
-                      label: "Recentes",
-                      key: "recentes",
+                      name: "Recentes",
+                      id: "recentes",
                     },
                   ]}
                   background="#1B4977"

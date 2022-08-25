@@ -34,6 +34,15 @@ export interface ICities {
   uf: string;
 }
 
+export interface IProposalPost {
+  time: string[];
+  description: string;
+  value: number;
+  deadline: Date;
+  priority: string;
+  demands_id: string;
+}
+
 export interface IProposal {
   id: string;
   description: string;

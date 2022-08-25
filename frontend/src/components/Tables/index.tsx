@@ -5,6 +5,10 @@ import { IUser } from "interfaces/data/user.interface";
 import { BsFillTrashFill } from "react-icons/bs";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { ISets } from "interfaces/components.interface";
+import { deleteUserThunk } from "app/reducers/user/thunk";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "app/store";
+import { NotFound } from "components/Notfound";
 
 interface IProps {
   type?: string;
@@ -21,7 +25,8 @@ export function TableDefaultUser({
   text,
   configSets,
 }: IProps) {
-  const [newData, setNewData] = useState<IUser[]>();
+  const [newData, setNewData] = useState<IUser[]>([]);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (type === undefined) {
@@ -46,18 +51,18 @@ export function TableDefaultUser({
     const aux: any = [];
     if (configSets) {
       if (configSets.s1 !== undefined) {
-        console.log(configSets);
         aux.push(
           data?.filter((item: IUser) => item.userType === configSets.s1),
         );
       }
-      if (aux.length > 0) {
-        console.log(aux);
-      }
     }
   }, [configSets]);
 
-  return (
+  const handleRemoveUser = (userId: string) => {
+    dispatch(deleteUserThunk(userId));
+  };
+
+  return newData.length > 0 ? (
     <table>
       <tr className="one-row-title">
         {fields.map((field) => (
@@ -75,12 +80,17 @@ export function TableDefaultUser({
             <th>{item.userType}</th>
             <th>
               <span>
-                <BsFillTrashFill color="red" size={30} />
+                <BsFillTrashFill
+                  className="btn-click"
+                  onClick={() => item.id && handleRemoveUser(item.id)}
+                  color="red"
+                  size={30}
+                />
               </span>{" "}
               <span className="divisor" />
               <span>
                 <MdTipsAndUpdates
-                  className="update-icon"
+                  className="update-icon btn-click"
                   color="green"
                   size={32}
                 />
@@ -89,5 +99,7 @@ export function TableDefaultUser({
           </tr>
         ))}
     </table>
+  ) : (
+    <NotFound title="Não há dados cadastrados no momento" />
   );
 }

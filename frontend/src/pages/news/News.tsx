@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable react/button-has-type */
+import ButtonCard from "components/Buttons/ButtonCard";
 import NavBar from "components/NavBar";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -84,6 +85,7 @@ export function News() {
             </div>
           </div>
         </div>
+        <ButtonCard value="Adicionar Noticias" router="addNews/" />
         <div className="body">
           <div className="container">
             <div className="main">

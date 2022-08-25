@@ -1,19 +1,31 @@
-import ButtonCard from "components/Buttons/ButtonCard";
+// import ButtonCard from "components/Buttons/ButtonCard";
 import { InputSearch } from "components/Inputs/Search";
+import { LoadingDefault } from "components/Loading";
 import { MenuRight } from "components/SubMenu/MenuRight";
 import { IPropsGlobal } from "interfaces/components.interface";
 import { ContainerPainel } from "pages/styled";
 import React from "react";
 
-export function ListagemDemanda({ setState, type, children }: IPropsGlobal) {
+export function ListagemDemanda({
+  setState,
+  // type,
+  children,
+  active,
+}: // state,
+IPropsGlobal) {
   return (
     <ContainerPainel>
       <MenuRight />
-
+      <LoadingDefault active={active} />
       <div className="container">
         <div className="content-header">
           <div className="btn-header">
-            <ButtonCard value={`Adicionar ${type}`} />
+            {/* <ButtonCard
+              state={state}
+              value={`Adicionar ${type}`}
+              router={undefined}
+              setState={setState}
+            /> */}
           </div>
 
           <InputSearch

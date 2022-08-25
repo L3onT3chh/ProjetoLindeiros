@@ -29,8 +29,8 @@ export function SelectMenu({
     >
       {options &&
         options.map((option: IOptions) => (
-          <option key={option.key}>
-            {option.label}
+          <option key={option.id}>
+            {option.name}
             {"  "}
           </option>
         ))}

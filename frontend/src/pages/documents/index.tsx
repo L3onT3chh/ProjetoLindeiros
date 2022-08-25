@@ -4,6 +4,7 @@ import React from "react";
 import { CardDocs } from "components/CardDocs";
 // import { PopupDemandas } from "components/modais/demandas/demandas";
 import NavBar from "components/NavBar";
+import ButtonCard from "components/Buttons/ButtonCard";
 import { ContainerDocuments } from "./styled";
 
 export function Documents() {
@@ -16,6 +17,7 @@ export function Documents() {
             <h1 className="title color-secondary">
               <span>Documentos disponíveis</span>
             </h1>
+            <ButtonCard value="Adicionar Documentos" router="addDocs/" />
           </div>
           {/* Remover os objetivos especificos */}
           <CardDocs />

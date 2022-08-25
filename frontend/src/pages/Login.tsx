@@ -34,7 +34,7 @@ function Login() {
               placeholder="Digite a sua senha"
             />
 
-            <ButtonCard router="painel" value="Entrar" width="200" />
+            <ButtonCard router="/painel" value="Entrar" width="200" />
           </form>
 
           <div className="container-footer">

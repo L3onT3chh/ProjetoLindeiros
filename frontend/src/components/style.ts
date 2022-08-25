@@ -767,6 +767,16 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
   }
 `;
 
+export const ContainerSelectAlternative = styled.select<SContainerProps>`
+  width: 100%;
+  background: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  margin-top: 10px;
+  color: black;
+  padding: 10px;
+`;
+
 export const ContainerChipCard = styled.div`
   width: 100%;
 
@@ -898,7 +908,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
     display: flex;
     justify-content: space-around;
     align-items: center;
-    z-index: 7;
+    z-index: 13;
     position: absolute;
     top: 50%;
     left: 46%;
@@ -1019,7 +1029,7 @@ export const ContentProfile = styled.div`
       display: flex;
       justify-content: space-between;
       width: 100%;
-      margin-top: 40px;
+      margin-top: 10px;
 
       .btn-send,
       .btn-close-two {
@@ -1162,4 +1172,11 @@ export const ContainerCardChipDemandas = styled.div`
       }
     }
   }
+`;
+
+export const ContainerNotFound = styled.div`
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

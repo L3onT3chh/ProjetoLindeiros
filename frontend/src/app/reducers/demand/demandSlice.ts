@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { fetchDemandsThunk } from "app/reducers/thunks";
+import { fetchDemandsThunk } from "app/reducers/demand/thunk";
 import { IDataDemand } from "interfaces/data/demand.interface";
 
 const initialState: IDataDemand = {

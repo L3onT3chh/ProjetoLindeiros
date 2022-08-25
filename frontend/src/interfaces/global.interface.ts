@@ -16,6 +16,7 @@ export interface SContainerProps {
 }
 
 export interface IResponseData {
+  message?: string;
   loading: boolean;
   error: string;
 }

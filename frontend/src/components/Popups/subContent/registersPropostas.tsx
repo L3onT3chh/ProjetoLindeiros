@@ -46,7 +46,7 @@ function RegisterProposal() {
           />
         </div>
         <div className="content-data-time">
-          <h1 className="title-h3">Dados básicos</h1>
+          <h1 className="title-h3">Dados da equipe</h1>
           <div className="form-control-demand">
             <ChipAdd />
           </div>

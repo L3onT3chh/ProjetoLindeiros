@@ -6,6 +6,7 @@ import { IDataTypes, ITypes } from "interfaces/data/types.interface";
 import { SContainerProps } from "./global.interface";
 
 export interface IPropsGlobal extends SContainerProps {
+  key?: string;
   IInterface?: any;
   value?: string;
   width?: string;
@@ -51,6 +52,7 @@ export interface IPropsGlobal extends SContainerProps {
   borderRadius?: string;
   borderColor?: string;
   setState?: any;
+  state?: boolean;
   configsSets?: ISets;
   dataDemand?: IDemand[];
   options?: IOptions[];
@@ -58,8 +60,9 @@ export interface IPropsGlobal extends SContainerProps {
 }
 
 export interface IOptions {
-  key: string;
-  label: string;
+  id: string;
+  name: string;
+  iDBack?: string;
 }
 export interface ISets {
   s1?: string;

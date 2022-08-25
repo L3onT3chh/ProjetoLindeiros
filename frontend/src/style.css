@@ -28,6 +28,15 @@ body {
     color: white;
 }
 
+.text-popup {
+    color: rgba(51, 51, 51, 0.8);
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 17px;
+}
+
 .link-a,
 .title-h1,
 .title-h1-white {
@@ -142,4 +151,8 @@ body {
     right: 0;
     width: 100%;
     background-color: rgba(0,0,0);
+}
+
+.btn-click:hover {
+    cursor: pointer;
 }
