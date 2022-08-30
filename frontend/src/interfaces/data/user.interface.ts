@@ -15,10 +15,12 @@ export interface IUser {
   password: string;
   phone: string;
   phone_ddd: string;
+  born_date: string;
   userType: string;
 }
 
 export interface IUserPost {
+  id?: string;
   name: string;
   email: string;
   cpf: string;
@@ -33,5 +35,6 @@ export interface IUserPost {
 }
 
 export interface IDataUser extends IResponseData {
+  tryLogin: boolean;
   users: IUser[];
 }

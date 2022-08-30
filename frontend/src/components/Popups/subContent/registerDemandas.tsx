@@ -1,14 +1,10 @@
 /* eslint-disable react/button-has-type */
-// import { createDemandsThunk } from "app/reducers/demand/thunk";
-// import { AppDispatch } from "app/store";
+import React from "react";
 import ChipAdd from "components/Chips/ChipAdd";
 import InputStyle from "components/Inputs";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { ContentProfile } from "components/style";
 import TextArea from "components/Textarea";
-import React from "react";
-// import { useDispatch } from "react-redux";
-// import { useForm } from "util/form/useForm";
 
 function RegisterDemandas() {
   //   const dispatch = useDispatch<AppDispatch>();
@@ -60,6 +56,12 @@ function RegisterDemandas() {
                 className="form-control-demand text-double"
               />
             </div>
+            <TextArea
+              height="80px"
+              className="form-control-demand"
+              placeholder="Objetivos geral"
+              title=""
+            />
             <div className="double-data">
               <SelectMenuAlternative
                 //   setState={setTypeUser}
@@ -81,10 +83,11 @@ function RegisterDemandas() {
               </div>
             </div>
             <TextArea
-              height="150px"
+              height="80px"
               className="form-control-demand"
               placeholder="Descrição"
               title=""
+              name="description"
             />
             <div className="btns-popup">
               <button className="btn-close-two">Fechar</button>

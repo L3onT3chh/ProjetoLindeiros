@@ -6,7 +6,7 @@ export interface IDemand {
   progress: number;
   description: string;
   cover: string;
-  updated: string;
+  createdAt: string;
   priority: string;
   status: number;
   Objective: IObjective;

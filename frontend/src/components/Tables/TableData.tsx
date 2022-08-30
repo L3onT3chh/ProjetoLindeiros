@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from "react";
-import { IPropsGlobal } from "interfaces/components.interface";
+import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import { BsFillTrash2Fill } from "react-icons/bs";
 import { BiMessageSquareDetail } from "react-icons/bi";
@@ -9,17 +9,19 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { PMeuPerfil } from "components/Popups/Profile";
 import { CardPropostas } from "components/Card/Propostas";
 import { cityspcape } from "assets/icons";
+import { useSelector } from "react-redux";
 // import { findProposal } from "API/Demand/Proposital/crud";
 // import { findProposital } from "API/Demand/Proposital/find";
 
-export function TableDefaultData({ fields, dataDemand, text }: IPropsGlobal) {
+export function TableDefaultData({ fields, text }: IPropsGlobal) {
+  const { demands } = useSelector((state: IStateData) => state);
   const [newData, setNewData] = useState<IDemand[]>();
   const [dataClicked, setDataClicked] = useState<IDemand[]>();
   const [trigger, setTrigger] = useState(false);
-  // const [dataClicked, setDataClicked] = useState<IDemand>();
+
   useEffect(() => {
-    setNewData(dataDemand);
-  }, [dataDemand]);
+    setNewData(demands.demand);
+  }, [demands]);
 
   const handleClicked = (name: string) => {
     if (name) {
@@ -42,9 +44,9 @@ export function TableDefaultData({ fields, dataDemand, text }: IPropsGlobal) {
         newData?.filter((item: IDemand) => item.name.includes(text.trim())),
       );
     } else {
-      setNewData(dataDemand);
+      setNewData(demands.demand);
     }
-  }, [newData, text, dataDemand]);
+  }, [newData, text, demands.demand]);
 
   return (
     <>
@@ -74,7 +76,7 @@ export function TableDefaultData({ fields, dataDemand, text }: IPropsGlobal) {
                 <p className="field-styled">{item.Cities.name}</p>
               </th>
               <th>
-                <p className="field-styled">{item.updated}</p>
+                <p className="field-styled">{item.createdAt}</p>
               </th>
               <th>
                 <span>

@@ -1,8 +1,10 @@
+import { IUser } from "interfaces/data/user.interface";
+/* eslint-disable consistent-return */
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import userLogin from "API/auth";
 import userCrud from "API/User/crud.user";
 import { findAllUsers } from "API/User/find.user";
-import { TOKEN } from "config";
-import { IUserPost } from "../../../interfaces/data/user.interface";
+import { IUserLogin, IUserPost } from "../../../interfaces/data/user.interface";
 
 export const createUserThunk = createAsyncThunk(
   "users/create",
@@ -17,19 +19,28 @@ export const deleteUserThunk = createAsyncThunk("", async (id: string) => {
   return response;
 });
 
-export const updateUserThunk = createAsyncThunk("", async () => {
-  const response = await userCrud.update();
+export const updateUserThunk = createAsyncThunk("", async (user: IUser) => {
+  const response = await userCrud.update(user);
   return response;
-});
-
-export const findOneUserThunk = createAsyncThunk("", async () => {
-  // const response = await userCrud.findOne();
 });
 
 export const fetchUsersThunk = createAsyncThunk(
   "users/fetchUsers",
   async () => {
-    const users = await findAllUsers(TOKEN);
+    const users = await findAllUsers();
     return users;
   },
 );
+
+export const authLoginThunk = createAsyncThunk(
+  "users/auth",
+  async ({ username, password }: IUserLogin) => {
+    const response = await userLogin.login({ username, password });
+    return response;
+  },
+);
+
+export const logoutUserThunk = createAsyncThunk("users/logout", async () => {
+  const response = userLogin.logout();
+  return response;
+});

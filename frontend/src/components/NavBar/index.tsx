@@ -59,7 +59,7 @@ function NavBar() {
           </div>
         </ul>
 
-        {TokenUser ? (
+        {TokenUser() ? (
           <Link className="link-login" to="/painel">
             <img className="img-btn" src={loginIcon} alt="login-icon" />
             Acessar painel

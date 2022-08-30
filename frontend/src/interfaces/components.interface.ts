@@ -1,11 +1,15 @@
 import { SetStateAction } from "react";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
 import { IDataDocument } from "interfaces/data/document.interface";
-import { IDataUser } from "interfaces/data/user.interface";
+import { IDataUser, IUser } from "interfaces/data/user.interface";
 import { IDataTypes, ITypes } from "interfaces/data/types.interface";
+import { IDataNews } from "interfaces/data/news.interface";
+import { IDataCity } from "interfaces/data/city.interface";
+import { IDataAxes } from "interfaces/data/axes.interface";
 import { SContainerProps } from "./global.interface";
 
 export interface IPropsGlobal extends SContainerProps {
+  clicked?: boolean;
   key?: string;
   IInterface?: any;
   value?: string;
@@ -46,6 +50,7 @@ export interface IPropsGlobal extends SContainerProps {
   router?: string;
   colorBackground?: string;
   link?: string;
+  user?: IUser;
   subtitle?: string;
   background?: string;
   size?: string;
@@ -68,9 +73,11 @@ export interface ISets {
   s1?: string;
   s2?: string;
   s3?: string;
+  s4?: string;
   setOne?: any;
   setTwo?: any;
   setThree?: any;
+  setFour?: any;
 }
 
 export interface IPopup {
@@ -118,8 +125,11 @@ interface ISubItens extends IPopup {
 }
 
 export interface IStateData {
+  news: IDataNews;
   users: IDataUser;
   demands: IDataDemand;
   documents: IDataDocument;
   userTypes: IDataTypes;
+  city: IDataCity;
+  axes: IDataAxes;
 }

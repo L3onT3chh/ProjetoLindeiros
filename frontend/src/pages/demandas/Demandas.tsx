@@ -13,14 +13,20 @@ import { useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
 import { Link } from "react-router-dom";
-// import { Cities, Eixos } from "assets/data/filters";
+import { LoadingDefault } from "components/Loading";
 
 export default function Demandas() {
-  const data = useSelector((state: IStateData) => state);
-  const [dataNew, setDataNew] = useState(data.demands.demand);
+  const { demands, city, axes } = useSelector((state: IStateData) => state);
+  const [dataNew, setDataNew] = useState(demands.demand);
   const [dataVerify, setDataVerify] = useState(false);
-  const [dataFilterEixos, setDataFilterEixos] = useState("");
-  const [dataFilterCity, setDataFilterCity] = useState("");
+  const [dataFilterEixos, setDataFilterEixos] = useState({
+    data: [...axes.axes],
+    clicked: "",
+  });
+  const [dataFilterCity, setDataFilterCity] = useState({
+    data: [...city.city],
+    clicked: "",
+  });
   const [searchDemand, setSearchDemanda] = useState("");
   const [dataCheckbox, setCheckbox] = useState({
     a: 0,
@@ -31,48 +37,62 @@ export default function Demandas() {
   const handleComparationString = (text: string, textTwo: string) => {
     return text.toLowerCase().trim() === textTwo.toLowerCase().trim();
   };
+  useEffect(() => {
+    setDataFilterCity({
+      data: [...city.city],
+      clicked: dataFilterCity.clicked,
+    });
+    setDataFilterEixos({
+      data: [...axes.axes],
+      clicked: dataFilterEixos.clicked,
+    });
+  }, [city, axes]);
 
   useEffect(() => {
     if (searchDemand) {
       setDataNew(
-        data.demands.demand.filter((item) => item.name.includes(searchDemand)),
+        demands.demand.filter((item) => item.name.includes(searchDemand)),
       );
     } else {
-      setDataNew([...data.demands.demand]);
+      setDataNew(demands.demand);
     }
-  }, [searchDemand, data.demands.demand]);
+  }, [searchDemand, demands.demand]);
 
   useEffect(() => {
-    if (dataFilterCity.trim() !== "Todas") {
+    if (dataFilterCity.clicked.trim() !== "Todas as cidades") {
       setDataNew(
-        data.demands.demand.filter(
+        demands.demand.filter(
           (item) =>
-            handleComparationString(item.Cities.name, dataFilterCity) && item,
+            handleComparationString(item.Cities.name, dataFilterCity.clicked) &&
+            item,
         ),
       );
     } else {
-      setDataNew([...data.demands.demand]);
+      setDataNew(demands.demand);
     }
-  }, [dataFilterCity]);
+  }, [dataFilterCity.clicked]);
 
   useEffect(() => {
-    if (dataFilterEixos.trim() !== "Todos") {
+    if (dataFilterEixos.clicked.trim() !== "Todos os eixos") {
       setDataNew(
-        data.demands.demand.filter(
+        demands.demand.filter(
           (item) =>
-            handleComparationString(item.Axes.name, dataFilterEixos) && item,
+            handleComparationString(item.Axes.name, dataFilterEixos.clicked) &&
+            item,
         ),
       );
     } else {
-      setDataNew([...data.demands.demand]);
+      setDataNew([...demands.demand]);
     }
-  }, [dataFilterEixos]);
+  }, [dataFilterEixos.clicked]);
   useEffect(() => {
-    setDataVerify(data.demands.demand !== undefined);
-  }, [data.demands.demand]);
+    setDataVerify(demands.demand !== undefined);
+  }, [demands.demand]);
+
   return (
     <>
       <NavBar />
+      <LoadingDefault active={city.loading && demands.loading} />
       <ContainerPage>
         <div className="container-banner-demandas">
           <div className="header" />
@@ -83,9 +103,10 @@ export default function Demandas() {
                   <div className="filters-demandas-modal">
                     <h1 className="title-h2">Pesquisa por municipio</h1>
                     <SelectMenu
+                      width="250px"
+                      clicked
                       setSelected={setDataFilterCity}
-                      options={[]}
-                      // Cities
+                      options={[...dataFilterCity.data]}
                       background="rgba(0,0,0,0)"
                       color="black"
                     />
@@ -93,9 +114,10 @@ export default function Demandas() {
                   <div className="filters-demandas-modal">
                     <h1 className="title-h2">Pesquisa por eixo</h1>
                     <SelectMenu
+                      width="250px"
+                      clicked
                       setSelected={setDataFilterEixos}
-                      options={[]}
-                      // Eixos
+                      options={[...dataFilterEixos.data]}
                       background="rgba(0,0,0,0)"
                       color="black"
                     />
@@ -202,7 +224,11 @@ export default function Demandas() {
                       <Link to={`/demanda/${item.name}`}>
                         <CardDemandas
                           className="box-demanda"
-                          color=" #EFBA8B"
+                          color={
+                            item.status.toString() === "1"
+                              ? "#EFBA8B"
+                              : "#EF8B8B"
+                          }
                           // "Turismo integrado no te..."
                           title={item.name}
                           // "Eixo - Negócios e renda"

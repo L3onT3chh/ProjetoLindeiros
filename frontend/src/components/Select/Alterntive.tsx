@@ -11,6 +11,7 @@ export function SelectMenuAlternative({
   iconFinal,
   setState,
   width,
+  value,
 }: IPropsGlobal) {
   const handleClick = (option: string) => {
     if (option !== undefined) {
@@ -30,6 +31,7 @@ export function SelectMenuAlternative({
       {options &&
         options.map((option: IOptions, index) => (
           <option
+            selected={value?.trim() === option.name}
             className="text-popup"
             value={option.id}
             key={index.toString()}

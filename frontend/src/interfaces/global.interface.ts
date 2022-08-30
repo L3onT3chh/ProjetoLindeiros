@@ -21,6 +21,12 @@ export interface IResponseData {
   error: string;
 }
 
+export interface INotification {
+  message: string;
+  duration: number;
+  level: "success" | "error";
+}
+
 export interface IFilters {
   type: string;
   local: string;

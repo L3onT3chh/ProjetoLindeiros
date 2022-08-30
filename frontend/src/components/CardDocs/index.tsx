@@ -27,7 +27,7 @@ export function CardDocs() {
         </div>
 
         <div className="buttons-card">
-          <button>
+          <button disabled>
             <BsDownload color="#fff" size={24} id="button-download" />
           </button>
         </div>

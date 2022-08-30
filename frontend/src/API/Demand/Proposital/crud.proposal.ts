@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import API from "API";
 import { AxiosError } from "axios";
 import { HEADERS_DATA, TokenUser } from "config";
@@ -5,7 +6,8 @@ import { IProposalPost } from "interfaces/data/demand.interface";
 
 const RegisterProposal = async (proposalSave: IProposalPost) => {
   try {
-    const headers = { ...HEADERS_DATA, token: `${TokenUser}` };
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
     const Proposal = await API("/proposal", {
       headers,
       method: "POST",

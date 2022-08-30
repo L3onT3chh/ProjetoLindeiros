@@ -1,12 +1,17 @@
 /* eslint-disable consistent-return */
 import { AxiosError } from "axios";
-import { HEADERS_DATA } from "config";
+import { HEADERS_DATA, TokenUser } from "config";
 import API from "..";
 
-export const findAllUsers = async (token: string) => {
+export const findAllUsers = async (): Promise<{
+  response: [];
+  message: string;
+  status: number;
+}> => {
   try {
+    const token = TokenUser();
     // const token = localStorage.getItem("token_jwt")?.toString();
-    const headers = { ...HEADERS_DATA, token: `${token}` };
+    const headers = { ...HEADERS_DATA, token: `${token?.toString()}` };
     const responseUsers = await API.get("/user", {
       method: "GET",
       headers,
@@ -14,12 +19,24 @@ export const findAllUsers = async (token: string) => {
       .then((response) => Promise.resolve(response.data))
       .catch((err: Error | AxiosError) => Promise.resolve(err));
     const { User } = await responseUsers.data;
-
     if (User) {
-      return User;
+      return {
+        response: User,
+        message: "Operação realizada com sucesso!",
+        status: 200,
+      };
     }
+    return {
+      response: [],
+      message: "Não foi possível realizar a operação",
+      status: 400,
+    };
   } catch (e: any) {
-    return [];
+    return {
+      response: [],
+      message: e.message,
+      status: e.status,
+    };
   }
 };
 

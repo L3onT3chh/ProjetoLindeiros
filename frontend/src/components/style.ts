@@ -921,7 +921,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
     z-index: 1;
     width: ${(props) => props.width}px;
     height: ${(props) => props.height}px;
-    margin: 100px auto;
+    margin: 50px auto;
     background: white;
 
     .header-two-popup {

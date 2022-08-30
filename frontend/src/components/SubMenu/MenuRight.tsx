@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react/button-has-type */
 import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
@@ -6,19 +8,24 @@ import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import PDefault from "components/Popups";
-import {
-  demands,
-  // docs_icon,
-  // eixos_icon,
-  // news_icon,
-  users,
-} from "../../assets/icons";
+import RegisterNews from "components/Popups/subContent/registerNews";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "app/store";
+import { logoutUserThunk } from "app/reducers/user/thunk";
+import { demands, news_icon, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 
 export function MenuRight() {
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
+  const [openPNews, setPNews] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const handleLogout = () => {
+    dispatch(logoutUserThunk());
+  };
+
   return (
     <>
       <PMeuPerfil
@@ -31,9 +38,9 @@ export function MenuRight() {
       </PMeuPerfil>
 
       <PDefault
-        height="849"
+        height="889"
         width="569"
-        title="Envio de proposta"
+        title="Envio de demandas"
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenPopupDemandas}
         trigger={openPopupDemandas}
@@ -41,12 +48,23 @@ export function MenuRight() {
         <RegisterDemandas />
       </PDefault>
 
+      <PDefault
+        height="540"
+        width="517"
+        title="Cadastro de noticias"
+        subtitle="Preencha todos os campos marcados *"
+        setTrigger={setPNews}
+        trigger={openPNews}
+      >
+        <RegisterNews setState={setPNews} />
+      </PDefault>
+
       <ContainerMenuRight>
         <div className="container-header-painel">
           <h1 className="title-h1">Painel</h1>
           {/* Adicionar o link do react router */}
           <div className="content-logout">
-            <Link to="/login">
+            <Link to="/login" onClick={() => handleLogout()}>
               <FiLogOut size={20} color="white" />
               <span className="title-h2">Logout</span>
             </Link>
@@ -96,45 +114,20 @@ export function MenuRight() {
             text="Demandas"
           />
 
-          {/* <ChipCard
+          <ChipCard
             icon={news_icon}
             optionsMenu={[
-              { title: "Inserir", urlMain: "painel/news/add" },
               {
-                title: "Listagem",
-                urlMain: "painel/news",
+                title: "Inserir",
+                activePopUp: true,
+                setTrigger: () => setPNews(!openPNews),
               },
+              { title: "Atualizar", urlMain: "painel/news" },
             ]}
             text="Noticías"
-          /> */}
-
-          {/* <ChipCard
-            icon={eixos_icon}
-            optionsMenu={[
-              // { title: "Inserir", urlMain: "painel/eixos/add" },
-              {
-                title: "Listagem",
-                urlMain: "painel/eixos",
-              },
-            ]}
-            text="Eixos"
           />
-
-          <ChipCard
-            icon={docs_icon}
-            optionsMenu={[
-              { title: "Inserir", urlMain: "painel/docs/add" },
-              {
-                title: "Listagem",
-                urlMain: "painel/eixos",
-              },
-            ]}
-            text="Documentos"
-          /> */}
         </div>
       </ContainerMenuRight>
-
-      {/* <FooterLink title="Abrir documentação" link="doc" /> */}
     </>
   );
 }

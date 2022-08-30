@@ -12,6 +12,7 @@ interface IPros {
   className?: string;
   onChange?: (event: any) => void;
   minLength?: number;
+  value?: any;
 }
 
 function InputStyle({
@@ -22,6 +23,7 @@ function InputStyle({
   type,
   name,
   onChange,
+  value,
   required,
 }: IPros) {
   return (
@@ -29,6 +31,7 @@ function InputStyle({
       <h2 className="title-h3">{title}</h2>
 
       <input
+        value={value}
         onChange={onChange}
         name={name}
         className="text-popup"

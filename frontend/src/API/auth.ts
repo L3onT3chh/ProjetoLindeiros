@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import API from "API";
 import { IUserLogin } from "../interfaces/data/user.interface";
 
@@ -7,21 +8,19 @@ interface IAuthUser {
   response: string;
 }
 
-export const login = async (user: IUserLogin): Promise<IAuthUser> => {
+const loginUser = async ({
+  username,
+  password,
+}: IUserLogin): Promise<IAuthUser> => {
   try {
-    const DataAuth = await API("/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      data: JSON.stringify({
-        email: user.username,
-        password: user.password,
-      }),
+    const DataAuth = await API.post("/login", {
+      email: username,
+      password,
     })
       .then((response) => Promise.resolve(response.data))
       .catch((err) => Promise.resolve(err));
-
-    const { User } = DataAuth.response;
-    if (User.id) {
+    if (DataAuth.isValid) {
+      const { User } = DataAuth.response;
       return {
         auth: true,
         status: 200,
@@ -29,7 +28,7 @@ export const login = async (user: IUserLogin): Promise<IAuthUser> => {
       };
     }
     return {
-      auth: true,
+      auth: false,
       status: 404,
       response: "Usuário inválido",
     };
@@ -42,8 +41,14 @@ export const login = async (user: IUserLogin): Promise<IAuthUser> => {
   }
 };
 
-const logout = () => {
+const logoutUser = () => {
   localStorage.removeItem("token_jwt");
 };
 
-export default [login, logout];
+const isAuthentication = () => {
+  if (localStorage.getItem("token_jwt") !== "") {
+    return true;
+  }
+};
+
+export default { login: loginUser, logout: logoutUser, isAuthentication };

@@ -11,10 +11,13 @@ export function SelectMenu({
   iconFinal,
   width,
   setSelected,
+  clicked,
 }: IPropsGlobal) {
   const handleClick = (option: string) => {
-    if (setSelected) {
-      setSelected(option);
+    if (clicked) {
+      setSelected({ data: options, clicked: option.trim() });
+    } else if (setSelected) {
+      setSelected(option.trim());
     }
   };
   return (

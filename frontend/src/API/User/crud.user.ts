@@ -2,11 +2,12 @@ import { AxiosError } from "axios";
 /* eslint-disable consistent-return */
 import API from "API";
 import { HEADERS_DATA, TokenUser } from "config";
-import { IUserPost } from "interfaces/data/user.interface";
+import { IUser, IUserPost } from "interfaces/data/user.interface";
 
 const RegisterUser = async (userSave: IUserPost) => {
   try {
-    const headers = { ...HEADERS_DATA, token: `${TokenUser}` };
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
     const user = await API("/user", {
       headers,
       method: "POST",
@@ -15,6 +16,12 @@ const RegisterUser = async (userSave: IUserPost) => {
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
 
+    if (user.error) {
+      return {
+        response: 400,
+        message: user.error,
+      };
+    }
     if (user.status === 200) {
       return {
         status: 200,
@@ -30,11 +37,44 @@ const RegisterUser = async (userSave: IUserPost) => {
   }
 };
 
-export const UpdateUser = async () => {};
+export const UpdateUser = async (userUpdate: IUser) => {
+  try {
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
+
+    const responseData = await API(`/user/${userUpdate.id}`, {
+      headers,
+      method: "PUT",
+      data: userUpdate,
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+
+    if (responseData.data.isValid) {
+      return {
+        status: 200,
+        message: "Usuário atualizado com sucesso!",
+        response: userUpdate,
+      };
+    }
+    return {
+      status: 400,
+      message: "Erro ao atualizar!",
+      response: userUpdate,
+    };
+  } catch (err: any) {
+    return {
+      status: 404,
+      message: err.message,
+      response: userUpdate,
+    };
+  }
+};
 
 export const DeleteUser = async (id: string) => {
   try {
-    const headers = { ...HEADERS_DATA, token: `${TokenUser}` };
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
     const userDell = await API(`/user/${id}`, {
       headers,
       method: "DELETE",

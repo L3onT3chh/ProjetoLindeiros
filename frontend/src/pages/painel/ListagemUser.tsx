@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from "react";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
@@ -7,7 +8,7 @@ import { recent } from "assets/icons";
 import { Cities } from "assets/data/filters";
 import { formatKeyTypes } from "util/function";
 import PDefault from "components/Popups";
-import RegisterUser from "components/Popups/CreateUser";
+import RegisterUser from "components/Popups/subContent/registerUser";
 import { useSelector } from "react-redux";
 import { ContainerPainel } from "../styled";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
@@ -44,7 +45,7 @@ IPropsGlobal) {
         <div className="content-header">
           <div className="btn-header">
             <ButtonCard
-              router="painel/users/"
+              router="/painel/users/"
               state={OpenUserCard}
               setState={setOpenUserCard}
               value={`Adicionar ${type}`}
@@ -69,18 +70,7 @@ IPropsGlobal) {
               width="200px"
               color="white"
             />
-            <SelectMenu
-              setSelected={configsSets && configsSets.setTwo}
-              iconFinal={recent}
-              background="rgba(0, 0, 0, 0.33)"
-              options={[
-                { name: "Instituição", id: "1" },
-                { name: "UTFPR", id: "2" },
-                { name: "UFPR", id: "3" },
-              ]}
-              color="white"
-              width="200px"
-            />
+
             <SelectMenu
               setSelected={configsSets && configsSets.setThree}
               iconFinal={recent}
@@ -90,6 +80,12 @@ IPropsGlobal) {
               color="white"
               width="200px"
             />
+            <button
+              className="btn-click-clear clear"
+              onClick={() => configsSets && configsSets.setFour(true)}
+            >
+              Limpar filtros
+            </button>
           </div>
         </div>
         {children}

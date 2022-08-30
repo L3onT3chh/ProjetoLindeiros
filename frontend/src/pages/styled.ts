@@ -256,6 +256,25 @@ export const ContainerPainel = styled.div<SContainerProps>`
   width: 100%;
   background: white;
 
+  .btn-click-clear {
+    width: 200px;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    background: rgba(0, 0, 0, 0);
+    transition: ease-in-out 0.2s;
+  }
+
+  .btn-click:hover {
+    font-weight: 500;
+    transform: scale(110%);
+  }
+
+  .clear {
+    position: absolute;
+    right: 100px;
+  }
+
   .container {
     z-index: 0;
     height: 100%;
@@ -312,9 +331,10 @@ export const ContainerPainel = styled.div<SContainerProps>`
 
       .content-filter-painel {
         display: flex;
+
         flex-direction: row;
         margin: 10px 0px;
-        width: 60%;
+        width: 32%;
         display: flex;
         justify-content: space-between;
       }

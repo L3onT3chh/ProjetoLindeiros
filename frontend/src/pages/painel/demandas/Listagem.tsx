@@ -1,4 +1,5 @@
 // import ButtonCard from "components/Buttons/ButtonCard";
+import ButtonCard from "components/Buttons/ButtonCard";
 import { InputSearch } from "components/Inputs/Search";
 import { LoadingDefault } from "components/Loading";
 import { MenuRight } from "components/SubMenu/MenuRight";
@@ -8,11 +9,11 @@ import React from "react";
 
 export function ListagemDemanda({
   setState,
-  // type,
+  type,
   children,
   active,
-}: // state,
-IPropsGlobal) {
+  state,
+}: IPropsGlobal) {
   return (
     <ContainerPainel>
       <MenuRight />
@@ -20,12 +21,12 @@ IPropsGlobal) {
       <div className="container">
         <div className="content-header">
           <div className="btn-header">
-            {/* <ButtonCard
+            <ButtonCard
               state={state}
               value={`Adicionar ${type}`}
-              router={undefined}
+              router="/painel/demandas"
               setState={setState}
-            /> */}
+            />
           </div>
 
           <InputSearch
