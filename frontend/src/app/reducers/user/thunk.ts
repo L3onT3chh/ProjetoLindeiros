@@ -1,10 +1,9 @@
 import { IUser } from "interfaces/data/user.interface";
 /* eslint-disable consistent-return */
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import userLogin from "API/auth";
 import userCrud from "API/User/crud.user";
 import { findAllUsers } from "API/User/find.user";
-import { IUserLogin, IUserPost } from "../../../interfaces/data/user.interface";
+import { IUserPost } from "../../../interfaces/data/user.interface";
 
 export const createUserThunk = createAsyncThunk(
   "users/create",
@@ -31,16 +30,3 @@ export const fetchUsersThunk = createAsyncThunk(
     return users;
   },
 );
-
-export const authLoginThunk = createAsyncThunk(
-  "users/auth",
-  async ({ username, password }: IUserLogin) => {
-    const response = await userLogin.login({ username, password });
-    return response;
-  },
-);
-
-export const logoutUserThunk = createAsyncThunk("users/logout", async () => {
-  const response = userLogin.logout();
-  return response;
-});

@@ -5,11 +5,7 @@ import "./style.css";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  return (
-    <>
-      <Router />;
-    </>
-  );
+  return <Router />;
 }
 
 export default App;

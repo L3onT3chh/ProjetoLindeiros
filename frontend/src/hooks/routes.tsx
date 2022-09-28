@@ -1,12 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Contato } from "pages/Contato";
 import { Documents } from "pages/documents";
 import { Eixos } from "pages/eixo";
 import { News } from "pages/news/News";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Demanda } from "pages/demandas/Demanda";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
@@ -17,13 +14,16 @@ import { TableDefaultData } from "components/Tables/TableData";
 import {
   fetchDemandsThunk,
   fetchDocumentsThunk,
-  fetchUsersThunk,
   fetchTypesThunk,
+  fetchUsersThunk,
 } from "app/reducers";
 import { fetchNewssThunk } from "app/reducers/news/thunk";
 import { ToastContainer } from "react-toastify";
 import { fetchCitysThunk } from "app/reducers/city/thunk";
 import { fetchAxesThunk } from "app/reducers/axes/thunk";
+import RegisterRepresent from "pages/Register";
+import ForgoutPassword from "pages/ForgoutPassword";
+import PrivatRoute from "components/PrivateRouter";
 import { MenuRight } from "../components/SubMenu/MenuRight";
 import Demandas from "../pages/demandas/Demandas";
 import Home from "../pages/Home";
@@ -40,18 +40,15 @@ const HandleDispatchData = () => {
     dispatch(fetchCitysThunk());
     dispatch(fetchDocumentsThunk());
     dispatch(fetchDemandsThunk());
-    dispatch(fetchUsersThunk());
     dispatch(fetchTypesThunk());
     dispatch(fetchNewssThunk());
     dispatch(fetchAxesThunk());
-  }, []);
+    dispatch(fetchUsersThunk());
+  }, [dispatch]);
 };
-function Router() {
+function Routers() {
   HandleDispatchData();
-  const { users, demands, userTypes } = useSelector(
-    (state: IStateData) => state,
-  );
-
+  const { users, demands } = useSelector((state: IStateData) => state);
   const [dataSearch, setDataSearch] = useState("");
   const [dataSearchUser, setDataSearchUser] = useState("");
   const [s1, setOne] = useState();
@@ -69,59 +66,106 @@ function Router() {
         <Route path="/noticias" element={<News />} />
         <Route path="/documentos" element={<Documents />} />
         <Route path="/contato" element={<Contato />} />
+        <Route path="/register" element={<RegisterRepresent />} />
+        <Route path="/forgoutPassword" element={<ForgoutPassword />} />
 
         {/* Painel router */}
-        <Route path="/painel" element={<InicioPainel />} />
+        <Route
+          path="/painel"
+          element={
+            <PrivatRoute>
+              <InicioPainel />
+            </PrivatRoute>
+          }
+        />
         <Route path="/painel/users/add" element={<>oi</>} />
         <Route
           path="/painel/users"
           element={
-            <Listagem
-              active={users.loading}
-              type="Usuários"
-              configsSets={{ setOne, setTwo, setThree, setFour }}
-              setState={setDataSearchUser}
-              types={userTypes && userTypes.types}
-            >
-              <TableDefaultUser
-                data={users.users}
-                configSets={{ s1, s2, s3, s4, setFour }}
-                text={dataSearchUser}
-                fields={[...fields]}
-              />
-            </Listagem>
+            <PrivatRoute>
+              <Listagem
+                active={users.loading}
+                type="Usuários"
+                configsSets={{ setOne, setTwo, setThree, setFour }}
+                setState={setDataSearchUser}
+              >
+                <TableDefaultUser
+                  configSets={{ s1, s2, s3, s4, setFour }}
+                  text={dataSearchUser}
+                  fields={[...fields]}
+                />
+              </Listagem>
+            </PrivatRoute>
           }
         />
         <Route
           path="/painel/demandas"
           element={
-            <ListagemDemanda
-              type="Demanda"
-              active={demands.loading}
-              setState={setDataSearch}
-            >
-              <TableDefaultData
-                text={dataSearch}
-                fields={[
-                  "Nome",
-                  "Áreas relacionadas",
-                  "Prioridade",
-                  "Cidade",
-                  "Atualizada",
-                ]}
-              />
-            </ListagemDemanda>
+            <PrivatRoute>
+              <ListagemDemanda
+                type="Demanda"
+                active={demands.loading}
+                setState={setDataSearch}
+              >
+                <TableDefaultData
+                  text={dataSearch}
+                  fields={[
+                    "Nome",
+                    "Áreas relacionadas",
+                    "Prioridade",
+                    "Cidade",
+                    "Atualizada",
+                  ]}
+                />
+              </ListagemDemanda>
+            </PrivatRoute>
           }
         />
-        <Route path="/painel/popup/demandas/status" element={<MenuRight />} />
-        <Route path="/painel/popup/demandas/add" element={<MenuRight />} />
-        <Route path="/painel/news/add" element={<MenuRight />} />
-        <Route path="/painel/eixos/add" element={<MenuRight />} />
-        <Route path="/painel/docs/add" element={<MenuRight />} />
+        <Route
+          path="/painel/popup/demandas/status"
+          element={
+            <PrivatRoute>
+              <MenuRight />
+            </PrivatRoute>
+          }
+        />
+        <Route
+          path="/painel/popup/demandas/add"
+          element={
+            <PrivatRoute>
+              <MenuRight />
+            </PrivatRoute>
+          }
+        />
+        <Route
+          path="/painel/news/add"
+          element={
+            <PrivatRoute>
+              <MenuRight />
+            </PrivatRoute>
+          }
+        />
+        <Route
+          path="/painel/eixos/add"
+          element={
+            <PrivatRoute>
+              <MenuRight />
+            </PrivatRoute>
+          }
+        />
+        <Route
+          path="/painel/docs/add"
+          element={
+            <PrivatRoute>
+              <MenuRight />
+            </PrivatRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
       </Routes>
       <ToastContainer />
     </>
   );
 }
 
-export default Router;
+export default Routers;

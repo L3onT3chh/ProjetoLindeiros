@@ -12,7 +12,7 @@ import CardDefault from "../../components/Card/CardDefault";
 import { StatisticGraph } from "../../components/Card/Statistic";
 import { ChipLeft } from "../../components/Chips/ChipLeft";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
-import { ContainerPainel } from "../styled";
+import { ContainerPainel } from "../css/styled";
 
 export function InicioPainel() {
   return (

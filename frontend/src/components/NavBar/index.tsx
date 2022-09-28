@@ -1,77 +1,74 @@
-import React from "react";
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TokenUser } from "config";
-import { ContainerNavBar } from "../style";
-import {
-  contactIcon,
-  demandasIcon,
-  documentosIcon,
-  eixosIcon,
-  homeIcon,
-  loginIcon,
-  newsIcon,
-} from "../../assets/icons";
+import { NavMobile } from "components/NavBar/NavMobile";
+import { IPropsGlobal } from "interfaces/components.interface";
+import { ContainerNavBar, ContentNav } from "../style";
 
-function NavBar() {
+function NavBar({ className }: IPropsGlobal) {
+  const [stateNav, setState] = useState(false);
   return (
-    <ContainerNavBar>
-      <div className="content-links">
-        <ul>
-          <div className="content-link">
-            <Link className="link-btn" to="/">
-              <img className="img-btn" src={homeIcon} alt="home-icon" />
-              Home
-            </Link>
+    <ContentNav className={className}>
+      <div className="menu-nav-hamburguer">
+        <NavMobile className="ul-mobile" active={stateNav} />
+        <input type="checkbox" id="hamburguer-input" />
+        <label htmlFor="hamburguer-input">
+          <div className="menu-hamburguer" onClick={() => setState(!stateNav)}>
+            <span className="hamburguer-line" />
           </div>
-          <div className="content-link">
-            <Link className="link-btn" to="/eixos">
-              <img className="img-btn" src={eixosIcon} alt="eixos-icon" />
-              Eixos
-            </Link>
-          </div>
-          <div className="content-link">
-            <Link className="link-btn" to="/demandas">
-              <img className="img-btn" src={demandasIcon} alt="demandas-icon" />
-              Demandas
-            </Link>
-          </div>
-          <div className="content-link">
-            <Link className="link-btn" to="/documentos">
-              <img
-                className="img-btn"
-                src={documentosIcon}
-                alt="documents-icon"
-              />
-              Documentos
-            </Link>
-          </div>
-          <div className="content-link">
-            <Link className="link-btn" to="/noticias">
-              <img className="img-btn" src={newsIcon} alt="news-icon" />
-              Notícias
-            </Link>
-          </div>
-          <div className="content-link">
-            <Link className="link-btn" to="/contato">
-              <img className="img-btn" src={contactIcon} alt="contact-icon" />
-              Contato
-            </Link>
-          </div>
-        </ul>
-
-        {TokenUser() ? (
-          <Link className="link-login" to="/painel">
-            <img className="img-btn" src={loginIcon} alt="login-icon" />
-            Acessar painel
-          </Link>
-        ) : (
-          <Link className="link-login" to="/login">
-            <img className="img-btn" src={loginIcon} alt="login-icon" />
-            Efetur Login
-          </Link>
-        )}
+        </label>
       </div>
-    </ContainerNavBar>
+      <ContainerNavBar className="nav-menu-main">
+        <div className="content-links">
+          <ul>
+            <div className="content-link">
+              <Link className="link-btn" to="/">
+                Home
+              </Link>
+            </div>
+            <div className="content-link">
+              <Link className="link-btn" to="/eixos">
+                Eixos
+              </Link>
+            </div>
+            <div className="content-link">
+              <Link className="link-btn" to="/demandas">
+                Demandas
+              </Link>
+            </div>
+            <div className="content-link">
+              <Link className="link-btn" to="/documentos">
+                Documentos
+              </Link>
+            </div>
+            <div className="content-link">
+              <Link className="link-btn" to="/noticias">
+                Notícias
+              </Link>
+            </div>
+            <div className="content-link">
+              <Link className="link-btn" to="/contato">
+                Contato
+              </Link>
+            </div>
+          </ul>
+
+          {TokenUser() ? (
+            <Link className="link-login" to="/painel">
+              Acessar painel
+            </Link>
+          ) : (
+            <Link className="link-login" to="/login">
+              Efetuar Login
+            </Link>
+          )}
+        </div>
+      </ContainerNavBar>
+    </ContentNav>
   );
 }
 

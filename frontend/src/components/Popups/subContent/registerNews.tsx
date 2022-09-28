@@ -32,7 +32,6 @@ function RegisterNews({ setState }: IPropsGlobal) {
         city_id: cityId,
       }),
     );
-    console.log(city);
     setState(false);
   };
 

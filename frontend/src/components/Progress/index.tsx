@@ -9,7 +9,7 @@ interface IProgress extends SContainerProps {
 
 function ProgressBar({ percentage, color, font }: IProgress) {
   return (
-    <ContainerProgress>
+    <ContainerProgress active={parseInt(percentage, 10) > 0}>
       <TitleDefault
         color={color}
         font={font}

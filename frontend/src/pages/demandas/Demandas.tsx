@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable array-callback-return */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useEffect, useState } from "react";
 import NavBar from "components/NavBar";
-import { ContainerPage } from "pages/styled";
+import { ContainerPage } from "pages/css/styled";
 import { InputSearch } from "components/Inputs/Search";
 import { SelectMenu } from "components/Select";
 import MenuSuspenso from "components/Card/MenuSuspenso";
@@ -14,6 +13,7 @@ import { IStateData } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
 import { Link } from "react-router-dom";
 import { LoadingDefault } from "components/Loading";
+import { mergeArray } from "util/function";
 
 export default function Demandas() {
   const { demands, city, axes } = useSelector((state: IStateData) => state);
@@ -33,10 +33,27 @@ export default function Demandas() {
     b: 0,
     c: 0,
   });
-
   const handleComparationString = (text: string, textTwo: string) => {
     return text.toLowerCase().trim() === textTwo.toLowerCase().trim();
   };
+
+  const handleComparationStatus = (items: IDemand[], status: any) => {
+    const statusAux: any = { 1: [], 2: [], 3: [] };
+
+    if (items && (status.a || status.b || status.c)) {
+      items.map((item) => {
+        if (status.a.toString() === item.status.toString())
+          statusAux[1].push(item);
+        else if (status.b.toString() === item.status.toString())
+          statusAux[2].push(item);
+        else if (status.c.toString() === item.status.toString())
+          statusAux[3].push(item);
+      });
+      return [...statusAux[1], ...statusAux[2], ...statusAux[3]];
+    }
+    return [];
+  };
+
   useEffect(() => {
     setDataFilterCity({
       data: [...city.city],
@@ -74,17 +91,22 @@ export default function Demandas() {
 
   useEffect(() => {
     if (dataFilterEixos.clicked.trim() !== "Todos os eixos") {
-      setDataNew(
+      const dataA = [];
+      dataA.push(
         demands.demand.filter(
           (item) =>
             handleComparationString(item.Axes.name, dataFilterEixos.clicked) &&
             item,
         ),
       );
+      const dataB = [];
+      dataB.push(handleComparationStatus(demands.demand, dataCheckbox));
+      setDataNew(mergeArray(dataA[0], dataB[0])[0]);
     } else {
       setDataNew([...demands.demand]);
     }
-  }, [dataFilterEixos.clicked]);
+  }, [dataFilterEixos.clicked, dataCheckbox]);
+
   useEffect(() => {
     setDataVerify(demands.demand !== undefined);
   }, [demands.demand]);
@@ -221,7 +243,7 @@ export default function Demandas() {
                 <div className="cards-demandas">
                   {dataNew &&
                     dataNew.map((item: IDemand) => (
-                      <Link to={`/demanda/${item.name}`}>
+                      <Link to={`/demanda/${item.name}`} key={item.name}>
                         <CardDemandas
                           className="box-demanda"
                           color={

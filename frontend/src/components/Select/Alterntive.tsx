@@ -11,6 +11,7 @@ export function SelectMenuAlternative({
   iconFinal,
   setState,
   width,
+  title,
   value,
 }: IPropsGlobal) {
   const handleClick = (option: string) => {
@@ -20,26 +21,31 @@ export function SelectMenuAlternative({
   };
 
   return (
-    <ContainerSelectAlternative
-      className={className}
-      background={background}
-      color={color}
-      icon={iconFinal}
-      width={width}
-      onChange={(e) => handleClick(e.target.selectedOptions[0].value)}
-    >
-      {options &&
-        options.map((option: IOptions, index) => (
-          <option
-            selected={value?.trim() === option.name}
-            className="text-popup"
-            value={option.id}
-            key={index.toString()}
-          >
-            {option.name}
-            {"  "}
-          </option>
-        ))}
-    </ContainerSelectAlternative>
+    <>
+      <h2 className="title-h3" style={{ fontSize: "18px" }}>
+        {title}
+      </h2>
+      <ContainerSelectAlternative
+        className={className}
+        background={background}
+        color={color}
+        icon={iconFinal}
+        width={width}
+        onChange={(e) => handleClick(e.target.selectedOptions[0].value)}
+      >
+        {options &&
+          options.map((option: IOptions, index) => (
+            <option
+              selected={value?.trim() === option.name}
+              className="text-popup"
+              value={option.id}
+              key={index.toString()}
+            >
+              {option.name}
+              {"  "}
+            </option>
+          ))}
+      </ContainerSelectAlternative>
+    </>
   );
 }

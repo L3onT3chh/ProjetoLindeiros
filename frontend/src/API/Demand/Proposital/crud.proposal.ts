@@ -5,17 +5,17 @@ import { HEADERS_DATA, TokenUser } from "config";
 import { IProposalPost } from "interfaces/data/demand.interface";
 
 const RegisterProposal = async (proposalSave: IProposalPost) => {
+  console.log(proposalSave);
   try {
     const token = TokenUser();
     const headers = { ...HEADERS_DATA, token: `${token}` };
-    const Proposal = await API("/proposal", {
+    const Proposal = await API.post("/proposal", {
       headers,
-      method: "POST",
-      data: proposalSave,
+      body: JSON.stringify(proposalSave),
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-
+    console.log(Proposal);
     if (Proposal.status === 200) {
       return {
         status: 200,

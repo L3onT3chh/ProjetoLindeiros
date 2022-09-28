@@ -2,8 +2,9 @@ import React from "react";
 import Banner from "assets/img/banner";
 import ImageEixos from "assets/icons/eixos";
 import { splitTitle } from "util/function";
+import NavBar from "components/NavBar";
 import CarrouselComp from "../components/Carrousel";
-import { ContainerPage } from "./styled";
+import { ContainerPage } from "./css/styled";
 import CardDemandas from "../components/Card/BannerDemanda";
 import { logoIcon } from "../assets/icons";
 import CardAxes from "../components/Card/Axes";
@@ -12,9 +13,9 @@ import OtherNews from "../components/Card/OtherNews";
 import ButtonDefault from "../components/Buttons/ButtonDefault";
 import cityOther from "../assets/img/city_retangle.png";
 import SponsorList from "../components/Carrousel/Sponsor";
-import DoubtedCard from "../components/Card/Doubt";
-import Footer from "../components/Footer";
-import NavBar from "../components/NavBar";
+// import DoubtedCard from "../components/Card/Doubt";
+// import Footer from "../components/Footer";
+// import NavBar from "../components/NavBar";
 
 const TITLE =
   "Conselho dos Lindeiros solidifica parcerias para projetos estruturantes na região";
@@ -142,9 +143,9 @@ function Home() {
           <SponsorList />
         </div>
 
-        <DoubtedCard />
+        {/* <DoubtedCard /> */}
 
-        <Footer />
+        {/* <Footer /> */}
       </ContainerPage>
     </>
   );

@@ -192,6 +192,7 @@ export const ContainerButton = styled.button<SContainerProps>`
 export const ContainerNews = styled.div`
   background: rgba(0, 0, 0, 0.34);
   height: 100%;
+  width: 100%;
 
   .card-floatting {
     width: 428px;
@@ -215,11 +216,15 @@ export const ContainerNews = styled.div`
   }
 
   .content-news {
-    width: 787px;
+    width: 90%;
     left: 28px;
     position: relative;
     bottom: -200px;
     color: var(--color-font-primary);
+
+    .title-h3-italic {
+      font-size: 28px;
+    }
   }
 `;
 
@@ -227,7 +232,8 @@ export const ContainerOtherNews = styled.div`
   display: flex;
 
   img {
-    height: 145px;
+    display: block;
+    height: 165px;
   }
 
   .data-content {
@@ -289,13 +295,18 @@ export const ContainerDoubt = styled.div<SContainerProps>`
   .container-right {
     width: 40%;
     text-align: right;
+    align-items: center;
+    justify-content: space-around;
     display: flex;
     flex-direction: column;
+
+    .form-control-demand {
+      margin-top: 20px;
+    }
 
     span {
       padding: 10px;
     }
-
     .icon-send {
       width: 60px;
       height: 60px;
@@ -385,6 +396,7 @@ export const ContainerFooter = styled.div`
 
     img {
       margin-bottom: 30px;
+      width: 80%;
     }
   }
 
@@ -429,8 +441,10 @@ export const ContainerChipAdd = styled.div`
   }
 `;
 
-export const ButtonSubmitStyle = styled.img<SContainerProps>`
+export const ButtonSubmitStyle = styled.button<SContainerProps>`
   background-image: url(${(props) => props.background});
+  background-repeat: no-repeat;
+  background-position: center;
 `;
 
 export const ContainerWelcome = styled.div`
@@ -587,8 +601,8 @@ export const ContainerH1 = styled.h1<SContainerProps>`
   font-size: ${(props) => props.font ?? "35"}px;
 `;
 
-export const ContainerProgress = styled.div`
-  z-index: 1;
+export const ContainerProgress = styled.div<SContainerProps>`
+  z-index: 3;
   width: 450px;
   text-align: center;
   padding: 1px;
@@ -598,7 +612,9 @@ export const ContainerProgress = styled.div`
   align-items: center;
   justify-content: center;
   padding-top: 3px;
-  background-color: var(--color-background);
+  background-color: var(
+    ${(props) => (props.active ? "--color-background" : "--color-font-primary")}
+  );
 `;
 
 export const ContainerNavMenu = styled.div`
@@ -653,6 +669,24 @@ export const ContainerSubMenu = styled.div`
   left: 9.4vw;
   right: 9.4vw;
   width: 80%;
+  display: flex;
+  flex-direction: column;
+
+  li {
+    padding: 10px;
+    /* border: 1px solid #cecece; */
+    height: min-content;
+    width: 99%;
+    height: min-content;
+    margin: 5px;
+    display: block;
+    transition: ease-in-out 0.6s;
+
+    &:hover {
+      border-left: 0.1px solid #cecece;
+      transform: scale(101%);
+    }
+  }
 `;
 
 export const ContainerMenuSuspenso = styled.div`
@@ -680,6 +714,7 @@ export const ContainerCardProposta = styled.div`
   height: 269px;
   padding: 40px;
   margin: 20px;
+  border: 1px solid black;
 
   h2 {
     text-align: center;
@@ -1179,4 +1214,235 @@ export const ContainerNotFound = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const ContainerButtonForm = styled.button<SContainerProps>`
+  width: ${(props) => props.width};
+  background: var(--color-background);
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+  transition: ease-in-out 0.4s;
+  padding: 15px;
+
+  &:hover {
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+    transform: scale(101%);
+  }
+`;
+
+export const ContainerProposal = styled.div`
+  .buttons-action {
+    width: 200px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin: 30px auto;
+  }
+
+  .bnt {
+    width: 47%;
+    padding: 10px;
+    height: 60px;
+    color: white;
+  }
+
+  .reject-proposal {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background: #dd3a3a;
+  }
+
+  .accept-proposal {
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background: #1c9420;
+  }
+
+  .info-proposal {
+    margin-top: 50px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .info-descripton {
+    margin-top: 30px;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    .info-sublined {
+      margin-top: 80px;
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 30px;
+      /* or 233% */
+
+      text-align: justify;
+      letter-spacing: 0.05em;
+
+      color: #333333;
+    }
+  }
+`;
+
+export const ContainerCardInfo = styled.div`
+  display: flex;
+  align-items: center;
+  width: 280px;
+  height: 90px;
+  padding: 20px;
+  background: #ffffff;
+  font-size: 12px;
+  text-align: justify;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  .icon {
+    margin-right: 15px;
+    min-width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+  }
+
+  .data-cardInfo {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+export const ContentNav = styled.div`
+  .menu-nav-hamburguer {
+    height: 0;
+  }
+  /* hamburguer styled */
+  .menu-hamburguer {
+    z-index: 9;
+    position: fixed;
+    border-radius: 50%;
+    left: 25px;
+    bottom: 25px;
+    width: 60px;
+    height: 60px;
+    border: 0;
+    background: var(--color-background-opacity);
+    box-shadow: 0 0 7px 1px var(--color-background-opacity);
+    transition: cubic-bezier(1, 0.2, 0.98, 1) 0.2s;
+  }
+
+  .hamburguer-line {
+    border-radius: 50%;
+    display: flex;
+    position: relative;
+    top: 29px;
+    left: 14px;
+    width: 30px;
+    height: 2px;
+    background: white;
+    transition: cubic-bezier(0, 0.5, 0.58, 1.3) 0.2s;
+  }
+
+  .hamburguer-line:before,
+  .hamburguer-line:after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: white;
+    position: absolute;
+  }
+
+  .hamburguer-line:before {
+    top: -10px;
+  }
+
+  .hamburguer-line:after {
+    bottom: -10px;
+  }
+
+  .menu-hamburguer:hover {
+    transform: scale(110%);
+  }
+
+  input {
+    display: none;
+  }
+
+  input:checked ~ label .menu-hamburguer {
+    transform: rotate(45deg);
+  }
+
+  input:checked ~ label .hamburguer-line:before {
+    transform: rotate(90deg);
+    top: 0px;
+  }
+
+  input:checked ~ label .hamburguer-line:after {
+    bottom: 0;
+  }
+
+  input:checked ~ label .menu-hamburguer {
+    z-index: 7;
+    box-shadow: 0 0 0 1000vw var(--color-background);
+  }
+
+  input:checked aside {
+    visibility: visible;
+  }
+
+  aside {
+    visibility: hidden;
+  }
+
+  @media only screen and (min-width: 1100px) {
+    .menu-hamburguer,
+    .ul-mobile {
+      display: none;
+    }
+  }
+
+  @media only screen and (max-width: 1100px) {
+    .nav-menu-main {
+      display: none;
+    }
+
+    .ul-mobile {
+      display: block;
+    }
+  }
+`;
+
+export const ContentMobileMenu = styled.div<SContainerProps>`
+  visibility: ${(props) => (props.active ? "visible" : "hidden")};
+  position: fixed;
+  transition: cubic-bezier(0, 0.5, 0.58, 0) 0.1s;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  top: 30%;
+  left: 39%;
+  right: 39%;
+
+  .link-btn-mobile {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+
+    p {
+      font-size: 24px;
+      color: white;
+      transition: ease-in-out 0.2s;
+    }
+
+    p:hover {
+      transform: scale(110%);
+    }
+  }
 `;

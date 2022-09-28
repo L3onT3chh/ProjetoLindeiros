@@ -12,6 +12,7 @@ import documentReducer from "./document/documentSlice";
 import usersReducer from "./user/userSlice";
 import demandReducer from "./demand/demandSlice";
 import userTypesReducer from "./userTypes/userTypes";
+import authReducer from "./auth/authSlice";
 
 const rootReducer = combineReducers({
   news: newsReducer,
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   loadingBar: loadingBarReducer,
   city: cityReducer,
   axes: axesReducer,
+  auth: authReducer,
   // proposals: proposalSlice,
 });
 

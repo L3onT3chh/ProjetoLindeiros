@@ -1,10 +1,14 @@
 import styled from "styled-components";
-import { SContainerProps } from "../interfaces/global.interface";
+import { SContainerProps } from "../../interfaces/global.interface";
 
 export const ContainerPage = styled.div<SContainerProps>`
   width: 100%;
   z-index: 1;
   background-color: white;
+
+  .form-control-demand-forgout {
+    margin-top: 20px;
+  }
 
   .create-proposal {
     position: absolute;
@@ -41,7 +45,6 @@ export const ContainerPage = styled.div<SContainerProps>`
     align-items: center;
 
     .logo-about {
-      padding: 0px 49px 0 48px;
       border-radius: 5px;
       margin-right: 70px;
     }
@@ -84,12 +87,16 @@ export const ContainerPage = styled.div<SContainerProps>`
       margin-right: 10px;
     }
   }
+  .news-content {
+    width: 105%;
+    padding: 10px;
+  }
 
   .eixos-programmer,
   .others-news {
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-wrap: wrap;
 
     .card-eixo-home {
@@ -119,6 +126,29 @@ export const ContainerPage = styled.div<SContainerProps>`
       span {
         padding: 10px;
       }
+    }
+  }
+
+  @media (max-width: 1222px) {
+    .description-about {
+      margin-top: 100px;
+      flex-direction: column;
+      text-align: center;
+      transition: ease-in-out 0.2s;
+
+      .logo-about {
+        margin: 0;
+      }
+    }
+
+    .eixos-programmer,
+    .others-news {
+      justify-content: center;
+      align-items: center;
+    }
+
+    .others-news > :nth-child(1n + 1) {
+      margin: 10px;
     }
   }
 

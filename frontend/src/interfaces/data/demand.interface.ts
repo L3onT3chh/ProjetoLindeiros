@@ -15,10 +15,22 @@ export interface IDemand {
   Proposal: IProposal[];
 }
 
+export interface IDemandPost {
+  name: string;
+  description: string;
+  priority: string;
+  generalText: string;
+  specificText: string;
+  city_id: string;
+  axes_id: string;
+}
+
 export interface IObjective {
   id: string;
   general: string;
-  specific: string;
+  SpecificText: {
+    text: string;
+  };
 }
 
 export interface IAxes {
@@ -38,15 +50,16 @@ export interface IProposalPost {
   time: string[];
   description: string;
   value: number;
-  deadline: Date;
+  deadline: string;
   priority: string;
-  demands_id: string;
+  demands_id?: string;
 }
 
 export interface IProposal {
   id: string;
   description: string;
   priority: string;
+  isAproved: string;
   Details: IDetails;
 }
 

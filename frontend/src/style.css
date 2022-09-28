@@ -6,9 +6,6 @@
     font-family: 'Inter', sans-serif;
 }
 
-body {
-    width: 100%;
-}
 
  :root {
     --color-font-primary: #FFFFFF;
@@ -33,6 +30,15 @@ body {
 .b-white {
     color: white;
 }
+
+
+.title-h3-alternative {
+    text-align: center;
+    width: 500px;
+    color: black;
+    margin: auto;
+}
+
 
 .text-popup {
     color: rgba(51, 51, 51, 0.8);

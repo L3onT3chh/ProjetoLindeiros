@@ -9,9 +9,6 @@ import { MyProfile } from "components/Popups/subContent/Profile";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import PDefault from "components/Popups";
 import RegisterNews from "components/Popups/subContent/registerNews";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "app/store";
-import { logoutUserThunk } from "app/reducers/user/thunk";
 import { demands, news_icon, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
@@ -20,11 +17,7 @@ export function MenuRight() {
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
   const [openPNews, setPNews] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-
-  const handleLogout = () => {
-    dispatch(logoutUserThunk());
-  };
+  // const dispatch = useDispatch<AppDispatch>();
 
   return (
     <>
@@ -45,7 +38,7 @@ export function MenuRight() {
         setTrigger={setOpenPopupDemandas}
         trigger={openPopupDemandas}
       >
-        <RegisterDemandas />
+        <RegisterDemandas setState={setOpenPopupDemandas} />
       </PDefault>
 
       <PDefault
@@ -64,7 +57,7 @@ export function MenuRight() {
           <h1 className="title-h1">Painel</h1>
           {/* Adicionar o link do react router */}
           <div className="content-logout">
-            <Link to="/login" onClick={() => handleLogout()}>
+            <Link to="/login" onClick={() => {}}>
               <FiLogOut size={20} color="white" />
               <span className="title-h2">Logout</span>
             </Link>

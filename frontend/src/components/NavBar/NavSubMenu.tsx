@@ -15,7 +15,9 @@ function NavSubMenu({ childrens, setText }: IProps) {
     <ContainerNavMenu>
       <nav>
         {childrens.map((child) => (
-          <li onClick={() => setText(child.id)}>{child.name}</li>
+          <li onClick={() => setText(child.id)} key={child.id}>
+            {child.name}
+          </li>
         ))}
       </nav>
     </ContainerNavMenu>

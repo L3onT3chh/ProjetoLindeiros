@@ -10,7 +10,7 @@ import "../../assets/css/noticias.css";
 // Images
 import * as ImagesEixos from "../../assets/img/eixos";
 // Components
-import { ContainerBackground } from "../styled";
+import { ContainerBackground } from "../css/styled";
 
 // Refazer com styled component
 export function News() {

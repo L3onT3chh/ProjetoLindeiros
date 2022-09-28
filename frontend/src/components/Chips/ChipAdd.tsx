@@ -1,16 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import InputAdd from "components/Inputs/inputAdd";
 import { ContainerChipAdd } from "components/style";
 import { IPropsGlobal } from "interfaces/components.interface";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 
-function ChipAdd({ className, text }: IPropsGlobal) {
+function ChipAdd({ className, text, setState }: IPropsGlobal) {
   const [data, setData] = useState([]);
-
   const handleRemoveItem = (value: string) => {
     const temp = data.filter((item) => item !== value);
     setData(temp);
   };
+
+  useEffect(() => {
+    setState([...data]);
+  }, [data]);
 
   return (
     <ContainerChipAdd className={className}>

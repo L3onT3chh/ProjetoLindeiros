@@ -1,12 +1,12 @@
-import { TokenUser, HEADERS_DATA } from "config";
+import { HEADERS_DATA } from "config";
 /* eslint-disable consistent-return */
 import API from "API";
 import { AxiosError } from "axios";
 
 export const findAllTypes = async () => {
   try {
-    // const token = localStorage.getItem("token_jwt")?.toString();
-    const token = TokenUser();
+    const token = localStorage.getItem("tokeAuth")?.toString();
+
     const headers = { ...HEADERS_DATA, token: `${token}` };
     const responseTypes = await API.get("/userType", {
       method: "GET",

@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { AxiosError } from "axios";
-import { HEADERS_DATA, TokenUser } from "config";
+import { HEADERS_DATA } from "config";
 import API from "..";
 
 export const findAllUsers = async (): Promise<{
@@ -9,8 +9,8 @@ export const findAllUsers = async (): Promise<{
   status: number;
 }> => {
   try {
-    const token = TokenUser();
-    // const token = localStorage.getItem("token_jwt")?.toString();
+    const token = localStorage.getItem("tokeAuth")?.toString();
+
     const headers = { ...HEADERS_DATA, token: `${token?.toString()}` };
     const responseUsers = await API.get("/user", {
       method: "GET",

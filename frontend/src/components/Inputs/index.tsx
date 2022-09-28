@@ -31,7 +31,7 @@ function InputStyle({
       <h2 className="title-h3">{title}</h2>
 
       <input
-        value={value}
+        defaultValue={value}
         onChange={onChange}
         name={name}
         className="text-popup"

@@ -9,14 +9,19 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 import { PMeuPerfil } from "components/Popups/Profile";
 import { CardPropostas } from "components/Card/Propostas";
 import { cityspcape } from "assets/icons";
-import { useSelector } from "react-redux";
-// import { findProposal } from "API/Demand/Proposital/crud";
-// import { findProposital } from "API/Demand/Proposital/find";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteDemandsThunk } from "app/reducers/demand/thunk";
+import { AppDispatch } from "app/store";
+import PDefault from "components/Popups";
+import UpdateDemand from "components/Popups/subContent/updateDemand";
 
 export function TableDefaultData({ fields, text }: IPropsGlobal) {
+  const dispatch = useDispatch<AppDispatch>();
   const { demands } = useSelector((state: IStateData) => state);
   const [newData, setNewData] = useState<IDemand[]>();
   const [dataClicked, setDataClicked] = useState<IDemand[]>();
+  const [dataUpdated, setDataUpdated] = useState<string>("");
+  const [useOpenDemand, setOpenDemand] = useState(false);
   const [trigger, setTrigger] = useState(false);
 
   useEffect(() => {
@@ -48,8 +53,30 @@ export function TableDefaultData({ fields, text }: IPropsGlobal) {
     }
   }, [newData, text, demands.demand]);
 
+  const handleRemoveDemand = (id: string) => {
+    dispatch(deleteDemandsThunk(id));
+  };
+
+  const handleUpdateDemand = (id: string) => {
+    setDataUpdated(id);
+
+    setOpenDemand(true);
+  };
+
   return (
     <>
+      <div className="data-user-poup">
+        <PDefault
+          height="889"
+          width="569"
+          title="Envio de demandas"
+          subtitle="Preencha todos os campos marcados *"
+          setTrigger={setOpenDemand}
+          trigger={useOpenDemand}
+        >
+          <UpdateDemand setState={setOpenDemand} demandId={dataUpdated} />
+        </PDefault>
+      </div>
       <table>
         <tr className="one-row-title">
           {fields && fields.map((field) => <th key={field}>{field}</th>)}
@@ -80,19 +107,29 @@ export function TableDefaultData({ fields, text }: IPropsGlobal) {
               </th>
               <th>
                 <span>
-                  <BsFillTrash2Fill color="red" size={30} />
+                  <BsFillTrash2Fill
+                    color="red"
+                    className="btn-click"
+                    size={30}
+                    onClick={() => handleRemoveDemand(item.id)}
+                  />
                 </span>{" "}
                 <span className="divisor" />
                 <span>
                   <MdOutlineTipsAndUpdates
-                    className="update-icon"
+                    onClick={() => item.id && handleUpdateDemand(item.id)}
+                    className="update-icon btn-click"
                     color="green"
                     size={32}
                   />
                 </span>
                 <span className="divisor" />
                 <span>
-                  <BiMessageSquareDetail size={32} color="blue" />
+                  <BiMessageSquareDetail
+                    className="btn-click"
+                    size={32}
+                    color="blue"
+                  />
                 </span>
               </th>
             </tr>

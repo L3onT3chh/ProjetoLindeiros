@@ -16,7 +16,7 @@ function WelcomeLogin() {
           title="Esqueci minha senha"
           description="Clique no campo “esqueci minha senha” no menu ao lado para alterar sua senha.
 Informe o e-mail vinculado a sua conta, o código de verificação será enviado."
-          url="/reset"
+          url="/forgoutPassword"
         />
 
         <AccessLogin

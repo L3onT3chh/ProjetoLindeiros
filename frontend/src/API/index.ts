@@ -1,5 +1,5 @@
 import Axios from "axios";
 
 export default Axios.create({
-  baseURL: "https://www.api.wilgner.com.br/lindeiros",
+  baseURL: "http://0114-170-84-198-0.sa.ngrok.io",
 });

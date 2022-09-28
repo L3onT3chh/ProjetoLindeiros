@@ -4,7 +4,7 @@ import { Card, CardContentBody } from "../style";
 
 function CardEixos({ title, logo, description, className }: ICard) {
   return (
-    <Card className={className} height="280px">
+    <Card className={className} height="380px">
       <CardContentBody>
         <h2 className="title-h2">{title}</h2>
 

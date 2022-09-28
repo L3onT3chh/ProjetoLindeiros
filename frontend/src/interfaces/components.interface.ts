@@ -1,22 +1,30 @@
 import { SetStateAction } from "react";
-import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
+import {
+  IDataDemand,
+  IDemand,
+  IProposal,
+} from "interfaces/data/demand.interface";
 import { IDataDocument } from "interfaces/data/document.interface";
 import { IDataUser, IUser } from "interfaces/data/user.interface";
 import { IDataTypes, ITypes } from "interfaces/data/types.interface";
 import { IDataNews } from "interfaces/data/news.interface";
 import { IDataCity } from "interfaces/data/city.interface";
 import { IDataAxes } from "interfaces/data/axes.interface";
+import { IDataAuth } from "interfaces/data/auth.interface";
 import { SContainerProps } from "./global.interface";
 
 export interface IPropsGlobal extends SContainerProps {
   clicked?: boolean;
   key?: string;
   IInterface?: any;
+  proposal?: IProposal;
   value?: string;
+  Icon?: any;
   width?: string;
   className?: string;
   listValue?: string[];
   icon?: string;
+  defaultValue?: string;
   title?: string;
   url?: string;
   description?: string;
@@ -81,6 +89,8 @@ export interface ISets {
 }
 
 export interface IPopup {
+  active?: boolean;
+  alternativeText?: string;
   dataDemand?: IDemand[] | undefined;
   className?: string;
   width?: string | "416";
@@ -132,4 +142,5 @@ export interface IStateData {
   userTypes: IDataTypes;
   city: IDataCity;
   axes: IDataAxes;
+  auth: IDataAuth;
 }

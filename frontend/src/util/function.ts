@@ -1,4 +1,5 @@
 /* eslint-disable array-callback-return */
+import { IDemand } from "interfaces/data/demand.interface";
 import { IOptions } from "../interfaces/components.interface";
 
 export const splitTitle = (text: string) => {
@@ -29,4 +30,15 @@ export const formatKeyTypes = (datas: any[], paramsExtra?: {}) => {
     }
   });
   return newData;
+};
+
+export const mergeArray = (aB: IDemand[], bB: IDemand[]) => {
+  const output = [];
+
+  if (aB.length > bB.length) {
+    output.push(aB.filter((item) => bB.map((item2) => item2.id !== item.id)));
+  } else {
+    output.push(bB.filter((item) => aB.map((item2) => item2.id !== item.id)));
+  }
+  return output;
 };

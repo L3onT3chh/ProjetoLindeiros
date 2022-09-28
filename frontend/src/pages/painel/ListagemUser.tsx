@@ -10,7 +10,7 @@ import { formatKeyTypes } from "util/function";
 import PDefault from "components/Popups";
 import RegisterUser from "components/Popups/subContent/registerUser";
 import { useSelector } from "react-redux";
-import { ContainerPainel } from "../styled";
+import { ContainerPainel } from "../css/styled";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
 import ButtonCard from "../../components/Buttons/ButtonCard";
 import { InputSearch } from "../../components/Inputs/Search";
@@ -26,7 +26,6 @@ export function Listagem({
 IPropsGlobal) {
   const { userTypes } = useSelector((state: IStateData) => state);
   const [OpenUserCard, setOpenUserCard] = useState(false);
-
   return (
     <ContainerPainel>
       <LoadingDefault active={active} />
@@ -66,7 +65,14 @@ IPropsGlobal) {
               setSelected={configsSets && configsSets.setOne}
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
-              options={userTypes.types}
+              options={[
+                {
+                  id: "0",
+                  name: "Todos os usuários",
+                  iDBack: "0",
+                },
+                ...userTypes.types,
+              ]}
               width="200px"
               color="white"
             />
@@ -76,7 +82,6 @@ IPropsGlobal) {
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
               options={formatKeyTypes(["Municípios", ...Cities], {})}
-              // ["Município", ...Cities]
               color="white"
               width="200px"
             />

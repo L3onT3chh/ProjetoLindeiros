@@ -7,60 +7,48 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { MdTipsAndUpdates } from "react-icons/md";
 // import { ISets } from "interfaces/components.interface";
 import { deleteUserThunk } from "app/reducers/user/thunk";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { NotFound } from "components/Notfound";
 import PDefault from "components/Popups";
 import UpdateUser from "components/Popups/subContent/updateUser";
-import { ISets } from "interfaces/components.interface";
+import { ISets, IStateData } from "interfaces/components.interface";
 
 interface IProps {
   fields: string[];
   text?: string;
   configSets?: ISets;
-  data: IUser[];
 }
 
-export function TableDefaultUser({ fields, text, configSets, data }: IProps) {
-  const [newData, setNewData] = useState<IUser[]>(data);
-  const [OpenUserCard, setOpenUserCard] = useState(false);
+export function TableDefaultUser({ fields, text, configSets }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
+  const { users } = useSelector((state: IStateData) => state);
+  const [newData, setNewData] = useState<IUser[]>(users.users);
+  const [OpenUserCard, setOpenUserCard] = useState(false);
   const [userClicked, setUserClicked] = useState("");
 
   useEffect(() => {
-    if (newData) {
-      if (text !== undefined && text !== "") {
-        const dataFilter = newData.filter((item: IUser) =>
-          item.name.includes(text.trim()),
-        );
-        if (dataFilter) {
-          setNewData(dataFilter);
-        }
-      }
-    }
-  }, [text]);
-
-  useEffect(() => {
     const aux: any = { s1: [], s2: [], s3: [], s4: [] };
-    if (configSets) {
+
+    if (configSets && configSets?.s1 !== "Todos os usuários" && text !== "") {
       if (configSets.s4) {
-        aux.s4.push([...data]);
+        aux.s4.push([...users.users]);
         configSets.setFour(false);
       } else {
         if (configSets.s1 !== undefined) {
-          data?.filter((item: IUser) =>
+          users.users?.filter((item: IUser) =>
             item.userType === configSets.s1 ? aux.s1.push(item) : undefined,
           );
         }
         if (configSets.s2 !== undefined) {
-          data?.filter((item: IUser) =>
+          users.users?.filter((item: IUser) =>
             item.userType === configSets.s2?.toString().trim()
               ? aux.s2.push(item)
               : undefined,
           );
         }
         if (configSets.s3 !== undefined) {
-          data?.filter((item: IUser) =>
+          users.users?.filter((item: IUser) =>
             item.city === configSets.s3?.toString().trim()
               ? aux.s3.push(item)
               : undefined,
@@ -68,12 +56,18 @@ export function TableDefaultUser({ fields, text, configSets, data }: IProps) {
         }
       }
       const aux1 = [...aux.s1, ...aux.s2, ...aux.s3, ...aux.s4];
-      setNewData(aux1 || data);
-    } else {
-      setNewData(data);
-    }
-  }, [configSets, newData]);
 
+      setNewData(aux1);
+    } else {
+      const datat: any = [];
+      if (text !== undefined && text !== "") {
+        datat.push(users.users.map((item) => item.name.includes(text.trim())));
+      } else {
+        datat.push([...users.users]);
+      }
+      setNewData(datat);
+    }
+  }, [configSets]);
   const handleRemoveUser = (userId: string) => {
     dispatch(deleteUserThunk(userId));
   };

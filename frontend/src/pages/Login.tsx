@@ -1,8 +1,4 @@
-/* eslint-disable no-return-assign */
-/* eslint-disable no-alert */
-/* eslint-disable react/button-has-type */
 import React, { useEffect } from "react";
-import { authLoginThunk } from "app/reducers/user/thunk";
 import { AppDispatch } from "app/store";
 import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
@@ -12,16 +8,19 @@ import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "util/form/useForm";
 import { useNavigate } from "react-router";
+import ButtonForm from "components/Buttons/ButtonForm";
+import { authLoginThunk } from "app/reducers/auth/thunk";
+import Home from "pages/Home";
 import { addUser, lock } from "../assets/icons";
 // import ButtonCard from "../components/Buttons/ButtonCard";
 import CardDefault from "../components/Card/CardDefault";
 import WelcomeLogin from "../components/Card/Welcome";
 import InputStyle from "../components/Inputs";
 import SublinedText from "../components/Label/Sublined";
-import { ContainerPage } from "./styled";
+import { ContainerPage } from "./css/styled";
 
 function Login() {
-  const { users } = useSelector((state: IStateData) => state);
+  const { users, auth } = useSelector((state: IStateData) => state);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -38,6 +37,8 @@ function Login() {
         ...data,
       }),
     );
+    if (auth.auth.jwt !== "") navigate("/painel", { replace: true });
+    return <Home />;
   };
 
   useEffect(() => {
@@ -64,6 +65,8 @@ function Login() {
           <SublinedText size="32" title="Login" />
 
           <form
+            autoSave="off"
+            autoComplete="off"
             className="form-login"
             action=""
             onSubmit={(e) => {
@@ -88,8 +91,9 @@ function Login() {
               required
               placeholder="Digite a sua senha"
             />
-
-            <button className="btn-send">Enviar dados</button>
+            <ButtonForm width="100%" className="form-control-demand-forgout">
+              <p>Enviar dados</p>
+            </ButtonForm>{" "}
           </form>
 
           <div className="container-footer">
@@ -98,14 +102,14 @@ function Login() {
               height="154px"
               title="Esqueci minha senha"
               icon={lock}
-              url=" "
+              url="/forgoutPassword"
             />
             <CardDefault
               width="224px"
               height="154px"
               title="Não possui cadastro?"
               icon={addUser}
-              url=" "
+              url="/register"
             />
           </div>
         </div>

@@ -1,10 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import {
-  authLoginThunk,
   createUserThunk,
   fetchUsersThunk,
-  logoutUserThunk,
   updateUserThunk,
   // deleteUserThunk,
 } from "app/reducers/user/thunk";
@@ -27,6 +25,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(fetchUsersThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
+      console.log(payload);
       if (payload !== undefined) {
         state.users = payload.response;
       }
@@ -46,51 +45,6 @@ export const userSlice = createSlice({
         state.loading = false;
         state.message = payload.message;
       }
-    });
-
-    builder.addCase(authLoginThunk.fulfilled, (state: IDataUser, action) => {
-      const { payload } = action;
-      const token = payload.response.replaceAll('"', "");
-      state.loading = false;
-      if (payload.status === 200) {
-        state.error = "";
-        state.message = "Login realizado com sucesso!";
-        localStorage.setItem("userLogin", JSON.stringify(token));
-      } else {
-        localStorage.setItem("userLogin", "");
-        state.error = payload.response;
-      }
-      state.tryLogin = true;
-    });
-
-    builder.addCase(authLoginThunk.rejected, (state: IDataUser) => {
-      state.loading = false;
-      state.error = "Não foi possível realizar o login";
-      state.message = "";
-      state.tryLogin = true;
-    });
-
-    builder.addCase(authLoginThunk.pending, (state: IDataUser) => {
-      state.tryLogin = false;
-      state.loading = true;
-    });
-
-    builder.addCase(logoutUserThunk.pending, (state: IDataUser) => {
-      state.tryLogin = false;
-      state.loading = true;
-    });
-
-    builder.addCase(logoutUserThunk.fulfilled, (state: IDataUser) => {
-      state.tryLogin = false;
-      state.loading = false;
-      state.error = "";
-
-      localStorage.removeItem("userLogin");
-    });
-
-    builder.addCase(logoutUserThunk.rejected, (state: IDataUser) => {
-      state.tryLogin = true;
-      state.loading = false;
     });
 
     // builder.addCase(deleteUserThunk.fulfilled, (state: IDataUser, action) => {
