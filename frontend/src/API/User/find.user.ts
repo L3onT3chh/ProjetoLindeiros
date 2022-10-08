@@ -10,7 +10,6 @@ export const findAllUsers = async (): Promise<{
 }> => {
   try {
     const token = localStorage.getItem("tokeAuth")?.toString();
-
     const headers = { ...HEADERS_DATA, token: `${token?.toString()}` };
     const responseUsers = await API.get("/user", {
       method: "GET",

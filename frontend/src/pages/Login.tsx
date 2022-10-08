@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { AppDispatch } from "app/store";
+import React, { useEffect, useRef } from "react";
+// import { AppDispatch } from "app/store";
 import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
 import { IStateData } from "interfaces/components.interface";
@@ -9,8 +9,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "util/form/useForm";
 import { useNavigate } from "react-router";
 import ButtonForm from "components/Buttons/ButtonForm";
-import { authLoginThunk } from "app/reducers/auth/thunk";
+// import { authLoginThunk } from "app/reducers/auth/thunk";
 import Home from "pages/Home";
+import { AppDispatch } from "app/store";
+import { authLoginThunk } from "app/reducers/auth/thunk";
 import { addUser, lock } from "../assets/icons";
 // import ButtonCard from "../components/Buttons/ButtonCard";
 import CardDefault from "../components/Card/CardDefault";
@@ -20,6 +22,7 @@ import SublinedText from "../components/Label/Sublined";
 import { ContainerPage } from "./css/styled";
 
 function Login() {
+  const userRef = useRef();
   const { users, auth } = useSelector((state: IStateData) => state);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -29,7 +32,9 @@ function Login() {
     username: "",
     password: "",
   };
-
+  useEffect(() => {
+    console.log(userRef);
+  }, []);
   const { onChange, values } = useForm(initialState);
   const handleSaveData = (data: any) => {
     dispatch(

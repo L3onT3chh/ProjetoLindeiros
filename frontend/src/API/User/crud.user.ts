@@ -7,6 +7,7 @@ import { IUser, IUserPost } from "interfaces/data/user.interface";
 const RegisterUser = async (userSave: IUserPost) => {
   try {
     const token = TokenUser();
+    console.log(userSave);
     const headers = { ...HEADERS_DATA, token: `${token}` };
     const user = await API("/user", {
       headers,

@@ -14,6 +14,7 @@ import { IStateData } from "interfaces/components.interface";
 function RegisterUser() {
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
+  const [cityUser, setCity] = useState("");
   const initialValue: IUserPost = {
     name: "",
     email: "",
@@ -27,13 +28,14 @@ function RegisterUser() {
     city: "",
     password: "",
   };
-  const { userTypes } = useSelector((state: IStateData) => state);
+  const { userTypes, city } = useSelector((state: IStateData) => state);
   const { onChange, values } = useForm(initialValue);
   const handleSaveData = async (valuesSave: IUserPost) => {
     dispatch(
       createUserThunk({
         ...valuesSave,
         user_type: typeUser,
+        city: cityUser,
       }),
     );
   };
@@ -116,13 +118,11 @@ function RegisterUser() {
                 className="text-double text-popup"
                 options={userTypes.types}
               />
-              <InputStyle
-                onChange={onChange}
-                name="city"
-                placeholder="Município"
-                title=""
-                type="text"
-                className="text-double"
+              <SelectMenuAlternative
+                setState={setCity}
+                name="city_id"
+                className="text-double text-popup"
+                options={city.city}
               />
             </div>
             <InputStyle

@@ -14,10 +14,9 @@ export const findAllTypes = async () => {
     })
       .then((response) => Promise.resolve(response.data))
       .catch((err: Error | AxiosError) => Promise.resolve(err));
-    const { UserType } = await responseTypes.data;
-
-    if (UserType) {
-      return UserType;
+    const { Usertype } = await responseTypes.data;
+    if (Usertype) {
+      return Usertype;
     }
   } catch (e: any) {
     return [];

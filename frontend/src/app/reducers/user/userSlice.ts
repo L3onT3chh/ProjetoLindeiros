@@ -25,10 +25,10 @@ export const userSlice = createSlice({
     });
     builder.addCase(fetchUsersThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
-      console.log(payload);
       if (payload !== undefined) {
         state.users = payload.response;
       }
+      console.log(payload);
       state.loading = false;
       state.error = "";
     });

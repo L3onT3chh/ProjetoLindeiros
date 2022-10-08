@@ -23,7 +23,8 @@ interface IProps {
 export function TableDefaultUser({ fields, text, configSets }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
   const { users } = useSelector((state: IStateData) => state);
-  const [newData, setNewData] = useState<IUser[]>(users.users);
+  const [newData, setNewData] = useState<any>(users.users);
+
   const [OpenUserCard, setOpenUserCard] = useState(false);
   const [userClicked, setUserClicked] = useState("");
 
@@ -102,7 +103,7 @@ export function TableDefaultUser({ fields, text, configSets }: IProps) {
           <th>Ações</th>
         </tr>
         {newData &&
-          newData.map((item: IUser, index) => (
+          newData.map((item: IUser, index: any) => (
             <tr key={item.id} className="row-content">
               <th>{index + 1}</th>
               <th>{item.name}</th>

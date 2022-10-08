@@ -55,9 +55,17 @@ const authSlice = createSlice({
       state.auth.jwt = token;
       state.auth.user = user;
     },
+    logout: (state: IDataAuth) => {
+      state.auth.jwt = "";
+      state.auth.user = undefined;
+    },
   },
 });
 
-export const { setCredentials, getToken } = authSlice.actions;
+export const { setCredentials, getToken, logout } = authSlice.actions;
 
 export default authSlice.reducer;
+
+export const selectCurentUser = (state: IDataAuth) => state.auth.user;
+
+export const selectCurrentToken = (state: IDataAuth) => state.auth.jwt;

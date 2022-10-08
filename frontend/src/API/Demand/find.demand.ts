@@ -13,7 +13,6 @@ export const findAllDemands = async () => {
     })
       .then((response) => Promise.resolve(response.data))
       .catch((err: Error | AxiosError) => Promise.resolve(err));
-
     const { Demand } = responseDemands.data;
 
     if (Demand) {

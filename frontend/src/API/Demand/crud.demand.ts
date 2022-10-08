@@ -16,7 +16,6 @@ const RegisterDemand = async (demandSave: IDemandPost) => {
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-    console.log(Demand);
     if (Demand.isValid) {
       const responseData: IDemand[] = [];
       try {

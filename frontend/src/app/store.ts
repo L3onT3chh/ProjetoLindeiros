@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "app/reducers";
 
