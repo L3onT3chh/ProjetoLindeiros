@@ -73,7 +73,6 @@ export default function Demandas() {
         active={city.loading || demands.loading || axes.loading}
       />
       <ContainerPage>
-        
         <div className="container-banner-demandas">
           <div className="header" />
           <div className="data">
