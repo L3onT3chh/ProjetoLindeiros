@@ -2,14 +2,14 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContentProfile } from "components/style";
 import InputStyle from "components/Inputs";
 import { useForm } from "util/form/useForm";
 import { createUserThunk } from "app/reducers/user/thunk";
 import { AppDispatch } from "app/store";
 import { useDispatch, useSelector } from "react-redux";
-import { IUserPost } from "interfaces/data/user.interface";
+import { IUser, IUserPost } from "interfaces/data/user.interface";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { IStateData } from "interfaces/components.interface";
 
@@ -24,6 +24,11 @@ function UpdateUser({ userId }: IProps) {
 
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
+  const [userFiltered, setUserFiltered] = useState<IUser>();
+
+  useEffect(() => {
+    setUserFiltered(userFilter);
+  }, [userFilter]);
   const [dataCity, setDataCity] = useState("");
   const initialValue: IUserPost = {
     name: "",
@@ -66,7 +71,7 @@ function UpdateUser({ userId }: IProps) {
                 onChange={onChange}
                 name="name"
                 placeholder="Nome"
-                value={userFilter.name}
+                value={userFiltered && userFiltered.name}
                 title=""
                 type="text"
                 className="form-control-demand"
@@ -76,7 +81,7 @@ function UpdateUser({ userId }: IProps) {
                 name="email"
                 placeholder="Email"
                 title=""
-                value={userFilter.email}
+                value={userFiltered && userFiltered.email}
                 type="email"
                 className="form-control-demand"
               />
@@ -84,7 +89,7 @@ function UpdateUser({ userId }: IProps) {
                 onChange={onChange}
                 placeholder="CPF"
                 name="cpf"
-                value={userFilter.cpf}
+                value={userFiltered && userFiltered.cpf}
                 title=""
                 type="number"
                 className="form-control-demand"
@@ -94,7 +99,7 @@ function UpdateUser({ userId }: IProps) {
                   onChange={onChange}
                   placeholder="DDD"
                   title=""
-                  value={userFilter.phone_ddd}
+                  value={userFiltered && userFiltered.phone_ddd}
                   name="phone_ddd"
                   type="number"
                   className="text-double"
@@ -104,14 +109,14 @@ function UpdateUser({ userId }: IProps) {
                   placeholder="Nº de telefone"
                   title=""
                   name="phone"
-                  value={userFilter.phone}
+                  value={userFiltered && userFiltered.phone}
                   type="phone"
                   className="text-double"
                 />
               </div>
               <InputStyle
                 onChange={onChange}
-                value={userFilter.born_date}
+                value={userFiltered && userFiltered.born_date}
                 placeholder="Data de nascimento"
                 name="born_date"
                 title=""
@@ -120,14 +125,14 @@ function UpdateUser({ userId }: IProps) {
               />
               <div className="double-data">
                 <SelectMenuAlternative
-                  value={userFilter.userType}
+                  value={userFiltered && userFiltered.userType}
                   setState={setTypeUser}
                   name="user_type"
                   className="text-double text-popup"
                   options={userTypes.types}
                 />
                 <SelectMenuAlternative
-                  value={userFilter.city}
+                  value={userFiltered && userFiltered.city}
                   setState={setDataCity}
                   name="user_type"
                   className="text-double text-popup"
@@ -138,7 +143,7 @@ function UpdateUser({ userId }: IProps) {
                 name="address"
                 onChange={onChange}
                 placeholder="Endereço completo"
-                value={userFilter.address}
+                value={userFiltered && userFiltered.address}
                 title=""
                 type="text"
                 className="form-control-demand"
