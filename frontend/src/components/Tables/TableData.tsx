@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import { BsFillTrash2Fill } from "react-icons/bs";
@@ -15,25 +16,20 @@ import { AppDispatch } from "app/store";
 import PDefault from "components/Popups";
 import UpdateDemand from "components/Popups/subContent/updateDemand";
 
-export function TableDefaultData({ fields, text }: IPropsGlobal) {
+export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
   const { demands } = useSelector((state: IStateData) => state);
-  const [newData, setNewData] = useState<IDemand[]>();
+  const [newData] = useState<IDemand[]>([...demands.demand]);
   const [dataClicked, setDataClicked] = useState<IDemand[]>();
   const [dataUpdated, setDataUpdated] = useState<string>("");
   const [useOpenDemand, setOpenDemand] = useState(false);
   const [trigger, setTrigger] = useState(false);
-
-  useEffect(() => {
-    setNewData(demands.demand);
-  }, [demands]);
 
   const handleClicked = (name: string) => {
     if (name) {
       const data: IDemand[] | undefined = newData?.filter(
         (item) => item.name === name,
       );
-
       if (data !== undefined && data[0].Proposal) {
         setDataClicked(data);
       } else {
@@ -42,16 +38,6 @@ export function TableDefaultData({ fields, text }: IPropsGlobal) {
       setTrigger(!trigger);
     }
   };
-
-  useEffect(() => {
-    if (text !== undefined && text !== "") {
-      setNewData(
-        newData?.filter((item: IDemand) => item.name.includes(text.trim())),
-      );
-    } else {
-      setNewData(demands.demand);
-    }
-  }, [newData, text, demands.demand]);
 
   const handleRemoveDemand = (id: string) => {
     dispatch(deleteDemandsThunk(id));
@@ -62,7 +48,6 @@ export function TableDefaultData({ fields, text }: IPropsGlobal) {
 
     setOpenDemand(true);
   };
-
   return (
     <>
       <div className="data-user-poup">

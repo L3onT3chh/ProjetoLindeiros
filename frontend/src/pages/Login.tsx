@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+/* eslint-disable consistent-return */
+import React, { useEffect } from "react";
 // import { AppDispatch } from "app/store";
 import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
@@ -22,7 +23,6 @@ import SublinedText from "../components/Label/Sublined";
 import { ContainerPage } from "./css/styled";
 
 function Login() {
-  const userRef = useRef();
   const { users, auth } = useSelector((state: IStateData) => state);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -32,9 +32,7 @@ function Login() {
     username: "",
     password: "",
   };
-  useEffect(() => {
-    console.log(userRef);
-  }, []);
+
   const { onChange, values } = useForm(initialState);
   const handleSaveData = (data: any) => {
     dispatch(
@@ -42,7 +40,7 @@ function Login() {
         ...data,
       }),
     );
-    if (auth.auth.jwt !== "") navigate("/painel", { replace: true });
+    if (auth.auth.jwt !== " ") navigate("/painel", { replace: true });
     return <Home />;
   };
 

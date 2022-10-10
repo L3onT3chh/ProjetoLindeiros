@@ -71,6 +71,14 @@ export interface IDetails {
 }
 
 export interface IDataDemand extends IResponseData {
+  demandFilter: {
+    city: IDemand[];
+    axes: IDemand[];
+    search: IDemand[];
+    filtered: IDemand[];
+    status: IDemand[];
+    clicked: IDemand | undefined;
+  };
   demand: IDemand[];
 }
 

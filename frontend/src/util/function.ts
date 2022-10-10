@@ -42,3 +42,7 @@ export const mergeArray = (aB: IDemand[], bB: IDemand[]) => {
   }
   return output;
 };
+
+export const isValid = (value: string) => {
+  return value !== "" || value !== undefined;
+};

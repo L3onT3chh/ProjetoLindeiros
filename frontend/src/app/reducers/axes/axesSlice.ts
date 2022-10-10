@@ -4,6 +4,7 @@ import { fetchAxesThunk } from "app/reducers/axes/thunk";
 import { IDataAxes } from "interfaces/data/axes.interface";
 
 const initialState: IDataAxes = {
+  axes_selector: "",
   loading: false,
   axes: [],
   error: "",
@@ -30,9 +31,14 @@ export const axesSlice = createSlice({
       state.error = action.error.message?.toString() || "";
     });
   },
-  reducers: { getAxes: () => {} },
+  reducers: {
+    getAxes: () => {},
+    setSelectAxes: (state: IDataAxes, action) => {
+      state.axes_selector = action.payload;
+    },
+  },
 });
 
-export const { getAxes } = axesSlice.actions;
+export const { getAxes, setSelectAxes } = axesSlice.actions;
 
 export default axesSlice.reducer;

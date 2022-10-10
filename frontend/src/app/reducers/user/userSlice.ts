@@ -1,15 +1,24 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import {
   createUserThunk,
+  deleteUserThunk,
   fetchUsersThunk,
-  updateUserThunk,
+  // updateUserThunk,
   // deleteUserThunk,
 } from "app/reducers/user/thunk";
 import { IDataUser, IUser } from "interfaces/data/user.interface";
 
 const initialState: IDataUser = {
   tryLogin: false,
+  filters: {
+    merge: [],
+    type: [],
+    city: [],
+    search: [],
+    clicked: undefined,
+  },
   loading: false,
   users: [],
   error: "",
@@ -28,7 +37,6 @@ export const userSlice = createSlice({
       if (payload !== undefined) {
         state.users = payload.response;
       }
-      console.log(payload);
       state.loading = false;
       state.error = "";
     });
@@ -46,46 +54,83 @@ export const userSlice = createSlice({
         state.message = payload.message;
       }
     });
+    builder.addCase(deleteUserThunk.fulfilled, (state: IDataUser, action) => {
+      const { payload } = action;
 
-    // builder.addCase(deleteUserThunk.fulfilled, (state: IDataUser, action) => {
-    // const { payload } = action;
-
-    // if (payload !== undefined && payload.idRemove) {
-    //   state.loading = true;
-    //   const dataAux: IUser[] = state.users.filter(
-    //     (user: IUser) => user.name !== payload.idRemove,
-    //   );
-    //   if (dataAux.length > 0) {
-    //     state.loading = false;
-    //     state.users = dataAux;
-    //   }
-    // }
-    // });
-
-    builder.addCase(updateUserThunk.fulfilled, (state: IDataUser, actions) => {
-      const { payload } = actions;
-
-      if (payload !== undefined) {
-        state.loading = false;
-
+      if (payload !== undefined && payload.idRemove) {
+        state.loading = true;
         const dataAux: IUser[] = state.users.filter(
-          (item) => item.name !== payload.response.name,
+          (user: IUser) => user.name !== payload.idRemove,
         );
-
         if (dataAux.length > 0) {
+          state.loading = false;
           state.users = dataAux;
         }
-        state.loading = false;
       }
     });
+    // builder.addCase(updateUserThunk.fulfilled, (state: IDataUser, actions) => {
+    //   const { payload } = actions;
+
+    //   if (payload !== undefined) {
+    //     state.loading = false;
+
+    //     const dataAux: IUser[] = state.users.filter(
+    //       (item) => item.name !== payload.response.name,
+    //     );
+
+    //     if (dataAux.length > 0) {
+    //       state.users = dataAux;
+    //     }
+    //     state.loading = false;
+    //   }
+    // });
   },
   reducers: {
     getInfo: () => {},
+    filterTypeUser: (state: IDataUser, action) => {
+      state.filters.type = state.users.filter(
+        (user) => user.userType.trim() === action.payload.trim(),
+      );
+    },
+    filterCity: (state: IDataUser, action) => {
+      state.filters.city = state.users.filter(
+        (user) => user.city.trim() === action.payload.trim(),
+      );
+    },
+    filterSearch: (state: IDataUser, action) => {
+      state.filters.search = state.users.filter((user) =>
+        user.name
+          .toLocaleLowerCase()
+          .includes(action.payload.toLocaleLowerCase().trim()),
+      );
+    },
+    mergeFilters: (state: IDataUser) => {
+      const { city, type, search } = state.filters;
+      state.filters = {
+        ...state.filters,
+        merge: [...city, ...type, ...search],
+      };
+    },
+    filterClicked: (state: IDataUser, action) => {
+      const { payload } = action;
+
+      state.filters.clicked = state.users.filter(
+        (user) => user.id === payload,
+      )[0];
+    },
     deleteUser: () => {},
     updateUser: () => {},
   },
 });
 
-export const { getInfo, updateUser, deleteUser } = userSlice.actions;
+export const {
+  getInfo,
+  updateUser,
+  deleteUser,
+  filterTypeUser,
+  filterCity,
+  filterSearch,
+  mergeFilters,
+} = userSlice.actions;
 
 export default userSlice.reducer;

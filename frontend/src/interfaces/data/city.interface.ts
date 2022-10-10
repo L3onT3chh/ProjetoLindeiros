@@ -9,4 +9,5 @@ export interface ICity {
 
 export interface IDataCity extends IResponseData {
   city: ICity[];
+  city_selector: string;
 }

@@ -1,5 +1,4 @@
 /* eslint-disable react/button-has-type */
-/* eslint-disable @typescript-eslint/no-shadow */
 import React, { useState } from "react";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { LoadingDefault } from "components/Loading";
@@ -10,6 +9,11 @@ import { formatKeyTypes } from "util/function";
 import PDefault from "components/Popups";
 import RegisterUser from "components/Popups/subContent/registerUser";
 import { useSelector } from "react-redux";
+import {
+  filterCity,
+  filterSearch,
+  filterTypeUser,
+} from "app/reducers/user/userSlice";
 import { ContainerPainel } from "../css/styled";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
 import ButtonCard from "../../components/Buttons/ButtonCard";
@@ -18,17 +22,16 @@ import { InputSearch } from "../../components/Inputs/Search";
 export function Listagem({
   type,
   children,
-  setState,
   configsSets,
-  active,
 }: // types,
 
 IPropsGlobal) {
-  const { userTypes } = useSelector((state: IStateData) => state);
+  const { userTypes, users } = useSelector((state: IStateData) => state);
   const [OpenUserCard, setOpenUserCard] = useState(false);
+
   return (
     <ContainerPainel>
-      <LoadingDefault active={active} />
+      <LoadingDefault active={users.loading || userTypes.loading} />
       <PDefault
         height="700"
         width="517"
@@ -55,14 +58,14 @@ IPropsGlobal) {
             text="Pesquisar usuário"
             size="83%"
             borderRadius="40px 0 0 40px"
-            setState={setState}
+            setState={filterSearch}
           />
         </div>
 
         <div className="content-body-painel">
           <div className="content-filter-painel">
             <SelectMenu
-              setSelected={configsSets && configsSets.setOne}
+              setSelected={filterTypeUser}
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
               options={[
@@ -78,7 +81,7 @@ IPropsGlobal) {
             />
 
             <SelectMenu
-              setSelected={configsSets && configsSets.setThree}
+              setSelected={filterCity}
               iconFinal={recent}
               background="rgba(0, 0, 0, 0.33)"
               options={formatKeyTypes(["Municípios", ...Cities], {})}

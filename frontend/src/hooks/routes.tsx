@@ -50,11 +50,11 @@ function Routers() {
   HandleDispatchData();
   const { users, demands } = useSelector((state: IStateData) => state);
   const [dataSearch, setDataSearch] = useState("");
-  const [dataSearchUser, setDataSearchUser] = useState("");
-  const [s1, setOne] = useState();
-  const [s2, setTwo] = useState();
-  const [s3, setThree] = useState();
-  const [s4, setFour] = useState();
+  // const [dataSearchUser, setDataSearchUser] = useState("");
+  // const [s1, setOne] = useState();
+  // const [s2, setTwo] = useState();
+  // const [s3, setThree] = useState();
+  // const [s4, setFour] = useState();
   return (
     <>
       <Routes>
@@ -78,22 +78,12 @@ function Routers() {
             </PrivatRoute>
           }
         />
-        <Route path="/painel/users/add" element={<>oi</>} />
         <Route
           path="/painel/users"
           element={
             <PrivatRoute>
-              <Listagem
-                active={users.loading}
-                type="Usuários"
-                configsSets={{ setOne, setTwo, setThree, setFour }}
-                setState={setDataSearchUser}
-              >
-                <TableDefaultUser
-                  configSets={{ s1, s2, s3, s4, setFour }}
-                  text={dataSearchUser}
-                  fields={[...fields]}
-                />
+              <Listagem active={users.loading} type="Usuários">
+                <TableDefaultUser fields={[...fields]} />
               </Listagem>
             </PrivatRoute>
           }

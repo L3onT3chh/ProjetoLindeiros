@@ -11,4 +11,5 @@ export default interface IDocument {
 
 export interface IDataDocument extends IResponseData {
   document: IDocument[];
+  documentSelect: IDocument | undefined;
 }

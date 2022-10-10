@@ -1,74 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from "react";
 import { IUser } from "interfaces/data/user.interface";
 import { BsFillTrashFill } from "react-icons/bs";
 import { MdTipsAndUpdates } from "react-icons/md";
-// import { ISets } from "interfaces/components.interface";
-import { deleteUserThunk } from "app/reducers/user/thunk";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "app/store";
 import { NotFound } from "components/Notfound";
 import PDefault from "components/Popups";
 import UpdateUser from "components/Popups/subContent/updateUser";
-import { ISets, IStateData } from "interfaces/components.interface";
+import { IStateData } from "interfaces/components.interface";
+import { useDispatch, useSelector } from "react-redux";
+import { mergeFilters } from "app/reducers/user/userSlice";
+import { AppDispatch } from "app/store";
+import { deleteUserThunk } from "app/reducers/user/thunk";
 
 interface IProps {
   fields: string[];
-  text?: string;
-  configSets?: ISets;
 }
 
-export function TableDefaultUser({ fields, text, configSets }: IProps) {
-  const dispatch = useDispatch<AppDispatch>();
+export function TableDefaultUser({ fields }: IProps) {
   const { users } = useSelector((state: IStateData) => state);
-  const [newData, setNewData] = useState<any>(users.users);
-
-  const [OpenUserCard, setOpenUserCard] = useState(false);
+  const [newData, setNewData] = useState<IUser[]>(users.users);
+  const dispatch = useDispatch<AppDispatch>();
   const [userClicked, setUserClicked] = useState("");
 
   useEffect(() => {
-    const aux: any = { s1: [], s2: [], s3: [], s4: [] };
+    dispatch(mergeFilters());
+    setNewData(users.filters.merge);
+  }, [users.filters.city, users.filters.search, users.filters.type]);
 
-    if (configSets && configSets?.s1 !== "Todos os usuários" && text !== "") {
-      if (configSets.s4) {
-        aux.s4.push([...users.users]);
-        configSets.setFour(false);
-      } else {
-        if (configSets.s1 !== undefined) {
-          users.users?.filter((item: IUser) =>
-            item.userType === configSets.s1 ? aux.s1.push(item) : undefined,
-          );
-        }
-        if (configSets.s2 !== undefined) {
-          users.users?.filter((item: IUser) =>
-            item.userType === configSets.s2?.toString().trim()
-              ? aux.s2.push(item)
-              : undefined,
-          );
-        }
-        if (configSets.s3 !== undefined) {
-          users.users?.filter((item: IUser) =>
-            item.city === configSets.s3?.toString().trim()
-              ? aux.s3.push(item)
-              : undefined,
-          );
-        }
-      }
-      const aux1 = [...aux.s1, ...aux.s2, ...aux.s3, ...aux.s4];
+  useEffect(() => {
+    setNewData(users.users);
+  }, users.users);
 
-      setNewData(aux1);
-    } else {
-      const datat: any = [];
-      if (text !== undefined && text !== "") {
-        datat.push(users.users.map((item) => item.name.includes(text.trim())));
-      } else {
-        datat.push([...users.users]);
-      }
-      setNewData(datat);
-    }
-  }, [configSets]);
+  const [OpenUserCard, setOpenUserCard] = useState(false);
+
   const handleRemoveUser = (userId: string) => {
     dispatch(deleteUserThunk(userId));
   };
@@ -104,7 +68,7 @@ export function TableDefaultUser({ fields, text, configSets }: IProps) {
         </tr>
         {newData &&
           newData.map((item: IUser, index: any) => (
-            <tr key={item.id} className="row-content">
+            <tr key={item.id?.toString()} className="row-content">
               <th>{index + 1}</th>
               <th>{item.name}</th>
               <th>{item.email}</th>

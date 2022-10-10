@@ -41,7 +41,6 @@ export function Demanda() {
 
   const { demand } = useSelector((state: IStateData) => state.demands);
   const [data, setData] = useState<IDemand[]>();
-
   useEffect(() => {
     const filterData = demand.filter((item) => item.name === name && item);
     if (filterData.length > 0 && filterData !== undefined) {

@@ -37,4 +37,11 @@ export interface IUserPost {
 export interface IDataUser extends IResponseData {
   tryLogin: boolean;
   users: IUser[];
+  filters: {
+    type: IUser[];
+    search: IUser[];
+    city: IUser[];
+    merge: IUser[];
+    clicked: IUser | undefined;
+  };
 }

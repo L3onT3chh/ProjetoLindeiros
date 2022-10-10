@@ -1,5 +1,5 @@
-/* eslint-disable array-callback-return */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import NavBar from "components/NavBar";
 import { ContainerPage } from "pages/css/styled";
@@ -8,114 +8,72 @@ import { SelectMenu } from "components/Select";
 import MenuSuspenso from "components/Card/MenuSuspenso";
 import ChipFilter from "components/Chips/chipFilters";
 import { CardDemandas } from "components/Card/Demandas";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
 import { Link } from "react-router-dom";
 import { LoadingDefault } from "components/Loading";
-import { mergeArray } from "util/function";
+import { setCitySelected } from "app/reducers/city/citySlice";
+import { setSelectAxes } from "app/reducers/axes/axesSlice";
+import { isValid } from "util/function";
+import { AppDispatch } from "app/store";
+import {
+  filterAxes,
+  filterCity,
+  filterSearch,
+  filterStatus,
+  mergeDemandFilter,
+} from "app/reducers/demand/demandSlice";
 
 export default function Demandas() {
+  const dispatch = useDispatch<AppDispatch>();
   const { demands, city, axes } = useSelector((state: IStateData) => state);
   const [dataNew, setDataNew] = useState(demands.demand);
-  const [dataVerify, setDataVerify] = useState(false);
-  const [dataFilterEixos, setDataFilterEixos] = useState({
-    data: [...axes.axes],
-    clicked: "",
-  });
-  const [dataFilterCity, setDataFilterCity] = useState({
-    data: [...city.city],
-    clicked: "",
-  });
-  const [searchDemand, setSearchDemanda] = useState("");
   const [dataCheckbox, setCheckbox] = useState({
-    a: 0,
-    b: 0,
-    c: 0,
+    a: "0",
+    b: "0",
+    c: "0",
   });
-  const handleComparationString = (text: string, textTwo: string) => {
-    return text.toLowerCase().trim() === textTwo.toLowerCase().trim();
-  };
 
-  const handleComparationStatus = (items: IDemand[], status: any) => {
-    const statusAux: any = { 1: [], 2: [], 3: [] };
-
-    if (items && (status.a || status.b || status.c)) {
-      items.map((item) => {
-        if (status.a.toString() === item.status.toString())
-          statusAux[1].push(item);
-        else if (status.b.toString() === item.status.toString())
-          statusAux[2].push(item);
-        else if (status.c.toString() === item.status.toString())
-          statusAux[3].push(item);
-      });
-      return [...statusAux[1], ...statusAux[2], ...statusAux[3]];
+  useEffect(() => {
+    if (isValid(axes.axes_selector)) {
+      dispatch(filterAxes(axes.axes_selector));
     }
-    return [];
-  };
-
-  useEffect(() => {
-    setDataFilterCity({
-      data: [...city.city],
-      clicked: dataFilterCity.clicked,
-    });
-    setDataFilterEixos({
-      data: [...axes.axes],
-      clicked: dataFilterEixos.clicked,
-    });
-  }, [city, axes]);
-
-  useEffect(() => {
-    if (searchDemand) {
-      setDataNew(
-        demands.demand.filter((item) => item.name.includes(searchDemand)),
-      );
-    } else {
-      setDataNew(demands.demand);
+    if (isValid(city.city_selector)) {
+      dispatch(filterCity(city.city_selector));
     }
-  }, [searchDemand, demands.demand]);
+    dispatch(mergeDemandFilter());
+  }, [axes.axes_selector, city.city_selector]);
 
   useEffect(() => {
-    if (dataFilterCity.clicked.trim() !== "Todas as cidades") {
-      setDataNew(
-        demands.demand.filter(
-          (item) =>
-            handleComparationString(item.Cities.name, dataFilterCity.clicked) &&
-            item,
-        ),
-      );
-    } else {
-      setDataNew(demands.demand);
-    }
-  }, [dataFilterCity.clicked]);
+    dispatch(filterStatus(dataCheckbox));
+  }, [dataCheckbox]);
 
   useEffect(() => {
-    if (dataFilterEixos.clicked.trim() !== "Todos os eixos") {
-      const dataA = [];
-      dataA.push(
-        demands.demand.filter(
-          (item) =>
-            handleComparationString(item.Axes.name, dataFilterEixos.clicked) &&
-            item,
-        ),
-      );
-      const dataB = [];
-      dataB.push(handleComparationStatus(demands.demand, dataCheckbox));
-      setDataNew(mergeArray(dataA[0], dataB[0])[0]);
-    } else {
+    if (demands.demandFilter.filtered.length === 0)
       setDataNew([...demands.demand]);
-    }
-  }, [dataFilterEixos.clicked, dataCheckbox]);
+  }, [demands.demand]);
 
   useEffect(() => {
-    setDataVerify(demands.demand !== undefined);
-  }, [demands.demand]);
+    if (demands.demandFilter.filtered.length > 0) {
+      setDataNew(demands.demandFilter.filtered);
+    } else {
+      setDataNew(demands.demand);
+    }
+  }, [demands.demandFilter.filtered]);
+
+  useEffect(() => {
+    dispatch(mergeDemandFilter());
+  }, [demands.demandFilter.search, demands.demandFilter.status]);
 
   return (
     <>
       <NavBar />
-      <LoadingDefault active={city.loading && demands.loading} />
+      <LoadingDefault
+        active={city.loading || demands.loading || axes.loading}
+      />
       <ContainerPage>
+        
         <div className="container-banner-demandas">
           <div className="header" />
           <div className="data">
@@ -127,8 +85,8 @@ export default function Demandas() {
                     <SelectMenu
                       width="250px"
                       clicked
-                      setSelected={setDataFilterCity}
-                      options={[...dataFilterCity.data]}
+                      setSelected={setCitySelected}
+                      options={[...city.city]}
                       background="rgba(0,0,0,0)"
                       color="black"
                     />
@@ -138,14 +96,14 @@ export default function Demandas() {
                     <SelectMenu
                       width="250px"
                       clicked
-                      setSelected={setDataFilterEixos}
-                      options={[...dataFilterEixos.data]}
+                      setSelected={setSelectAxes}
+                      options={[...axes.axes]}
                       background="rgba(0,0,0,0)"
                       color="black"
                     />
                   </div>
                   <div className="filters-demandas-modal">
-                    <h1 className="title-h2">Pesquisa por eixo</h1>
+                    <h1 className="title-h2">Pesquisa por status</h1>
                     <div className="search">
                       <span className="check">
                         <input
@@ -153,9 +111,8 @@ export default function Demandas() {
                           type="checkbox"
                           onChange={(e) =>
                             setCheckbox({
-                              a: e.target.checked ? 1 : 0,
-                              b: dataCheckbox.b,
-                              c: dataCheckbox.c,
+                              ...dataCheckbox,
+                              a: e.target.checked ? "1" : "0",
                             })
                           }
                         />
@@ -167,9 +124,8 @@ export default function Demandas() {
                           type="checkbox"
                           onChange={(e) =>
                             setCheckbox({
-                              a: dataCheckbox.a,
-                              b: e.target.checked ? 2 : 0,
-                              c: dataCheckbox.c,
+                              ...dataCheckbox,
+                              b: e.target.checked ? "2" : "0",
                             })
                           }
                         />
@@ -181,9 +137,8 @@ export default function Demandas() {
                           type="checkbox"
                           onChange={(e) =>
                             setCheckbox({
-                              a: dataCheckbox.a,
-                              b: dataCheckbox.b,
-                              c: e.target.checked ? 3 : 0,
+                              ...dataCheckbox,
+                              c: e.target.checked ? "3" : "0",
                             })
                           }
                         />
@@ -197,7 +152,7 @@ export default function Demandas() {
             <div className="right-demandas">
               <div className="search-demandas">
                 <InputSearch
-                  setState={setSearchDemanda}
+                  setState={filterSearch}
                   size="76%"
                   borderRadius="4px"
                   color="white"
@@ -239,7 +194,7 @@ export default function Demandas() {
                 <ChipFilter className="filter-header" text="N° de envolvidos" />
               </div>
 
-              {dataVerify ? (
+              {dataNew ? (
                 <div className="cards-demandas">
                   {dataNew &&
                     dataNew.map((item: IDemand) => (

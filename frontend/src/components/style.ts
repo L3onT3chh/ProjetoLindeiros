@@ -1446,3 +1446,47 @@ export const ContentMobileMenu = styled.div<SContainerProps>`
     }
   }
 `;
+
+export const CardDocsStyled = styled.div<SContainerProps>`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  .left-doc,
+  .right-doc {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  .right-doc {
+    width: 30%;
+    justify-content: space-evenly;
+  }
+
+  .left-doc {
+    width: 70%;
+
+    .color-doc {
+      background-color: ${(props) => props.color};
+      margin: 20px;
+      height: 70%;
+      padding: 2px;
+      border-radius: 50px;
+    }
+
+    .data-docs {
+      display: flex;
+      flex-direction: column;
+
+      .data-docs-especify {
+        display: flex;
+        flex-direction: row;
+        p {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+`;

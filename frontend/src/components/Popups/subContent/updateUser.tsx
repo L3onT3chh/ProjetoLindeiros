@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/button-has-type */

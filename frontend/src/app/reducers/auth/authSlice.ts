@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable consistent-return */
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { authLoginThunk } from "app/reducers/auth/thunk";
@@ -8,6 +10,7 @@ const initialState: IDataAuth = {
     jwt: "",
     user: undefined,
     tryLogin: false,
+    logged: false,
   },
   error: "",
   loading: false,
@@ -49,7 +52,9 @@ const authSlice = createSlice({
     });
   },
   reducers: {
-    getToken: () => {},
+    verifyLogin: (state: IDataAuth) => {
+      state.auth.logged = state.auth.jwt !== " ";
+    },
     setCredentials: (state: IDataAuth, action) => {
       const { user, token } = action.payload;
       state.auth.jwt = token;
@@ -62,7 +67,7 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, getToken, logout } = authSlice.actions;
+export const { setCredentials, verifyLogin, logout } = authSlice.actions;
 
 export default authSlice.reducer;
 

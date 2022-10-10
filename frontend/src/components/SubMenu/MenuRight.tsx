@@ -9,7 +9,7 @@ import { MyProfile } from "components/Popups/subContent/Profile";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import PDefault from "components/Popups";
 import RegisterNews from "components/Popups/subContent/registerNews";
-import { demands, news_icon, users } from "../../assets/icons";
+import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 
@@ -105,19 +105,6 @@ export function MenuRight() {
               },
             ]}
             text="Demandas"
-          />
-
-          <ChipCard
-            icon={news_icon}
-            optionsMenu={[
-              {
-                title: "Inserir",
-                activePopUp: true,
-                setTrigger: () => setPNews(!openPNews),
-              },
-              { title: "Atualizar", urlMain: "painel/news" },
-            ]}
-            text="Noticías"
           />
         </div>
       </ContainerMenuRight>

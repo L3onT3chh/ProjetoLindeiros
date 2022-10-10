@@ -7,6 +7,7 @@ const initialState: IDataDocument = {
   loading: false,
   document: [],
   error: "",
+  documentSelect: undefined,
 };
 
 export const documentSlice = createSlice({
@@ -33,9 +34,14 @@ export const documentSlice = createSlice({
       },
     );
   },
-  reducers: { getDocument: () => {} },
+  reducers: {
+    getDocument: () => {},
+    selectDocument: (state: IDataDocument, action) => {
+      state.documentSelect = action.payload;
+    },
+  },
 });
 
-export const { getDocument } = documentSlice.actions;
+export const { getDocument, selectDocument } = documentSlice.actions;
 
 export default documentSlice.reducer;

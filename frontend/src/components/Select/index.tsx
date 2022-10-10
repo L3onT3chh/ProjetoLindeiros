@@ -1,6 +1,8 @@
 /* eslint-disable react/require-default-props */
 import React from "react";
 import { IOptions, IPropsGlobal } from "interfaces/components.interface";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "app/store";
 import { ContainerSelect } from "../style";
 
 export function SelectMenu({
@@ -11,13 +13,12 @@ export function SelectMenu({
   iconFinal,
   width,
   setSelected,
-  clicked,
 }: IPropsGlobal) {
+  const dispatch = useDispatch<AppDispatch>();
+
   const handleClick = (option: string) => {
-    if (clicked) {
-      setSelected({ data: options, clicked: option.trim() });
-    } else if (setSelected) {
-      setSelected(option.trim());
+    if (option !== " ") {
+      dispatch(setSelected(option.trim()));
     }
   };
   return (

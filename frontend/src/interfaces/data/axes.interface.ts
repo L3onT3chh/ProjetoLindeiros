@@ -8,4 +8,5 @@ export interface IAxes {
 
 export interface IDataAxes extends IResponseData {
   axes: IAxes[];
+  axes_selector: string;
 }
