@@ -5,6 +5,9 @@ import { IDataNews } from "interfaces/data/news.interface";
 
 const initialState: IDataNews = {
   loading: false,
+  filters: {
+    lastNews: [],
+  },
   news: [],
   error: "",
 };

@@ -7,12 +7,16 @@ import { IUser, IUserPost } from "interfaces/data/user.interface";
 const RegisterUser = async (userSave: IUserPost) => {
   try {
     const token = TokenUser();
-    console.log(userSave);
     const headers = { ...HEADERS_DATA, token: `${token}` };
+    const { userType } = userSave;
+
     const user = await API("/user", {
       headers,
       method: "POST",
-      data: userSave,
+      data: {
+        ...userSave,
+        user_type: userType,
+      },
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);

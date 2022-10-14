@@ -1024,6 +1024,12 @@ export const ContainerPopup = styled.div<SContainerProps>`
     font-size: 17px;
     cursor: pointer;
   }
+
+  @media (max-width: 1400px) {
+    .container-modal-popup {
+      height: 80%;
+    }
+  }
 `;
 
 export const ContentProfile = styled.div`
@@ -1031,6 +1037,9 @@ export const ContentProfile = styled.div`
     padding: 30px;
 
     .content-basic-data {
+      div.data-overflow-data {
+        height: 100%;
+      }
       .double-data {
         display: flex;
         justify-content: space-between;
@@ -1133,13 +1142,40 @@ export const ContentProfile = styled.div`
       margin: 80px auto;
       width: 160px;
 
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
 
       span {
+        margin-left: 10px;
         margin-top: 10px;
         justify-content: center;
         align-items: center;
+      }
+    }
+  }
+
+  @media (max-width: 1400px) {
+    .content-default .content-basic-data {
+      div.data-overflow-data {
+        overflow-y: scroll;
+        height: 530px;
+
+        &::-webkit-scrollbar {
+          margin: 10px;
+          width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background: #f1f1f1;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: #999;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+          background: #777;
+        }
       }
     }
   }

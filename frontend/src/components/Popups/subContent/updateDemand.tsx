@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChipAdd from "components/Chips/ChipAdd";
 import InputStyle from "components/Inputs";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { AppDispatch } from "app/store";
 import { useForm } from "util/form/useForm";
-import { IDemandPost } from "interfaces/data/demand.interface";
+import { IDemand, IDemandPost } from "interfaces/data/demand.interface";
 import { createDemandsThunk } from "app/reducers/demand/thunk";
 
 interface IProps {
@@ -19,10 +19,14 @@ interface IProps {
 
 function UpdateDemand({ demandId, setState }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
-  const demandFilter = useSelector(
-    (state: IStateData) =>
-      state.demands.demand.filter((item) => item.id === demandId)[0],
-  );
+  const [demandClicked, setDemandClicked] = useState<IDemand>();
+  const demandFilter = useSelector((state: IStateData) =>
+    state.demands.demand.filter((item) => item.id === demandId),
+  )[0];
+
+  useEffect(() => {
+    setDemandClicked(demandFilter);
+  }, [demandFilter]);
 
   const { city, axes } = useSelector((state: IStateData) => state);
   const [userCity, setUserCity] = useState("");
@@ -68,80 +72,87 @@ function UpdateDemand({ demandId, setState }: IProps) {
             }}
           >
             <div className="content-basic-data">
-              <h1 className="title-h3">Dados Básicos</h1>
-              <InputStyle
-                onChange={onChange}
-                name="name"
-                required
-                value={demandFilter.name}
-                placeholder="Nome"
-                title=""
-                type="text"
-                className="form-control-demand"
-              />
-              <div className="double-data">
-                <InputStyle
-                  required
-                  onChange={onChange}
-                  name="priority"
-                  value={demandFilter.priority}
-                  placeholder="Prioridade"
-                  title=""
-                  type="text"
-                  className="form-control-demand text-double"
-                />
+              <div className="data-overflow-data">
+                <h1 className="title-h3">Dados Básicos</h1>
                 <InputStyle
                   onChange={onChange}
-                  name="area"
-                  placeholder="Área de conhecimento"
-                  title=""
+                  name="name"
                   required
+                  value={demandClicked && demandClicked.name}
+                  placeholder="Nome"
+                  title=""
                   type="text"
-                  className="form-control-demand text-double"
+                  className="form-control-demand"
                 />
-              </div>
-              <TextArea
-                name="generalText"
-                height="80px"
-                valueDefault={demandFilter.Objective.general}
-                setState={setUserText}
-                required
-                className="form-control-demand"
-                placeholder="Objetivos geral"
-                title=""
-              />
-              <div className="double-data">
-                <SelectMenuAlternative
-                  value={demandFilter.Cities.name.trim()}
-                  setState={setUserCity}
-                  name="city_id"
-                  className="text-double text-popup"
-                  options={city.city}
-                />
-                <SelectMenuAlternative
-                  value={demandFilter.Axes.name.trim()}
-                  setState={setUserAxes}
-                  name="axes_id"
-                  className="text-double text-popup"
-                  options={axes.axes}
-                />
-              </div>
-              <div className="content-data-time">
-                <h1 className="title-h3">Objetivo da demanda</h1>
-                <div className="form-control-demand">
-                  <ChipAdd text="Objetivo especifico" setState={setObjective} />
+                <div className="double-data">
+                  <InputStyle
+                    required
+                    onChange={onChange}
+                    name="priority"
+                    value={demandClicked && demandClicked.priority}
+                    placeholder="Prioridade"
+                    title=""
+                    type="text"
+                    className="form-control-demand text-double"
+                  />
+                  <InputStyle
+                    onChange={onChange}
+                    name="area"
+                    placeholder="Área de conhecimento"
+                    title=""
+                    required
+                    type="text"
+                    className="form-control-demand text-double"
+                  />
                 </div>
-              </div>
-              <TextArea
-                required
-                valueDefault={demandFilter.description}
-                height="80px"
-                className="form-control-demand"
-                placeholder="Descrição"
-                title=""
-                setState={setUserDescription}
-                name="description"
-              />
+                <TextArea
+                  name="generalText"
+                  height="80px"
+                  valueDefault={
+                    demandClicked && demandClicked.Objective.general
+                  }
+                  setState={setUserText}
+                  required
+                  className="form-control-demand"
+                  placeholder="Objetivos geral"
+                  title=""
+                />
+                <div className="double-data">
+                  <SelectMenuAlternative
+                    value={demandClicked && demandClicked.Cities.name.trim()}
+                    setState={setUserCity}
+                    name="city_id"
+                    className="text-double text-popup"
+                    options={city.city}
+                  />
+                  <SelectMenuAlternative
+                    value={demandClicked && demandClicked.Axes.name.trim()}
+                    setState={setUserAxes}
+                    name="axes_id"
+                    className="text-double text-popup"
+                    options={axes.axes}
+                  />
+                </div>
+                <div className="content-data-time">
+                  <h1 className="title-h3">Objetivo da demanda</h1>
+                  <div className="form-control-demand">
+                    <ChipAdd
+                      text="Objetivo especifico"
+                      setState={setObjective}
+                    />
+                  </div>
+                </div>
+                <TextArea
+                  required
+                  valueDefault={demandClicked && demandClicked.description}
+                  height="80px"
+                  className="form-control-demand"
+                  placeholder="Descrição"
+                  title=""
+                  setState={setUserDescription}
+                  name="description"
+                />
+              </div>{" "}
               <div className="btns-popup">
                 <button className="btn-close-two">Fechar</button>
                 <button className="btn-send" onClick={() => setState(false)}>

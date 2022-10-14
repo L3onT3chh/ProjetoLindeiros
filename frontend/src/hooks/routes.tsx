@@ -48,13 +48,13 @@ const HandleDispatchData = () => {
 };
 function Routers() {
   HandleDispatchData();
-  const { users, demands } = useSelector((state: IStateData) => state);
+  const { users, demands, auth } = useSelector((state: IStateData) => state);
   const [dataSearch, setDataSearch] = useState("");
-  // const [dataSearchUser, setDataSearchUser] = useState("");
-  // const [s1, setOne] = useState();
-  // const [s2, setTwo] = useState();
-  // const [s3, setThree] = useState();
-  // const [s4, setFour] = useState();
+
+  useEffect(() => {
+    console.log(auth.auth.logged && localStorage.getItem("token_jwt") !== " ");
+  }, [auth.auth]);
+
   return (
     <>
       <Routes>

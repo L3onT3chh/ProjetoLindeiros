@@ -1,32 +1,37 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 // import ButtonCard from "components/Buttons/ButtonCard";
+import { filterSearch } from "app/reducers/demand/demandSlice";
 import ButtonCard from "components/Buttons/ButtonCard";
 import { InputSearch } from "components/Inputs/Search";
 import { LoadingDefault } from "components/Loading";
+import PDefault from "components/Popups";
+import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import { MenuRight } from "components/SubMenu/MenuRight";
-import { IPropsGlobal, IStateData } from "interfaces/components.interface";
+import { IPropsGlobal } from "interfaces/components.interface";
 import { ContainerPainel } from "pages/css/styled";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
 
 export function ListagemDemanda({
-  setState,
   type,
   children,
   active,
   state,
 }: IPropsGlobal) {
-  const { demands } = useSelector((state: IStateData) => state);
-
-  useEffect(() => {
-    if (demands.message) {
-      toast.error(demands.message);
-    }
-  }, [demands.message, demands.error, demands]);
+  const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
 
   return (
     <ContainerPainel>
+      <PDefault
+        height="889"
+        width="569"
+        title="Envio de demandas"
+        subtitle="Preencha todos os campos marcados *"
+        setTrigger={setOpenPopupDemandas}
+        trigger={openPopupDemandas}
+      >
+        <RegisterDemandas setState={setOpenPopupDemandas} />
+      </PDefault>
+
       <MenuRight />
       <LoadingDefault active={active} />
       <div className="container">
@@ -36,7 +41,7 @@ export function ListagemDemanda({
               state={state}
               value={`Adicionar ${type}`}
               router="/painel/demandas"
-              setState={setState}
+              setState={setOpenPopupDemandas}
             />
           </div>
 
@@ -44,7 +49,7 @@ export function ListagemDemanda({
             text="Pesqusiar demanda"
             background="#cecece"
             size="83%"
-            setState={setState}
+            setState={filterSearch}
             borderRadius="40px 0 0 40px"
           />
         </div>

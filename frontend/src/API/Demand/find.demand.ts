@@ -5,7 +5,7 @@ import API from "API";
 
 export const findAllDemands = async () => {
   try {
-    const token = localStorage.getItem("tokeAuth")?.toString();
+    const token = localStorage.getItem("token_jwt")?.toString();
 
     const headers = { ...HEADERS_DATA, token: `${token}` };
     const responseDemands = await API.get("/demand", {

@@ -31,7 +31,7 @@ function RegisterRepresent() {
               <SelectMenuAlternative
                 title="Selecione um município"
                 setState={setSelectCity}
-                name="user_type"
+                name="userType"
                 options={city.city}
               />
             </div>
@@ -39,7 +39,7 @@ function RegisterRepresent() {
               <SelectMenuAlternative
                 title="Lista de representantes"
                 //   setState={setTypeUser}
-                name="user_type"
+                name="userType"
                 //   options={userTypes.types}
               />
             </div>

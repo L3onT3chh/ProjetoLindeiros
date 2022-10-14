@@ -10,6 +10,9 @@ export default interface INews {
 }
 
 export interface IDataNews extends IResponseData {
+  filters: {
+    lastNews: [];
+  };
   news: INews[];
 }
 

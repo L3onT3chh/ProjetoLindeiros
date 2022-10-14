@@ -323,7 +323,6 @@ export const ContainerPainel = styled.div<SContainerProps>`
         width: 200px;
       }
     }
-
     .container-header-main,
     .statistic,
     .chips-footer {

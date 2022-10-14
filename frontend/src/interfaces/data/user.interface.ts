@@ -28,7 +28,7 @@ export interface IUserPost {
   address: string;
   phone: number;
   phone_ddd: number;
-  user_type: string;
+  userType: string;
   postalCode: number;
   city: string;
   password: string;

@@ -114,7 +114,7 @@ export const demandSlice = createSlice({
     },
     clickedDemand: (state: IDataDemand, action) => {
       state.demandFilter.clicked = state.demand.filter(
-        (item) => item.id === action.payload.id,
+        (item) => item.id === action.payload,
       )[0];
     },
     mergeDemandFilter: (state: IDataDemand) => {

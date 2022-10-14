@@ -29,6 +29,7 @@ function UpdateUser({ userId }: IProps) {
   useEffect(() => {
     setUserFiltered(userFilter);
   }, [userFilter]);
+
   const [dataCity, setDataCity] = useState("");
   const initialValue: IUserPost = {
     name: "",
@@ -38,7 +39,7 @@ function UpdateUser({ userId }: IProps) {
     address: "",
     phone: 0,
     phone_ddd: 0,
-    user_type: "",
+    userType: "",
     postalCode: 0,
     city: "",
     password: "",
@@ -49,7 +50,7 @@ function UpdateUser({ userId }: IProps) {
     dispatch(
       createUserThunk({
         ...valuesSave,
-        user_type: typeUser,
+        userType: typeUser,
         city: dataCity,
       }),
     );
@@ -127,14 +128,14 @@ function UpdateUser({ userId }: IProps) {
                 <SelectMenuAlternative
                   value={userFiltered && userFiltered.userType}
                   setState={setTypeUser}
-                  name="user_type"
+                  name="userType"
                   className="text-double text-popup"
                   options={userTypes.types}
                 />
                 <SelectMenuAlternative
                   value={userFiltered && userFiltered.city}
                   setState={setDataCity}
-                  name="user_type"
+                  name="userType"
                   className="text-double text-popup"
                   options={city.city}
                 />

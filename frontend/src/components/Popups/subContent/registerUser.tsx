@@ -23,7 +23,7 @@ function RegisterUser() {
     address: "",
     phone: 0,
     phone_ddd: 0,
-    user_type: "",
+    userType: "",
     postalCode: 0,
     city: "",
     password: "",
@@ -34,7 +34,7 @@ function RegisterUser() {
     dispatch(
       createUserThunk({
         ...valuesSave,
-        user_type: typeUser,
+        userType: typeUser,
         city: cityUser,
       }),
     );
@@ -88,6 +88,7 @@ function RegisterUser() {
                 onChange={onChange}
                 placeholder="Nº de telefone"
                 title=""
+                maxLength={8}
                 name="phone"
                 type="phone"
                 className="text-double"
@@ -107,6 +108,7 @@ function RegisterUser() {
                 onChange={onChange}
                 placeholder="Código Postal"
                 title=""
+                maxLength={8}
                 type="number"
                 className="text-double"
               />

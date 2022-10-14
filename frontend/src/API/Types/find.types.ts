@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 
 export const findAllTypes = async () => {
   try {
-    const token = localStorage.getItem("tokeAuth")?.toString();
+    const token = localStorage.getItem("token_jwt")?.toString();
 
     const headers = { ...HEADERS_DATA, token: `${token}` };
     const responseTypes = await API.get("/userType", {

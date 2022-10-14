@@ -1,6 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { fetchDocumentsThunk } from "app/reducers/document/thunk";
+import {
+  createDocuments,
+  fetchDocumentsThunk,
+} from "app/reducers/document/thunk";
 import { IDataDocument } from "interfaces/data/document.interface";
 
 const initialState: IDataDocument = {
@@ -31,6 +34,17 @@ export const documentSlice = createSlice({
         state.loading = false;
         state.document = [];
         state.error = action.error.message?.toString() || "";
+      },
+    );
+    builder.addCase(
+      createDocuments.fulfilled,
+      (state: IDataDocument, action) => {
+        const { payload } = action;
+
+        if (payload !== undefined) {
+          state.loading = false;
+          state.message = payload.message;
+        }
       },
     );
   },

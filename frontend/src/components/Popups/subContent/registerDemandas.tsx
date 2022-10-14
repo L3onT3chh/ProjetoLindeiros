@@ -57,69 +57,71 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
           }}
         >
           <div className="content-basic-data">
-            <h1 className="title-h3">Dados Básicos</h1>
-            <InputStyle
-              onChange={onChange}
-              name="name"
-              placeholder="Nome"
-              title=""
-              type="text"
-              className="form-control-demand"
-            />
-            <div className="double-data">
+            <div className="data-overflow-data">
+              <h1 className="title-h3">Dados Básicos</h1>
               <InputStyle
                 onChange={onChange}
-                name="priority"
-                placeholder="Prioridade"
+                name="name"
+                placeholder="Nome"
                 title=""
                 type="text"
-                className="form-control-demand text-double"
+                className="form-control-demand"
               />
-              <InputStyle
-                onChange={onChange}
-                name="area"
-                placeholder="Área de conhecimento"
-                title=""
-                type="text"
-                className="form-control-demand text-double"
-              />
-            </div>
-            <TextArea
-              name="generalText"
-              height="80px"
-              setState={setUserText}
-              className="form-control-demand"
-              placeholder="Objetivos geral"
-              title=""
-            />
-            <div className="double-data">
-              <SelectMenuAlternative
-                setState={setUserCity}
-                name="city_id"
-                className="text-double text-popup"
-                options={city.city}
-              />
-              <SelectMenuAlternative
-                setState={setUserAxes}
-                name="axes_id"
-                className="text-double text-popup"
-                options={axes.axes}
-              />
-            </div>
-            <div className="content-data-time">
-              <h1 className="title-h3">Objetivo da demanda</h1>
-              <div className="form-control-demand">
-                <ChipAdd text="Objetivo especifico" setState={setObjective} />
+              <div className="double-data">
+                <InputStyle
+                  onChange={onChange}
+                  name="priority"
+                  placeholder="Prioridade"
+                  title=""
+                  type="text"
+                  className="form-control-demand text-double"
+                />
+                <InputStyle
+                  onChange={onChange}
+                  name="area"
+                  placeholder="Área de conhecimento"
+                  title=""
+                  type="text"
+                  className="form-control-demand text-double"
+                />
               </div>
+              <TextArea
+                name="generalText"
+                height="80px"
+                setState={setUserText}
+                className="form-control-demand"
+                placeholder="Objetivos geral"
+                title=""
+              />
+              <div className="double-data">
+                <SelectMenuAlternative
+                  setState={setUserCity}
+                  name="city_id"
+                  className="text-double text-popup"
+                  options={city.city}
+                />
+                <SelectMenuAlternative
+                  setState={setUserAxes}
+                  name="axes_id"
+                  className="text-double text-popup"
+                  options={axes.axes}
+                />
+              </div>
+              <div className="content-data-time">
+                <h1 className="title-h3">Objetivo da demanda</h1>
+                <div className="form-control-demand">
+                  <ChipAdd text="Objetivo especifico" setState={setObjective} />
+                </div>
+              </div>
+              <TextArea
+                height="80px"
+                className="form-control-demand"
+                placeholder="Descrição"
+                title=""
+                setState={setUserDescription}
+                name="description"
+              />
             </div>
-            <TextArea
-              height="80px"
-              className="form-control-demand"
-              placeholder="Descrição"
-              title=""
-              setState={setUserDescription}
-              name="description"
-            />
             <div className="btns-popup">
               <button className="btn-close-two">Fechar</button>
               <button className="btn-send" onClick={() => setState(false)}>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable consistent-return */
 import React, { useEffect } from "react";
 // import { AppDispatch } from "app/store";
@@ -5,15 +6,13 @@ import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
 import { IStateData } from "interfaces/components.interface";
 import { IUserLogin } from "interfaces/data/user.interface";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "util/form/useForm";
-import { useNavigate } from "react-router";
 import ButtonForm from "components/Buttons/ButtonForm";
-// import { authLoginThunk } from "app/reducers/auth/thunk";
-import Home from "pages/Home";
-import { AppDispatch } from "app/store";
 import { authLoginThunk } from "app/reducers/auth/thunk";
+import { AppDispatch } from "app/store";
+import { useNavigate } from "react-router";
 import { addUser, lock } from "../assets/icons";
 // import ButtonCard from "../components/Buttons/ButtonCard";
 import CardDefault from "../components/Card/CardDefault";
@@ -40,22 +39,12 @@ function Login() {
         ...data,
       }),
     );
-    if (auth.auth.jwt !== " ") navigate("/painel", { replace: true });
-    return <Home />;
   };
 
   useEffect(() => {
-    if (users.tryLogin) {
-      if (users.error !== "") {
-        toast(users.error, {
-          autoClose: 3000,
-          type: "error",
-        });
-      } else if (users.message !== "") {
-        navigate("/painel");
-      }
-    }
-  }, [navigate, users.error, users.message, users.tryLogin]);
+    if (auth.auth.logged && auth.auth.user !== undefined)
+      return navigate("/painel", { replace: true });
+  }, [auth.auth.tryLogin]);
 
   return (
     <>

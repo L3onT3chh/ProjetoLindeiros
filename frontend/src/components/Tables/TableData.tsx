@@ -1,52 +1,57 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
-import { IDemand, IProposal } from "interfaces/data/demand.interface";
+import { IDemand } from "interfaces/data/demand.interface";
 import { BsFillTrash2Fill } from "react-icons/bs";
-import { BiMessageSquareDetail } from "react-icons/bi";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
-import { PMeuPerfil } from "components/Popups/Profile";
-import { CardPropostas } from "components/Card/Propostas";
-import { cityspcape } from "assets/icons";
+// import { PMeuPerfil } from "components/Popups/Profile";
+// import { CardPropostas } from "components/Card/Propostas";
+// import { cityspcape } from "assets/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteDemandsThunk } from "app/reducers/demand/thunk";
 import { AppDispatch } from "app/store";
 import PDefault from "components/Popups";
 import UpdateDemand from "components/Popups/subContent/updateDemand";
+import {
+  clickedDemand,
+  mergeDemandFilter,
+} from "app/reducers/demand/demandSlice";
 
 export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
   const { demands } = useSelector((state: IStateData) => state);
-  const [newData] = useState<IDemand[]>([...demands.demand]);
-  const [dataClicked, setDataClicked] = useState<IDemand[]>();
+  const [newData, setNewData] = useState<IDemand[]>(demands.demand);
   const [dataUpdated, setDataUpdated] = useState<string>("");
   const [useOpenDemand, setOpenDemand] = useState(false);
-  const [trigger, setTrigger] = useState(false);
+  const [trigger, setTrigger] = useState(true);
 
-  const handleClicked = (name: string) => {
-    if (name) {
-      const data: IDemand[] | undefined = newData?.filter(
-        (item) => item.name === name,
-      );
-      if (data !== undefined && data[0].Proposal) {
-        setDataClicked(data);
-      } else {
-        setDataClicked(undefined);
-      }
-      setTrigger(!trigger);
+  const handleClicked = (id: string) => {
+    if (id) {
+      dispatch(clickedDemand(id));
     }
   };
+
+  useEffect(() => {
+    dispatch(mergeDemandFilter());
+    setNewData(demands.demandFilter.filtered);
+  }, [demands.demandFilter.search]);
+
+  useEffect(() => {
+    setTrigger(!trigger);
+  }, [demands.demandFilter.clicked]);
 
   const handleRemoveDemand = (id: string) => {
     dispatch(deleteDemandsThunk(id));
   };
 
   const handleUpdateDemand = (id: string) => {
-    setDataUpdated(id);
+    if (id !== undefined) {
+      setDataUpdated(id);
+    }
 
-    setOpenDemand(true);
+    setOpenDemand(!useOpenDemand);
   };
   return (
     <>
@@ -73,7 +78,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
               <th>
                 <button
                   className="field-styled field-name"
-                  onClick={() => handleClicked(item.name)}
+                  onClick={() => handleClicked(item.id)}
                 >
                   {item.name}
                 </button>
@@ -108,19 +113,11 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
                     size={32}
                   />
                 </span>
-                <span className="divisor" />
-                <span>
-                  <BiMessageSquareDetail
-                    className="btn-click"
-                    size={32}
-                    color="blue"
-                  />
-                </span>
               </th>
             </tr>
           ))}
       </table>
-      {dataClicked && dataClicked[0].Proposal && (
+      {/* {dataClicked && dataClicked.Proposal && (
         <PMeuPerfil
           height="850"
           width="550"
@@ -130,7 +127,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
         >
           <>
             <div className="cards">
-              {dataClicked[0].Proposal?.map((item: IProposal, index) => (
+              {dataClicked.Proposal?.map((item: IProposal, index) => (
                 <CardPropostas
                   key={index.toString()}
                   icon={cityspcape}
@@ -145,7 +142,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
             <h1 className="title-h2">Carregar mais</h1>
           </>
         </PMeuPerfil>
-      )}
+      )} */}
     </>
   );
 }

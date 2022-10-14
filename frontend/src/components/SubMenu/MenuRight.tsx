@@ -17,7 +17,6 @@ export function MenuRight() {
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
   const [openPNews, setPNews] = useState(false);
-  // const dispatch = useDispatch<AppDispatch>();
 
   return (
     <>

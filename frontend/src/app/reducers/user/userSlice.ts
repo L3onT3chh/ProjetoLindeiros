@@ -106,10 +106,19 @@ export const userSlice = createSlice({
     },
     mergeFilters: (state: IDataUser) => {
       const { city, type, search } = state.filters;
-      state.filters = {
-        ...state.filters,
-        merge: [...city, ...type, ...search],
-      };
+      const arrayNew = [...city, ...type, ...search];
+
+      if (arrayNew.length > 0) {
+        state.filters = {
+          ...state.filters,
+          merge: [...city, ...type, ...search],
+        };
+      } else {
+        state.filters = {
+          ...state.filters,
+          merge: [...state.users],
+        };
+      }
     },
     filterClicked: (state: IDataUser, action) => {
       const { payload } = action;

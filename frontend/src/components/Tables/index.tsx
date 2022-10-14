@@ -44,7 +44,6 @@ export function TableDefaultUser({ fields }: IProps) {
 
     setOpenUserCard(!OpenUserCard);
   };
-
   return newData ? (
     <>
       <div className="data-user-poup">

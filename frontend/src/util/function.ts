@@ -46,3 +46,13 @@ export const mergeArray = (aB: IDemand[], bB: IDemand[]) => {
 export const isValid = (value: string) => {
   return value !== "" || value !== undefined;
 };
+
+export const Sleep = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration);
+  });
+};
+
+export const SaveFile = (document: any) => {
+  console.log(document);
+};

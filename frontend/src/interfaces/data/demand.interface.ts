@@ -12,7 +12,7 @@ export interface IDemand {
   Objective: IObjective;
   Axes: IAxes;
   Cities: ICities;
-  Proposal: IProposal[];
+  Proposal?: IProposal[] | IProposal | undefined;
 }
 
 export interface IDemandPost {

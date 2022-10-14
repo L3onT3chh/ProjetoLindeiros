@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 import API from "API";
+import { HEADERS_DATA } from "config";
 import { IUserLogin, IUserPost } from "../interfaces/data/user.interface";
 
 interface IAuthUser {
@@ -54,4 +55,37 @@ const isAuthentication = () => {
   return false;
 };
 
-export default { login: loginUser, isAuthentication };
+export const validateToken = async (token: string) => {
+  try {
+    const headers = { ...HEADERS_DATA, token: `${token}` };
+    const responseToken = await API.get("/user/validate", {
+      method: "GET",
+      headers,
+    })
+      .then((response) => Promise.resolve(response))
+      .catch((error) => Promise.resolve(error));
+
+    const { User } = responseToken.data;
+
+    if (User) {
+      return {
+        response: User,
+        message: "Operação realizada com sucesso",
+        status: 200,
+      };
+    }
+    return {
+      response: [],
+      message: "Não foi possível realizar a operação",
+      status: 400,
+    };
+  } catch (e: any) {
+    return {
+      response: [],
+      message: e.message,
+      status: e.status,
+    };
+  }
+};
+
+export default { login: loginUser, isAuthentication, validate: validateToken };
