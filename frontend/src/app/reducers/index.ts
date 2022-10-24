@@ -9,6 +9,7 @@ import cityReducer from "app/reducers/city/citySlice";
 import axesReducer from "app/reducers/axes/axesSlice";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "util/Modification";
+import toastReducer from "app/reducers/toast/toastSlice";
 import { fetchDocumentsThunk } from "./document/thunk";
 import documentReducer from "./document/documentSlice";
 import usersReducer from "./user/userSlice";
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   loadingBar: loadingBarReducer,
   city: cityReducer,
   axes: axesReducer,
+  toast: toastReducer,
   auth: persistReducer(persistConfig, authReducer),
   // proposals: proposalSlice,
 });

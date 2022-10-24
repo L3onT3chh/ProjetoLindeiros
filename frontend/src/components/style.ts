@@ -750,6 +750,15 @@ export const ContainerSearch = styled.div<SContainerProps>`
     outline: 0;
     height: 100%;
   }
+
+  @media screen and (max-width: 1200px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width: 450px) {
+    height: 40px;
+    width: 100%;
+  }
 `;
 
 export const ContainerSelect = styled.select<SContainerProps>`
@@ -1198,7 +1207,7 @@ export const ContainerCardChipDemandas = styled.div`
   height: 150px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
-  width: 260px;
+  width: 100%;
   padding: 15px;
   justify-content: space-between;
   display: flex;

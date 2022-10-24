@@ -36,6 +36,7 @@ export interface IUserPost {
 
 export interface IDataUser extends IResponseData {
   tryLogin: boolean;
+  typeMessage: string;
   users: IUser[];
   filters: {
     type: IUser[];

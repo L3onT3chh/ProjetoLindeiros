@@ -1,12 +1,11 @@
 /* eslint-disable react/button-has-type */
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InputStyle from "components/Inputs";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { ContentProfile } from "components/style";
 import { useForm } from "util/form/useForm";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
-// import { IPropsGlobal } from "interfaces/components.interface";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { createDocuments } from "app/reducers/document/thunk";
 import { IDocumentPost } from "../../../interfaces/data/document.interface";
@@ -20,18 +19,6 @@ function RegisterNews({ setState }: IPropsGlobal) {
     fullPath: "",
     demands_id: "",
   };
-
-  const [selectedFile, setSelectedFile] = useState();
-  // const [isFilePicked, setIsFilePicked] = useState(false);
-
-  const changeHandler = (event: any) => {
-    setSelectedFile(event.target.files[0]);
-    // setIsSelected(true);
-  };
-  useEffect(() => {
-    const reader = new FileReader();
-  }, [selectedFile]);
-  // const handleSubmission = () => {};
 
   const dispatch = useDispatch<AppDispatch>();
   const [demandSelect, setDemandSelect] = useState("");
@@ -77,7 +64,7 @@ function RegisterNews({ setState }: IPropsGlobal) {
               type="file"
               name="test"
               id="file_id"
-              onChange={changeHandler}
+              // onChange={changeHandler}
             />
             {/* <TextArea
               setState={setSelectDescription}

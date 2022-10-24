@@ -11,6 +11,7 @@ import { IDataNews } from "interfaces/data/news.interface";
 import { IDataCity } from "interfaces/data/city.interface";
 import { IDataAxes } from "interfaces/data/axes.interface";
 import { IDataAuth } from "interfaces/data/auth.interface";
+import { IDataToast } from "interfaces/data/toast.interface";
 import { SContainerProps } from "./global.interface";
 
 export interface IPropsGlobal extends SContainerProps {
@@ -142,5 +143,6 @@ export interface IStateData {
   userTypes: IDataTypes;
   city: IDataCity;
   axes: IDataAxes;
+  toast: IDataToast;
   auth: IDataAuth;
 }

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IUserPost } from "interfaces/data/user.interface";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { IStateData } from "interfaces/components.interface";
+import { setMessageToToast } from "app/reducers/toast/toastSlice";
 
 function RegisterUser() {
   const dispatch = useDispatch<AppDispatch>();
@@ -28,7 +29,7 @@ function RegisterUser() {
     city: "",
     password: "",
   };
-  const { userTypes, city } = useSelector((state: IStateData) => state);
+  const { userTypes, city, users } = useSelector((state: IStateData) => state);
   const { onChange, values } = useForm(initialValue);
   const handleSaveData = async (valuesSave: IUserPost) => {
     dispatch(
@@ -36,6 +37,13 @@ function RegisterUser() {
         ...valuesSave,
         userType: typeUser,
         city: cityUser,
+      }),
+    );
+
+    dispatch(
+      setMessageToToast({
+        message: users.message,
+        type: users.typeMessage,
       }),
     );
   };

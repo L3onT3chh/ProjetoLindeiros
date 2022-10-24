@@ -226,6 +226,18 @@ export const ContainerPage = styled.div<SContainerProps>`
 
       .left-demandas {
         left: 250px;
+
+        @media screen and (max-width: 1500px) {
+          left: 200px;
+        }
+
+        @media screen and (max-width: 1300px) {
+          left: 150px;
+        }
+
+        @media screen and (max-width: 1100px) {
+          display: none;
+        }
       }
 
       .right-demandas {
@@ -241,6 +253,10 @@ export const ContainerPage = styled.div<SContainerProps>`
           height: 55px;
           display: flex;
           width: 100%;
+
+          @media screen and (max-width: 450px) {
+            flex-direction: column;
+          }
         }
 
         .filters-demandas {
@@ -252,15 +268,86 @@ export const ContainerPage = styled.div<SContainerProps>`
           align-items: center;
           height: 50px;
           padding: 15px;
+
+          @media screen and (max-width: 1100px) {
+            margin-top: 80px;
+          }
+
+          @media screen and (max-width: 450px) {
+            display: none;
+          }
         }
 
         .cards-demandas {
           display: flex;
           flex-wrap: wrap;
           margin-top: 40px;
+          column-gap: 2%;
 
-          .box-demanda {
-            margin: 12px;
+          .demandaCardItem {
+            width: 23%;
+          }
+
+          @media screen and (max-width: 1100px) {
+            margin-top: 20px;
+          }
+
+          @media screen and (max-width: 450px) {
+            margin-top: 60px;
+          }
+        }
+
+        @media screen and (max-width: 1700px) {
+          width: 55%;
+        }
+
+        @media screen and (max-width: 1500px) {
+          right: 150px;
+
+          .cards-demandas {
+            .demandaCardItem {
+              width: 32%;
+            }
+          }
+        }
+
+        @media screen and (max-width: 1300px) {
+          width: 65%;
+          right: 50px;
+        }
+
+        @media screen and (max-width: 1200px) {
+          width: 60%;
+        }
+
+        @media screen and (max-width: 1100px) {
+          width: 80%;
+          left: 50%;
+          margin-left: -40%;
+          top: 100px;
+        }
+
+        @media screen and (max-width: 900px) {
+          width: 90%;
+          margin-left: -45%;
+        }
+        @media screen and (max-width: 900px) {
+          width: 96%;
+          margin-left: -48%;
+        }
+        @media screen and (max-width: 600px) {
+          .cards-demandas {
+            .demandaCardItem {
+              width: 49%;
+              margin-bottom: 2%;
+            }
+          }
+        }
+        @media screen and (max-width: 450px) {
+          .cards-demandas {
+            .demandaCardItem {
+              width: 100%;
+            }
           }
         }
       }

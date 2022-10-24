@@ -21,6 +21,7 @@
     "react": "^18.1.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.1.0",
+    "react-hot-toast": "^2.4.0",
     "react-icons": "^4.4.0",
     "react-loadings": "^1.0.0",
     "react-notification": "^6.8.5",

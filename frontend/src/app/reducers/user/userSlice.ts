@@ -19,6 +19,7 @@ const initialState: IDataUser = {
     search: [],
     clicked: undefined,
   },
+  typeMessage: "",
   loading: false,
   users: [],
   error: "",
@@ -50,6 +51,7 @@ export const userSlice = createSlice({
       const { payload } = action;
 
       if (payload !== undefined) {
+        state.typeMessage = "success";
         state.loading = false;
         state.message = payload.message;
       }

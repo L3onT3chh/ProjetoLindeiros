@@ -186,32 +186,34 @@ export default function Demandas() {
                   text="Recentes"
                   color="#8BEFBF"
                 />
-                <ChipFilter
+                {/* <ChipFilter
                   className="filter-header"
                   text="Propostas enviadas"
                 />
-                <ChipFilter className="filter-header" text="N° de envolvidos" />
+                <ChipFilter className="filter-header" text="N° de envolvidos" /> */}
               </div>
 
               {dataNew ? (
                 <div className="cards-demandas">
                   {dataNew &&
                     dataNew.map((item: IDemand) => (
-                      <Link to={`/demanda/${item.name}`} key={item.name}>
-                        <CardDemandas
-                          className="box-demanda"
-                          color={
-                            item.status.toString() === "1"
-                              ? "#EFBA8B"
-                              : "#EF8B8B"
-                          }
-                          // "Turismo integrado no te..."
-                          title={item.name}
-                          // "Eixo - Negócios e renda"
-                          subtitle={item.Axes.name}
-                          date="24 Jan 2023"
-                        />
-                      </Link>
+                      <div className="demandaCardItem">
+                        <Link to={`/demanda/${item.name}`} key={item.name}>
+                          <CardDemandas
+                            className="box-demanda"
+                            color={
+                              item.status.toString() === "1"
+                                ? "#EFBA8B"
+                                : "#EF8B8B"
+                            }
+                            // "Turismo integrado no te..."
+                            title={item.name}
+                            // "Eixo - Negócios e renda"
+                            subtitle={item.Axes.name}
+                            date="24 Jan 2023"
+                          />
+                        </Link>
+                      </div>
                     ))}
                 </div>
               ) : (
