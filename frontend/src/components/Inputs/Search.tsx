@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/require-default-props */
 import { AppDispatch } from "app/store";
 import React, { useState } from "react";

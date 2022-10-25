@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import styled from "styled-components";
 import { SContainerProps } from "../../interfaces/global.interface";
 
@@ -236,7 +237,19 @@ export const ContainerPage = styled.div<SContainerProps>`
         }
 
         @media screen and (max-width: 1100px) {
-          display: none;
+          z-index: 2;
+          position: fixed;
+          width: 100%;
+          height: 100%;
+          left: 0;
+          top: 0;
+
+          .menu-suspenso-demandas{
+            justify-content: space-evenly;
+            right: 0;
+            width: 100%;
+            height: 100%;
+          }
         }
       }
 
@@ -256,6 +269,12 @@ export const ContainerPage = styled.div<SContainerProps>`
 
           @media screen and (max-width: 450px) {
             flex-direction: column;
+          }
+
+          @media screen and (max-width: 450px) {
+            select{
+              display: none;
+            }
           }
         }
 
@@ -286,6 +305,7 @@ export const ContainerPage = styled.div<SContainerProps>`
 
           .demandaCardItem {
             width: 23%;
+            margin-bottom: 2%;
           }
 
           @media screen and (max-width: 1100px) {
@@ -339,7 +359,6 @@ export const ContainerPage = styled.div<SContainerProps>`
           .cards-demandas {
             .demandaCardItem {
               width: 49%;
-              margin-bottom: 2%;
             }
           }
         }
@@ -359,6 +378,10 @@ export const ContainerPage = styled.div<SContainerProps>`
     .header {
       background: rgba(27, 73, 119, 0.85);
       height: 200px;
+
+      @media screen and (max-width: 450px) {
+        height: 180px;
+      }
     }
   }
   .notFound {

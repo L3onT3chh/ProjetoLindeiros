@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
@@ -86,7 +87,7 @@ export default function Demandas() {
                       clicked
                       setSelected={setCitySelected}
                       options={[...city.city]}
-                      background="rgba(0,0,0,0)"
+                      background="rgba(0,0,0,0.1)"
                       color="black"
                     />
                   </div>
@@ -97,7 +98,7 @@ export default function Demandas() {
                       clicked
                       setSelected={setSelectAxes}
                       options={[...axes.axes]}
-                      background="rgba(0,0,0,0)"
+                      background="rgba(0,0,0,0.1)"
                       color="black"
                     />
                   </div>

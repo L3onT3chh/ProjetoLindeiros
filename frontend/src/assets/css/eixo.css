@@ -25,6 +25,7 @@ html{
 }
 
 .parallax .item .title h3 {
+    opacity: 0.6;
     font-size: 1rem;
     margin-top: 5px;
     margin-bottom: 0;
@@ -59,7 +60,6 @@ html{
     position: relative;
     z-index: 3;
     opacity: 1; 
-    transform: translateY(60px);
 }
 
 .btnTopo{
@@ -95,5 +95,33 @@ html{
     to {
         opacity: 1;
         transform: translateY(0px);
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .parallax .item .content p {
+        font-size: 1.1rem;
+        line-height: 35px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .parallax .item .content p {
+        padding: 0 50px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .parallax .item .content p {
+        font-size: 0.9rem;
+        line-height: 30px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .parallax .item .content p {
+        font-size: 0.75rem;
+        padding: 0 20px;
+        line-height: 25px;
     }
 }

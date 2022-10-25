@@ -21,7 +21,7 @@ export function CardDocs(documentSelect: IDocument) {
   };
 
   return (
-    <Card width="412px" height="105px">
+    <Card width="32%" height="105px">
       <CardDocsStyled color="red">
         <div className="left-doc">
           <div className="color-doc" />
@@ -46,8 +46,8 @@ export function CardDocs(documentSelect: IDocument) {
         </div>
 
         <div className="right-doc">
-          <AiFillInfoCircle size={40} color="blue" />
-          <AiOutlineCloudDownload size={45} color="green" />
+          <AiFillInfoCircle size={40} color="blue" className="infoIcon"/>
+          <AiOutlineCloudDownload size={45} color="green" className="downloadIcon"/>
         </div>
       </CardDocsStyled>
     </Card>

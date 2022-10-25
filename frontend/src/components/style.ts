@@ -45,6 +45,7 @@ export const ContainerNavBar = styled.div`
 
 export const Card = styled.div<SContainerProps>`
   margin: ${(props) => (props.margin ? "auto" : "none")};
+  margin-bottom: 2%;
   ${(props) => props.shadow && "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);"}
   width: ${(props) => props.width || "405px"};
   border-radius: ${(props) => props.background || "5px"};
@@ -55,6 +56,14 @@ export const Card = styled.div<SContainerProps>`
   background-image: url("${(props) => props.background}");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+
+  @media screen and (max-width: 1100px) {
+    width: 49%;
+  }
+
+  @media screen and (max-width: 800px) {
+    width: 100%;
+  }
 
   .btns-card {
     float: right;
@@ -749,6 +758,10 @@ export const ContainerSearch = styled.div<SContainerProps>`
     border-radius: ${(props) => props.borderRadius || "30px"};
     outline: 0;
     height: 100%;
+
+    @media screen and (max-width: 450px) {
+      height: 40px;
+    }
   }
 
   @media screen and (max-width: 1200px) {
@@ -756,7 +769,6 @@ export const ContainerSearch = styled.div<SContainerProps>`
   }
 
   @media screen and (max-width: 450px) {
-    height: 40px;
     width: 100%;
   }
 `;
@@ -1528,6 +1540,13 @@ export const CardDocsStyled = styled.div<SContainerProps>`
       .data-docs-especify {
         display: flex;
         flex-direction: row;
+
+        @media screen and (max-width: 500px) {
+          &:last-of-type{
+            display: none;
+          }
+        }
+
         p {
           margin-left: 10px;
         }
