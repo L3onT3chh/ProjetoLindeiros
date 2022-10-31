@@ -7,8 +7,20 @@ export const ContainerPage = styled.div<SContainerProps>`
   z-index: 1;
   background-color: white;
 
+  @media screen and (max-width: 1000px) {
+    .welcomeLoginCard{
+      display: none;
+    }
+    .login,.login .form-login{
+      width: 100%!important;
+    }
+  }
   .form-control-demand-forgout {
     margin-top: 20px;
+  }
+
+  .content-demanda{
+    overflow-x: auto;
   }
 
   .create-proposal {
@@ -36,6 +48,10 @@ export const ContainerPage = styled.div<SContainerProps>`
     margin-bottom: 60px;
     margin-left: auto;
     margin-right: auto;
+
+    @media screen and (max-width: 1400px) {
+      width: 90%;
+    }
   }
 
   .description-about {
@@ -89,8 +105,12 @@ export const ContainerPage = styled.div<SContainerProps>`
     }
   }
   .news-content {
-    width: 105%;
+    width: 100%;
     padding: 10px;
+
+    .mainNews{
+      width: 100%!important;
+    }
   }
 
   .eixos-programmer,
@@ -99,10 +119,6 @@ export const ContainerPage = styled.div<SContainerProps>`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-
-    .card-eixo-home {
-      margin: 20px;
-    }
   }
 
   .sponsor-content {
@@ -112,21 +128,27 @@ export const ContainerPage = styled.div<SContainerProps>`
 
   .login {
     right: 0;
-    height: 90%;
-    padding: 45px;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 35px;
 
     .form-login {
       .link-painel {
         color: white;
       }
-      margin-top: 118px;
+      margin-top: 50px;
       border-radius: 20px;
       width: 38vw;
-      height: 80%;
 
       span {
         padding: 10px;
       }
+    }
+
+    @media screen and (max-width: 500px) {
+      padding: 10px;
     }
   }
 
@@ -142,10 +164,13 @@ export const ContainerPage = styled.div<SContainerProps>`
       }
     }
 
-    .eixos-programmer,
-    .others-news {
+    .eixos-programmer {
       justify-content: center;
       align-items: center;
+    }
+
+    .others-news{
+      display: none;
     }
 
     .others-news > :nth-child(1n + 1) {
@@ -156,8 +181,14 @@ export const ContainerPage = styled.div<SContainerProps>`
   .container-footer {
     width: 80%;
     display: flex;
-    justify-content: space-around;
-    margin: -100px auto;
+    justify-content: center;
+    column-gap: 5%;
+    margin: 30px auto 0;
+
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 
   .duvida {
@@ -166,12 +197,14 @@ export const ContainerPage = styled.div<SContainerProps>`
     position: relative;
     width: 80%;
     height: 350px;
-    top: 200px;
-    left: 9.4vw;
-    right: 9.4vw;
+    margin: 5% auto 5%;
+
+    @media screen and (max-width: 1000px) {
+      width: 90%;
+    }
 
     .duvida-msg {
-      margin-top: 80px;
+      margin-top: 60px;
       width: 100%;
     }
   }
@@ -200,6 +233,32 @@ export const ContainerPage = styled.div<SContainerProps>`
 
       .data-info {
         font-size: 18px;
+      }
+    }
+
+    @media screen and (max-width: 813px) {
+      display: flex;
+      align-items: center;
+      padding: 25px;
+
+      .data-banner{
+        height: fit-content;
+        flex-direction: column;
+
+        .create-proposal{
+          position: initial;
+          top: initial;
+          right: initial;
+          margin-top: 15px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      padding: 10px;
+      justify-content: center;
+      .data-banner{
+        width: 100%;
       }
     }
   }
@@ -397,7 +456,6 @@ export const ContainerPainel = styled.div<SContainerProps>`
   background: white;
 
   .btn-click-clear {
-    width: 200px;
     padding: 10px;
     align-items: center;
     display: flex;
@@ -412,14 +470,28 @@ export const ContainerPainel = styled.div<SContainerProps>`
 
   .clear {
     position: absolute;
-    right: 100px;
+    right: 0px;
+
+    @media screen and (max-width: 600px) {
+        display: none;
+    }
   }
 
   .container {
     z-index: 0;
-    height: 100%;
-    margin-top: 30px;
+    height: 100vh;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media screen and (max-width: 576px){
+      max-width: 100%!important;
+    }
+
+    .container-header-main{
+      margin-bottom: 2%;
+    }
 
     .content-header {
       display: flex;
@@ -429,8 +501,19 @@ export const ContainerPainel = styled.div<SContainerProps>`
       justify-content: space-between;
       margin: 50px auto 10px;
 
+      @media screen and (max-width: 500px) {
+        flex-direction: column-reverse;
+      }
+
       .btn-header {
         width: 200px;
+
+        @media screen and (max-width: 500px) {
+          button{
+            width: 100%!important;
+            margin-top: 15px!important;
+          }
+        }        
       }
     }
     .container-header-main,
@@ -469,13 +552,17 @@ export const ContainerPainel = styled.div<SContainerProps>`
       margin: 0%;
 
       .content-filter-painel {
+        position: relative;
         display: flex;
 
         flex-direction: row;
-        margin: 10px 0px;
-        width: 32%;
+        margin: 50px 0px 0;
+        width: 100%;
         display: flex;
-        justify-content: space-between;
+
+        @media screen and (max-width: 500px) {
+          display: none;
+        }
       }
     }
 

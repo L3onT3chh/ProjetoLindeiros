@@ -26,7 +26,6 @@ function TextArea({
 }: IPros) {
   return (
     <ContainerTextarea height={height} className={className}>
-      <h2 className="title-h3">{title}</h2>
       <textarea
         defaultValue={valueDefault}
         onChange={(e) => setState(e.target.value)}

@@ -67,7 +67,7 @@ export function Demanda() {
   return data ? (
     <>
       <PDefault
-        height="686"
+        height="85%"
         width="929"
         title=""
         // active={active}
@@ -79,7 +79,7 @@ export function Demanda() {
         <ProposalDetail demand={demandClicked} />
       </PDefault>
       <PDefault
-        height="849"
+        height="85%"
         width="569"
         title="Envio de proposta"
         subtitle="Preencha todos os campos marcados *"
@@ -93,7 +93,7 @@ export function Demanda() {
         <div className="banner-index" />
         <div className="container-banner">
           <div className="data-banner">
-            <TitleDefault name={data[0].name} bold font="30" />
+            <TitleDefault name={data[0].name} bold font="30" className="mainTitle"/>
             <span className="spacing" />
             <ProgressBar
               color={data[0].progress > 0 ? "white" : "black"}
@@ -110,18 +110,17 @@ export function Demanda() {
             {/* 
                 setTrigger: () => setOpenProposalCad(!OpenProposalCad),
             */}
+            <div className="data-info">
+              <TitleDefault name="Ultima atualização em 12/2021" font="15" />
 
+              <TitleDefault name="Prioridade: Alta" font="15" />
+            </div>
             <button
               className="create-proposal"
               onClick={() => setOpenProposalCad(!OpenProposalCad)}
             >
               Cadastrar proposta
             </button>
-            <div className="data-info">
-              <TitleDefault name="Ultima atualização em 12/2021" font="15" />
-
-              <TitleDefault name="Prioridade: Alta" font="15" />
-            </div>
           </div>
           <div className="shadow-div" />
         </div>
@@ -189,7 +188,7 @@ export function Demanda() {
           )}
         </div>
         <div className="duvida">
-          <SublinedText size="32" title="Duvidas sobre essa demanda?" />\
+          <SublinedText size="32" title="Duvidas sobre essa demanda?" />
           <div className="duvida-msg">
             <TextArea
               placeholder="Escreva uma mensagem"

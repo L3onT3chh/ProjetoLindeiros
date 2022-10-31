@@ -40,6 +40,7 @@ export const ContainerDocuments = styled.div`
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 
     .btn-docs {
       height: 40px;

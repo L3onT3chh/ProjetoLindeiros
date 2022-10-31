@@ -142,11 +142,9 @@ function Home() {
         </div>
 
         <DoubtedCard />
-
-        {/* <Footer /> */}
       </ContainerPage>
     </>
-  );
+  )
 }
 
 export default Home;

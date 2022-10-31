@@ -41,6 +41,7 @@ function CardProposta({
       </div>
 
       <ButtonDefault
+        width="100%"
         setState={setState}
         proposal={proposal}
         state={state}

@@ -4,8 +4,8 @@ import { Card, ContainerOtherNews } from "../style";
 
 function OtherNews({ description, date, logo, title }: IOtherNewsProps) {
   return (
-    <Card width="520px" height="165px">
-      <ContainerOtherNews>
+    <Card width="32%" height="165px" className="otheNewsItem">
+      <ContainerOtherNews style={{ height: "100%" }}>
         <img src={logo.src} alt={logo.alt} />
 
         <div className="data-content">

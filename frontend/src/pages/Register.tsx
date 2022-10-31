@@ -21,7 +21,7 @@ function RegisterRepresent() {
     <>
       <LoadingDefault active={city.loading} />
       <NavBar />
-      <ContainerPage style={{ display: "flex", height: "100vh" }}>
+      <ContainerPage style={{ display: "flex", height: "calc(100vh - 60px)" }}>
         <WelcomeLogin />
 
         <div className="login">
@@ -62,14 +62,14 @@ function RegisterRepresent() {
           <div className="container-footer">
             <CardDefault
               width="224px"
-              height="154px"
+              height="fit-content"
               title="Esqueci minha senha"
               icon={lock}
               url="/forgoutPassword"
             />
             <CardDefault
               width="224px"
-              height="154px"
+              height="fit-content"
               title="Login"
               icon={loginIconDefault}
               url="/login"

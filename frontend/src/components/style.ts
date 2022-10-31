@@ -47,15 +47,23 @@ export const Card = styled.div<SContainerProps>`
   margin: ${(props) => (props.margin ? "auto" : "none")};
   margin-bottom: 2%;
   ${(props) => props.shadow && "box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);"}
-  width: ${(props) => props.width || "405px"};
+  width: ${(props) => props.width || "338px"};
   border-radius: ${(props) => props.background || "5px"};
   height: ${(props) => props.height || "338px"};
   padding ${(props) => (props.active ? "20px" : "0px")};
   border: ${(props) => props.background || "1px solid rgba(51, 51, 51, 0.2)"}; 
   background: var(--color-font-primary || ${(props) => props.background});
   background-image: url("${(props) => props.background}");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: center;
+
+  &.accessCard{
+    width: 50%;
+  }
+
+  &.welcomeLoginCard{
+    width: 56%;
+  }
 
   @media screen and (max-width: 1100px) {
     width: 49%;
@@ -64,6 +72,38 @@ export const Card = styled.div<SContainerProps>`
   @media screen and (max-width: 800px) {
     width: 100%;
   }
+
+  @media screen and (max-width: 500px) {
+    width: 100%!important;
+  }
+
+  @media screen and (max-width: 1400px) {
+    &.cardP{
+      height: 115px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    &.right{
+      display: none;
+    }
+    &.left{
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    &.cardP:nth-child(3n){
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 400px) {
+    &.cardP:nth-child(2n){
+      display: none;
+    }
+  }
+  
 
   .btns-card {
     float: right;
@@ -157,7 +197,7 @@ export const CardContentBody = styled.div`
     width: 100%;
     text-align: center;
     border-bottom: 1px solid rgba(51, 51, 51, 0.2);
-    padding: 18px 112px 18px 112px;
+    padding: 18px 0;
   }
 
   .logo-card {
@@ -175,12 +215,12 @@ export const CardContentBody = styled.div`
 `;
 
 export const ContainerButton = styled.button<SContainerProps>`
-  margin: ${(props) => props.top || "100px"} auto;
-  width: ${(props) => props.width || "250"}px;
+  margin: ${(props) => props.top || "100px"} auto 0;
+  width: ${(props) => props.width || "250px"};
   display: flex;
   z-index: 1;
   box-sizing: border-box;
-  height: ${(props) => props.height || "60px"};
+  height: ${(props) => props.height || "50px"};
   justify-content: center;
   align-items: center;
   font-size: ${(props) => props.font || "18px"};
@@ -195,6 +235,13 @@ export const ContainerButton = styled.button<SContainerProps>`
 
   p {
     color: white;
+  }
+
+  @media screen and (max-width: 500px) {
+    &.painelButton{
+      width: 100%;
+      margin-top: 10px;
+    }
   }
 `;
 
@@ -242,7 +289,7 @@ export const ContainerOtherNews = styled.div`
 
   img {
     display: block;
-    height: 165px;
+    height: 100%;
   }
 
   .data-content {
@@ -256,6 +303,23 @@ export const ContainerOtherNews = styled.div`
     .title-h2 {
       font-size: 21px;
       color: var(--color-background);
+    }
+
+    @media screen and (max-width: 1600px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .title-h2{
+      font-size: 16px;
+    }
+    .data-content {
+      .title-h2 {
+        font-size: 16px;
+      }
     }
   }
 `;
@@ -337,6 +401,10 @@ export const ContainerDoubt = styled.div<SContainerProps>`
     display: flex;
     color: white;
     align-items: flex-end;
+  }
+
+  @media screen and (max-width: 1000px) {
+    display: none;
   }
 `;
 
@@ -459,7 +527,7 @@ export const ButtonSubmitStyle = styled.button<SContainerProps>`
 export const ContainerWelcome = styled.div`
   box-shadow: 10px 3px 13px rgba(0, 0, 0, 0.3);
   background: rgba(0, 0, 0, 0.44);
-  height: 100vh;
+  height: calc(100vh - 60px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -474,6 +542,10 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
   flex-direction: row;
   background: rgba(51, 51, 51, 0.5);
 
+  &:last-of-type{
+    margin-top: 0;
+  }
+
   .logo {
     background: rgba(51, 51, 51, 0.6);
     background-image: ${(props) => props.background};
@@ -486,6 +558,10 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
       width: 50px;
       height: 50px;
       margin: 19px 29px;
+      @media screen and (max-width: 1300px) {
+          width: 35px;
+          height: 35px;
+      }
     }
   }
 
@@ -505,13 +581,15 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
       text-align: justify;
       font-size: 14px;
       line-height: 1;
+
+      @media screen and (max-width: 1300px) {
+          font-size: 12px;
+      }
     }
   }
 `;
 
 export const ContainerSublined = styled.div<SContainerProps>`
-  position: absolute;
-
   h3 {
     font-size: ${(props) => `${props.font}px`};
     padding-bottom: 15px;
@@ -578,21 +656,23 @@ export const ContainerDefault = styled.div`
   img {
     padding: 10px;
     margin: auto;
-    width: 80px;
-    height: 80px;
+    width: 65px;
+    height: 65px;
   }
 
   span {
     width: 100%;
-    margin: 15px 0 0;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 10px 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    opacity: 0.9;
   }
 
   a {
     color: var(--color-background-alternative);
     text-decoration: none;
     text-align: center;
-    padding-top: 10px;
+    padding-top: 5px;
+    font-size: 15px;
   }
 `;
 
@@ -608,6 +688,12 @@ export const ContainerH1 = styled.h1<SContainerProps>`
   font-style: normal;
   font-weight: ${(props) => (props.bold ? "700" : "400")};
   font-size: ${(props) => props.font ?? "35"}px;
+
+  @media screen and (max-width: 813px) {
+    &.mainTitle{
+      font-size: 20px;
+    }
+  }
 `;
 
 export const ContainerProgress = styled.div<SContainerProps>`
@@ -624,17 +710,18 @@ export const ContainerProgress = styled.div<SContainerProps>`
   background-color: var(
     ${(props) => (props.active ? "--color-background" : "--color-font-primary")}
   );
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const ContainerNavMenu = styled.div`
   display: flex;
   color: black;
   z-index: 1;
-  position: absolute;
-  top: 400px;
-  width: 80vw;
-  left: 9.4vw;
-  right: 9.4vw;
+  width: 80%;
+  margin: 5% auto 25px;
   padding: 0;
   align-self: center;
   border-bottom: 0.3rem solid var(--color-background);
@@ -666,20 +753,32 @@ export const ContainerNavMenu = styled.div`
       transition-duration: 0.6s;
     }
   }
+
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+    margin: 0 auto 25px;
+  }
+  @media screen and (max-width: 813px) {
+    width: 813px;
+  }
 `;
 
 export const ContainerSubMenu = styled.div`
   position: relative;
   text-align: justify;
-  top: 150px;
   min-height: 300px;
   display: flex;
   flex-wrap: wrap;
-  left: 9.4vw;
-  right: 9.4vw;
   width: 80%;
+  margin: auto;
   display: flex;
-  flex-direction: column;
+  column-gap: 2%;
+  letter-spacing: 0.5px;
+  opacity: 0.95;
+  color: #333;
+  font-size: 1.1em;
+  line-height: 1.8em;
+  /* flex-direction: column; */
 
   li {
     padding: 10px;
@@ -695,6 +794,10 @@ export const ContainerSubMenu = styled.div`
       border-left: 0.1px solid #cecece;
       transform: scale(101%);
     }
+  }
+
+  @media screen and (max-width: 813px) {
+    width: 90%;
   }
 `;
 
@@ -715,15 +818,16 @@ export const ContainerMenuSuspenso = styled.div`
 `;
 
 export const ContainerCardProposta = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  width: 313px;
-  height: 269px;
+  width: 23%;
   padding: 40px;
-  margin: 20px;
-  border: 1px solid black;
+  margin-bottom: 2%;
 
   h2 {
     text-align: center;
@@ -736,6 +840,32 @@ export const ContainerCardProposta = styled.div`
     flex-direction: column;
     justify-content: space-around;
     margin-bottom: -80px;
+  }
+
+  @media screen and (max-width: 1500px) {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    width: 32%;
+    padding: 40px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    padding: 20px;
+  }
+
+  @media screen and (max-width: 900px) {
+    width: 49%;
+    padding: 40px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 300px) {
+    padding: 20px;
   }
 `;
 
@@ -767,9 +897,10 @@ export const ContainerSearch = styled.div<SContainerProps>`
   @media screen and (max-width: 1200px) {
     width: 70%;
   }
-
-  @media screen and (max-width: 450px) {
+  
+  @media screen and (max-width: 500px) {
     width: 100%;
+    border-radius: 0;
   }
 `;
 
@@ -788,6 +919,12 @@ export const ContainerSelect = styled.select<SContainerProps>`
   padding-right: 30px;
   outline: none;
   color: var(${(props) => props.color || "--color-select"});
+  @media screen and (max-width: 1100px) {
+    &.filterSelect{
+      width: 100%;
+    }
+  }
+  
 `;
 
 export const ContainerMenuRight = styled.div<SContainerProps>`
@@ -804,6 +941,9 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
     justify-content: space-between;
     padding: 20px;
 
+    .title-h1{
+      margin-bottom: 0!important;
+    }
     .content-logout {
       font-size: 20px;
       display: flex;
@@ -818,8 +958,32 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
     }
   }
 
+  .closeButton{
+    display: none;
+  }
+
   .content-data {
     margin-top: 40px;
+  }
+
+  @media screen and (max-width: 900px) {
+    display: none;
+    z-index: 20;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    .closeButton{
+      display: block;
+      width: 100%;
+      height: 40px;
+      background-color: #13304c;
+      color: #fff;
+      position: absolute;
+      bottom: 0;
+    }
   }
 `;
 
@@ -922,7 +1086,7 @@ export const ButtonMenu = styled.button<SContainerProps>`
 export const ContainerChipLeft = styled.div`
   display: flex;
   flex-direction: row;
-  width: 315px;
+  width: 32%;
   height: 82px;
   padding: 0 15px 0 0;
   align-items: center;
@@ -948,6 +1112,10 @@ export const ContainerChipLeft = styled.div`
       font-weight: 200;
     }
   }
+
+  @media screen and (max-height: 700px) {
+    display: none;
+  }
 `;
 
 export const ContainerPopup = styled.div<SContainerProps>`
@@ -958,7 +1126,8 @@ export const ContainerPopup = styled.div<SContainerProps>`
   transition: ease-in-out;
   visibility: ${(props) => (props.active ? "visible" : "hidden")};
   background: rgba(0, 0, 0, 0.5);
-  z-index: 7;
+  z-index: 100;
+  overflow: hidden;
 
   .container-loading {
     display: flex;
@@ -972,13 +1141,22 @@ export const ContainerPopup = styled.div<SContainerProps>`
   }
 
   .container-modal-popup {
+    position: relative;
     box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
     border-radius: 25px;
     z-index: 1;
     width: ${(props) => props.width}px;
-    height: ${(props) => props.height}px;
+    height: ${(props) => props.height};
     margin: 50px auto;
     background: white;
+    overflow: hidden;
+
+    @media screen and (max-width: 1000px) {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      border-radius: initial;
+    }
 
     .header-two-popup {
       border-bottom: 1px solid rgba(0, 0, 0, 0.15);
@@ -994,6 +1172,10 @@ export const ContainerPopup = styled.div<SContainerProps>`
       .subtitle-p {
         font-size: 17px;
         color: black;
+
+        @media screen and (max-width: 500px) {
+          display: none;
+        }
       }
 
       .btn-close {
@@ -1014,7 +1196,9 @@ export const ContainerPopup = styled.div<SContainerProps>`
 
     .container-popup {
       width: 100%;
-      height: 90%;
+      height: 78%;
+      padding-bottom: 60px;
+      overflow-y: auto;
     }
   }
 
@@ -1044,12 +1228,6 @@ export const ContainerPopup = styled.div<SContainerProps>`
   .title-h2:hover {
     font-size: 17px;
     cursor: pointer;
-  }
-
-  @media (max-width: 1400px) {
-    .container-modal-popup {
-      height: 80%;
-    }
   }
 `;
 
@@ -1095,6 +1273,15 @@ export const ContentProfile = styled.div`
       justify-content: space-between;
       width: 100%;
       margin-top: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      border-top: 1px solid rgba(0,0,0,0.2);
+      height: 80px;
+      background: #fff;
 
       .btn-send,
       .btn-close-two {
@@ -1317,21 +1504,25 @@ export const ContainerProposal = styled.div`
   }
 
   .info-proposal {
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 10px;
     width: 100%;
     display: flex;
     justify-content: space-around;
+
+    @media screen and (max-width: 500px) {
+      flex-wrap: wrap;
+    }
   }
 
   .info-descripton {
     margin-top: 30px;
     padding: 30px;
-    display: flex;
+    display: block;
     justify-content: space-between;
 
     .info-sublined {
-      margin-top: 80px;
+      margin-top: 30px;
       font-family: "Inter";
       font-style: normal;
       font-weight: 400;

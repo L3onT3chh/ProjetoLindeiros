@@ -89,6 +89,7 @@ export default function Demandas() {
                       options={[...city.city]}
                       background="rgba(0,0,0,0.1)"
                       color="black"
+                      className="filterSelect"
                     />
                   </div>
                   <div className="filters-demandas-modal">
@@ -100,6 +101,7 @@ export default function Demandas() {
                       options={[...axes.axes]}
                       background="rgba(0,0,0,0.1)"
                       color="black"
+                      className="filterSelect"
                     />
                   </div>
                   <div className="filters-demandas-modal">

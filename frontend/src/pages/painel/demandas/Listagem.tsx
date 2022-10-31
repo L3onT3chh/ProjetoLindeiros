@@ -38,6 +38,7 @@ export function ListagemDemanda({
         <div className="content-header">
           <div className="btn-header">
             <ButtonCard
+              className="painelButton"
               state={state}
               value={`Adicionar ${type}`}
               router="/painel/demandas"
@@ -46,6 +47,7 @@ export function ListagemDemanda({
           </div>
 
           <InputSearch
+            className="painelSearch"
             text="Pesqusiar demanda"
             background="#cecece"
             size="83%"

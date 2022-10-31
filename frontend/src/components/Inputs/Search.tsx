@@ -13,6 +13,7 @@ export function InputSearch({
   size,
   borderRadius,
   borderColor,
+  className,
   height,
   color,
   setState,
@@ -29,6 +30,7 @@ export function InputSearch({
       color={color}
       background={background}
       width={size}
+      className={className}
       borderRadius={borderRadius}
       border={borderColor}
     >

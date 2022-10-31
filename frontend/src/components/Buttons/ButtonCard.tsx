@@ -23,8 +23,8 @@ function ButtonCard({
         width={width || "180px"}
         height="52px"
         shadow="0px 4px 4px rgba(0, 0, 0, 0.4)"
-        font="16px"
-        top="37px"
+        font="13px"
+        top="0px"
       >
         <p>{value}</p>
       </ContainerButton>

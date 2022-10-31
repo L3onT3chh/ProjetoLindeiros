@@ -23,7 +23,7 @@ export function MenuRight() {
       <PMeuPerfil
         trigger={openPopup}
         width="409"
-        height="509"
+        height="85%"
         setTrigger={setOpenPopup}
       >
         <MyProfile />
@@ -106,6 +106,7 @@ export function MenuRight() {
             text="Demandas"
           />
         </div>
+        <button className="closeButton">Fechar</button>
       </ContainerMenuRight>
     </>
   );

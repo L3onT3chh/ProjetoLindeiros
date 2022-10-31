@@ -50,7 +50,7 @@ function Login() {
     <>
       <NavBar />
       <LoadingDefault active={users.loading} />
-      <ContainerPage style={{ display: "flex", height: "100vh" }}>
+      <ContainerPage style={{ display: "flex", height: "calc(100vh - 60px)" }}>
         <WelcomeLogin />
 
         <div className="login">
@@ -90,15 +90,17 @@ function Login() {
 
           <div className="container-footer">
             <CardDefault
+              className="accessCard"
               width="224px"
-              height="154px"
+              height="fit-content"
               title="Esqueci minha senha"
               icon={lock}
               url="/forgoutPassword"
             />
             <CardDefault
+              className="accessCard"
               width="224px"
-              height="154px"
+              height="fit-content"
               title="Não possui cadastro?"
               icon={addUser}
               url="/register"

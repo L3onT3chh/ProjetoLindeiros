@@ -16,7 +16,7 @@ import { ContainerPainel } from "../css/styled";
 export function InicioPainel() {
   return (
     <ContainerPainel>
-      <MenuRight />
+      <MenuRight/>
       <div className="container">
         <div className="container-header-main">
           <h1 className="title-h3">Seja bem vindo</h1>
@@ -24,7 +24,7 @@ export function InicioPainel() {
         </div>
         <div className="card-header">
           <CardDefault
-            width="200px"
+            width="32%"
             height="134px"
             icon={addFile}
             title="NOVA DEMANDA"
@@ -33,7 +33,7 @@ export function InicioPainel() {
             className="cardP"
           />
           <CardDefault
-            width="200px"
+            width="32%"
             height="134px"
             icon={addUser}
             borderIntern={false}
@@ -42,7 +42,7 @@ export function InicioPainel() {
             className="cardP"
           />
           <CardDefault
-            width="200px"
+            width="32%"
             height="134px"
             icon={addNews}
             borderIntern={false}
@@ -54,15 +54,15 @@ export function InicioPainel() {
 
         <div className="statistic">
           <StatisticGraph
-            className="content-box"
+            className="content-box left"
             title="Nº de demandas por eixos"
-            width="643px"
+            width="60%"
             height="317px"
           />
           <StatisticGraph
-            className="content-box"
+            className="content-box right"
             title="Crescimento comparado com utimo mês"
-            width="323px"
+            width="40%"
             height="317px"
           />
         </div>
