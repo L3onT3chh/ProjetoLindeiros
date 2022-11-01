@@ -28,7 +28,6 @@ export function Listagem({
 IPropsGlobal) {
   const { userTypes, users } = useSelector((state: IStateData) => state);
   const [OpenUserCard, setOpenUserCard] = useState(false);
-
   return (
     <ContainerPainel>
       <LoadingDefault active={users.loading || userTypes.loading} />

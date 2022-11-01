@@ -9,7 +9,6 @@ import cityReducer from "app/reducers/city/citySlice";
 import axesReducer from "app/reducers/axes/axesSlice";
 import { persistReducer } from "redux-persist";
 import { persistConfig } from "util/Modification";
-import toastReducer from "app/reducers/toast/toastSlice";
 import { fetchDocumentsThunk } from "./document/thunk";
 import documentReducer from "./document/documentSlice";
 import usersReducer from "./user/userSlice";
@@ -18,16 +17,15 @@ import userTypesReducer from "./userTypes/userTypes";
 import authReducer from "./auth/authSlice";
 
 const rootReducer = combineReducers({
-  news: persistReducer(persistConfig, newsReducer),
-  users: usersReducer,
-  demands: persistReducer(persistConfig, demandReducer),
-  documents: persistReducer(persistConfig, documentReducer),
+  news: persistReducer(persistConfig("news"), newsReducer),
+  users: persistReducer(persistConfig("users"), usersReducer),
+  demands: persistReducer(persistConfig("demands"), demandReducer),
+  documents: persistReducer(persistConfig("documents"), documentReducer),
   userTypes: userTypesReducer,
   loadingBar: loadingBarReducer,
   city: cityReducer,
   axes: axesReducer,
-  toast: toastReducer,
-  auth: persistReducer(persistConfig, authReducer),
+  auth: persistReducer(persistConfig("auth"), authReducer),
   // proposals: proposalSlice,
 });
 /*

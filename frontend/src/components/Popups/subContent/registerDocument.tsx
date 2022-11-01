@@ -8,9 +8,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { createDocuments } from "app/reducers/document/thunk";
+import { InputFile } from "components/Inputs/inputFile";
 import { IDocumentPost } from "../../../interfaces/data/document.interface";
 
-function RegisterNews({ setState }: IPropsGlobal) {
+function RegisterDocument({ setState }: IPropsGlobal) {
   const { demands } = useSelector((state: IStateData) => state);
   const initialState: IDocumentPost = {
     name: "",
@@ -48,7 +49,7 @@ function RegisterNews({ setState }: IPropsGlobal) {
             <InputStyle
               onChange={onChange}
               name="title"
-              placeholder="Nome do Documento"
+              placeholder="Nome da Noticía"
               title=""
               required
               type="text"
@@ -60,12 +61,7 @@ function RegisterNews({ setState }: IPropsGlobal) {
               className="text-double text-popup"
               options={demands.demand}
             />
-            <input
-              type="file"
-              name="test"
-              id="file_id"
-              // onChange={changeHandler}
-            />
+            <InputFile />
             {/* <TextArea
               setState={setSelectDescription}
               required
@@ -86,4 +82,4 @@ function RegisterNews({ setState }: IPropsGlobal) {
   );
 }
 
-export default RegisterNews;
+export default RegisterDocument;

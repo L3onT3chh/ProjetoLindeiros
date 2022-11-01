@@ -6,6 +6,7 @@ import {
   deleteDemandsThunk,
   fetchDemandsThunk,
 } from "app/reducers/demand/thunk";
+import { IStateData } from "interfaces/components.interface";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
 
 const initialState: IDataDemand = {
@@ -138,3 +139,5 @@ export const {
 } = demandSlice.actions;
 
 export default demandSlice.reducer;
+
+export const selectCurrentDemands = (state: IStateData) => state.demands;

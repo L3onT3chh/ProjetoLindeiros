@@ -19,3 +19,8 @@ export const validateTokenThunk = createAsyncThunk(
     return validateTokenResponse;
   },
 );
+
+export const logoutUserThunk = createAsyncThunk("users/cleanCode", async () => {
+  const logout = await userLogin.logout();
+  return logout;
+});

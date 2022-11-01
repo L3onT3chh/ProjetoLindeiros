@@ -8,15 +8,17 @@ import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import PDefault from "components/Popups";
-import RegisterNews from "components/Popups/subContent/registerNews";
+// import { AppDispatch } from "app/store";
+// import { useDispatch } from "react-redux";
+// import { logoutUserThunk } from "app/reducers/auth/thunk";
 import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 
 export function MenuRight() {
+  // const dispatch = useDispatch<AppDispatch>();
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
-  const [openPNews, setPNews] = useState(false);
 
   return (
     <>
@@ -32,7 +34,7 @@ export function MenuRight() {
       <PDefault
         height="889"
         width="569"
-        title="Envio de demandas"
+        title="Cadastro de demandas"
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenPopupDemandas}
         trigger={openPopupDemandas}
@@ -40,23 +42,17 @@ export function MenuRight() {
         <RegisterDemandas setState={setOpenPopupDemandas} />
       </PDefault>
 
-      <PDefault
-        height="540"
-        width="517"
-        title="Cadastro de noticias"
-        subtitle="Preencha todos os campos marcados *"
-        setTrigger={setPNews}
-        trigger={openPNews}
-      >
-        <RegisterNews setState={setPNews} />
-      </PDefault>
-
       <ContainerMenuRight>
         <div className="container-header-painel">
           <h1 className="title-h1">Painel</h1>
           {/* Adicionar o link do react router */}
           <div className="content-logout">
-            <Link to="/login" onClick={() => {}}>
+            <Link
+              to="/login"
+              onClick={() => {
+                // dispatch(logoutUserThunk());
+              }}
+            >
               <FiLogOut size={20} color="white" />
               <span className="title-h2">Logout</span>
             </Link>

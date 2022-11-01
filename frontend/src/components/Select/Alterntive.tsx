@@ -36,7 +36,7 @@ export function SelectMenuAlternative({
         {options &&
           options.map((option: IOptions, index) => (
             <option
-              selected={value?.trim() === option.name}
+              defaultValue={value?.trim() === option.name ? option.name : ""}
               className="text-popup"
               value={option.id}
               key={index.toString()}

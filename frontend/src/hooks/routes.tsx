@@ -18,16 +18,17 @@ import {
   fetchUsersThunk,
 } from "app/reducers";
 import { fetchNewssThunk } from "app/reducers/news/thunk";
-import { ToastContainer } from "react-toastify";
 import { fetchCitysThunk } from "app/reducers/city/thunk";
 import { fetchAxesThunk } from "app/reducers/axes/thunk";
 import RegisterRepresent from "pages/Register";
 import ForgoutPassword from "pages/ForgoutPassword";
 import PrivatRoute from "components/PrivateRouter";
+import { Toaster } from "react-hot-toast";
 import { MenuRight } from "../components/SubMenu/MenuRight";
 import Demandas from "../pages/demandas/Demandas";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
+
 import { InicioPainel } from "../pages/painel/Inicio";
 import { Listagem } from "../pages/painel/ListagemUser";
 
@@ -48,12 +49,10 @@ const HandleDispatchData = () => {
 };
 function Routers() {
   HandleDispatchData();
-  const { users, demands, auth } = useSelector((state: IStateData) => state);
-  const [dataSearch, setDataSearch] = useState("");
+  // const { toasts } = useSelector((state: IStateData) => state.toast);
 
-  useEffect(() => {
-    console.log(auth.auth.logged && localStorage.getItem("token_jwt") !== " ");
-  }, [auth.auth]);
+  const { users, demands } = useSelector((state: IStateData) => state);
+  const [dataSearch, setDataSearch] = useState("");
 
   return (
     <>
@@ -153,7 +152,22 @@ function Routers() {
         />
         <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
       </Routes>
-      <ToastContainer />
+      <Toaster
+        toastOptions={{
+          success: {
+            iconTheme: {
+              primary: "green",
+              secondary: "white",
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: "red",
+              secondary: "white",
+            },
+          },
+        }}
+      />
     </>
   );
 }

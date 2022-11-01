@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import { ContentProfile } from "components/style";
 import { GiModernCity } from "react-icons/gi";
-import { useSelector } from "react-redux";
-import { IStateData } from "interfaces/components.interface";
 
 export function MyProfile() {
-  const { auth } = useSelector((state: IStateData) => state);
-  const [profile] = useState(auth.auth.user);
+  const [profile] = useState<any>();
 
   const handleNameSeparator = (name: string, index: number) => {
     return name.split(" ")[index + 1];

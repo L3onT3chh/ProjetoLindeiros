@@ -21,4 +21,5 @@ export interface INewsPost {
   body: string;
   title_url: string;
   city_id: string;
+  axes_id?: string[] | string;
 }

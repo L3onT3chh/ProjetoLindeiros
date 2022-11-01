@@ -48,6 +48,21 @@ const loginUser = async ({
   }
 };
 
+const logoutUser = async () => {
+  localStorage.removeItem("token_jwt");
+
+  if (localStorage.getItem("token_jwt")?.toString() !== "") {
+    return {
+      response: "Usuário deslogado com sucesso",
+      status: 200,
+    };
+  }
+  return {
+    response: "Erro ao deslogar usuário",
+    status: 400,
+  };
+};
+
 const isAuthentication = () => {
   if (localStorage.getItem("token_jwt") !== "") {
     return true;
@@ -88,4 +103,9 @@ export const validateToken = async (token: string) => {
   }
 };
 
-export default { login: loginUser, isAuthentication, validate: validateToken };
+export default {
+  login: loginUser,
+  isAuthentication,
+  validate: validateToken,
+  logout: logoutUser,
+};

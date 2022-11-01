@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from "react";
 import ChipAdd from "components/Chips/ChipAdd";
@@ -11,6 +13,7 @@ import { AppDispatch } from "app/store";
 import { useForm } from "util/form/useForm";
 import { IDemand, IDemandPost } from "interfaces/data/demand.interface";
 import { createDemandsThunk } from "app/reducers/demand/thunk";
+import { PrioriyData } from "assets/data/priority";
 
 interface IProps {
   demandId: string;
@@ -32,6 +35,7 @@ function UpdateDemand({ demandId, setState }: IProps) {
   const [userCity, setUserCity] = useState("");
   const [userAxes, setUserAxes] = useState("");
   const [userText, setUserText] = useState("");
+  const [userPriority, setUserPriority] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userObjectives, setObjective] = useState("");
 
@@ -56,10 +60,22 @@ function UpdateDemand({ demandId, setState }: IProps) {
         description: userDescription,
         generalText: userText,
         specificText: userObjectives.toString(),
+        priority: userPriority,
       }),
     );
   };
+  const handleSplit = (arrayData: string): string[] => {
+    if (Array.isArray(arrayData)) {
+      const aux = arrayData.split(",");
 
+      if (aux.length > 0) {
+        return [...aux];
+      }
+    }
+    return [arrayData];
+  };
+
+  console.log(demandFilter);
   return (
     demandFilter && (
       <ContentProfile>
@@ -85,15 +101,12 @@ function UpdateDemand({ demandId, setState }: IProps) {
                   className="form-control-demand"
                 />
                 <div className="double-data">
-                  <InputStyle
-                    required
-                    onChange={onChange}
-                    name="priority"
-                    value={demandClicked && demandClicked.priority}
-                    placeholder="Prioridade"
-                    title=""
-                    type="text"
-                    className="form-control-demand text-double"
+                  <SelectMenuAlternative
+                    value={demandClicked && demandClicked.priority.trim()}
+                    setState={setUserPriority}
+                    name="prioriy"
+                    className="text-double text-popup"
+                    options={PrioriyData}
                   />
                   <InputStyle
                     onChange={onChange}
@@ -102,7 +115,7 @@ function UpdateDemand({ demandId, setState }: IProps) {
                     title=""
                     required
                     type="text"
-                    className="form-control-demand text-double"
+                    className="text-double text-popup"
                   />
                 </div>
                 <TextArea
@@ -137,6 +150,10 @@ function UpdateDemand({ demandId, setState }: IProps) {
                   <h1 className="title-h3">Objetivo da demanda</h1>
                   <div className="form-control-demand">
                     <ChipAdd
+                      listValue={
+                        demandClicked &&
+                        handleSplit(demandClicked.Objective.SpecificText.text)
+                      }
                       text="Objetivo especifico"
                       setState={setObjective}
                     />

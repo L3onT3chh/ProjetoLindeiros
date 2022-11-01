@@ -5,8 +5,8 @@ import { IPropsGlobal } from "interfaces/components.interface";
 import React, { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
 
-function ChipAdd({ className, text, setState }: IPropsGlobal) {
-  const [data, setData] = useState([]);
+function ChipAdd({ className, text, setState, listValue }: IPropsGlobal) {
+  const [data, setData] = useState([...(listValue || [])]);
   const handleRemoveItem = (value: string) => {
     const temp = data.filter((item) => item !== value);
     setData(temp);

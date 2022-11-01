@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import ButtonCard from "components/Buttons/ButtonCard";
 import NavBar from "components/NavBar";
+import PDefault from "components/Popups";
+import RegisterNews from "components/Popups/subContent/registerNews";
 import { IStateData } from "interfaces/components.interface";
 import { INewsPost } from "interfaces/data/news.interface";
 // import INews from "interfaces/data/news.interface";
@@ -21,6 +23,8 @@ interface INewsUseState {
 }
 
 export function News() {
+  const [openPNews, setPNews] = useState(false);
+
   const { news } = useSelector((state: IStateData) => state.news);
   const [newsData, setNews] = useState<INewsUseState>({
     mainNews: news.slice(0, 4),
@@ -39,6 +43,16 @@ export function News() {
     <>
       <NavBar />
       <div className="noticias">
+        <PDefault
+          height="470"
+          width="517"
+          title="Cadastro de noticias"
+          subtitle="Preencha todos os campos marcados *"
+          setTrigger={setPNews}
+          trigger={openPNews}
+        >
+          <RegisterNews setState={setPNews} />
+        </PDefault>
         <div className="top">
           <div className="container">
             <div
@@ -106,7 +120,12 @@ export function News() {
             </div>
           </div>
         </div>
-        <ButtonCard value="Adicionar Noticias" router="addNews/" />
+        <ButtonCard
+          router="/noticias"
+          state={openPNews}
+          setState={setPNews}
+          value="Adicionar Neoticia"
+        />
         <div className="body">
           <div className="container">
             <div className="main">

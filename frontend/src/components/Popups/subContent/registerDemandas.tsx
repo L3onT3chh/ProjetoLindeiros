@@ -11,12 +11,14 @@ import { AppDispatch } from "app/store";
 import { useForm } from "util/form/useForm";
 import { IDemandPost } from "interfaces/data/demand.interface";
 import { createDemandsThunk } from "app/reducers/demand/thunk";
+import { PrioriyData } from "assets/data/priority";
 
 function RegisterDemandas({ setState }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
   const [userCity, setUserCity] = useState("");
   const [userAxes, setUserAxes] = useState("");
   const [userText, setUserText] = useState("");
+  const [userPriority, setUserPriority] = useState("");
   const [userDescription, setUserDescription] = useState("");
   const [userObjectives, setObjective] = useState("");
 
@@ -42,6 +44,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
         description: userDescription,
         generalText: userText,
         specificText: userObjectives.toString(),
+        priority: userPriority,
       }),
     );
   };
@@ -68,21 +71,20 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
                 className="form-control-demand"
               />
               <div className="double-data">
-                <InputStyle
-                  onChange={onChange}
+                <SelectMenuAlternative
+                  className="text-double text-popup"
+                  setState={setUserPriority}
                   name="priority"
-                  placeholder="Prioridade"
-                  title=""
-                  type="text"
-                  className="form-control-demand text-double"
+                  options={PrioriyData}
                 />
+
                 <InputStyle
                   onChange={onChange}
                   name="area"
                   placeholder="Área de conhecimento"
                   title=""
                   type="text"
-                  className="form-control-demand text-double"
+                  className="text-double text-popup"
                 />
               </div>
               <TextArea
@@ -110,7 +112,11 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
               <div className="content-data-time">
                 <h1 className="title-h3">Objetivo da demanda</h1>
                 <div className="form-control-demand">
-                  <ChipAdd text="Objetivo especifico" setState={setObjective} />
+                  <ChipAdd
+                    text="Objetivo especifico"
+                    setState={setObjective}
+                    listValue={[]}
+                  />
                 </div>
               </div>
               <TextArea

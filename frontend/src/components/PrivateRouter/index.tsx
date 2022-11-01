@@ -1,18 +1,23 @@
-import { IStateData } from "interfaces/components.interface";
+import React from "react";
+import {
+  selectCurentUser,
+  selectCurrentToken,
+} from "app/reducers/auth/authSlice";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import { history } from "util/_helped";
 
-/* eslint-disable react/react-in-jsx-scope */
 function PrivatRoute({ children: Children }: any) {
-  const { auth } = useSelector((state: IStateData) => state.auth);
+  const [user, logged] = useSelector(selectCurentUser);
+  const jwt = useSelector(selectCurrentToken);
 
-  if (!auth.logged && localStorage.getItem("token_jwt") === " ") {
+  if (!logged || !jwt || !user) {
     return <Navigate to="/login" state={{ from: history.location }} replace />;
   }
-  if (auth.user?.userType === "Administrador") return Children;
+  // if (auth.user?.userType === "Administrador") return Children;
 
-  return <Navigate to="/login" state={{ from: history.location }} replace />;
+  return Children;
+  // return <Navigate to="/painel" state={{ from: history.location }} replace />;
 }
 
 export default PrivatRoute;

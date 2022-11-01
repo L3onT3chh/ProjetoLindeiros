@@ -100,7 +100,7 @@ function RegisterProposal({ idDemand }: IProps) {
           <div className="content-data-time">
             <h1 className="title-h3">Dados da equipe</h1>
             <div className="form-control-demand">
-              <ChipAdd setState={() => {}} />
+              <ChipAdd setState={() => {}} listValue={[]} />
             </div>
           </div>
           <div className="btns-popup">
