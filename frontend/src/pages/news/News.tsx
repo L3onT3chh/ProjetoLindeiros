@@ -1,20 +1,58 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import ButtonCard from "components/Buttons/ButtonCard";
+import NavBar from "components/NavBar";
+import PDefault from "components/Popups";
+import RegisterNews from "components/Popups/subContent/registerNews";
+import { IStateData } from "interfaces/components.interface";
+import { INewsPost } from "interfaces/data/news.interface";
+// import INews from "interfaces/data/news.interface";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../assets/css/index.css";
 // Styles
 import "../../assets/css/noticias.css";
-//Images
+// Images
 import * as ImagesEixos from "../../assets/img/eixos";
-import Footer from "../../components/footer/Footer";
 // Components
-import Header from "../../components/header/Header";
-import { Container } from "./styles";
+import { ContainerBackground } from "../css/styled";
 
-export const News = () => {
+interface INewsUseState {
+  mainNews: INewsPost[];
+  newsRemaining: INewsPost[];
+}
+
+export function News() {
+  const [openPNews, setPNews] = useState(false);
+
+  const { news } = useSelector((state: IStateData) => state.news);
+  const [newsData, setNews] = useState<INewsUseState>({
+    mainNews: news.slice(0, 4),
+    newsRemaining: news.slice(5, news.length),
+  });
+  // Refazer com styled component
+
+  useEffect(() => {
+    setNews({
+      mainNews: news.slice(0, 4),
+      newsRemaining: news.slice(5, news.length),
+    });
+  }, [news]);
+
   return (
     <>
-      <Header />
+      <NavBar />
       <div className="noticias">
+        <PDefault
+          height="470"
+          width="517"
+          title="Cadastro de noticias"
+          subtitle="Preencha todos os campos marcados *"
+          setTrigger={setPNews}
+          trigger={openPNews}
+        >
+          <RegisterNews setState={setPNews} />
+        </PDefault>
         <div className="top">
           <div className="container">
             <div
@@ -23,20 +61,9 @@ export const News = () => {
                 display: "flex",
                 width: "100%",
                 justifyContent: "space-between",
-                marginBottom: '10px'
+                marginBottom: "10px",
               }}
-            >
-              <h1 className="title border-left-secondary color-secondary">
-                Noticías recentes
-              </h1>
-              {localStorage.getItem("token_jwt")?.toString() !== "" ? (
-                <button className="btn color-secondary border-secondary btn-docs">
-                  Adicionar Noticias
-                </button>
-              ) : (
-                <></>
-              )}
-            </div>
+            />
             <div className="itens">
               <Link
                 to="itemNews"
@@ -93,6 +120,12 @@ export const News = () => {
             </div>
           </div>
         </div>
+        <ButtonCard
+          router="/noticias"
+          state={openPNews}
+          setState={setPNews}
+          value="Adicionar Neoticia"
+        />
         <div className="body">
           <div className="container">
             <div className="main">
@@ -107,33 +140,23 @@ export const News = () => {
                     backgroundImage: `url(${ImagesEixos.default[4].image})`,
                   }}
                 >
-                  <p>25 de jan, 2022</p>
-                  <h1>
-                    Conselho dos Lindeiros solidifica parcerias para projetos
-                    estruturantes na região
-                  </h1>
+                  <h1>{newsData.mainNews[0].title.substring(0, 15)}...</h1>
                   <p className="text">
                     <i className="fas fa-quote-left" />
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Itaque, provident blanditiis! Architecto fuga repudiandae.
+                    {newsData.mainNews[0].body}
                   </p>
                 </Link>
                 <Link
                   to="itemNews"
                   className="item"
                   style={{
-                    backgroundImage: `url(${ImagesEixos.default[5].image})`,
+                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
                   }}
                 >
-                  <p>25 de jan, 2022</p>
-                  <h1>
-                    Conselho dos Lindeiros solidifica parcerias para projetos
-                    estruturantes na região
-                  </h1>
+                  <h1>{newsData.mainNews[1].title.substring(0, 15)}...</h1>
                   <p className="text">
                     <i className="fas fa-quote-left" />
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Itaque, provident blanditiis! Architecto fuga repudiandae.
+                    {newsData.mainNews[1].body}
                   </p>
                 </Link>
               </div>
@@ -142,36 +165,26 @@ export const News = () => {
                   to="itemNews"
                   className="item"
                   style={{
-                    backgroundImage: `url(${ImagesEixos.default[8].image})`,
+                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
                   }}
                 >
-                  <p>25 de jan, 2022</p>
-                  <h1>
-                    Conselho dos Lindeiros solidifica parcerias para projetos
-                    estruturantes na região
-                  </h1>
+                  <h1>{newsData.mainNews[2].title}</h1>
                   <p className="text">
                     <i className="fas fa-quote-left" />
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Itaque, provident blanditiis! Architecto fuga repudiandae.
+                    {newsData.mainNews[2].body}
                   </p>
                 </Link>
                 <Link
                   to="itemNews"
                   className="item"
                   style={{
-                    backgroundImage: `url(${ImagesEixos.default[9].image})`,
+                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
                   }}
                 >
-                  <p>25 de jan, 2022</p>
-                  <h1>
-                    Conselho dos Lindeiros solidifica parcerias para projetos
-                    estruturantes na região
-                  </h1>
+                  <h1>{newsData.mainNews[3].title}</h1>
                   <p className="text">
                     <i className="fas fa-quote-left" />
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                    Itaque, provident blanditiis! Architecto fuga repudiandae.
+                    {newsData.mainNews[3].body}
                   </p>
                 </Link>
               </div>
@@ -181,65 +194,23 @@ export const News = () => {
                 Mais noticías
               </h1>
               <div className="block">
-                <Link to="itemNews" className="item">
-                  <Container
-                    background={ImagesEixos.default[4].image}
-                    className="img"
-                  />
-
-                  <div className="info">
-                    <p>25 de jan, 2022</p>
-                    <h1>
-                      Conselho dos Lindeiros solidifica parcerias para projetos
-                      estruturantes na região
-                    </h1>
-                  </div>
-                </Link>
-                <Link to="itemNews" className="item">
-                  <Container
-                    background={ImagesEixos.default[5].image}
-                    className="img"
-                  />
-                  <div className="info">
-                    <p>25 de jan, 2022</p>
-                    <h1>
-                      Conselho dos Lindeiros solidifica parcerias para projetos
-                      estruturantes na região
-                    </h1>
-                  </div>
-                </Link>
-                <Link to="itemNews" className="item">
-                  <Container
-                    background={ImagesEixos.default[6].image}
-                    className="img"
-                  />
-                  <div className="info">
-                    <p>25 de jan, 2022</p>
-                    <h1>
-                      Conselho dos Lindeiros solidifica parcerias para projetos
-                      estruturantes na região
-                    </h1>
-                  </div>
-                </Link>
-                <Link to="itemNews" className="item">
-                  <Container
-                    background={ImagesEixos.default[7].image}
-                    className="img"
-                  />
-                  <div className="info">
-                    <p>25 de jan, 2022</p>
-                    <h1>
-                      Conselho dos Lindeiros solidifica parcerias para projetos
-                      estruturantes na região
-                    </h1>
-                  </div>
-                </Link>
+                {newsData.newsRemaining.map((item) => (
+                  <Link to="itemNews" className="item">
+                    <ContainerBackground
+                      background={ImagesEixos.default[7].image}
+                      className="img"
+                    />
+                    <div className="info">
+                      {/* <p>25 de jan, 2022</p> */}
+                      <h1>{item.title}</h1>
+                    </div>
+                  </Link>
+                ))}
               </div>
             </aside>
           </div>
         </div>
-        <Footer />
       </div>
     </>
   );
-};
+}

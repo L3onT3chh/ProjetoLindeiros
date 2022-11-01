@@ -1,15 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/order */
 import React from "react";
-import { Fragment } from "react";
-import Router from "./hooks/router";
+import Router from "./hooks/routes";
 
-import "react-notifications-component/dist/theme.css";
+import "./style.css";
+import "react-toastify/dist/ReactToastify.css";
 
-const App = () => {
+function App() {
   return (
-    <Fragment>
-      <Router />
-    </Fragment>
+    <>
+      <Router />;
+    </>
   );
-};
+}
 
 export default App;

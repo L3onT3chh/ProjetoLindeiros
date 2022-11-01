@@ -1,48 +1,46 @@
-# Manual de execução Lindeiros
+# Getting Started with Create React App
 
----
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Requisitos
+## Available Scripts
 
-- Gerenciador de pacotes Yarn
-    
-    [Yarn](https://www.notion.so/Yarn-2cef1e17750944428d15b0eff7ed9692)
-    
+In the project directory, you can run:
 
-- Node
-    
-    [Node](https://www.notion.so/Node-edf5de3b47604eaabcc976bdbb7fc4bc)
-    
+### `npm start`
 
-- GitHub
-    
-    [Github](https://www.notion.so/Github-218c91248c2746bcbee6a378ac508708)
-    
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Como executar o projeto
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-1) **Passo**
+### `npm test`
 
-Abra a pasta onde o projeto foi clonado
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-2) **Passo**
+### `npm run build`
 
-Já com o Yarn instalado, execute o comando abaixo:
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-```jsx
-yarn // Para baixar as dependências do projeto
-```
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-3) **Passo**
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Após finalizada a instalação, execute o próximo comando:
+### `npm run eject`
 
- 
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-```jsx
-yarn start // Para iniciar o projeto
-```
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-### Recomendações
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-[Estrutura](https://www.notion.so/Estrutura-2f8ad91c94b549368f6d837bfbd29037)
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
