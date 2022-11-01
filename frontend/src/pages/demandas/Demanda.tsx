@@ -93,7 +93,12 @@ export function Demanda() {
         <div className="banner-index" />
         <div className="container-banner">
           <div className="data-banner">
-            <TitleDefault name={data[0].name} bold font="30" className="mainTitle"/>
+            <TitleDefault
+              name={data[0].name}
+              bold
+              font="30"
+              className="mainTitle"
+            />
             <span className="spacing" />
             <ProgressBar
               color={data[0].progress > 0 ? "white" : "black"}

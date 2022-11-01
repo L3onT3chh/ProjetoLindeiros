@@ -144,7 +144,7 @@ function Home() {
         <DoubtedCard />
       </ContainerPage>
     </>
-  )
+  );
 }
 
 export default Home;

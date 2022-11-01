@@ -6,7 +6,12 @@ import AccessLogin from "./AccessLogin";
 
 function WelcomeLogin() {
   return (
-    <Card width="56%" height="100%" background={backgroundLogin} className="welcomeLoginCard">
+    <Card
+      width="56%"
+      height="100%"
+      background={backgroundLogin}
+      className="welcomeLoginCard"
+    >
       <ContainerWelcome>
         <p className="subtitle-p-white">Autenticação de usuário</p>
         <h1 className="title-h1-white">Seja Bem-vindo</h1>

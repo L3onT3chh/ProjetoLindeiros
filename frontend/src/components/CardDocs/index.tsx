@@ -46,8 +46,12 @@ export function CardDocs(documentSelect: IDocument) {
         </div>
 
         <div className="right-doc">
-          <AiFillInfoCircle size={40} color="blue" className="infoIcon"/>
-          <AiOutlineCloudDownload size={45} color="green" className="downloadIcon"/>
+          <AiFillInfoCircle size={40} color="blue" className="infoIcon" />
+          <AiOutlineCloudDownload
+            size={45}
+            color="green"
+            className="downloadIcon"
+          />
         </div>
       </CardDocsStyled>
     </Card>

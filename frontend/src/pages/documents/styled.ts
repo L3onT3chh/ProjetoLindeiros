@@ -9,8 +9,8 @@ export const ContainerDocuments = styled.div`
       padding: 8px;
     }
 
-    h1{
-      span{
+    h1 {
+      span {
         font-size: 30px;
 
         @media screen and (max-width: 700px) {
@@ -24,8 +24,8 @@ export const ContainerDocuments = styled.div`
     }
 
     @media screen and (max-width: 1400px) {
-       width: 100%;
-       max-width: 100%;
+      width: 100%;
+      max-width: 100%;
     }
   }
 
@@ -48,12 +48,12 @@ export const ContainerDocuments = styled.div`
     }
   }
 
-  .right-doc{
+  .right-doc {
     @media screen and (max-width: 500px) {
-      .infoIcon{
+      .infoIcon {
         display: none;
       }
-      .downloadIcon{
+      .downloadIcon {
         width: 38px;
       }
     }

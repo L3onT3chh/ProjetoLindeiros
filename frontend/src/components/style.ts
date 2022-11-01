@@ -238,7 +238,7 @@ export const ContainerButton = styled.button<SContainerProps>`
   }
 
   @media screen and (max-width: 500px) {
-    &.painelButton{
+    &.painelButton {
       width: 100%;
       margin-top: 10px;
     }
@@ -313,7 +313,7 @@ export const ContainerOtherNews = styled.div`
   }
 
   @media screen and (max-width: 1600px) {
-    .title-h2{
+    .title-h2 {
       font-size: 16px;
     }
     .data-content {
@@ -542,7 +542,7 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
   flex-direction: row;
   background: rgba(51, 51, 51, 0.5);
 
-  &:last-of-type{
+  &:last-of-type {
     margin-top: 0;
   }
 
@@ -559,8 +559,8 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
       height: 50px;
       margin: 19px 29px;
       @media screen and (max-width: 1300px) {
-          width: 35px;
-          height: 35px;
+        width: 35px;
+        height: 35px;
       }
     }
   }
@@ -583,7 +583,7 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
       line-height: 1;
 
       @media screen and (max-width: 1300px) {
-          font-size: 12px;
+        font-size: 12px;
       }
     }
   }
@@ -690,7 +690,7 @@ export const ContainerH1 = styled.h1<SContainerProps>`
   font-size: ${(props) => props.font ?? "35"}px;
 
   @media screen and (max-width: 813px) {
-    &.mainTitle{
+    &.mainTitle {
       font-size: 20px;
     }
   }
@@ -897,7 +897,7 @@ export const ContainerSearch = styled.div<SContainerProps>`
   @media screen and (max-width: 1200px) {
     width: 70%;
   }
-  
+
   @media screen and (max-width: 500px) {
     width: 100%;
     border-radius: 0;
@@ -920,11 +920,10 @@ export const ContainerSelect = styled.select<SContainerProps>`
   outline: none;
   color: var(${(props) => props.color || "--color-select"});
   @media screen and (max-width: 1100px) {
-    &.filterSelect{
+    &.filterSelect {
       width: 100%;
     }
   }
-  
 `;
 
 export const ContainerMenuRight = styled.div<SContainerProps>`
@@ -941,8 +940,8 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
     justify-content: space-between;
     padding: 20px;
 
-    .title-h1{
-      margin-bottom: 0!important;
+    .title-h1 {
+      margin-bottom: 0 !important;
     }
     .content-logout {
       font-size: 20px;
@@ -958,7 +957,7 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
     }
   }
 
-  .closeButton{
+  .closeButton {
     display: none;
   }
 
@@ -975,7 +974,7 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
     width: 100%;
     height: 100%;
 
-    .closeButton{
+    .closeButton {
       display: block;
       width: 100%;
       height: 40px;
@@ -1279,7 +1278,7 @@ export const ContentProfile = styled.div`
       display: flex;
       align-items: center;
       padding: 0 20px;
-      border-top: 1px solid rgba(0,0,0,0.2);
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
       height: 80px;
       background: #fff;
 
@@ -1733,7 +1732,7 @@ export const CardDocsStyled = styled.div<SContainerProps>`
         flex-direction: row;
 
         @media screen and (max-width: 500px) {
-          &:last-of-type{
+          &:last-of-type {
             display: none;
           }
         }

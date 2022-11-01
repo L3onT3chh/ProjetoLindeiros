@@ -5,7 +5,12 @@ import ButtonCard from "../Buttons/ButtonCard";
 
 function CardDemandas() {
   return (
-    <Card width="100%" height="400px" background={demandas} style={{width: "100%"}}>
+    <Card
+      width="100%"
+      height="400px"
+      background={demandas}
+      style={{ width: "100%" }}
+    >
       <ContainerCardDemandas>
         <span>
           <h1 className="title-h1">Confira todas as demandas</h1>

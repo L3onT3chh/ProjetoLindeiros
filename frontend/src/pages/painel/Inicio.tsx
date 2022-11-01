@@ -16,7 +16,7 @@ import { ContainerPainel } from "../css/styled";
 export function InicioPainel() {
   return (
     <ContainerPainel>
-      <MenuRight/>
+      <MenuRight />
       <div className="container">
         <div className="container-header-main">
           <h1 className="title-h3">Seja bem vindo</h1>
