@@ -2,7 +2,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/button-has-type */
 import React, { useEffect, useState } from "react";
-import { IPropsGlobal, IStateData } from "interfaces/components.interface";
+import { IPropsGlobal } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
 import { BsFillTrash2Fill } from "react-icons/bs";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
@@ -16,27 +16,36 @@ import PDefault from "components/Popups";
 import UpdateDemand from "components/Popups/subContent/updateDemand";
 import {
   clickedDemand,
-  mergeDemandFilter,
+  // mergeDemandFilter,
+  selectCurrentDemands,
 } from "app/reducers/demand/demandSlice";
 
 export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
-  const { demands } = useSelector((state: IStateData) => state);
+  const demands = useSelector(selectCurrentDemands);
   const [newData, setNewData] = useState<IDemand[]>(demands.demand);
   const [dataUpdated, setDataUpdated] = useState<string>("");
   const [useOpenDemand, setOpenDemand] = useState(false);
   const [trigger, setTrigger] = useState(true);
+
+  useEffect(() => {
+    setNewData(demands.demand);
+  }, [demands.demand]);
 
   const handleClicked = (id: string) => {
     if (id) {
       dispatch(clickedDemand(id));
     }
   };
-
-  useEffect(() => {
-    dispatch(mergeDemandFilter());
-    setNewData(demands.demandFilter.filtered);
-  }, [demands.demandFilter.search]);
+  // -------------------------------------------
+  // Resultando em bug
+  // -------------------------------------------
+  // useEffect(() => {
+  //   if (demands.demandFilter.search) {
+  //     dispatch(mergeDemandFilter());
+  //     setNewData(demands.demandFilter.filtered);
+  //   }
+  // }, [demands.demandFilter.search]);
 
   useEffect(() => {
     setTrigger(!trigger);
@@ -72,50 +81,49 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
           {fields && fields.map((field) => <th key={field}>{field}</th>)}
           <th>Ações</th>
         </tr>
-        {newData &&
-          newData.map((item: IDemand) => (
-            <tr key={item.id} className="row-content">
-              <th>
-                <button
-                  className="field-styled field-name"
-                  onClick={() => handleClicked(item.id)}
-                >
-                  {item.name}
-                </button>
-              </th>
-              <th>
-                <p className="field-styled">{item.Axes.name}</p>
-              </th>
-              <th>
-                <p className="field-styled">{item.priority}</p>
-              </th>
-              <th>
-                <p className="field-styled">{item.Cities.name}</p>
-              </th>
-              <th>
-                <p className="field-styled">{item.createdAt}</p>
-              </th>
-              <th>
-                <span>
-                  <BsFillTrash2Fill
-                    color="red"
-                    className="btn-click"
-                    size={30}
-                    onClick={() => handleRemoveDemand(item.id)}
-                  />
-                </span>{" "}
-                <span className="divisor" />
-                <span>
-                  <MdOutlineTipsAndUpdates
-                    onClick={() => item.id && handleUpdateDemand(item.id)}
-                    className="update-icon btn-click"
-                    color="green"
-                    size={32}
-                  />
-                </span>
-              </th>
-            </tr>
-          ))}
+        {newData.map((item: IDemand) => (
+          <tr key={item.id} className="row-content">
+            <th>
+              <button
+                className="field-styled field-name"
+                onClick={() => handleClicked(item.id)}
+              >
+                {item.name}
+              </button>
+            </th>
+            <th>
+              <p className="field-styled">{item.Axes.name}</p>
+            </th>
+            <th>
+              <p className="field-styled">{item.priority}</p>
+            </th>
+            <th>
+              <p className="field-styled">{item.Cities.name}</p>
+            </th>
+            <th>
+              <p className="field-styled">{item.createdAt}</p>
+            </th>
+            <th>
+              <span>
+                <BsFillTrash2Fill
+                  color="red"
+                  className="btn-click"
+                  size={30}
+                  onClick={() => handleRemoveDemand(item.id)}
+                />
+              </span>{" "}
+              <span className="divisor" />
+              <span>
+                <MdOutlineTipsAndUpdates
+                  onClick={() => item.id && handleUpdateDemand(item.id)}
+                  className="update-icon btn-click"
+                  color="green"
+                  size={32}
+                />
+              </span>
+            </th>
+          </tr>
+        ))}
       </table>
       {/* {dataClicked && dataClicked.Proposal && (
         <PMeuPerfil

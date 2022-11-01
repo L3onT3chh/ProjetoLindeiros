@@ -1,7 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { authLoginThunk, validateTokenThunk } from "app/reducers/auth/thunk";
+import { authLoginThunk } from "app/reducers/auth/thunk";
+import { IStateData } from "interfaces/components.interface";
 import { IDataAuth } from "interfaces/data/auth.interface";
+import { showErrorMessage } from "util/function";
 
 const initialState: IDataAuth = {
   auth: {
@@ -22,77 +24,40 @@ const authSlice = createSlice({
     builder.addCase(authLoginThunk.fulfilled, (state: IDataAuth, action) => {
       const { payload } = action;
 
-      const token = payload.response.replaceAll('"', "");
       if (payload.status === 200) {
-        state.error = "";
-        state.auth.jwt = token;
-        state.message = "Login realizado com sucesso!";
         state.auth.user = payload.user;
-        localStorage.setItem("token_jwt", token);
         state.auth.logged = true;
-        state.auth.tryLogin = true;
+        state.auth.jwt = payload.response;
+        localStorage.setItem("token_jwt", payload.response);
+        showErrorMessage("Usuário autenticado com sucesso!", "success");
       } else {
-        state.auth.jwt = "";
-        state.error = payload.response;
-        state.auth.tryLogin = true;
         state.auth.logged = false;
+        localStorage.clear();
+        state.auth.user = undefined;
+        showErrorMessage("Usuário inválido", "error");
       }
-      state.loading = false;
-    });
-
-    builder.addCase(authLoginThunk.rejected, (state: IDataAuth) => {
-      state.loading = false;
-      state.error = "Não foi possível realizar o login";
-      state.message = "";
-      state.auth.logged = false;
-      state.auth.tryLogin = true;
-    });
-
-    builder.addCase(authLoginThunk.pending, (state: IDataAuth) => {
-      state.loading = true;
-    });
-
-    builder.addCase(
-      validateTokenThunk.fulfilled,
-      (state: IDataAuth, action) => {
-        const { payload } = action;
-
-        if (payload.status === 200) {
-          state.error = "";
-          state.auth.user = payload.response;
-          state.message = payload.message;
-        } else {
-          state.error = payload.response;
-        }
-        state.loading = false;
-      },
-    );
-
-    builder.addCase(validateTokenThunk.pending, (state: IDataAuth) => {
-      state.loading = true;
-    });
-
-    builder.addCase(validateTokenThunk.rejected, (state: IDataAuth, action) => {
-      state.loading = false;
-      state.error = action.error.message?.toString() || "";
     });
   },
   reducers: {
-    verifyLogin: () => {
-      // state.auth.logged = ;
+    login: (state: IDataAuth, action) => {
+      state.auth.user = action.payload;
     },
-    setCredentials: (state: IDataAuth, action) => {
-      const { user, token } = action.payload;
-      state.auth.jwt = token;
-      state.auth.user = user;
+    logout: (state: IDataAuth) => {
+      state.auth.user = undefined;
+      state.auth.jwt = "";
+      state.auth.logged = false;
+      localStorage.clear();
     },
   },
 });
 
-export const { setCredentials, verifyLogin } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 
 export default authSlice.reducer;
 
-export const selectCurentUser = (state: IDataAuth) => state.auth.user;
+export const selectCurentUser = (state: IStateData) => [
+  state.auth.auth.user,
+  state.auth.auth.logged,
+];
 
-export const selectCurrentToken = (state: IDataAuth) => state.auth.jwt;
+export const selectCurrentToken = (state: IStateData) => state.auth.auth.jwt;

@@ -746,6 +746,7 @@ export const ContainerSearch = styled.div<SContainerProps>`
     border: 0px;
     background: ${(props) => props.background};
     width: 96%;
+    height: 40px;
     border-radius: ${(props) => props.borderRadius || "30px"};
     outline: 0;
     height: 100%;
@@ -756,7 +757,6 @@ export const ContainerSearch = styled.div<SContainerProps>`
   }
 
   @media screen and (max-width: 450px) {
-    height: 40px;
     width: 100%;
   }
 `;
@@ -1046,8 +1046,15 @@ export const ContentProfile = styled.div`
     padding: 30px;
 
     .content-basic-data {
+      #file_id {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid black;
+      }
+
       div.data-overflow-data {
         height: 100%;
+        border: 1px solid black;
       }
       .double-data {
         display: flex;
@@ -1533,5 +1540,36 @@ export const CardDocsStyled = styled.div<SContainerProps>`
         }
       }
     }
+  }
+`;
+
+export const ContainerInputFile = styled.div`
+  display: flex;
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 3px 3px #184c78;
+  border-radius: 5px;
+  background-color: #184c78;
+  color: white;
+  margin: 30px 0 30px;
+  transition: ease-in-out 0.2s;
+
+  input {
+    display: none;
+  }
+
+  &,
+  label {
+    transition: ease-in-out 0.2s;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  label:hover {
+    font-weight: 700;
   }
 `;

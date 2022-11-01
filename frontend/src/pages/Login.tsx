@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable consistent-return */
-import React, { useEffect } from "react";
+import React from "react";
 // import { AppDispatch } from "app/store";
 import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
-import { IStateData } from "interfaces/components.interface";
 import { IUserLogin } from "interfaces/data/user.interface";
 import { ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useForm } from "util/form/useForm";
 import ButtonForm from "components/Buttons/ButtonForm";
-import { authLoginThunk } from "app/reducers/auth/thunk";
 import { AppDispatch } from "app/store";
 import { useNavigate } from "react-router";
+import { authLoginThunk } from "app/reducers/auth/thunk";
+// import { selectCurentUser } from "app/reducers/auth/authSlice";
 import { addUser, lock } from "../assets/icons";
 // import ButtonCard from "../components/Buttons/ButtonCard";
 import CardDefault from "../components/Card/CardDefault";
@@ -22,9 +22,8 @@ import SublinedText from "../components/Label/Sublined";
 import { ContainerPage } from "./css/styled";
 
 function Login() {
-  const { users, auth } = useSelector((state: IStateData) => state);
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
+  const navigator = useNavigate();
 
   // const toastId = useRef();
   const initialState: IUserLogin = {
@@ -39,17 +38,14 @@ function Login() {
         ...data,
       }),
     );
-  };
 
-  useEffect(() => {
-    if (auth.auth.logged && auth.auth.user !== undefined)
-      return navigate("/painel", { replace: true });
-  }, [auth.auth.tryLogin]);
+    navigator("/painel", { replace: true });
+  };
 
   return (
     <>
       <NavBar />
-      <LoadingDefault active={users.loading} />
+      <LoadingDefault active={false} />
       <ContainerPage style={{ display: "flex", height: "100vh" }}>
         <WelcomeLogin />
 

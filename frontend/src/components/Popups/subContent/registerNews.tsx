@@ -13,15 +13,17 @@ import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { INewsPost } from "../../../interfaces/data/news.interface";
 
 function RegisterNews({ setState }: IPropsGlobal) {
-  const { city } = useSelector((state: IStateData) => state);
+  const { city, axes } = useSelector((state: IStateData) => state);
   const initialState: INewsPost = {
     title: "",
     body: "",
     city_id: "",
     title_url: "",
+    axes_id: "",
   };
   const dispatch = useDispatch<AppDispatch>();
   const [cityId, setSelectCity] = useState("");
+  const [axesId, setSelectAxes] = useState("");
   const [description, setSelectDescription] = useState("");
   const { onChange, values } = useForm(initialState);
   const handleSavedData = async (valuesSave: INewsPost) => {
@@ -30,6 +32,7 @@ function RegisterNews({ setState }: IPropsGlobal) {
         ...valuesSave,
         body: description,
         city_id: cityId,
+        axes_id: axesId,
       }),
     );
     setState(false);
@@ -56,16 +59,24 @@ function RegisterNews({ setState }: IPropsGlobal) {
               type="text"
               className="form-control-demand"
             />
-            <SelectMenuAlternative
-              setState={setSelectCity}
-              name="city_id"
-              className="text-double text-popup"
-              options={city.city}
-            />
+            <div className="double-data">
+              <SelectMenuAlternative
+                setState={setSelectCity}
+                name="city_id"
+                className="text-double text-popup"
+                options={city.city}
+              />
+              <SelectMenuAlternative
+                setState={setSelectAxes}
+                name="city_id"
+                className="text-double text-popup"
+                options={axes.axes}
+              />
+            </div>
             <TextArea
               setState={setSelectDescription}
               required
-              height="150px"
+              height="100px"
               name="body"
               className="form-control-demand"
               placeholder="Descrição"

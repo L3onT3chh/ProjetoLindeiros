@@ -24,7 +24,7 @@ export function ListagemDemanda({
       <PDefault
         height="889"
         width="569"
-        title="Envio de demandas"
+        title="Cadastro de demandas"
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenPopupDemandas}
         trigger={openPopupDemandas}

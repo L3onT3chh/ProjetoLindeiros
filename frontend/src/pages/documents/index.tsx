@@ -19,7 +19,7 @@ export function Documents() {
       <NavBar />
       <ContainerDocuments>
         <PDefault
-          height="700"
+          height="450"
           width="517"
           title="Cadastro de Documentos"
           subtitle="Preencha todos os campos marcados *"

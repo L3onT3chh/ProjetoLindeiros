@@ -1,5 +1,6 @@
 /* eslint-disable array-callback-return */
 import { IDemand } from "interfaces/data/demand.interface";
+import toast from "react-hot-toast";
 import { IOptions } from "../interfaces/components.interface";
 
 export const splitTitle = (text: string) => {
@@ -55,4 +56,12 @@ export const Sleep = (duration: number) => {
 
 export const SaveFile = (document: any) => {
   console.log(document);
+};
+
+export const showErrorMessage = (message: string, type: string) => {
+  if (type === "error") {
+    toast.error(message);
+  } else {
+    toast.success(message);
+  }
 };

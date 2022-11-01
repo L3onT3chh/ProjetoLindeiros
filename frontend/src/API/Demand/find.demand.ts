@@ -5,7 +5,7 @@ import API from "API";
 
 export const findAllDemands = async () => {
   try {
-    const token = localStorage.getItem("token_jwt")?.toString();
+    const token = localStorage.getItem("token_jwt");
 
     const headers = { ...HEADERS_DATA, token: `${token}` };
     const responseDemands = await API.get("/demand", {
@@ -13,6 +13,7 @@ export const findAllDemands = async () => {
     })
       .then((response) => Promise.resolve(response.data))
       .catch((err: Error | AxiosError) => Promise.resolve(err));
+
     const { Demand } = responseDemands.data;
 
     if (Demand) {
