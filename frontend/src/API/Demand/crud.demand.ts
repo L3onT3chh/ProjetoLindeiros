@@ -8,7 +8,6 @@ import { IDemand, IDemandPost } from "interfaces/data/demand.interface";
 const RegisterDemand = async (demandSave: IDemandPost) => {
   try {
     const token = TokenUser();
-    console.log(token);
     const headers = { ...HEADERS_DATA, token: `${token}` };
     const Demand = await API("/demand", {
       headers,
@@ -17,7 +16,6 @@ const RegisterDemand = async (demandSave: IDemandPost) => {
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-    console.log(Demand);
     if (Demand.isValid) {
       const responseData: IDemand[] = [];
       try {

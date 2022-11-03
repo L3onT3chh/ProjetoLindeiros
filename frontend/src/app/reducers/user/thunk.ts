@@ -27,7 +27,6 @@ export const fetchUsersThunk = createAsyncThunk(
   "users/fetchUsers",
   async () => {
     const users = await findAllUsers();
-    console.log(users);
     return users;
   },
 );

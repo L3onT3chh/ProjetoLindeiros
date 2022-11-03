@@ -15,6 +15,7 @@ const RegisterNews = async (newsSave: INewsPost) => {
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
+
     if (News.isValid) {
       return {
         status: 200,

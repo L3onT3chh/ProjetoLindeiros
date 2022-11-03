@@ -6,13 +6,14 @@ import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
 import { IUserLogin } from "interfaces/data/user.interface";
 import { ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "util/form/useForm";
 import ButtonForm from "components/Buttons/ButtonForm";
 import { AppDispatch } from "app/store";
 import { useNavigate } from "react-router";
 import { authLoginThunk } from "app/reducers/auth/thunk";
 // import { selectCurentUser } from "app/reducers/auth/authSlice";
+import { IStateData } from "interfaces/components.interface";
 import { addUser, lock } from "../assets/icons";
 // import ButtonCard from "../components/Buttons/ButtonCard";
 import CardDefault from "../components/Card/CardDefault";
@@ -24,6 +25,7 @@ import { ContainerPage } from "./css/styled";
 function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const navigator = useNavigate();
+  const { users } = useSelector((state: IStateData) => state);
 
   // const toastId = useRef();
   const initialState: IUserLogin = {

@@ -15,8 +15,7 @@ import { LoadingDefault } from "components/Loading";
 
 function RegisterRepresent() {
   const { city } = useSelector((state: IStateData) => state);
-  const [selectCity, setSelectCity] = useState("");
-  console.log(selectCity);
+  const [, setSelectCity] = useState("");
   return (
     <>
       <LoadingDefault active={city.loading} />

@@ -26,7 +26,7 @@ export function PMeuPerfil({
           </button>
         </div>
 
-        <div className="container-popup">{children}</div>
+        <div className="">{children}</div>
       </div>
     </ContainerPopup>
   );

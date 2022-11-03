@@ -124,7 +124,7 @@ export function News() {
           router="/noticias"
           state={openPNews}
           setState={setPNews}
-          value="Adicionar Neoticia"
+          value="Adicionar Noticia"
         />
         <div className="body">
           <div className="container">

@@ -334,10 +334,6 @@ export const ContainerCardDemandas = styled.div`
   .title-h1 {
     color: var(--color-font-primary);
   }
-
-  .card-demandas {
-    border: 1px solid black;
-  }
 `;
 
 export const ContainerSponsor = styled.div`
@@ -900,7 +896,6 @@ export const ContainerSearch = styled.div<SContainerProps>`
   }
 
   @media screen and (max-width: 500px) {
-
     width: 100%;
     border-radius: 0;
   }
@@ -1213,7 +1208,6 @@ export const ContainerPopup = styled.div<SContainerProps>`
 
   .not-found-itens {
     display: flex;
-    border: 1px solid black;
   }
 
   .cards .card-proposta:nth-last-child(1n) {
@@ -1240,12 +1234,10 @@ export const ContentProfile = styled.div`
       #file_id {
         width: 100%;
         padding: 10px;
-        border: 1px solid black;
       }
 
       div.data-overflow-data {
         height: 100%;
-        border: 1px solid black;
       }
       .double-data {
         display: flex;
@@ -1256,9 +1248,9 @@ export const ContentProfile = styled.div`
         }
       }
 
-      .text-areax {
+      /* .text-areax {
         height: auto;
-      }
+      } */
 
       .form-control-demand {
         margin-top: 15px;

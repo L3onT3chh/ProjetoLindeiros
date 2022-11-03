@@ -25,7 +25,7 @@ export function MenuRight() {
       <PMeuPerfil
         trigger={openPopup}
         width="409"
-        height="85%"
+        height="530px"
         setTrigger={setOpenPopup}
       >
         <MyProfile />

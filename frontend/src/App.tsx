@@ -5,6 +5,7 @@ import Router from "./hooks/routes";
 
 import "./style.css";
 import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (

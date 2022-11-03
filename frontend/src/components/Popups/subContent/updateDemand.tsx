@@ -75,7 +75,6 @@ function UpdateDemand({ demandId, setState }: IProps) {
     return [arrayData];
   };
 
-  console.log(demandFilter);
   return (
     demandFilter && (
       <ContentProfile>
