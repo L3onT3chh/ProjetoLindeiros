@@ -200,8 +200,8 @@ export default function Demandas() {
                 <div className="cards-demandas">
                   {dataNew &&
                     dataNew.map((item: IDemand) => (
-                      <div className="demandaCardItem">
-                        <Link to={`/demanda/${item.name}`} key={item.name}>
+                      <div className="demandaCardItem" key={item.id}>
+                        <Link to={`/demanda/${item.name}`}>
                           <CardDemandas
                             className="box-demanda"
                             color={

@@ -22,6 +22,7 @@ export interface IPropsGlobal extends SContainerProps {
   value?: string;
   Icon?: any;
   width?: string;
+  valueDefault?: string;
   className?: string;
   listValue?: string[];
   icon?: string;

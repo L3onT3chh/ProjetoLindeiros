@@ -2,11 +2,13 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { findAllDemands } from "API/Demand/find.demand";
 import { IDemandPost } from "interfaces/data/demand.interface";
 import demandCrud from "API/Demand/crud.demand";
+import { showErrorMessage } from "util/function";
 
 export const deleteDemandsThunk = createAsyncThunk(
   "demandas/deleteDemands",
   async (id: string) => {
     const dem = await demandCrud.delete(id);
+    showErrorMessage(dem.message, dem.status === 200 ? "success" : "error");
     return dem;
   },
 );
@@ -19,6 +21,7 @@ export const fetchDemandsThunk = createAsyncThunk(
   "demandas/fetchDemandas",
   async () => {
     const demand = await findAllDemands();
+
     return demand;
   },
 );
@@ -27,6 +30,7 @@ export const createDemandsThunk = createAsyncThunk(
   "demandas/createDemand",
   async (demandCreate: IDemandPost) => {
     const dem = await demandCrud.create(demandCreate);
+    showErrorMessage(dem.message, dem.status === 200 ? "success" : "error");
     const data = [];
     if (Array.isArray(dem.response) && dem.dataRequest) {
       data.push(
@@ -37,7 +41,6 @@ export const createDemandsThunk = createAsyncThunk(
         )[0],
       );
     }
-
     return {
       ...dem,
       response: data || [],

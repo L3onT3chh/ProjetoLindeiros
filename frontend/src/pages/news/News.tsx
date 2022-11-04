@@ -195,7 +195,7 @@ export function News() {
               </h1>
               <div className="block">
                 {newsData.newsRemaining.map((item) => (
-                  <Link to="itemNews" className="item">
+                  <Link to="itemNews" className="item" key={item.title}>
                     <ContainerBackground
                       background={ImagesEixos.default[7].image}
                       className="img"

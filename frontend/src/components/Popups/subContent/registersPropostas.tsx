@@ -19,6 +19,7 @@ interface IProps {
 
 function RegisterProposal({ idDemand }: IProps) {
   const [priority, setPriority] = useState("");
+  const [time, setTime] = useState([]);
   const [description, setDescription] = useState("");
 
   const initialValues: IProposalPost = {
@@ -27,7 +28,7 @@ function RegisterProposal({ idDemand }: IProps) {
     description: "",
     priority: "",
     time: [],
-    value: 0,
+    value: "0",
   };
 
   const dispatch = useDispatch<AppDispatch>();
@@ -40,6 +41,7 @@ function RegisterProposal({ idDemand }: IProps) {
         priority,
         description,
         demands_id: idDemand,
+        time,
       }),
     );
   };
@@ -55,14 +57,6 @@ function RegisterProposal({ idDemand }: IProps) {
         >
           <div className="content-basic-data">
             <h1 className="title-h3">Dados básicos</h1>
-            <InputStyle
-              onChange={onChange}
-              required
-              placeholder="Nome"
-              type="input"
-              title=""
-              className="form-control-demand"
-            />
             <TextArea
               setState={setDescription}
               required
@@ -78,6 +72,7 @@ function RegisterProposal({ idDemand }: IProps) {
                 placeholder="Prazo de execução"
                 type="date"
                 title=""
+                name="deadline"
                 className="text-double"
               />
               <InputStyle
@@ -86,6 +81,7 @@ function RegisterProposal({ idDemand }: IProps) {
                 placeholder="Valor do orçamento"
                 type="number"
                 title=""
+                name="value"
                 className="text-double"
               />
             </div>
@@ -100,7 +96,7 @@ function RegisterProposal({ idDemand }: IProps) {
           <div className="content-data-time">
             <h1 className="title-h3">Dados da equipe</h1>
             <div className="form-control-demand">
-              <ChipAdd setState={() => {}} listValue={[]} />
+              <ChipAdd setState={setTime} listValue={time} />
             </div>
           </div>
           <div className="btns-popup">

@@ -8,7 +8,7 @@ import {
   eixo_one,
 } from "../../assets/icons";
 import CardDefault from "../../components/Card/CardDefault";
-import { StatisticGraph } from "../../components/Card/Statistic";
+// import { StatisticGraph } from "../../components/Card/Statistic";
 import { ChipLeft } from "../../components/Chips/ChipLeft";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
 import { ContainerPainel } from "../css/styled";
@@ -51,7 +51,7 @@ export function InicioPainel() {
             className="cardP"
           />
         </div>
-
+        {/* 
         <div className="statistic">
           <StatisticGraph
             className="content-box left"
@@ -65,7 +65,7 @@ export function InicioPainel() {
             width="40%"
             height="317px"
           />
-        </div>
+        </div> */}
 
         <div className="chips-footer">
           <ChipLeft

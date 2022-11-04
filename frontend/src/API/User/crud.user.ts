@@ -20,14 +20,7 @@ const RegisterUser = async (userSave: IUserPost) => {
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-
-    if (user.error) {
-      return {
-        response: 400,
-        message: user.error,
-      };
-    }
-    if (user.status === 200) {
+    if (user.isValid) {
       return {
         status: 200,
         message: "Usuário registrado com sucesso!",
@@ -38,7 +31,10 @@ const RegisterUser = async (userSave: IUserPost) => {
       message: "Tente novamente mais tarde",
     };
   } catch (err: any) {
-    return undefined;
+    return {
+      status: 404,
+      message: err.message,
+    };
   }
 };
 
@@ -86,7 +82,7 @@ export const DeleteUser = async (id: string) => {
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-    if (userDell.statu === 200) {
+    if (userDell.isValid) {
       return {
         status: 200,
         message: "Usuário removido com sucesso",
@@ -98,7 +94,10 @@ export const DeleteUser = async (id: string) => {
       message: "Tente novamente mais tarde",
     };
   } catch (err: any) {
-    return undefined;
+    return {
+      status: 404,
+      message: err.message,
+    };
   }
 };
 

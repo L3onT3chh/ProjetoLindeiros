@@ -1,9 +1,5 @@
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable no-lonely-if */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/button-has-type */
+
 import React, { useEffect, useState } from "react";
 import backgroundImage from "assets/img/background-demandas.png";
 import TextSublined from "components/Label/TextSublined";
@@ -145,9 +141,11 @@ export function Demanda() {
           )}
           {idNav === 2 && (
             <ContentSubMenu>
-              {data[0].Objective.SpecificText.text.split(",").map((item) => (
-                <li>{item}</li>
-              ))}
+              {data[0].Objective.SpecificText.text &&
+                data[0].Objective.SpecificText.text
+                  .split(",")
+                  .map((item) => <li key={item}>{item}</li>)}
+              {/* {data[0].Objective.SpecificText.text} */}
             </ContentSubMenu>
           )}
           {idNav === 3 && (

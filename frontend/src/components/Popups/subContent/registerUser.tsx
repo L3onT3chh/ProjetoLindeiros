@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContentProfile } from "components/style";
 import InputStyle from "components/Inputs";
 import { useForm } from "util/form/useForm";
@@ -11,11 +13,17 @@ import { IUserPost } from "interfaces/data/user.interface";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { IStateData } from "interfaces/components.interface";
 import { setMessageToToast } from "app/reducers/toast/toastSlice";
+import cep from "cep-promise";
+import { showErrorMessage } from "util/function";
+// import { findByCep } from "API/Cep";
 
 function RegisterUser() {
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
   const [cityUser, setCity] = useState("");
+  const [cityDefault, setCityDefault] = useState("");
+  const [cepAddress, setAddress] = useState<any>();
+  const [addressFull, setAddressFul] = useState("");
   const initialValue: IUserPost = {
     name: "",
     email: "",
@@ -47,6 +55,25 @@ function RegisterUser() {
       }),
     );
   };
+  const handle = async () => {
+    if (cepAddress?.target.value.length >= 8) {
+      const endereco = await cep(cepAddress?.target.value)
+        .then((response) => response)
+        .catch((error) => error);
+      const { neighborhood, street, state, city } = endereco;
+      if (neighborhood) {
+        const EnderecoFull = `${`${street} - ${neighborhood}, ${state}`}`;
+        setAddressFul(EnderecoFull);
+      } else {
+        showErrorMessage("Rua Não encontrada!", "error");
+      }
+      setCityDefault(city.trim());
+    }
+  };
+
+  useEffect(() => {
+    handle();
+  }, [cepAddress]);
   return (
     <ContentProfile>
       <div className="content-default">
@@ -80,6 +107,7 @@ function RegisterUser() {
               placeholder="CPF"
               name="cpf"
               title=""
+              maxLength={11}
               type="number"
               className="form-control-demand"
             />
@@ -88,6 +116,7 @@ function RegisterUser() {
                 onChange={onChange}
                 placeholder="DDD"
                 title=""
+                maxLength={2}
                 name="phone_ddd"
                 type="number"
                 className="text-double"
@@ -113,7 +142,7 @@ function RegisterUser() {
               />
               <InputStyle
                 name="postalCode"
-                onChange={onChange}
+                onChange={setAddress}
                 placeholder="Código Postal"
                 title=""
                 maxLength={8}
@@ -129,6 +158,7 @@ function RegisterUser() {
                 options={userTypes.types}
               />
               <SelectMenuAlternative
+                valueDefault={cityDefault}
                 setState={setCity}
                 name="city_id"
                 className="text-double text-popup"
@@ -140,6 +170,7 @@ function RegisterUser() {
               onChange={onChange}
               placeholder="Endereço completo"
               title=""
+              value={addressFull || ""}
               type="text"
               className="form-control-demand"
             />

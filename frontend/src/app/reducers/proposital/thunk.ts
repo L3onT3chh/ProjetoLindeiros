@@ -6,7 +6,6 @@ import { showErrorMessage } from "util/function";
 export const createProposalThunk = createAsyncThunk(
   "users/create",
   async (user: IProposalPost) => {
-    console.log(user);
     const response = await proposal.register(user);
     showErrorMessage(
       response.message,

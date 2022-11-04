@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable react/button-has-type */
 import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { PMeuPerfil } from "components/Popups/Profile";
@@ -8,15 +5,15 @@ import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import PDefault from "components/Popups";
-// import { AppDispatch } from "app/store";
-// import { useDispatch } from "react-redux";
-// import { logoutUserThunk } from "app/reducers/auth/thunk";
+import { useDispatch } from "react-redux";
+import { logout } from "app/reducers/auth/authSlice";
+import { AppDispatch } from "app/store";
 import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 
 export function MenuRight() {
-  // const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
 
@@ -50,7 +47,7 @@ export function MenuRight() {
             <Link
               to="/login"
               onClick={() => {
-                // dispatch(logoutUserThunk());
+                dispatch(logout());
               }}
             >
               <FiLogOut size={20} color="white" />
@@ -102,7 +99,6 @@ export function MenuRight() {
             text="Demandas"
           />
         </div>
-        <button className="closeButton">Fechar</button>
       </ContainerMenuRight>
     </>
   );

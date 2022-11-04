@@ -49,7 +49,7 @@ export interface ICities {
 export interface IProposalPost {
   time: string[];
   description: string;
-  value: number;
+  value: string;
   deadline: string;
   priority: string;
   demands_id?: string;

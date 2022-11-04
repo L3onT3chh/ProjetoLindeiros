@@ -8,7 +8,6 @@ const RegisterProposal = async (proposalSave: IProposalPost) => {
   try {
     const token = TokenUser();
     const headers = { ...HEADERS_DATA, token: `${token}` };
-    console.log(headers);
     const Proposal = await API.post("/proposal", {
       headers,
       body: JSON.stringify(proposalSave),

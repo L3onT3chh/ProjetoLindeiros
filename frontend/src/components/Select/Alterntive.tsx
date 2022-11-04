@@ -19,7 +19,6 @@ export function SelectMenuAlternative({
       setState(option);
     }
   };
-
   return (
     <>
       <h2 className="title-h3" style={{ fontSize: "18px" }}>
