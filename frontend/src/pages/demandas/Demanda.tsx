@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/button-has-type */
 
 import React, { useEffect, useState } from "react";
