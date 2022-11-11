@@ -17,14 +17,13 @@ import { LoadingDefault } from "components/Loading";
 import { setCitySelected } from "app/reducers/city/citySlice";
 import { setSelectAxes } from "app/reducers/axes/axesSlice";
 import { isValid } from "util/function";
-import { AppDispatch } from "app/store";
 import {
   filterAxes,
   filterCity,
   filterSearch,
-  filterStatus,
   mergeDemandFilter,
 } from "app/reducers/demand/demandSlice";
+import { AppDispatch } from "app/store";
 
 export default function Demandas() {
   const dispatch = useDispatch<AppDispatch>();
@@ -35,7 +34,6 @@ export default function Demandas() {
     b: "0",
     c: "0",
   });
-
   useEffect(() => {
     if (isValid(axes.axes_selector)) {
       dispatch(filterAxes(axes.axes_selector));
@@ -43,30 +41,24 @@ export default function Demandas() {
     if (isValid(city.city_selector)) {
       dispatch(filterCity(city.city_selector));
     }
+
     dispatch(mergeDemandFilter());
   }, [axes.axes_selector, city.city_selector]);
 
   useEffect(() => {
-    dispatch(filterStatus(dataCheckbox));
-  }, [dataCheckbox]);
-
-  useEffect(() => {
-    if (demands.demandFilter.filtered.length === 0)
-      setDataNew([...demands.demand]);
-  }, [demands.demand]);
-
-  useEffect(() => {
-    if (demands.demandFilter.filtered.length > 0) {
-      setDataNew(demands.demandFilter.filtered);
-    } else {
+    if (
+      axes.axes_selector.includes("Tod") &&
+      city.city_selector.includes("Tod")
+    ) {
       setDataNew(demands.demand);
+    } else {
+      setDataNew(demands.demandFilter.filtered);
     }
   }, [demands.demandFilter.filtered]);
 
   useEffect(() => {
-    dispatch(mergeDemandFilter());
-  }, [demands.demandFilter.search, demands.demandFilter.status]);
-
+    setDataNew(demands.demand);
+  }, [demands.demand]);
   return (
     <>
       <NavBar />
@@ -196,28 +188,32 @@ export default function Demandas() {
                 <ChipFilter className="filter-header" text="N° de envolvidos" /> */}
               </div>
 
-              {dataNew ? (
+              {dataNew.length > 0 ? (
                 <div className="cards-demandas">
                   {dataNew &&
-                    dataNew.map((item: IDemand) => (
-                      <div className="demandaCardItem" key={item.id}>
-                        <Link to={`/demanda/${item.name}`}>
-                          <CardDemandas
-                            className="box-demanda"
-                            color={
-                              item.status.toString() === "1"
-                                ? "#EFBA8B"
-                                : "#EF8B8B"
-                            }
-                            // "Turismo integrado no te..."
-                            title={item.name}
-                            // "Eixo - Negócios e renda"
-                            subtitle={item.Axes.name}
-                            date="24 Jan 2023"
-                          />
-                        </Link>
-                      </div>
-                    ))}
+                    dataNew.map((item: IDemand) => {
+                      console.log(item.id);
+                      return (
+                        <div className="demandaCardItem" key={item.id}>
+                          <Link to={`/demanda/${item.name}`}>
+                            <CardDemandas
+                              key={item.id}
+                              className="box-demanda"
+                              color={
+                                item.status.toString() === "1"
+                                  ? "#EFBA8B"
+                                  : "#EF8B8B"
+                              }
+                              // "Turismo integrado no te..."
+                              title={item.name}
+                              // "Eixo - Negócios e renda"
+                              subtitle={item.Axes.name}
+                              date="24 Jan 2023"
+                            />
+                          </Link>
+                        </div>
+                      );
+                    })}
                 </div>
               ) : (
                 <div className="notFound">Nenhum dado cadastrado</div>

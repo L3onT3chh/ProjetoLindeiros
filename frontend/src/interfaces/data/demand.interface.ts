@@ -51,7 +51,6 @@ export interface IProposalPost {
   description: string;
   value: string;
   deadline: string;
-  priority: string;
   demands_id?: string;
 }
 

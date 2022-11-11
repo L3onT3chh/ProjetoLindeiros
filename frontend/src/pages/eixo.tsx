@@ -30,9 +30,6 @@ export function Eixos() {
           );
         })}
       </div>
-      <button className="btnTopo bgcolor-secondary">
-        <i className="fas fa-arrow-up" />
-      </button>
     </>
   );
 }

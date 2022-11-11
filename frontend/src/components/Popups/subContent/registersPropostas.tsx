@@ -1,24 +1,25 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/button-has-type */
 import { createProposalThunk } from "app/reducers/proposital/thunk";
 import { AppDispatch } from "app/store";
 import ChipAdd from "components/Chips/ChipAdd";
 import InputStyle from "components/Inputs";
-import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { ContentProfile } from "components/style";
 import TextArea from "components/Textarea";
 import { IProposalPost } from "interfaces/data/demand.interface";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useForm } from "util/form/useForm";
-import { formatKeyTypes } from "util/function";
 
 interface IProps {
   idDemand?: string;
+  setTrigger?: any;
+  trigger?: boolean;
 }
 
-function RegisterProposal({ idDemand }: IProps) {
-  const [priority, setPriority] = useState("");
+function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
+  const [valueFormat, setValuFormat] = useState("");
   const [time, setTime] = useState([]);
   const [description, setDescription] = useState("");
 
@@ -26,7 +27,6 @@ function RegisterProposal({ idDemand }: IProps) {
     deadline: "",
     demands_id: idDemand?.toString(),
     description: "",
-    priority: "",
     time: [],
     value: "0",
   };
@@ -38,7 +38,6 @@ function RegisterProposal({ idDemand }: IProps) {
     dispatch(
       createProposalThunk({
         ...valuesSave,
-        priority,
         description,
         demands_id: idDemand,
         time,
@@ -46,6 +45,16 @@ function RegisterProposal({ idDemand }: IProps) {
     );
   };
 
+  const handleFormat = (value: string) => {
+    console.log(`${value}`);
+    if (value) {
+      setValuFormat(`${value}`);
+    }
+  };
+
+  const closeModal = () => {
+    setTrigger(!trigger);
+  };
   return (
     <ContentProfile>
       <div className="content-default">
@@ -76,22 +85,16 @@ function RegisterProposal({ idDemand }: IProps) {
                 className="text-double"
               />
               <InputStyle
-                onChange={onChange}
+                onChange={(e) => handleFormat(e.target.value)}
                 required
+                valueChanges={valueFormat}
                 placeholder="Valor do orçamento"
-                type="number"
+                type="text"
                 title=""
                 name="value"
                 className="text-double"
               />
             </div>
-
-            <SelectMenuAlternative
-              setState={setPriority}
-              name="priority"
-              className="text-double text-popup"
-              options={formatKeyTypes(["Baixa", "Média", "Alta"])}
-            />
           </div>
           <div className="content-data-time">
             <h1 className="title-h3">Dados da equipe</h1>
@@ -100,7 +103,9 @@ function RegisterProposal({ idDemand }: IProps) {
             </div>
           </div>
           <div className="btns-popup">
-            <button className="btn-close-two">Fechar</button>
+            <button className="btn-close-two" onClick={() => closeModal()}>
+              Fechar
+            </button>
             <button
               className="btn-send"
               onClick={() => handleSavedData(values)}

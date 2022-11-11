@@ -13,6 +13,7 @@ interface IPros {
   onChange?: (event: any) => void;
   minLength?: number;
   maxLength?: number;
+  valueChanges?: string;
   value?: any;
 }
 
@@ -26,6 +27,7 @@ function InputStyle({
   maxLength,
   onChange,
   value,
+  valueChanges,
   required,
 }: IPros) {
   return (
@@ -36,6 +38,7 @@ function InputStyle({
         defaultValue={value}
         onChange={onChange}
         name={name}
+        value={valueChanges}
         className="text-popup"
         minLength={minLength}
         maxLength={maxLength}

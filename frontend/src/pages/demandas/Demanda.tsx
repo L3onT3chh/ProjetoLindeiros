@@ -38,6 +38,7 @@ export function Demanda() {
 
   const { demand } = useSelector((state: IStateData) => state.demands);
   const [data, setData] = useState<IDemand[]>();
+
   useEffect(() => {
     const filterData = demand.filter((item) => item.name === name && item);
     if (filterData.length > 0 && filterData !== undefined) {
@@ -76,14 +77,18 @@ export function Demanda() {
         <ProposalDetail demand={demandClicked} />
       </PDefault>
       <PDefault
-        height="85%"
+        height="75%"
         width="569"
         title="Envio de proposta"
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenProposalCad}
         trigger={OpenProposalCad}
       >
-        <RegisterProposal idDemand={data[0].id} />
+        <RegisterProposal
+          idDemand={data[0].id}
+          setTrigger={setOpenProposalCad}
+          trigger={OpenProposalCad}
+        />
       </PDefault>
       <NavBar />
       <ContainerPage background={backgroundImage}>

@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  frontend_server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    container_name: frontend_lindeiros
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    stdin_open: true
+
+    command: yarn start

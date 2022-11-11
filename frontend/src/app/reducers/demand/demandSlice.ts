@@ -80,18 +80,20 @@ export const demandSlice = createSlice({
     addDemand: () => {},
     removeDemand: () => {},
     filterAxes: (state: IDataDemand, action) => {
-      state.demandFilter.axes = state.demand.filter(
+      const filter = state.demand.filter(
         (item: IDemand) =>
           item.Axes.name.toLocaleLowerCase().trim() ===
-          action.payload.toLocaleLowerCase().trim(),
+            action.payload.toLocaleLowerCase().trim() && item,
       );
+      state.demandFilter.axes = filter;
     },
     filterCity: (state: IDataDemand, action) => {
-      state.demandFilter.city = state.demand.filter(
+      const filter = state.demand.filter(
         (item: IDemand) =>
           item.Cities.name.toLocaleLowerCase().trim() ===
-          action.payload.toLocaleLowerCase().trim(),
+            action.payload.toLocaleLowerCase().trim() && item,
       );
+      state.demandFilter.city = filter;
     },
     filterStatus: (state: IDataDemand, action) => {
       const { payload } = action;
@@ -99,7 +101,7 @@ export const demandSlice = createSlice({
         (item: IDemand) =>
           item.status === payload.a ||
           item.status === payload.b ||
-          (item.status === payload.c && item),
+          (item.status === payload.c ? item : null),
       );
     },
     filterSearch: (state: IDataDemand, action) => {
@@ -119,10 +121,11 @@ export const demandSlice = createSlice({
       )[0];
     },
     mergeDemandFilter: (state: IDataDemand) => {
-      const { city, axes, search, status } = state.demandFilter;
+      const { city, axes, status } = state.demandFilter;
+      const arr = [...city, ...axes, ...status];
       state.demandFilter = {
         ...state.demandFilter,
-        filtered: [...city, ...axes, ...search, ...status],
+        filtered: arr,
       };
     },
   },
