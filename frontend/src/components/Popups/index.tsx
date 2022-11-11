@@ -12,6 +12,7 @@ function PDefault({
   height,
   className,
   title,
+  alternativeText,
   subtitle,
 }: IPopup) {
   return (
@@ -24,7 +25,7 @@ function PDefault({
       <div className="container-modal-popup">
         <div className="header-two-popup">
           <div className="data-header">
-            <h1 className="title-h3">{title}</h1>
+            <h1 className="title-h3">{title || alternativeText}</h1>
             <span className="subtitle-p">{subtitle}</span>
           </div>
           <p className="btn-close" onClick={() => setTrigger(!trigger)} />

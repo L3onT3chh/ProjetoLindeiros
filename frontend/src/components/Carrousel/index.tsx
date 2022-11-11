@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
 import { IPropsGlobal } from "../../interfaces/components.interface";
 
-function CarrouselComp({ image, title, description }: IPropsGlobal) {
+function CarrouselComp({ image }: IPropsGlobal) {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex: number) => {
@@ -18,15 +18,9 @@ function CarrouselComp({ image, title, description }: IPropsGlobal) {
       {image &&
         image.map((item: string) => (
           <Carousel.Item key={item}>
-            <img
-              className="d-block w-100"
-              height="500"
-              src={item}
-              alt="Texto alternativo"
-            />
+            <img className="d-block w-100" height="500" src={item} alt="Text" />
             <Carousel.Caption>
-              <h3>{title}</h3>
-              <p>{description}</p>
+              <h3> </h3>
             </Carousel.Caption>
           </Carousel.Item>
         ))}

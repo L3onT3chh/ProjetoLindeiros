@@ -1,78 +1,70 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import NavBar from "components/NavBar";
-import { ContainerPage } from "pages/styled";
+import { ContainerPage } from "pages/css/styled";
 import { InputSearch } from "components/Inputs/Search";
 import { SelectMenu } from "components/Select";
 import MenuSuspenso from "components/Card/MenuSuspenso";
 import ChipFilter from "components/Chips/chipFilters";
 import { CardDemandas } from "components/Card/Demandas";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
 import { Link } from "react-router-dom";
-// import { Cities, Eixos } from "assets/data/filters";
+import { LoadingDefault } from "components/Loading";
+import { setCitySelected } from "app/reducers/city/citySlice";
+import { setSelectAxes } from "app/reducers/axes/axesSlice";
+import { isValid } from "util/function";
+import {
+  filterAxes,
+  filterCity,
+  filterSearch,
+  mergeDemandFilter,
+} from "app/reducers/demand/demandSlice";
+import { AppDispatch } from "app/store";
 
 export default function Demandas() {
-  const data = useSelector((state: IStateData) => state);
-  const [dataNew, setDataNew] = useState(data.demands.demand);
-  const [dataVerify, setDataVerify] = useState(false);
-  const [dataFilterEixos, setDataFilterEixos] = useState("");
-  const [dataFilterCity, setDataFilterCity] = useState("");
-  const [searchDemand, setSearchDemanda] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+  const { demands, city, axes } = useSelector((state: IStateData) => state);
+  const [dataNew, setDataNew] = useState(demands.demand);
   const [dataCheckbox, setCheckbox] = useState({
-    a: 0,
-    b: 0,
-    c: 0,
+    a: "0",
+    b: "0",
+    c: "0",
   });
-
-  const handleComparationString = (text: string, textTwo: string) => {
-    return text.toLowerCase().trim() === textTwo.toLowerCase().trim();
-  };
-
   useEffect(() => {
-    if (searchDemand) {
-      setDataNew(
-        data.demands.demand.filter((item) => item.name.includes(searchDemand)),
-      );
-    } else {
-      setDataNew([...data.demands.demand]);
+    if (isValid(axes.axes_selector)) {
+      dispatch(filterAxes(axes.axes_selector));
     }
-  }, [searchDemand, data.demands.demand]);
+    if (isValid(city.city_selector)) {
+      dispatch(filterCity(city.city_selector));
+    }
+
+    dispatch(mergeDemandFilter());
+  }, [axes.axes_selector, city.city_selector]);
 
   useEffect(() => {
-    if (dataFilterCity.trim() !== "Todas") {
-      setDataNew(
-        data.demands.demand.filter(
-          (item) =>
-            handleComparationString(item.Cities.name, dataFilterCity) && item,
-        ),
-      );
+    if (
+      axes.axes_selector.includes("Tod") &&
+      city.city_selector.includes("Tod")
+    ) {
+      setDataNew(demands.demand);
     } else {
-      setDataNew([...data.demands.demand]);
+      setDataNew(demands.demandFilter.filtered);
     }
-  }, [dataFilterCity]);
+  }, [demands.demandFilter.filtered]);
 
   useEffect(() => {
-    if (dataFilterEixos.trim() !== "Todos") {
-      setDataNew(
-        data.demands.demand.filter(
-          (item) =>
-            handleComparationString(item.Axes.name, dataFilterEixos) && item,
-        ),
-      );
-    } else {
-      setDataNew([...data.demands.demand]);
-    }
-  }, [dataFilterEixos]);
-  useEffect(() => {
-    setDataVerify(data.demands.demand !== undefined);
-  }, [data.demands.demand]);
+    setDataNew(demands.demand);
+  }, [demands.demand]);
   return (
     <>
       <NavBar />
+      <LoadingDefault
+        active={city.loading || demands.loading || axes.loading}
+      />
       <ContainerPage>
         <div className="container-banner-demandas">
           <div className="header" />
@@ -83,25 +75,29 @@ export default function Demandas() {
                   <div className="filters-demandas-modal">
                     <h1 className="title-h2">Pesquisa por municipio</h1>
                     <SelectMenu
-                      setSelected={setDataFilterCity}
-                      options={[]}
-                      // Cities
-                      background="rgba(0,0,0,0)"
+                      width="250px"
+                      clicked
+                      setSelected={setCitySelected}
+                      options={[...city.city]}
+                      background="rgba(0,0,0,0.1)"
                       color="black"
+                      className="filterSelect"
                     />
                   </div>
                   <div className="filters-demandas-modal">
                     <h1 className="title-h2">Pesquisa por eixo</h1>
                     <SelectMenu
-                      setSelected={setDataFilterEixos}
-                      options={[]}
-                      // Eixos
-                      background="rgba(0,0,0,0)"
+                      width="250px"
+                      clicked
+                      setSelected={setSelectAxes}
+                      options={[...axes.axes]}
+                      background="rgba(0,0,0,0.1)"
                       color="black"
+                      className="filterSelect"
                     />
                   </div>
                   <div className="filters-demandas-modal">
-                    <h1 className="title-h2">Pesquisa por eixo</h1>
+                    <h1 className="title-h2">Pesquisa por status</h1>
                     <div className="search">
                       <span className="check">
                         <input
@@ -109,9 +105,8 @@ export default function Demandas() {
                           type="checkbox"
                           onChange={(e) =>
                             setCheckbox({
-                              a: e.target.checked ? 1 : 0,
-                              b: dataCheckbox.b,
-                              c: dataCheckbox.c,
+                              ...dataCheckbox,
+                              a: e.target.checked ? "1" : "0",
                             })
                           }
                         />
@@ -123,9 +118,8 @@ export default function Demandas() {
                           type="checkbox"
                           onChange={(e) =>
                             setCheckbox({
-                              a: dataCheckbox.a,
-                              b: e.target.checked ? 2 : 0,
-                              c: dataCheckbox.c,
+                              ...dataCheckbox,
+                              b: e.target.checked ? "2" : "0",
                             })
                           }
                         />
@@ -137,9 +131,8 @@ export default function Demandas() {
                           type="checkbox"
                           onChange={(e) =>
                             setCheckbox({
-                              a: dataCheckbox.a,
-                              b: dataCheckbox.b,
-                              c: e.target.checked ? 3 : 0,
+                              ...dataCheckbox,
+                              c: e.target.checked ? "3" : "0",
                             })
                           }
                         />
@@ -153,7 +146,7 @@ export default function Demandas() {
             <div className="right-demandas">
               <div className="search-demandas">
                 <InputSearch
-                  setState={setSearchDemanda}
+                  setState={filterSearch}
                   size="76%"
                   borderRadius="4px"
                   color="white"
@@ -165,8 +158,8 @@ export default function Demandas() {
                   width="170px"
                   options={[
                     {
-                      label: "Recentes",
-                      key: "recentes",
+                      name: "Recentes",
+                      id: "recentes",
                     },
                   ]}
                   background="#1B4977"
@@ -188,29 +181,39 @@ export default function Demandas() {
                   text="Recentes"
                   color="#8BEFBF"
                 />
-                <ChipFilter
+                {/* <ChipFilter
                   className="filter-header"
                   text="Propostas enviadas"
                 />
-                <ChipFilter className="filter-header" text="N° de envolvidos" />
+                <ChipFilter className="filter-header" text="N° de envolvidos" /> */}
               </div>
 
-              {dataVerify ? (
+              {dataNew.length > 0 ? (
                 <div className="cards-demandas">
                   {dataNew &&
-                    dataNew.map((item: IDemand) => (
-                      <Link to={`/demanda/${item.name}`}>
-                        <CardDemandas
-                          className="box-demanda"
-                          color=" #EFBA8B"
-                          // "Turismo integrado no te..."
-                          title={item.name}
-                          // "Eixo - Negócios e renda"
-                          subtitle={item.Axes.name}
-                          date="24 Jan 2023"
-                        />
-                      </Link>
-                    ))}
+                    dataNew.map((item: IDemand) => {
+                      console.log(item.id);
+                      return (
+                        <div className="demandaCardItem" key={item.id}>
+                          <Link to={`/demanda/${item.name}`}>
+                            <CardDemandas
+                              key={item.id}
+                              className="box-demanda"
+                              color={
+                                item.status.toString() === "1"
+                                  ? "#EFBA8B"
+                                  : "#EF8B8B"
+                              }
+                              // "Turismo integrado no te..."
+                              title={item.name}
+                              // "Eixo - Negócios e renda"
+                              subtitle={item.Axes.name}
+                              date="24 Jan 2023"
+                            />
+                          </Link>
+                        </div>
+                      );
+                    })}
                 </div>
               ) : (
                 <div className="notFound">Nenhum dado cadastrado</div>

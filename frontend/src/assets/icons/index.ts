@@ -13,14 +13,22 @@ import docs_icon from "./docs_icon.png";
 import eixos_icon from "./eixos_icon.png";
 import news_icon from "./news_icon.png";
 import users from "./users.png";
+import usersF from "./user 9.png";
 import demands from "./demands.png";
 import recent from "./recent.png";
 import addFile from "./addFile.png";
 import addNews from "./addNews.png";
 import eixo_one from "./eixo_1.png";
 import cityspcape from "./cityscape_1.png";
+import loginIconDefault from "./loginIcon.png";
+import priorize from "./prioritize_1.png";
+import calendar from "./calendar 2.png";
 
 export {
+  usersF,
+  calendar,
+  priorize,
+  loginIconDefault,
   eixo_one,
   cityspcape,
   addFile,

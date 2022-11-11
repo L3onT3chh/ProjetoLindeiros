@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { fetchTypesThunk } from "app/reducers/thunks";
+import { fetchTypesThunk } from "app/reducers/userTypes/thunks";
 import { IDataTypes } from "interfaces/data/types.interface";
 
 const initialState: IDataTypes = {

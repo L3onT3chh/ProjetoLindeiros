@@ -11,4 +11,13 @@ export default interface IDocument {
 
 export interface IDataDocument extends IResponseData {
   document: IDocument[];
+  documentSelect: IDocument | undefined;
+}
+
+export interface IDocumentPost {
+  name: string;
+  extension: string;
+  path: string;
+  fullPath: string;
+  demands_id: string;
 }

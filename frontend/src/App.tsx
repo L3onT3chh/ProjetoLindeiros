@@ -1,9 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/order */
 import React from "react";
 import Router from "./hooks/routes";
+
 import "./style.css";
+import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  return <Router />;
+  return (
+    <>
+      <Router />
+      <Toaster
+        toastOptions={{
+          success: {
+            iconTheme: {
+              primary: "green",
+              secondary: "white",
+            },
+          },
+          error: {
+            iconTheme: {
+              primary: "red",
+              secondary: "white",
+            },
+          },
+        }}
+      />
+    </>
+  );
 }
 
 export default App;

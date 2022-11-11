@@ -7,7 +7,15 @@ import ButtonDefault from "../Buttons/ButtonDefault";
 import { ContainerCardProposta } from "../style";
 import { IPropsGlobal } from "../../interfaces/components.interface";
 
-function CardProposta({ title, n_integrantes, date, approve }: IPropsGlobal) {
+function CardProposta({
+  title,
+  n_integrantes,
+  date,
+  approve,
+  setState,
+  state,
+  proposal,
+}: IPropsGlobal) {
   return (
     <ContainerCardProposta>
       <h2 className="title-h2">{title}</h2>
@@ -32,7 +40,15 @@ function CardProposta({ title, n_integrantes, date, approve }: IPropsGlobal) {
         </span>
       </div>
 
-      <ButtonDefault value="Ver mais" icon="" />
+      <ButtonDefault
+        width="100%"
+        setState={setState}
+        proposal={proposal}
+        state={state}
+        value="Ver mais"
+        icon=""
+        router=""
+      />
     </ContainerCardProposta>
   );
 }

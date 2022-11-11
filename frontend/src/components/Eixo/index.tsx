@@ -1,6 +1,6 @@
 import React from "react";
 import { IPropsGlobal } from "interfaces/components.interface";
-import { ContainerBackground } from "pages/styled";
+import { ContainerBackground } from "pages/css/styled";
 
 export function Eixo({ link, text }: IPropsGlobal) {
   return (

@@ -14,7 +14,6 @@ export const Eixos = [
 ];
 
 export const Cities = [
-  "Todas",
   "Mundo Novo",
   "Terra Roxa",
   "Guaíra",

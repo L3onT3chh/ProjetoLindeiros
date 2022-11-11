@@ -6,19 +6,31 @@ export interface IDemand {
   progress: number;
   description: string;
   cover: string;
-  updated: string;
+  createdAt: string;
   priority: string;
   status: number;
   Objective: IObjective;
   Axes: IAxes;
   Cities: ICities;
-  Proposal: IProposal[];
+  Proposal?: IProposal[] | IProposal | undefined;
+}
+
+export interface IDemandPost {
+  name: string;
+  description: string;
+  priority: string;
+  generalText: string;
+  specificText: string;
+  city_id: string;
+  axes_id: string;
 }
 
 export interface IObjective {
   id: string;
   general: string;
-  specific: string;
+  SpecificText: {
+    text: string;
+  };
 }
 
 export interface IAxes {
@@ -34,10 +46,19 @@ export interface ICities {
   uf: string;
 }
 
+export interface IProposalPost {
+  time: string[];
+  description: string;
+  value: string;
+  deadline: string;
+  demands_id?: string;
+}
+
 export interface IProposal {
   id: string;
   description: string;
   priority: string;
+  isAproved: string;
   Details: IDetails;
 }
 
@@ -49,6 +70,14 @@ export interface IDetails {
 }
 
 export interface IDataDemand extends IResponseData {
+  demandFilter: {
+    city: IDemand[];
+    axes: IDemand[];
+    search: IDemand[];
+    filtered: IDemand[];
+    status: IDemand[];
+    clicked: IDemand | undefined;
+  };
   demand: IDemand[];
 }
 

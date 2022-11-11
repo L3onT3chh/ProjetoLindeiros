@@ -1,0 +1,19 @@
+{
+  "authors": [
+      {
+          "name": "Projeto de governança"
+      }
+  ],
+  "config":{
+      "vendor-dir": "vendor"
+  },
+  "autoload": {
+      "psr-4": {
+          "src\\": "Src/",
+          "core\\": "Core/"
+      }
+  },
+  "require": {
+    "zircote/swagger-php": "^2.0"
+  }
+}

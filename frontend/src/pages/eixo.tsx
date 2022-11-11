@@ -21,14 +21,15 @@ export function Eixos() {
                 <h3 className="color-secondary">Eixo {item.eixo}</h3>
               </div>
               <div className="cover" />
-              <Eixo link={image.image} text={item.fullText} key={item.eixo} />
+              <Eixo
+                link={image.image}
+                text={item.fullText}
+                key={item.eixo.toString()}
+              />
             </div>
           );
         })}
       </div>
-      <button className="btnTopo bgcolor-secondary">
-        <i className="fas fa-arrow-up" />
-      </button>
     </>
   );
 }

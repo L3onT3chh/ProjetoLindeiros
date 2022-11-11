@@ -12,9 +12,11 @@ export function CardPropostas({
   icon,
   author,
   className,
+  key,
 }: IPropsGlobal) {
   return (
     <Card
+      key={key?.toString()}
       width="540px"
       height="120px"
       className={className}

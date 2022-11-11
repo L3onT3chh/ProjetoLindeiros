@@ -16,8 +16,21 @@ export interface SContainerProps {
 }
 
 export interface IResponseData {
+  message?: string;
   loading: boolean;
   error: string;
+}
+
+export interface IDataState {
+  data: Array<any>;
+  loading: boolean;
+  clicked?: string;
+}
+
+export interface INotification {
+  message: string;
+  duration: number;
+  level: "success" | "error";
 }
 
 export interface IFilters {

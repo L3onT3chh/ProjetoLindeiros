@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React from "react";
 
 import {
@@ -9,10 +8,10 @@ import {
   eixo_one,
 } from "../../assets/icons";
 import CardDefault from "../../components/Card/CardDefault";
-import { StatisticGraph } from "../../components/Card/Statistic";
+// import { StatisticGraph } from "../../components/Card/Statistic";
 import { ChipLeft } from "../../components/Chips/ChipLeft";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
-import { ContainerPainel } from "../styled";
+import { ContainerPainel } from "../css/styled";
 
 export function InicioPainel() {
   return (
@@ -25,7 +24,7 @@ export function InicioPainel() {
         </div>
         <div className="card-header">
           <CardDefault
-            width="200px"
+            width="32%"
             height="134px"
             icon={addFile}
             title="NOVA DEMANDA"
@@ -34,7 +33,7 @@ export function InicioPainel() {
             className="cardP"
           />
           <CardDefault
-            width="200px"
+            width="32%"
             height="134px"
             icon={addUser}
             borderIntern={false}
@@ -43,7 +42,7 @@ export function InicioPainel() {
             className="cardP"
           />
           <CardDefault
-            width="200px"
+            width="32%"
             height="134px"
             icon={addNews}
             borderIntern={false}
@@ -52,21 +51,21 @@ export function InicioPainel() {
             className="cardP"
           />
         </div>
-
+        {/* 
         <div className="statistic">
           <StatisticGraph
-            className="content-box"
+            className="content-box left"
             title="Nº de demandas por eixos"
-            width="643px"
+            width="60%"
             height="317px"
           />
           <StatisticGraph
-            className="content-box"
+            className="content-box right"
             title="Crescimento comparado com utimo mês"
-            width="323px"
+            width="40%"
             height="317px"
           />
-        </div>
+        </div> */}
 
         <div className="chips-footer">
           <ChipLeft

@@ -6,7 +6,12 @@ import AccessLogin from "./AccessLogin";
 
 function WelcomeLogin() {
   return (
-    <Card width="56%" height="100vh" background={backgroundLogin}>
+    <Card
+      width="56%"
+      height="100%"
+      background={backgroundLogin}
+      className="welcomeLoginCard"
+    >
       <ContainerWelcome>
         <p className="subtitle-p-white">Autenticação de usuário</p>
         <h1 className="title-h1-white">Seja Bem-vindo</h1>
@@ -16,7 +21,7 @@ function WelcomeLogin() {
           title="Esqueci minha senha"
           description="Clique no campo “esqueci minha senha” no menu ao lado para alterar sua senha.
 Informe o e-mail vinculado a sua conta, o código de verificação será enviado."
-          url="/reset"
+          url="/forgoutPassword"
         />
 
         <AccessLogin

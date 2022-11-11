@@ -1,38 +1,55 @@
-/* eslint-disable react/button-has-type */
 import React, { useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { PMeuPerfil } from "components/Popups/Profile";
 import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
-import {
-  demands,
-  // docs_icon,
-  // eixos_icon,
-  // news_icon,
-  users,
-} from "../../assets/icons";
+import RegisterDemandas from "components/Popups/subContent/registerDemandas";
+import PDefault from "components/Popups";
+import { useDispatch } from "react-redux";
+import { logout } from "app/reducers/auth/authSlice";
+import { AppDispatch } from "app/store";
+import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 
 export function MenuRight() {
+  const dispatch = useDispatch<AppDispatch>();
   const [openPopup, setOpenPopup] = useState(false);
+  const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
+
   return (
     <>
       <PMeuPerfil
         trigger={openPopup}
         width="409"
-        height="509"
+        height="530px"
         setTrigger={setOpenPopup}
       >
         <MyProfile />
       </PMeuPerfil>
+
+      <PDefault
+        height="889"
+        width="569"
+        title="Cadastro de demandas"
+        subtitle="Preencha todos os campos marcados *"
+        setTrigger={setOpenPopupDemandas}
+        trigger={openPopupDemandas}
+      >
+        <RegisterDemandas setState={setOpenPopupDemandas} />
+      </PDefault>
 
       <ContainerMenuRight>
         <div className="container-header-painel">
           <h1 className="title-h1">Painel</h1>
           {/* Adicionar o link do react router */}
           <div className="content-logout">
-            <Link to="/login">
+            <Link
+              to="/login"
+              onClick={() => {
+                dispatch(logout());
+              }}
+            >
               <FiLogOut size={20} color="white" />
               <span className="title-h2">Logout</span>
             </Link>
@@ -64,7 +81,11 @@ export function MenuRight() {
           <ChipCard
             icon={demands}
             optionsMenu={[
-              { title: "Inserir", urlMain: "painel/demandas/add" },
+              {
+                title: "Inserir",
+                activePopUp: true,
+                setTrigger: () => setOpenPopupDemandas(!openPopupDemandas),
+              },
               {
                 title: "Listagem",
                 subitems: [
@@ -77,46 +98,8 @@ export function MenuRight() {
             ]}
             text="Demandas"
           />
-
-          {/* <ChipCard
-            icon={news_icon}
-            optionsMenu={[
-              { title: "Inserir", urlMain: "painel/news/add" },
-              {
-                title: "Listagem",
-                urlMain: "painel/news",
-              },
-            ]}
-            text="Noticías"
-          /> */}
-
-          {/* <ChipCard
-            icon={eixos_icon}
-            optionsMenu={[
-              // { title: "Inserir", urlMain: "painel/eixos/add" },
-              {
-                title: "Listagem",
-                urlMain: "painel/eixos",
-              },
-            ]}
-            text="Eixos"
-          />
-
-          <ChipCard
-            icon={docs_icon}
-            optionsMenu={[
-              { title: "Inserir", urlMain: "painel/docs/add" },
-              {
-                title: "Listagem",
-                urlMain: "painel/eixos",
-              },
-            ]}
-            text="Documentos"
-          /> */}
         </div>
       </ContainerMenuRight>
-
-      {/* <FooterLink title="Abrir documentação" link="doc" /> */}
     </>
   );
 }

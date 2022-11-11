@@ -44,7 +44,7 @@ const demandas = [
       value: 2500.0,
       createdAt: "25 de set, 2021",
       cityApplied: "Santa Helena",
-      area: "Gestão Pública" ,
+      area: "Gestão Pública",
       finish: {
         period: "meses",
         time: 3,
@@ -263,7 +263,6 @@ const demandas = [
       ],
     },
   },
-
 ];
 
 export default demandas;

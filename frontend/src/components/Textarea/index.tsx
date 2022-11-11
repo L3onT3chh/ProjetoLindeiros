@@ -9,12 +9,27 @@ interface IPros {
   required?: boolean;
   className?: string;
   height?: string;
+  name?: string;
+  setState?: any;
+  valueDefault?: string;
 }
 
-function TextArea({ height, title, placeholder, required, className }: IPros) {
+function TextArea({
+  name,
+  height,
+  title,
+  placeholder,
+  required,
+  className,
+  setState,
+  valueDefault,
+}: IPros) {
   return (
     <ContainerTextarea height={height} className={className}>
       <textarea
+        defaultValue={valueDefault}
+        onChange={(e) => setState(e.target.value)}
+        name={name}
         id={`textarea-${title}`}
         placeholder={placeholder}
         required={required || false}

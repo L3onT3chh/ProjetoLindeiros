@@ -34,7 +34,6 @@
 .contato .left .info-item {
     display: flex;
     align-items: center;
-    column-gap: 3%;
     margin-bottom: 25px;
 }
 
@@ -76,4 +75,64 @@
     margin-left: auto;
     display: block;
     color: #fff;
+}
+
+@media screen and (max-width: 1000px) {
+    .contato .left h1{
+        font-size: 1.8rem;
+    }
+
+    .contato{
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .contato .left h1{
+        font-size: 1.5rem;
+    }
+
+    .contato .left h2{
+        font-size: 0.9rem;
+    }
+
+    .contato{
+        max-width: 95%;
+    }
+
+    .contato .left .info-item p {
+        font-size: 0.8rem;
+    }
+
+    .contato .left .info-group {
+        margin-top: 40px;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .contato{
+        flex-direction: column;
+    }
+
+    .contato .left, .contato .right{
+        width: 100%;
+    }
+
+    .contato .left{
+        margin-bottom: 25px;
+    }
+
+    .info-group{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .contato .left h2{
+        display: none;
+    }
+    .contato .left h1 {
+        font-size: 1.4rem;
+        text-align: center;
+    }
 }
