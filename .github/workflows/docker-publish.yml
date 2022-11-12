@@ -2,8 +2,12 @@ name: Validation docker
 
 on:
   push:
-    branches: ["*"]
+    branches: ["main"]
+    tags:
+      - "v*"
   pull_request:
+    tags:
+      - "*"
     branches: ["main"]
 
 env:
@@ -28,6 +32,7 @@ jobs:
         with:
           context: ./
           file: ./Dockerfile
+          push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/lindeiros:latest
           cache-from: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/lindeiros:buildcache
           cache-to: type=registry,ref=${{ secrets.DOCKER_HUB_USERNAME }}/lindeiros:buildcache,mode=max
