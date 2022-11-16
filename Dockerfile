@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY package.json /app/package.json
 
-RUN yarn
+COPY . /app
+RUN yarn --trace-deprecation
 
 CMD ["yarn", "start"]
