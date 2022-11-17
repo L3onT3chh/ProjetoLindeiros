@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
@@ -9,13 +10,12 @@ import {
 import { IStateData } from "interfaces/components.interface";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
 
-const initialState: IDataDemand = {
+export const initialState: IDataDemand = {
   demandFilter: {
     city: [],
     axes: [],
     filtered: [],
     search: [],
-    status: [],
     clicked: undefined,
   },
   loading: false,
@@ -52,10 +52,10 @@ export const demandSlice = createSlice({
     builder.addCase(
       createDemandsThunk.fulfilled,
       (state: IDataDemand, action) => {
-        state.loading = false;
         if (action.payload.status === 200 && action.payload.response) {
           state.demand.push(action.payload.response[0]);
         }
+        state.loading = false;
       },
     );
     builder.addCase(createDemandsThunk.pending, (state: IDataDemand) => {
@@ -95,15 +95,7 @@ export const demandSlice = createSlice({
       );
       state.demandFilter.city = filter;
     },
-    filterStatus: (state: IDataDemand, action) => {
-      const { payload } = action;
-      state.demandFilter.status = state.demand.filter(
-        (item: IDemand) =>
-          item.status === payload.a ||
-          item.status === payload.b ||
-          (item.status === payload.c ? item : null),
-      );
-    },
+
     filterSearch: (state: IDataDemand, action) => {
       state.demandFilter.search =
         action.payload !== " "
@@ -121,18 +113,20 @@ export const demandSlice = createSlice({
       )[0];
     },
     mergeDemandFilter: (state: IDataDemand) => {
-      const { city, axes, status } = state.demandFilter;
-      const arr = [...city, ...axes, ...status];
+      const { city, axes } = state.demandFilter;
+      const arr = [...city, ...axes];
+      const data = arr.filter(
+        (ele, index, self) => index === self.indexOf(ele),
+      );
       state.demandFilter = {
         ...state.demandFilter,
-        filtered: arr,
+        filtered: [...data],
       };
     },
   },
 });
 
 export const {
-  filterStatus,
   addDemand,
   filterAxes,
   filterCity,

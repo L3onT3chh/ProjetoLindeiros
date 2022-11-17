@@ -75,7 +75,6 @@ export interface IDataDemand extends IResponseData {
     axes: IDemand[];
     search: IDemand[];
     filtered: IDemand[];
-    status: IDemand[];
     clicked: IDemand | undefined;
   };
   demand: IDemand[];

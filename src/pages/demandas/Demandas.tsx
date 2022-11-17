@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import NavBar from "components/NavBar";
 import { ContainerPage } from "pages/css/styled";
 import { InputSearch } from "components/Inputs/Search";
@@ -28,44 +28,70 @@ import { AppDispatch } from "app/store";
 export default function Demandas() {
   const dispatch = useDispatch<AppDispatch>();
   const { demands, city, axes } = useSelector((state: IStateData) => state);
-  const [dataNew, setDataNew] = useState(demands.demand);
+  const [demand] = useReducer<any>(demands.demand, demands.demand);
+  const [dataNew, setDataNew] = useState<any>();
   const [dataCheckbox, setCheckbox] = useState({
     a: "0",
     b: "0",
     c: "0",
   });
   useEffect(() => {
-    if (isValid(axes.axes_selector)) {
-      dispatch(filterAxes(axes.axes_selector));
-    }
-    if (isValid(city.city_selector)) {
-      dispatch(filterCity(city.city_selector));
-    }
-
-    dispatch(mergeDemandFilter());
-  }, [axes.axes_selector, city.city_selector]);
-
-  useEffect(() => {
     if (
-      axes.axes_selector.includes("Tod") &&
-      city.city_selector.includes("Tod")
+      (axes.axes_selector.includes("Tod") || axes.axes_selector.length === 0) &&
+      (city.city_selector.length === 0 || city.city_selector.includes("Tod"))
     ) {
       setDataNew(demands.demand);
+    } else if (
+      dataCheckbox.a !== "0" ||
+      dataCheckbox.b !== "0" ||
+      dataCheckbox.c !== "0"
+    ) {
+      const data = dataNew.filter(
+        (item: IDemand) =>
+          item.status.toString() === dataCheckbox.a ||
+          item.status.toString() === dataCheckbox.b ||
+          (item.status.toString() === dataCheckbox.c && item),
+      );
+      setDataNew(data);
+    } else if (axes.axes_selector || city.city_selector) {
+      if (isValid(axes.axes_selector)) {
+        dispatch(filterAxes(axes.axes_selector));
+      }
+      if (isValid(city.city_selector)) {
+        dispatch(filterCity(city.city_selector));
+      }
+      dispatch(mergeDemandFilter());
     } else {
-      setDataNew(demands.demandFilter.filtered);
+      setDataNew(demands.demand);
     }
+  }, [
+    axes.axes_selector,
+    city.city_selector,
+    demands.demand,
+    dataCheckbox.a,
+    dataCheckbox.b,
+    dataCheckbox.c,
+  ]);
+
+  useEffect(() => {
+    const data = demands.demandFilter.filtered.filter(
+      (ele, index, self) => index === self.indexOf(ele),
+    );
+    setDataNew(data);
   }, [demands.demandFilter.filtered]);
 
   useEffect(() => {
-    setDataNew(demands.demand);
-  }, [demands.demand]);
+    if (demand) {
+      setDataNew(demand);
+    }
+  }, [demand]);
   return (
     <>
       <NavBar />
-      <LoadingDefault
-        active={city.loading || demands.loading || axes.loading}
-      />
       <ContainerPage>
+        <LoadingDefault
+          active={demands.loading || axes.loading || city.loading}
+        />
         <div className="container-banner-demandas">
           <div className="header" />
           <div className="data">
@@ -188,11 +214,10 @@ export default function Demandas() {
                 <ChipFilter className="filter-header" text="N° de envolvidos" /> */}
               </div>
 
-              {dataNew.length > 0 ? (
+              {dataNew && dataNew.length > 0 ? (
                 <div className="cards-demandas">
                   {dataNew &&
                     dataNew.map((item: IDemand) => {
-                      console.log(item.id);
                       return (
                         <div className="demandaCardItem" key={item.id}>
                           <Link to={`/demanda/${item.name}`}>
