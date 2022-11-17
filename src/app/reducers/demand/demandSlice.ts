@@ -95,17 +95,14 @@ export const demandSlice = createSlice({
       );
       state.demandFilter.city = filter;
     },
-
     filterSearch: (state: IDataDemand, action) => {
-      state.demandFilter.search =
-        action.payload !== " "
-          ? state.demand.filter(
-              (item: IDemand) =>
-                item.name
-                  .toLocaleLowerCase()
-                  .includes(action.payload.toLocaleLowerCase().trim()) && item,
-            )
-          : [];
+      const filter = state.demand.filter(
+        (item: IDemand) =>
+          item.name
+            .toLocaleLowerCase()
+            .includes(action.payload.toLocaleLowerCase().trim()) && item,
+      );
+      state.demandFilter.search = filter;
     },
     clickedDemand: (state: IDataDemand, action) => {
       state.demandFilter.clicked = state.demand.filter(
@@ -113,8 +110,8 @@ export const demandSlice = createSlice({
       )[0];
     },
     mergeDemandFilter: (state: IDataDemand) => {
-      const { city, axes } = state.demandFilter;
-      const arr = [...city, ...axes];
+      const { city, axes, search } = state.demandFilter;
+      const arr = [...city, ...axes, ...search];
       const data = arr.filter(
         (ele, index, self) => index === self.indexOf(ele),
       );

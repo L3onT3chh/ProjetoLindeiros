@@ -71,7 +71,14 @@ export default function Demandas() {
     dataCheckbox.a,
     dataCheckbox.b,
     dataCheckbox.c,
+    filterSearch,
   ]);
+
+  useEffect(() => {
+    if (demands.demandFilter.search.length > 0) {
+      dispatch(mergeDemandFilter());
+    }
+  }, [demands.demandFilter.search]);
 
   useEffect(() => {
     const data = demands.demandFilter.filtered.filter(
