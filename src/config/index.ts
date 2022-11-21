@@ -10,7 +10,8 @@ export const HEADERS_DATA = {
 };
 
 export const HEADERS_DATA_POST = {
-  "Content-Type": "application/json; charset=utf-8;",
+  // "Content-Type": "application/json; charset=utf-8;",
+  "Content-Type": "application/x-www-form-urlencoded",
   "Access-Control-Allow-Origin": "*",
 };
 

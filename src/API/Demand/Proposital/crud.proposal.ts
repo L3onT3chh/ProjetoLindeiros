@@ -1,20 +1,23 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prettier/prettier */
 import API from "API";
 import { AxiosError } from "axios";
-import { HEADERS_DATA, TokenUser } from "config";
+import { HEADERS_DATA_POST, TokenUser } from "config";
 import { IProposalPost } from "interfaces/data/demand.interface";
 
 const RegisterProposal = async (proposalSave: IProposalPost) => {
   try {
-    const token = TokenUser();
-    const headers = { ...HEADERS_DATA, token: `${token}` };
+    const token = TokenUser()?.toString();
+    const headers = {
+      ...HEADERS_DATA_POST,
+      token: token?.trim(),
+    };
     const Proposal = await API.post("/proposal", {
       headers,
-      body: JSON.stringify(proposalSave),
+      form: { ...proposalSave },
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-    if (Proposal.status === 200) {
+    if (Proposal.isValid) {
       return {
         status: 200,
         message: "Proposta registrado com sucesso!",

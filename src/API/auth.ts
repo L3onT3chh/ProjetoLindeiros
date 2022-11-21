@@ -21,6 +21,7 @@ const loginUser = async ({
     })
       .then((response) => Promise.resolve(response.data))
       .catch((err) => Promise.resolve(err));
+    console.log(DataAuth);
     if (DataAuth.isValid) {
       if (DataAuth.response.User) {
         const { User } = DataAuth.response;

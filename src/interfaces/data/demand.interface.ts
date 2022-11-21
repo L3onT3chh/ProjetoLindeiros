@@ -52,6 +52,7 @@ export interface IProposalPost {
   value: string;
   deadline: string;
   demands_id?: string;
+  numberInvolved: number;
 }
 
 export interface IProposal {
