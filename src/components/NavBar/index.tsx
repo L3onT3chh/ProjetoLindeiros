@@ -26,32 +26,32 @@ function NavBar({ className }: IPropsGlobal) {
         <div className="content-links">
           <ul>
             <div className="content-link">
-              <Link className="link-btn" to="/">
+              <Link className="link-btn" to="/" replace>
                 Home
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/eixos">
+              <Link className="link-btn" to="/eixos" replace>
                 Eixos
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/demandas">
+              <Link className="link-btn" to="/demandas" replace>
                 Demandas
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/documentos">
+              <Link className="link-btn" to="/documentos" replace>
                 Documentos
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/noticias">
+              <Link className="link-btn" to="/noticias" replace>
                 Notícias
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/contato">
+              <Link className="link-btn" to="/contato" replace>
                 Contato
               </Link>
             </div>

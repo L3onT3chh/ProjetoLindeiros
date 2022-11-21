@@ -52,6 +52,7 @@ export interface IProposalPost {
   value: string;
   deadline: string;
   demands_id?: string;
+  numberInvolved: number;
 }
 
 export interface IProposal {
@@ -75,7 +76,6 @@ export interface IDataDemand extends IResponseData {
     axes: IDemand[];
     search: IDemand[];
     filtered: IDemand[];
-    status: IDemand[];
     clicked: IDemand | undefined;
   };
   demand: IDemand[];

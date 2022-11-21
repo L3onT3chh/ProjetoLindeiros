@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lindeiros-deployment
+  labels:
+    app: lindeiros
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lindeiros
+  template:
+    metadata:
+      labels:
+        app: lindeiros
+    spec:
+      containers:
+      - name: lindeiros
+        image: leontechh/lindeiros:latest
+        ports:
+        - containerPort: 3000

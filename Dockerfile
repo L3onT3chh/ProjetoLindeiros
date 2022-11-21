@@ -8,3 +8,5 @@ COPY . /app
 RUN yarn --trace-deprecation
 
 CMD ["yarn", "start"]
+
+

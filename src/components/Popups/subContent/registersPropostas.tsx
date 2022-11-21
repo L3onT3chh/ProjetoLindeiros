@@ -25,6 +25,7 @@ function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
 
   const initialValues: IProposalPost = {
     deadline: "",
+    numberInvolved: 0,
     demands_id: idDemand?.toString(),
     description: "",
     time: [],
@@ -38,15 +39,17 @@ function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
     dispatch(
       createProposalThunk({
         ...valuesSave,
+        value: valueFormat,
         description,
         demands_id: idDemand,
         time,
+        numberInvolved: time.length,
       }),
     );
+    window.location.reload();
   };
 
   const handleFormat = (value: string) => {
-    console.log(`${value}`);
     if (value) {
       setValuFormat(`${value}`);
     }

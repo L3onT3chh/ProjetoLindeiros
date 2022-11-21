@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { mergeFilters } from "app/reducers/user/userSlice";
 import { AppDispatch } from "app/store";
 import { deleteUserThunk } from "app/reducers/user/thunk";
+import { Navigate } from "react-router";
+import { history } from "util/_helped";
 
 interface IProps {
   fields: string[];
@@ -35,6 +37,7 @@ export function TableDefaultUser({ fields }: IProps) {
 
   const handleRemoveUser = (userId: string) => {
     dispatch(deleteUserThunk(userId));
+    return <Navigate to="/painel" state={{ from: history.location }} replace />;
   };
 
   const handleUpdateUser = (userUpdate: string) => {
