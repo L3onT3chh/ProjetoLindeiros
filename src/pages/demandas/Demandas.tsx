@@ -40,6 +40,7 @@ export default function Demandas() {
       (axes.axes_selector.includes("Tod") || axes.axes_selector.length === 0) &&
       (city.city_selector.length === 0 || city.city_selector.includes("Tod"))
     ) {
+      console.log(axes.axes_selector, city.city_selector)
       setDataNew(demands.demand);
     } else if (
       dataCheckbox.a !== "0" ||
@@ -55,10 +56,20 @@ export default function Demandas() {
       setDataNew(data);
     } else if (axes.axes_selector || city.city_selector) {
       if (isValid(axes.axes_selector)) {
-        dispatch(filterAxes(axes.axes_selector));
+        dispatch(
+          filterAxes({
+            axes: axes.axes_selector,
+            city: city.city_selector,
+          }),
+        );
       }
       if (isValid(city.city_selector)) {
-        dispatch(filterCity(city.city_selector));
+        dispatch(
+          filterCity({
+            axes: axes.axes_selector,
+            city: city.city_selector,
+          }),
+        );
       }
       dispatch(mergeDemandFilter());
     } else {

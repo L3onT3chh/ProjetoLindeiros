@@ -8,12 +8,14 @@ import { CardDocs } from "components/CardDocs";
 import IDocument from "interfaces/data/document.interface";
 import PDefault from "components/Popups";
 import RegisterDocument from "components/Popups/subContent/registerDocument";
+import { selectUserLogged } from "app/reducers/auth/authSlice";
+import { verifyPermission } from "util/function";
 import { ContainerDocuments } from "./styled";
 
 export function Documents() {
   const { document } = useSelector((state: IStateData) => state.documents);
   const [openCard, setOpenCard] = useState(false);
-
+  const user = useSelector(selectUserLogged);
   return (
     <>
       <NavBar />
@@ -33,12 +35,14 @@ export function Documents() {
             <h1 className="title color-secondary">
               <span>Documentos disponíveis</span>
             </h1>
-            <ButtonCard
-              value="Adicionar Documentos"
-              router="/documentos"
-              setState={setOpenCard}
-              state={openCard}
-            />
+            {verifyPermission(user?.userType) && (
+              <ButtonCard
+                value="Adicionar Documentos"
+                router="/documentos"
+                setState={setOpenCard}
+                state={openCard}
+              />
+            )}
           </div>
           {/* Remover os objetivos especificos */}
           <div className="content-docs">

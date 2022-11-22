@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { selectUserLogged } from "app/reducers/auth/authSlice";
 import ButtonCard from "components/Buttons/ButtonCard";
 import NavBar from "components/NavBar";
 import PDefault from "components/Popups";
@@ -24,7 +25,7 @@ interface INewsUseState {
 
 export function News() {
   const [openPNews, setPNews] = useState(false);
-
+  const user = useSelector(selectUserLogged);
   const { news } = useSelector((state: IStateData) => state.news);
   const [newsData, setNews] = useState<INewsUseState>({
     mainNews: news.slice(0, 4),
@@ -120,12 +121,14 @@ export function News() {
             </div>
           </div>
         </div>
-        <ButtonCard
-          router="/noticias"
-          state={openPNews}
-          setState={setPNews}
-          value="Adicionar Noticia"
-        />
+        {user?.userType === "Administrador" && (
+          <ButtonCard
+            router="/noticias"
+            state={openPNews}
+            setState={setPNews}
+            value="Adicionar Noticia"
+          />
+        )}
         <div className="body">
           <div className="container">
             <div className="main">

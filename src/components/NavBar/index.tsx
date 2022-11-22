@@ -1,15 +1,18 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react-hooks/exhaustive-deps */
+import Dropdown from "react-bootstrap/Dropdown";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { TokenUser } from "config";
 import { NavMobile } from "components/NavBar/NavMobile";
 import { IPropsGlobal } from "interfaces/components.interface";
-import { ContainerNavBar, ContentNav } from "../style";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "app/store";
+import { logout } from "app/reducers/auth/authSlice";
+import { ComponenteDropdown, ContainerNavBar, ContentNav } from "../style";
 
 function NavBar({ className }: IPropsGlobal) {
+  const dispatch = useDispatch<AppDispatch>();
   const [stateNav, setState] = useState(false);
   return (
     <ContentNav className={className}>
@@ -58,9 +61,34 @@ function NavBar({ className }: IPropsGlobal) {
           </ul>
 
           {TokenUser() ? (
-            <Link className="link-login" to="/painel">
-              Acessar painel
-            </Link>
+            <ComponenteDropdown>
+              <Dropdown className="dropdown-main">
+                <Dropdown.Toggle
+                  id="dropdown-basic-button"
+                  className="dropdown-nav"
+                >
+                  Usuário logado
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/painel">
+                    <Link to="/painel">
+                      <span className="text-item">Acessar painel</span>
+                    </Link>
+                  </Dropdown.Item>
+                  <Dropdown.Item href="/login">
+                    <Link
+                      to="/login"
+                      onClick={() => {
+                        dispatch(logout());
+                      }}
+                    >
+                      <span className="text-item">Logout</span>
+                    </Link>
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </ComponenteDropdown>
           ) : (
             <Link className="link-login" to="/login">
               Efetuar Login

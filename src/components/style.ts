@@ -1776,3 +1776,22 @@ export const ContainerInputFile = styled.div`
     font-weight: 700;
   }
 `;
+
+export const ComponenteDropdown = styled.div`
+  margin: -10px;
+
+  .text-item {
+    margin: 0px;
+    padding: 0;
+    color: black;
+  }
+
+  .dropdown {
+    border: 0px;
+  }
+
+  .dropdown-nav:active,
+  .dropdown-nav:focus {
+    background: var(--color-background);
+  }
+`;

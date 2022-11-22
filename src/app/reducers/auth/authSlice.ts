@@ -60,4 +60,6 @@ export const selectCurentUser = (state: IStateData) => [
   state.auth.auth.logged,
 ];
 
+export const selectUserLogged = (state: IStateData) => state.auth.auth.user;
+
 export const selectCurrentToken = (state: IStateData) => state.auth.auth.jwt;

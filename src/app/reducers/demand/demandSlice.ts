@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-param-reassign */
@@ -80,20 +81,34 @@ export const demandSlice = createSlice({
     addDemand: () => {},
     removeDemand: () => {},
     filterAxes: (state: IDataDemand, action) => {
-      const filter = state.demand.filter(
+      let filter: IDemand[] = state.demand.filter(
         (item: IDemand) =>
           item.Axes.name.toLocaleLowerCase().trim() ===
-            action.payload.toLocaleLowerCase().trim() && item,
+            action.payload.axes.toLocaleLowerCase().trim() && item,
       );
+      if (action.payload.city && !action.payload.city.includes("Tod")) {
+        filter = filter.filter(
+          (item) =>
+            item.Cities.name.toLocaleLowerCase().trim() ===
+              action.payload.city.toLocaleLowerCase().trim() && item,
+        );
+      }
       state.demandFilter.axes = filter;
     },
     filterCity: (state: IDataDemand, action) => {
-      const filter = state.demand.filter(
+      let arrayA: IDemand[] = state.demand.filter(
         (item: IDemand) =>
           item.Cities.name.toLocaleLowerCase().trim() ===
-            action.payload.toLocaleLowerCase().trim() && item,
+            action.payload.city.toLocaleLowerCase().trim() && item,
       );
-      state.demandFilter.city = filter;
+      if (action.payload.axes && !action.payload.axes.includes("Tod")) {
+        arrayA = arrayA.filter(
+          (item) =>
+            item.Axes.name.toLocaleLowerCase().trim() ===
+              action.payload.axes.toLocaleLowerCase().trim() && item,
+        );
+      }
+      state.demandFilter.city = arrayA;
     },
     filterSearch: (state: IDataDemand, action) => {
       const filter = state.demand.filter(

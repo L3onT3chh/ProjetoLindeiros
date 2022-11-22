@@ -65,3 +65,10 @@ export const showErrorMessage = (message: string, type: string) => {
     toast.success(message);
   }
 };
+
+export const verifyPermission = (permission: string | undefined) => {
+  if (permission) {
+    return permission === "Administrador";
+  }
+  return false;
+};

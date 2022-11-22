@@ -58,6 +58,30 @@ export function MenuRight() {
 
         <div className="content-data">
           <ChipCard
+            icon={demands}
+            optionsMenu={[
+              {
+                title: "Apresentação",
+                subitems: [
+                  {
+                    name: "Home",
+                    url: "",
+                  },
+                  {
+                    name: "Eixos",
+                    url: "eixos/",
+                  },
+                  {
+                    name: "Demandas",
+                    url: "demandas/",
+                  },
+                ],
+              },
+            ]}
+            text="Acessos"
+          />
+
+          <ChipCard
             icon={users}
             optionsMenu={[
               {
