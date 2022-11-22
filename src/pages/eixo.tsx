@@ -20,7 +20,7 @@ export function Eixos() {
                 <h2 className="color-secondary">{item.title}</h2>
                 <h3 className="color-secondary">Eixo {item.eixo}</h3>
               </div>
-              <div className="cover" />
+              {/* <div className="cover" /> */}
               <Eixo
                 link={image.image}
                 text={item.fullText}

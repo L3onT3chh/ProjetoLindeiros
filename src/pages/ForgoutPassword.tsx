@@ -17,7 +17,7 @@ function ForgoutPassword() {
         <WelcomeLogin />
 
         <div className="login">
-          <SublinedText size="32" title="Não possui cadastro?" />
+          <SublinedText size="32" title="Esqueceu a senha?" />
           <form action="" className="form-login">
             <div className="form-control-demand-forgout">
               <p className="title-h2">
@@ -42,9 +42,9 @@ function ForgoutPassword() {
             <CardDefault
               width="224px"
               height="fit-content"
-              title="Esqueci minha senha"
+              title="Não possuo cadastro"
               icon={lock}
-              url="/forgoutPassword"
+              url="/register"
             />
             <CardDefault
               width="224px"
