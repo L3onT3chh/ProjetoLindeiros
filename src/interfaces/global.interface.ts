@@ -2,6 +2,7 @@ export interface SContainerProps {
   width?: string;
   height?: string;
   background?: string;
+  backgroundColor?: string;
   color?: string;
   colorT?: string;
   shadow?: string;

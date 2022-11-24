@@ -3,7 +3,7 @@ import { Contato } from "pages/Contato";
 import { Documents } from "pages/documents";
 import { Eixos } from "pages/eixo";
 import { News } from "pages/news/News";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Demanda } from "pages/demandas/Demanda";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
@@ -24,6 +24,7 @@ import RegisterRepresent from "pages/Register";
 import ForgoutPassword from "pages/ForgoutPassword";
 import PrivatRoute from "components/PrivateRouter";
 import { Toaster } from "react-hot-toast";
+import { NotFound } from "pages/notFound";
 import { MenuRight } from "../components/SubMenu/MenuRight";
 import Demandas from "../pages/demandas/Demandas";
 import Home from "../pages/Home";
@@ -150,7 +151,7 @@ function Routers() {
             </PrivatRoute>
           }
         />
-        <Route path="*" element={<Navigate to={{ pathname: "/" }} />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster
         toastOptions={{

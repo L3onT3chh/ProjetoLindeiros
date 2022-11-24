@@ -5,21 +5,41 @@ import { SContainerProps } from "../../interfaces/global.interface";
 export const ContainerPage = styled.div<SContainerProps>`
   width: 100%;
   z-index: 1;
-  background-color: white;
+  background-color: ${(props) => props.backgroundColor || "white"};
 
   @media screen and (max-width: 1000px) {
-    .welcomeLoginCard{
+    .welcomeLoginCard {
       display: none;
     }
-    .login,.login .form-login{
-      width: 100%!important;
+    .login,
+    .login .form-login {
+      width: 100% !important;
+    }
+  }
+
+  .container-page {
+    width: 100%;
+    height: 35vh;
+    bottom: 0;
+    background: #1b4977;
+    box-shadow: 0px -15px 63px 103px #1b4977;
+
+    .title-main {
+      font-weight: 500;
+      color: #1b4977;
+      font-size: 65px;
+    }
+
+    .title-h2 {
+      margin-top: -20px;
+      font-size: 23px;
     }
   }
   .form-control-demand-forgout {
     margin-top: 20px;
   }
 
-  .content-demanda{
+  .content-demanda {
     overflow-x: auto;
   }
 
@@ -108,8 +128,8 @@ export const ContainerPage = styled.div<SContainerProps>`
     width: 100%;
     padding: 10px;
 
-    .mainNews{
-      width: 100%!important;
+    .mainNews {
+      width: 100% !important;
     }
   }
 
@@ -169,7 +189,7 @@ export const ContainerPage = styled.div<SContainerProps>`
       align-items: center;
     }
 
-    .others-news{
+    .others-news {
       display: none;
     }
 
@@ -241,11 +261,11 @@ export const ContainerPage = styled.div<SContainerProps>`
       align-items: center;
       padding: 25px;
 
-      .data-banner{
+      .data-banner {
         height: fit-content;
         flex-direction: column;
 
-        .create-proposal{
+        .create-proposal {
           position: initial;
           top: initial;
           right: initial;
@@ -257,7 +277,7 @@ export const ContainerPage = styled.div<SContainerProps>`
     @media screen and (max-width: 600px) {
       padding: 10px;
       justify-content: center;
-      .data-banner{
+      .data-banner {
         width: 100%;
       }
     }
@@ -303,7 +323,7 @@ export const ContainerPage = styled.div<SContainerProps>`
           left: 0;
           top: 0;
 
-          .menu-suspenso-demandas{
+          .menu-suspenso-demandas {
             justify-content: space-evenly;
             right: 0;
             width: 100%;
@@ -331,7 +351,7 @@ export const ContainerPage = styled.div<SContainerProps>`
           }
 
           @media screen and (max-width: 450px) {
-            select{
+            select {
               display: none;
             }
           }
@@ -473,7 +493,7 @@ export const ContainerPainel = styled.div<SContainerProps>`
     right: 0px;
 
     @media screen and (max-width: 600px) {
-        display: none;
+      display: none;
     }
   }
 
@@ -485,11 +505,11 @@ export const ContainerPainel = styled.div<SContainerProps>`
     flex-direction: column;
     justify-content: center;
 
-    @media screen and (max-width: 576px){
-      max-width: 100%!important;
+    @media screen and (max-width: 576px) {
+      max-width: 100% !important;
     }
 
-    .container-header-main{
+    .container-header-main {
       margin-bottom: 2%;
     }
 
@@ -509,11 +529,11 @@ export const ContainerPainel = styled.div<SContainerProps>`
         width: 200px;
 
         @media screen and (max-width: 500px) {
-          button{
-            width: 100%!important;
-            margin-top: 15px!important;
+          button {
+            width: 100% !important;
+            margin-top: 15px !important;
           }
-        }        
+        }
       }
     }
     .container-header-main,
