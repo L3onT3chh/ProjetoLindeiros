@@ -1,5 +1,5 @@
 import Axios from "axios";
 
 export default Axios.create({
-  baseURL: "https://api-governanca.lindeiros.com",
+  baseURL: "https://api-governanca.lindeiros.org.br",
 });
