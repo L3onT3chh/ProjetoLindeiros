@@ -40,7 +40,6 @@ export default function Demandas() {
       (axes.axes_selector.includes("Tod") || axes.axes_selector.length === 0) &&
       (city.city_selector.length === 0 || city.city_selector.includes("Tod"))
     ) {
-      console.log(axes.axes_selector, city.city_selector)
       setDataNew(demands.demand);
     } else if (
       dataCheckbox.a !== "0" ||

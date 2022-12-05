@@ -15,7 +15,6 @@ function PrivatRoute({ children: Children }: any) {
     return <Navigate to="/login" state={{ from: history.location }} replace />;
   }
   const userD: any = user;
-  console.log(userD.userType);
   if (userD.userType !== "Administrador") {
     return <Navigate to="/" state={{ from: history.location }} replace />;
     // return <Navigate to="/" state={{ from: history.location }} replace />;

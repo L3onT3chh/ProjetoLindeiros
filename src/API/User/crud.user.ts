@@ -82,7 +82,6 @@ export const DeleteUser = async (id: string) => {
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
-    console.log(userDell);
     if (userDell.isValid) {
       return {
         status: 200,

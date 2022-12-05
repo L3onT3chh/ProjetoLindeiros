@@ -6,12 +6,14 @@ import { Link } from "react-router-dom";
 import { TokenUser } from "config";
 import { NavMobile } from "components/NavBar/NavMobile";
 import { IPropsGlobal } from "interfaces/components.interface";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
-import { logout } from "app/reducers/auth/authSlice";
+import { logout, selectCurentUser } from "app/reducers/auth/authSlice";
 import { ComponenteDropdown, ContainerNavBar, ContentNav } from "../style";
 
 function NavBar({ className }: IPropsGlobal) {
+  const [user, logged] = useSelector(selectCurentUser);
+  const dataA: any = user;
   const dispatch = useDispatch<AppDispatch>();
   const [stateNav, setState] = useState(false);
   return (
@@ -72,9 +74,11 @@ function NavBar({ className }: IPropsGlobal) {
 
                 <Dropdown.Menu>
                   <Dropdown.Item href="/painel">
-                    <Link to="/painel">
-                      <span className="text-item">Acessar painel</span>
-                    </Link>
+                    {logged && dataA.userType !== "Universidade" && (
+                      <Link to="/painel">
+                        <span className="text-item">Acessar painel</span>
+                      </Link>
+                    )}
                   </Dropdown.Item>
                   <Dropdown.Item href="/login">
                     <Link
