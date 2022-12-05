@@ -68,7 +68,7 @@ export const showErrorMessage = (message: string, type: string) => {
 
 export const verifyPermission = (permission: string | undefined) => {
   if (permission) {
-    return permission === "Administrador";
+    return permission === "Administrador" || permission === "Universidade";
   }
   return false;
 };

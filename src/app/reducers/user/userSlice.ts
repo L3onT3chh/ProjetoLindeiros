@@ -58,8 +58,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(deleteUserThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
-
-      if (payload !== undefined && payload.idRemove) {
+      if (payload.idRemove) {
         state.loading = true;
         const dataAux: IUser[] = state.users.filter(
           (user: IUser) => user.name !== payload.idRemove,
