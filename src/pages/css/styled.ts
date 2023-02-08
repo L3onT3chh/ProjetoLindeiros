@@ -104,7 +104,7 @@ export const ContainerPage = styled.div<SContainerProps>`
   }
 
   .news-container .title-h1 {
-    margin: 60px 0;
+    margin: 60px 0 40px;
   }
 
   .filters-demandas-modal {

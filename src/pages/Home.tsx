@@ -60,37 +60,37 @@ function Home() {
           <div className="eixos-programmer">
             <CardAxes
               className="card-eixo-home"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis augue velit. Sed eget luctus velit."
+              description="Implantar governança integrada e inteligente para transformar a região oeste do Paraná e aproveitar os recursos de forma eficiente."
               logo={{ src: ImageEixos.inteligent, alt: "" }}
               title="Governança inteligente"
             />
             <CardAxes
               className="card-eixo-home"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis augue velit. Sed eget luctus velit."
+              description="Promover a sustentabilidade efetiva para o desenvolvimento com ações coordenadas visando maior equilíbrio entre as dimensões sociais, econômicas e ambientais."
               logo={{ src: ImageEixos.sustentability, alt: "" }}
               title="Sustentabilidade"
             />
             <CardAxes
               className="card-eixo-home"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis augue velit. Sed eget luctus velit."
+              description="O objetivo é aumentar emprego e renda por meio da ampliação de negócios e atração de investimentos com ajuda da Invest Paraná."
               logo={{ src: ImageEixos.money, alt: "" }}
               title="Negócios e renda"
             />
             <CardAxes
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis augue velit. Sed eget luctus velit."
+              description="Diagnosticar a situação da saúde pública e qualidade de vida da população do oeste do Paraná para proposição de ações e políticas públicas."
               className="card-eixo-home"
               logo={{ src: ImageEixos.saude, alt: "" }}
               title="Saúde"
             />
             <CardAxes
               className="card-eixo-home"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis augue velit. Sed eget luctus velit."
+              description="Desenvolver ações visando a qualidade de vida, uso equilibrado e racional dos recursos naturais, e, viabilidade econômica da agricultura familiar."
               logo={{ src: ImageEixos.family, alt: "" }}
               title="Agricultura Familiar"
             />
             <CardAxes
               className="card-eixo-home"
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut quis augue velit. Sed eget luctus velit."
+              description="Desenvolver ações para garantir a segurança e a competitividade da cadeia produtiva de proteínas animais e vegetal."
               logo={{ src: ImageEixos.security, alt: "" }}
               title="Segurança"
             />
