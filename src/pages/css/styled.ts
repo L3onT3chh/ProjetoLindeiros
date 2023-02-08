@@ -667,5 +667,6 @@ export const ContainerPainel = styled.div<SContainerProps>`
 `;
 
 export const ContainerBackground = styled.div<SContainerProps>`
+  position: relative;
   background-image: url(${(props) => props.background});
 `;

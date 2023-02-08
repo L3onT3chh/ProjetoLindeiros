@@ -55,11 +55,17 @@ html{
     font-size: 1.5rem;
     line-height: 40px;
     text-align: center;
-    padding: 0 150px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     position: relative;
     z-index: 3;
     opacity: 1; 
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .btnTopo{
