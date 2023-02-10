@@ -7,6 +7,28 @@ export const ContainerPage = styled.div<SContainerProps>`
   z-index: 1;
   background-color: ${(props) => props.backgroundColor || "white"};
 
+  .ResponsiveFilter{
+    z-index: 9;
+    position: fixed;
+    border-radius: 50%;
+    right: 25px;
+    bottom: 100px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    border: 0;
+    background: #fff;
+    box-shadow: 0 0 7px 1px var(--color-background-opacity);
+    transition: cubic-bezier(1, 0.2, 0.98, 1) 0.2s;
+
+    @media screen and (max-width: 1100px) {
+      display: flex;
+    }
+  }
+
   @media screen and (max-width: 1000px) {
     .welcomeLoginCard {
       display: none;
@@ -316,6 +338,7 @@ export const ContainerPage = styled.div<SContainerProps>`
         }
 
         @media screen and (max-width: 1100px) {
+          display: none;
           z-index: 2;
           position: fixed;
           width: 100%;
@@ -329,6 +352,10 @@ export const ContainerPage = styled.div<SContainerProps>`
             width: 100%;
             height: 100%;
           }
+        }
+
+        @media screen and (min-width: 1100px) {
+          display: block!important;
         }
       }
 

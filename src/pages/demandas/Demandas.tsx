@@ -2,6 +2,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useReducer, useState } from "react";
+import { BiFilter } from "react-icons/bi";
+import { FaTimes } from "react-icons/fa";
+
 import NavBar from "components/NavBar";
 import { ContainerPage } from "pages/css/styled";
 import { InputSearch } from "components/Inputs/Search";
@@ -27,6 +30,7 @@ import { AppDispatch } from "app/store";
 
 export default function Demandas() {
   const dispatch = useDispatch<AppDispatch>();
+  const [filterState, setFilterState] = useState(false);
   const { demands, city, axes } = useSelector((state: IStateData) => state);
   const [demand] = useReducer<any>(demands.demand, demands.demand);
   const [dataNew, setDataNew] = useState<any>();
@@ -102,6 +106,15 @@ export default function Demandas() {
       setDataNew(demand);
     }
   }, [demand]);
+
+  const handleFilter = () =>{
+    if(filterState === true){
+      setFilterState(false);
+    }else{
+      setFilterState(true);
+    }
+  }
+
   return (
     <>
       <NavBar />
@@ -109,10 +122,14 @@ export default function Demandas() {
         <LoadingDefault
           active={demands.loading || axes.loading || city.loading}
         />
+        <span className="ResponsiveFilter" onClick={handleFilter}>
+          <BiFilter color="#333" size="35" style={{display:(filterState) ? "none" : "flex"}}/>
+          <FaTimes color="#333" size="35" style={{display:(filterState) ? "flex" : "none"}}/>
+        </span>
         <div className="container-banner-demandas">
           <div className="header" />
           <div className="data">
-            <div className="left-demandas">
+            <div className="left-demandas" style={{display:(filterState) ? "flex" : "none"}}>
               <MenuSuspenso className="menu-suspenso-demandas">
                 <>
                   <div className="filters-demandas-modal">

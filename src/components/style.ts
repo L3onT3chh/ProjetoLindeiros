@@ -1575,7 +1575,7 @@ export const ContentNav = styled.div`
     z-index: 9;
     position: fixed;
     border-radius: 50%;
-    left: 25px;
+    right: 25px;
     bottom: 25px;
     width: 60px;
     height: 60px;
