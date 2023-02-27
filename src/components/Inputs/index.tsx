@@ -31,7 +31,7 @@ function InputStyle({
   required,
 }: IPros) {
   return (
-    <ContainerInput className={className} style={{ marginTop: "10px", width: "65%", marginRight: "10px" }}>
+    <ContainerInput className={className}>
       {title &&
         (
           <h2 className="title-h3">{title}</h2>

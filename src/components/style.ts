@@ -625,6 +625,12 @@ export const ContainerInput = styled.div`
     font-size: 18px;
   }
 
+  &.popup{
+    margin-top: 0!important; 
+    width: 50%;
+    margin-right: 10px;
+  }
+
   input {
     width: 100%;
     padding: 10px;
@@ -648,6 +654,7 @@ export const ContainerTextarea = styled.div<SContainerProps>`
     background: var(--color-background-primary);
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    margin-bottom: 10px;
   }
 `;
 
@@ -998,6 +1005,10 @@ export const ContainerSelectAlternative = styled.select<SContainerProps>`
   margin-top: 10px;
   color: black;
   padding: 10px;
+
+  &.text-popup{
+    margin-top: 0!important;
+  }
 `;
 
 export const ContainerChipCard = styled.div`

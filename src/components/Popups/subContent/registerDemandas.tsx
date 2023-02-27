@@ -91,7 +91,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
                   placeholder="Nome"
                   title=""
                   type="text"
-                  className="form-control-demand"
+                  className="form-control-demand popup"
                 />
                 <SelectMenuAlternative
                   value={userPriority}
