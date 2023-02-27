@@ -11,7 +11,7 @@ interface IPros {
   height?: string;
   name?: string;
   setState?: any;
-  valueDefault?: string;
+  value?: string;
 }
 
 function TextArea({
@@ -22,12 +22,12 @@ function TextArea({
   required,
   className,
   setState,
-  valueDefault,
+  value,
 }: IPros) {
   return (
     <ContainerTextarea height={height} className={className}>
       <textarea
-        defaultValue={valueDefault}
+        value={value}
         onChange={(e) => setState(e.target.value)}
         name={name}
         id={`textarea-${title}`}

@@ -13,9 +13,28 @@ export const deleteDemandsThunk = createAsyncThunk(
   },
 );
 
-export const updateDemandsThunk = createAsyncThunk("", async () => {});
+export const updateDemandsThunk = createAsyncThunk("/demandas/updateDemand", async (demandData: IDemandPost) => {
+  if (demandData.id) {
+    const dem = await demandCrud.edit(demandData.id, demandData);
+    showErrorMessage(dem.message, dem.status === 200 ? "success" : "error");
+    const data = [];
+    if (Array.isArray(dem.response) && dem.dataRequest) {
+      data.push(
+        dem.response.filter((item) =>
+          item.name
+            .toLocaleLowerCase()
+            .includes(dem.dataRequest.toLocaleLowerCase()),
+        )[0],
+      );
+    }
+    return {
+      ...dem,
+      response: data || [],
+    };
+  }
+});
 
-export const findOneDemandsThunk = createAsyncThunk("", async () => {});
+export const findOneDemandsThunk = createAsyncThunk("", async () => { });
 
 export const fetchDemandsThunk = createAsyncThunk(
   "demandas/fetchDemandas",

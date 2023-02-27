@@ -16,6 +16,7 @@ export interface IDemand {
 }
 
 export interface IDemandPost {
+  id?: string;
   name: string;
   description: string;
   priority: string;
@@ -61,6 +62,14 @@ export interface IProposal {
   priority: string;
   isAproved: string;
   Details: IDetails;
+}
+
+export interface IEProposal {
+  id: string;
+  description?: string;
+  priority?: string;
+  isAproved?: string;
+  Details?: IDetails;
 }
 
 export interface IDetails {

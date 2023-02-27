@@ -16,20 +16,28 @@ import PDefault from "components/Popups";
 import UpdateDemand from "components/Popups/subContent/updateDemand";
 import {
   clickedDemand,
+  mergeDemandFilter,
   // mergeDemandFilter,
   selectCurrentDemands,
 } from "app/reducers/demand/demandSlice";
+import { ContentProfile } from "components/style";
+import { ProposalList } from "components/ProposalList/ProposalList";
 
 export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
   const demands = useSelector(selectCurrentDemands);
   const [newData, setNewData] = useState<IDemand[]>(demands.demand);
+  const [proposalData, setProposalData] = useState<IDemand>();
   const [dataUpdated, setDataUpdated] = useState<string>("");
   const [useOpenDemand, setOpenDemand] = useState(false);
+  const [proposalOpen, setProposalOpen] = useState(false);
+  const [remove, setRemove] = useState(false);
   const [trigger, setTrigger] = useState(true);
+  const [deleteId, setDeleteId] = useState("");
 
   useEffect(() => {
     setNewData(demands.demand);
+    console.log(demands.demand)
   }, [demands.demand]);
 
   const handleClicked = (id: string) => {
@@ -40,19 +48,22 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   // -------------------------------------------
   // Resultando em bug
   // -------------------------------------------
-  // useEffect(() => {
-  //   if (demands.demandFilter.search) {
-  //     dispatch(mergeDemandFilter());
-  //     setNewData(demands.demandFilter.filtered);
-  //   }
-  // }, [demands.demandFilter.search]);
+  useEffect(() => {
+    if (demands.demandFilter.search) {
+      dispatch(mergeDemandFilter());
+      setNewData(demands.demandFilter.search);
+    }
+  }, [demands.demandFilter.search]);
 
   useEffect(() => {
     setTrigger(!trigger);
   }, [demands.demandFilter.clicked]);
 
-  const handleRemoveDemand = (id: string) => {
-    dispatch(deleteDemandsThunk(id));
+  const handleRemoveDemand = () => {
+    if (deleteId !== "") {
+      dispatch(deleteDemandsThunk(deleteId));
+      setRemove(false);
+    }
   };
 
   const handleUpdateDemand = (id: string) => {
@@ -62,68 +73,109 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
 
     setOpenDemand(!useOpenDemand);
   };
+
+  const preRemove = (id: string) => {
+    setRemove(true);
+    setDeleteId(id);
+  }
+
+  const handlerProposalOpen = (item: IDemand) => {
+    setProposalData(item);
+    setProposalOpen(true);
+  }
   return (
     <>
       <div className="data-user-poup">
+        {proposalData && (
+          <ProposalList state={proposalOpen} setState={setProposalOpen} data={proposalData} />
+        )
+        }
         <PDefault
-          height="889"
+          height="90%"
           width="569"
-          title="Envio de demandas"
-          subtitle="Preencha todos os campos marcados *"
+          title="Editar demanda"
+          subtitle="Altere os dados desejados"
           setTrigger={setOpenDemand}
           trigger={useOpenDemand}
         >
-          <UpdateDemand setState={setOpenDemand} demandId={dataUpdated} />
+          <UpdateDemand setState={setOpenDemand} demandId={dataUpdated} opened={useOpenDemand} />
+        </PDefault>
+        <PDefault
+          height="fit-content"
+          width="569"
+          title="Excluir demanda"
+          subtitle="Deseja realmente excluir esta demanda?"
+          setTrigger={setRemove}
+          trigger={remove}
+        >
+          <ContentProfile>
+            <div className="content-default" style={{ padding: 0 }}>
+              <form
+                action=""
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <div className="content-basic-data">
+                  <div className="btns-popup">
+                    <button className="btn-close-two">Fechar</button>
+                    <button className="btn-send" onClick={() => handleRemoveDemand()}>Confirmar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </ContentProfile>
         </PDefault>
       </div>
       <table>
         <tr className="one-row-title">
           {fields && fields.map((field) => <th key={field}>{field}</th>)}
-          <th>Ações</th>
         </tr>
-        {newData.map((item: IDemand) => (
-          <tr key={item.id} className="row-content">
-            <th>
-              <button
-                className="field-styled field-name"
-                onClick={() => handleClicked(item.id)}
-              >
-                {item.name}
-              </button>
-            </th>
-            <th>
-              <p className="field-styled">{item.Axes.name}</p>
-            </th>
-            <th>
-              <p className="field-styled">{item.priority}</p>
-            </th>
-            <th>
-              <p className="field-styled">{item.Cities.name}</p>
-            </th>
-            <th>
-              <p className="field-styled">{item.createdAt}</p>
-            </th>
-            <th>
-              <span>
-                <BsFillTrash2Fill
-                  color="red"
-                  className="btn-click"
-                  size={30}
-                  onClick={() => handleRemoveDemand(item.id)}
-                />
-              </span>{" "}
-              <span className="divisor" />
-              <span>
-                <MdOutlineTipsAndUpdates
-                  onClick={() => item.id && handleUpdateDemand(item.id)}
-                  className="update-icon btn-click"
-                  color="green"
-                  size={32}
-                />
-              </span>
-            </th>
-          </tr>
-        ))}
+        <tbody className="demandTable">
+          {newData.map((item: IDemand) => (
+            <tr key={item.id} className="row-content">
+              <th>
+                <button
+                  className="field-styled field-name"
+                  onClick={() => handleClicked(item.id)}
+                >
+                  {item.name}
+                </button>
+              </th>
+              <th>
+                <p className="field-styled">{item.Axes.name}</p>
+              </th>
+              <th>
+                <p className="field-styled">{item.priority}</p>
+              </th>
+              <th>
+                <p className="field-styled">{item.Cities.name}</p>
+              </th>
+              <th className="field-styled">
+                <span>
+                  <BsFillTrash2Fill
+                    color="red"
+                    className="btn-click"
+                    size={30}
+                    onClick={() => preRemove(item.id)}
+                  />
+                </span>{" "}
+                &nbsp;&nbsp;
+                <span>
+                  <MdOutlineTipsAndUpdates
+                    onClick={() => item.id && handleUpdateDemand(item.id)}
+                    className="update-icon btn-click"
+                    color="green"
+                    size={32}
+                  />
+                </span>
+              </th>
+              <th>
+                <p className="field-button" onClick={() => handlerProposalOpen(item)}>Ver mais</p>
+              </th>
+            </tr>
+          ))}
+        </tbody>
       </table>
       {/* {dataClicked && dataClicked.Proposal && (
         <PMeuPerfil

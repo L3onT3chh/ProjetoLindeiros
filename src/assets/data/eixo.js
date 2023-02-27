@@ -2,9 +2,9 @@ export const eixoData = [
   {
     eixo: 1,
     description:
-      "Implantar governança integrada e inteligente nos municípios nos municípios do oeste do Paraná para convergir os esforços e ...",
+      "Implantar governança integrada e inteligente nos municípios do oeste do Paraná para convergir os esforços e ...",
     fullText:
-      "Implantar governança integrada e inteligente nos municípios nos municípios do oeste do Paraná para convergir os esforços e ações que resultem na transformação da região oeste e no uso eficiente dos recursos. Capacitar, utilizar e implementar a metodologia do Paraná Produtivo coordenado pela Secretaria Estadual de Planejamento e Projetos Estruturantes, para que as ações de desenvolvimento regional estejam articuladas e coordenadas com o Governo do Estado do Paraná. Promover a sincronicidade dos seis objetivos estratégicos do planejamento 2021-2022 do Programa Oeste Desenvolvimento. Promover a implantação efetiva do Programa Novos Arranjos Produtivos de Inovação – NAPI, da Fundação Araucária, no oeste do Paraná.",
+      "Implantar governança integrada e inteligente nos municípios do oeste do Paraná para convergir os esforços e ações que resultem na transformação da região oeste e no uso eficiente dos recursos. Capacitar, utilizar e implementar a metodologia do Paraná Produtivo coordenado pela Secretaria Estadual de Planejamento e Projetos Estruturantes, para que as ações de desenvolvimento regional estejam articuladas e coordenadas com o Governo do Estado do Paraná. Promover a sincronicidade dos seis objetivos estratégicos do planejamento 2021-2022 do Programa Oeste Desenvolvimento. Promover a implantação efetiva do Programa Novos Arranjos Produtivos de Inovação – NAPI, da Fundação Araucária, no oeste do Paraná.",
     url: "1",
     title: "Governança Inteligente",
     icon: "hotel",

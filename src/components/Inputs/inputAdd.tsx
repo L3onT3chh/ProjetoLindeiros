@@ -23,9 +23,9 @@ function InputAdd({ setState, listValue, text }: IPropsGlobal) {
         value={state}
         onChange={(e) => setInput(e.target.value)}
       />
-      <button className="button-btn-add" onClick={() => handleAdd(state)}>
+      <span className="button-btn-add" onClick={() => handleAdd(state)}>
         <GrAdd color="white" className="icon-add-btn" size={17} />
-      </button>
+      </span>
     </ContainerInputAdd>
   );
 }

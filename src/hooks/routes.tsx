@@ -104,7 +104,8 @@ function Routers() {
                     "Áreas relacionadas",
                     "Prioridade",
                     "Cidade",
-                    "Atualizada",
+                    "Ações",
+                    "Propostas",
                   ]}
                 />
               </ListagemDemanda>

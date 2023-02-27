@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import styled from "styled-components";
 import { SContainerProps } from "../../interfaces/global.interface";
 
@@ -524,13 +523,19 @@ export const ContainerPainel = styled.div<SContainerProps>`
     }
   }
 
+  .container.home {
+    justify-content: center;
+    padding-bottom: 0!important;
+  }
+
   .container {
     z-index: 0;
     height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding-bottom: 35px;
+    overflow-y: auto;
 
     @media screen and (max-width: 576px) {
       max-width: 100% !important;
@@ -664,6 +669,17 @@ export const ContainerPainel = styled.div<SContainerProps>`
         text-align: center;
         justify-content: center;
         height: 50px;
+      }
+
+      .field-button {
+        width: 80%;
+        color: #fff;
+        padding: 5px 0;
+        font-size: 0.9rem;
+        display: block;
+        margin: auto;
+        background-color: var(--color-background);
+        cursor: pointer;
       }
 
       .row-content:hover {

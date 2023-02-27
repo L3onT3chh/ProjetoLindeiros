@@ -12,33 +12,29 @@ import { IStateData } from "interfaces/components.interface";
 import { AppDispatch } from "app/store";
 import { useForm } from "util/form/useForm";
 import { IDemand, IDemandPost } from "interfaces/data/demand.interface";
-import { createDemandsThunk } from "app/reducers/demand/thunk";
+import { updateDemandsThunk } from "app/reducers/demand/thunk";
 import { PrioriyData } from "assets/data/priority";
 
 interface IProps {
   demandId: string;
   setState: any;
+  opened: boolean;
 }
 
-function UpdateDemand({ demandId, setState }: IProps) {
+function UpdateDemand({ demandId, setState, opened }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [demandClicked, setDemandClicked] = useState<IDemand>();
+  const { city, axes } = useSelector((state: IStateData) => state);
+  const [demandName, setDemandName] = useState("");
+  const [demandCity, setDemandCity] = useState("");
+  const [demandAxes, setDemandAxes] = useState("");
+  const [demandText, setDemandText] = useState("");
+  const [demandPriority, setDemandPriority] = useState("");
+  const [demandDescription, setDemandDescription] = useState("");
+  const [demandObjectives, setObjective] = useState("");
   const demandFilter = useSelector((state: IStateData) =>
     state.demands.demand.filter((item) => item.id === demandId),
   )[0];
-
-  useEffect(() => {
-    setDemandClicked(demandFilter);
-  }, [demandFilter]);
-
-  const { city, axes } = useSelector((state: IStateData) => state);
-  const [userCity, setUserCity] = useState("");
-  const [userAxes, setUserAxes] = useState("");
-  const [userText, setUserText] = useState("");
-  const [userPriority, setUserPriority] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userObjectives, setObjective] = useState("");
-
   const initialValues: IDemandPost = {
     description: "",
     generalText: "",
@@ -51,28 +47,51 @@ function UpdateDemand({ demandId, setState }: IProps) {
 
   const { onChange, values } = useForm(initialValues);
 
+  useEffect(() => {
+    if (demandFilter) {
+      setDemandClicked(demandFilter);
+      setDemandName(demandFilter.name);
+      setDemandAxes(demandFilter.Axes.id);
+      setDemandCity(demandFilter.Cities.id);
+      setDemandText(demandFilter.Objective.general);
+      setDemandPriority(demandFilter.priority);
+      setDemandDescription(demandFilter.description);
+      setObjective(demandFilter.Objective.SpecificText.text);
+    }
+  }, [demandFilter]);
+
+  useEffect(() => {
+    if (!opened && demandFilter) {
+      setDemandName("");
+      setDemandAxes("");
+      setDemandCity("");
+      setDemandText("");
+      setDemandPriority("");
+      setDemandDescription("");
+      setObjective("");
+    }
+  }, [opened, demandFilter]);
+
   const handleSavedData = async (valuesSave: IDemandPost) => {
     dispatch(
-      createDemandsThunk({
+      updateDemandsThunk({
         ...valuesSave,
-        city_id: userCity,
-        axes_id: userAxes,
-        description: userDescription,
-        generalText: userText,
-        specificText: userObjectives.toString(),
-        priority: userPriority,
+        city_id: demandCity,
+        axes_id: demandAxes,
+        description: demandDescription,
+        generalText: demandText,
+        specificText: demandObjectives.toString(),
+        priority: demandPriority,
+        id: demandClicked?.id,
+        name: demandName
       }),
     );
   };
-  const handleSplit = (arrayData: string): string[] => {
-    if (Array.isArray(arrayData)) {
-      const aux = arrayData.split(",");
-
-      if (aux.length > 0) {
-        return [...aux];
-      }
+  const handleSplit = (arrayData: string) => {
+    if (arrayData) {
+      const aux = arrayData.toString().split(",");
+      return aux;
     }
-    return [arrayData];
   };
 
   return (
@@ -89,41 +108,30 @@ function UpdateDemand({ demandId, setState }: IProps) {
             <div className="content-basic-data">
               <div className="data-overflow-data">
                 <h1 className="title-h3">Dados Básicos</h1>
-                <InputStyle
-                  onChange={onChange}
-                  name="name"
-                  required
-                  value={demandClicked && demandClicked.name}
-                  placeholder="Nome"
-                  title=""
-                  type="text"
-                  className="form-control-demand"
-                />
                 <div className="double-data">
+                  <InputStyle
+                    onChange={(e) => setDemandName(e.target.value)}
+                    name="name"
+                    required
+                    valueChanges={demandName}
+                    placeholder="Nome"
+                    title=""
+                    type="text"
+                    className="form-control-demand"
+                  />
                   <SelectMenuAlternative
-                    value={demandClicked && demandClicked.priority.trim()}
-                    setState={setUserPriority}
+                    value={demandClicked && demandPriority}
+                    setState={setDemandPriority}
                     name="prioriy"
                     className="text-double text-popup"
                     options={PrioriyData}
-                  />
-                  <InputStyle
-                    onChange={onChange}
-                    name="area"
-                    placeholder="Área de conhecimento"
-                    title=""
-                    required
-                    type="text"
-                    className="text-double text-popup"
                   />
                 </div>
                 <TextArea
                   name="generalText"
                   height="80px"
-                  valueDefault={
-                    demandClicked && demandClicked.Objective.general
-                  }
-                  setState={setUserText}
+                  value={demandClicked && demandText}
+                  setState={setDemandText}
                   required
                   className="form-control-demand"
                   placeholder="Objetivos geral"
@@ -131,15 +139,15 @@ function UpdateDemand({ demandId, setState }: IProps) {
                 />
                 <div className="double-data">
                   <SelectMenuAlternative
-                    value={demandClicked && demandClicked.Cities.name.trim()}
-                    setState={setUserCity}
+                    value={demandClicked && demandCity}
+                    setState={setDemandCity}
                     name="city_id"
                     className="text-double text-popup"
                     options={city.city}
                   />
                   <SelectMenuAlternative
-                    value={demandClicked && demandClicked.Axes.name.trim()}
-                    setState={setUserAxes}
+                    value={demandClicked && demandAxes}
+                    setState={setDemandAxes}
                     name="axes_id"
                     className="text-double text-popup"
                     options={axes.axes}
@@ -150,9 +158,9 @@ function UpdateDemand({ demandId, setState }: IProps) {
                   <div className="form-control-demand">
                     <ChipAdd
                       listValue={
-                        demandClicked &&
-                        handleSplit(demandClicked.Objective.SpecificText.text)
+                        demandClicked && handleSplit(demandObjectives)
                       }
+                      reset={opened}
                       text="Objetivo especifico"
                       setState={setObjective}
                     />
@@ -160,12 +168,12 @@ function UpdateDemand({ demandId, setState }: IProps) {
                 </div>
                 <TextArea
                   required
-                  valueDefault={demandClicked && demandClicked.description}
+                  value={demandClicked && demandDescription}
                   height="80px"
                   className="form-control-demand"
                   placeholder="Descrição"
                   title=""
-                  setState={setUserDescription}
+                  setState={setDemandDescription}
                   name="description"
                 />
               </div>{" "}

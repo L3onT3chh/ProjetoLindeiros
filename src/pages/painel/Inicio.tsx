@@ -1,3 +1,6 @@
+import { StatisticGraph } from "components/Card/Statistic";
+import { DemandByAxe } from "components/Statistics/DemandByAxe/DemandByAxe";
+import { DemandByCity } from "components/Statistics/DemandByCity/DemandByCity";
 import React from "react";
 
 import {
@@ -17,7 +20,7 @@ export function InicioPainel() {
   return (
     <ContainerPainel>
       <MenuRight />
-      <div className="container">
+      <div className="container home">
         <div className="container-header-main">
           <h1 className="title-h3">Seja bem vindo</h1>
           <p className="subtitle">Por onde gostaria de começar?</p>
@@ -51,22 +54,24 @@ export function InicioPainel() {
             className="cardP"
           />
         </div>
-        {/* 
         <div className="statistic">
           <StatisticGraph
             className="content-box left"
             title="Nº de demandas por eixos"
             width="60%"
-            height="317px"
-          />
+            height="50vh"
+          >
+            <DemandByAxe />
+          </StatisticGraph>
           <StatisticGraph
             className="content-box right"
-            title="Crescimento comparado com utimo mês"
+            title="Nº de demandas por cidade"
             width="40%"
-            height="317px"
-          />
-        </div> */}
-
+            height="50vh"
+          >
+            <DemandByCity />
+          </StatisticGraph>
+        </div>
         <div className="chips-footer">
           <ChipLeft
             icon={eixo_one}

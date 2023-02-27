@@ -50,6 +50,7 @@ export interface IPropsGlobal extends SContainerProps {
   iconFinal?: any;
   author?: string;
   path?: string;
+  reset?: boolean;
   setSelected?: SetStateAction<any>;
   eixos?: Array<string>;
   cities?: Array<string>;

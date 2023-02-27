@@ -4,6 +4,7 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import {
+  updateDemandsThunk,
   createDemandsThunk,
   deleteDemandsThunk,
   fetchDemandsThunk,
@@ -63,6 +64,21 @@ export const demandSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(
+      updateDemandsThunk.fulfilled,
+      (state: IDataDemand, action) => {
+        if (action.payload && action.payload.status === 200 && action.payload.response) {
+          let id = action.payload.response[0].id;
+          let index:any = state.demand.findIndex((item) => item.id === id);
+          
+          state.demand.splice(index, 1, action.payload.response[0]);
+        }
+        state.loading = false;
+      },
+    );
+    builder.addCase(updateDemandsThunk.pending, (state: IDataDemand) => {
+      state.loading = true;
+    });
+    builder.addCase(
       deleteDemandsThunk.fulfilled,
       (state: IDataDemand, action) => {
         state.loading = false;
@@ -78,19 +94,19 @@ export const demandSlice = createSlice({
     });
   },
   reducers: {
-    addDemand: () => {},
-    removeDemand: () => {},
+    addDemand: () => { },
+    removeDemand: () => { },
     filterAxes: (state: IDataDemand, action) => {
       let filter: IDemand[] = state.demand.filter(
         (item: IDemand) =>
           item.Axes.name.toLocaleLowerCase().trim() ===
-            action.payload.axes.toLocaleLowerCase().trim() && item,
+          action.payload.axes.toLocaleLowerCase().trim() && item,
       );
       if (action.payload.city && !action.payload.city.includes("Tod")) {
         filter = filter.filter(
           (item) =>
             item.Cities.name.toLocaleLowerCase().trim() ===
-              action.payload.city.toLocaleLowerCase().trim() && item,
+            action.payload.city.toLocaleLowerCase().trim() && item,
         );
       }
       state.demandFilter.axes = filter;
@@ -99,23 +115,22 @@ export const demandSlice = createSlice({
       let arrayA: IDemand[] = state.demand.filter(
         (item: IDemand) =>
           item.Cities.name.toLocaleLowerCase().trim() ===
-            action.payload.city.toLocaleLowerCase().trim() && item,
+          action.payload.city.toLocaleLowerCase().trim() && item,
       );
       if (action.payload.axes && !action.payload.axes.includes("Tod")) {
         arrayA = arrayA.filter(
           (item) =>
             item.Axes.name.toLocaleLowerCase().trim() ===
-              action.payload.axes.toLocaleLowerCase().trim() && item,
+            action.payload.axes.toLocaleLowerCase().trim() && item,
         );
       }
       state.demandFilter.city = arrayA;
     },
     filterSearch: (state: IDataDemand, action) => {
-      const filter = state.demand.filter(
-        (item: IDemand) =>
+      const filter = state.demand.filter((item: IDemand) =>
           item.name
             .toLocaleLowerCase()
-            .includes(action.payload.toLocaleLowerCase().trim()) && item,
+            .match(action.payload.toLocaleLowerCase().trim()) && item,
       );
       state.demandFilter.search = filter;
     },

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IProposalPost } from "interfaces/data/demand.interface";
+import { IEProposal, IProposal, IProposalPost } from "interfaces/data/demand.interface";
 import proposal from "API/Demand/Proposital/crud.proposal";
 import { showErrorMessage } from "util/function";
 
@@ -15,8 +15,15 @@ export const createProposalThunk = createAsyncThunk(
   },
 );
 
-export const deleteProposal = createAsyncThunk("", async () => {});
+// export const updateProposal = createAsyncThunk("proposal/update", async (data: IEProposal) => {
+//   const response = await proposal.update(data);
+//     showErrorMessage(
+//       response.message,
+//       response.status === 200 ? "success" : "error",
+//     );
+//     return response;
+// });
 
-export const updateProposal = createAsyncThunk("", async () => {});
+export const deleteProposal = createAsyncThunk("", async () => {});
 
 export const findOneProposal = createAsyncThunk("", async () => {});

@@ -136,7 +136,7 @@ export function Demanda() {
           <NavSubMenu
             setText={setIdNav}
             childrens={[
-              { name: "Objetivos gerais", id: 1 },
+              { name: "Descrição", id: 1 },
               { name: "Objetivos Especificos", id: 2 },
               { name: "Propostas aceitas", id: 3 },
               { name: "Propostas recebidas", id: 4 },

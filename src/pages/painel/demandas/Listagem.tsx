@@ -22,7 +22,7 @@ export function ListagemDemanda({
   return (
     <ContainerPainel>
       <PDefault
-        height="889"
+        height="90%"
         width="569"
         title="Cadastro de demandas"
         subtitle="Preencha todos os campos marcados *"
@@ -48,7 +48,7 @@ export function ListagemDemanda({
 
           <InputSearch
             className="painelSearch"
-            text="Pesqusiar demanda"
+            text="Pesquisar demanda"
             background="#cecece"
             size="83%"
             setState={filterSearch}

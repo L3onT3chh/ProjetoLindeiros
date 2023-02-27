@@ -21,6 +21,10 @@
     --color-header: #F5F5F5;
 }
 
+textarea{
+    resize: none;
+}
+
 .data-user-poup {
     position: absolute;
     left: 0;

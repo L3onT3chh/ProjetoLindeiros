@@ -65,6 +65,12 @@ export const Card = styled.div<SContainerProps>`
     width: 56%;
   }
 
+  .childrens-statistic{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   @media screen and (max-width: 1100px) {
     width: 49%;
   }
@@ -487,6 +493,7 @@ export const ContainerChip = styled.a``;
 export const ContainerChipAdd = styled.div`
   .content-chips-add {
     height: 140px;
+    overflow-y: auto;
     margin-top: 15px;
     border-radius: 15px;
     background-color: #f5f5f5;
@@ -998,7 +1005,7 @@ export const ContainerChipCard = styled.div`
 
   .content-body-painel {
     display: flex;
-    width: 90%;
+    width: 100%;
     margin: auto 15px;
     align-items: center;
 
@@ -1009,38 +1016,42 @@ export const ContainerChipCard = styled.div`
       font-size: 20px;
       padding: 0 10px;
       font-weight: 350;
+
+      @media screen and (max-width: 1400px) {
+        font-size: 18px;
+      }
     }
   }
 
   .content-options-painel {
-    padding: 5px 55px;
+    padding: 5px 0;
 
     h5 {
-      font-weight: 200;
+      display: none;
     }
 
-    .subitens-h5 {
+    .subitens-h5,.btn-popUp {
+      color: #fff;
+      background: transparent;
       text-decoration: none;
+      width: 100%;
+      display: block;
+      text-align: left;
       font-weight: 200;
-      margin-left: 20px;
-      padding: 2px;
+      padding: 0 0 5px 70px;
+
+      @media screen and (max-width: 1400px) {
+        font-size: 14px;
+      }
     }
 
     .btn-popUp:hover,
     .subtitle-p:hover,
     .subitens-h5:hover {
-      font-weight: 200;
-      font-size: 21px;
+      font-weight: bolder;
       color: white;
       content: "*";
     }
-  }
-
-  .btn-popUp {
-    font-weight: 200;
-    font-size: 20px;
-    color: white;
-    background-color: rgba(0, 0, 0, 0);
   }
 `;
 
@@ -1143,7 +1154,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
     z-index: 1;
     width: ${(props) => props.width}px;
     height: ${(props) => props.height};
-    margin: 50px auto;
+    margin: 30px auto;
     background: white;
     overflow: hidden;
 
@@ -1168,6 +1179,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
       .subtitle-p {
         font-size: 17px;
         color: black;
+        margin: -5px 0 10px;
 
         @media screen and (max-width: 500px) {
           display: none;
@@ -1195,6 +1207,23 @@ export const ContainerPopup = styled.div<SContainerProps>`
       height: 78%;
       padding-bottom: 60px;
       overflow-y: auto;
+
+      &::-webkit-scrollbar {
+          margin: 10px;
+          width: 5px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #999;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: #777;
+      }
     }
   }
 
@@ -1358,32 +1387,6 @@ export const ContentProfile = styled.div`
         margin-top: 10px;
         justify-content: center;
         align-items: center;
-      }
-    }
-  }
-
-  @media (max-width: 1400px) {
-    .content-default .content-basic-data {
-      div.data-overflow-data {
-        overflow-y: scroll;
-        height: 530px;
-
-        &::-webkit-scrollbar {
-          margin: 10px;
-          width: 5px;
-        }
-
-        &::-webkit-scrollbar-track {
-          background: #f1f1f1;
-        }
-
-        &::-webkit-scrollbar-thumb {
-          background: #999;
-        }
-
-        &::-webkit-scrollbar-thumb:hover {
-          background: #777;
-        }
       }
     }
   }

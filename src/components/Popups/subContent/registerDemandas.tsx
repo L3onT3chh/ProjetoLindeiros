@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ChipAdd from "components/Chips/ChipAdd";
 import InputStyle from "components/Inputs";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
@@ -12,6 +12,7 @@ import { useForm } from "util/form/useForm";
 import { IDemandPost } from "interfaces/data/demand.interface";
 import { createDemandsThunk } from "app/reducers/demand/thunk";
 import { PrioriyData } from "assets/data/priority";
+import { showErrorMessage } from "util/function";
 
 function RegisterDemandas({ setState }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
@@ -20,7 +21,8 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
   const [userText, setUserText] = useState("");
   const [userPriority, setUserPriority] = useState("");
   const [userDescription, setUserDescription] = useState("");
-  const [userObjectives, setObjective] = useState("");
+  const [userObjectives, setObjective] = useState([]);
+  const [reset, setReset] = useState(false);
 
   const initialValues: IDemandPost = {
     description: "",
@@ -36,6 +38,10 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
   const { onChange, values } = useForm(initialValues);
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
+    if (userAxes === "" || userCity === "" || userText === "" || userPriority === "" || userPriority === "*"  || userDescription === "") {
+      showErrorMessage("Preencha todos os campos", "error");
+      return;
+    }
     dispatch(
       createDemandsThunk({
         ...valuesSave,
@@ -47,7 +53,22 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
         priority: userPriority,
       }),
     );
+
+    setReset(true);
   };
+
+  useEffect(() => {
+    if (reset === true) {
+      values.name = "";
+      setUserPriority("*");
+      setUserCity("");
+      setUserAxes("");
+      setUserText("");
+      setUserDescription("");
+      setObjective([]);
+      setReset(false);
+    } 
+  }, [reset]);
 
   return (
     <ContentProfile>
@@ -62,32 +83,27 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
           <div className="content-basic-data">
             <div className="data-overflow-data">
               <h1 className="title-h3">Dados Básicos</h1>
-              <InputStyle
-                onChange={onChange}
-                name="name"
-                placeholder="Nome"
-                title=""
-                type="text"
-                className="form-control-demand"
-              />
               <div className="double-data">
+                <InputStyle
+                  valueChanges={values.name}
+                  onChange={onChange}
+                  name="name"
+                  placeholder="Nome"
+                  title=""
+                  type="text"
+                  className="form-control-demand"
+                />
                 <SelectMenuAlternative
+                  value={userPriority}
+                  width="30%"
                   className="text-double text-popup"
                   setState={setUserPriority}
                   name="priority"
                   options={PrioriyData}
                 />
-
-                <InputStyle
-                  onChange={onChange}
-                  name="area"
-                  placeholder="Área de conhecimento"
-                  title=""
-                  type="text"
-                  className="text-double text-popup"
-                />
               </div>
               <TextArea
+                value={userText}
                 name="generalText"
                 height="80px"
                 setState={setUserText}
@@ -97,12 +113,14 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
               />
               <div className="double-data">
                 <SelectMenuAlternative
+                  value={userCity}
                   setState={setUserCity}
                   name="city_id"
                   className="text-double text-popup"
                   options={city.city}
                 />
                 <SelectMenuAlternative
+                  value={userAxes}
                   setState={setUserAxes}
                   name="axes_id"
                   className="text-double text-popup"
@@ -115,11 +133,13 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
                   <ChipAdd
                     text="Objetivo especifico"
                     setState={setObjective}
-                    listValue={[]}
+                    listValue={userObjectives}
+                    reset={reset}
                   />
                 </div>
               </div>
               <TextArea
+                value={userDescription}
                 height="80px"
                 className="form-control-demand"
                 placeholder="Descrição"

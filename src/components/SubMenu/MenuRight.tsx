@@ -29,7 +29,7 @@ export function MenuRight() {
       </PMeuPerfil>
 
       <PDefault
-        height="889"
+        height="90%"
         width="569"
         title="Cadastro de demandas"
         subtitle="Preencha todos os campos marcados *"
@@ -88,7 +88,7 @@ export function MenuRight() {
                 title: "Listagem",
                 subitems: [
                   {
-                    name: "Usuários",
+                    name: "Lista de Usuários",
                     url: "painel/users",
                   },
                 ],

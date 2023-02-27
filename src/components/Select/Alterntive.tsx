@@ -21,15 +21,20 @@ export function SelectMenuAlternative({
   };
   return (
     <>
-      <h2 className="title-h3" style={{ fontSize: "18px" }}>
-        {title}
-      </h2>
+      {title &&
+        (
+          <h2 className="title-h3" style={{ fontSize: "18px" }}>
+            {title}
+          </h2>
+        )
+      }
       <ContainerSelectAlternative
         className={className}
         background={background}
         color={color}
         icon={iconFinal}
         width={width}
+        value={value}
         onChange={(e) => handleClick(e.target.selectedOptions[0].value)}
       >
         {options &&

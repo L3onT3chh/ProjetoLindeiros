@@ -23,3 +23,27 @@ export const findAllDemands = async () => {
     return undefined;
   }
 };
+
+export const findOneDemands = async (id: string) => {
+  try {
+    const headers = { ...HEADERS_DATA };
+    const responseDemands = await API(`/demand/${id}`, {
+      headers,
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+
+    let { Demand } = responseDemands.data;
+
+    if (Demand) {
+      return Demand;
+    }
+
+  } catch (err: any) {
+    return {
+      response: "",
+      status: 404,
+      message: "Contate o administrador do sistema",
+    };
+  }
+};
