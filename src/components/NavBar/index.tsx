@@ -75,9 +75,9 @@ function NavBar({ className }: IPropsGlobal) {
                 <Dropdown.Menu>
                   <Dropdown.Item href="/painel">
                     {logged && dataA.userType !== "Universidade" && (
-                      <Link to="/painel">
+                      <a href="/painel">
                         <span className="text-item">Acessar painel</span>
-                      </Link>
+                      </a>
                     )}
                   </Dropdown.Item>
                   <Dropdown.Item href="/login">

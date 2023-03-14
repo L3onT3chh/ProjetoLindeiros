@@ -25,6 +25,9 @@ export function NavMobile({ className, active }: IPropsGlobal) {
       <Link className="link-btn-mobile" to="/contato">
         <p>Contato</p>
       </Link>
+      <Link className="link-btn-mobile" to="/login">
+        <p>Efetuar Login</p>
+      </Link>
     </ContentMobileMenu>
   );
 }

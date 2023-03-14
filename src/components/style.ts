@@ -1688,9 +1688,6 @@ export const ContentMobileMenu = styled.div<SContainerProps>`
   z-index: 9;
   display: flex;
   flex-direction: column;
-  top: 30%;
-  left: 39%;
-  right: 39%;
 
   .link-btn-mobile {
     padding: 20px;
@@ -1698,7 +1695,7 @@ export const ContentMobileMenu = styled.div<SContainerProps>`
     flex-direction: row;
 
     p {
-      font-size: 24px;
+      font-size: 20px;
       color: white;
       transition: ease-in-out 0.2s;
     }

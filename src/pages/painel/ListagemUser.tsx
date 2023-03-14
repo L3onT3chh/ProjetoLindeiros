@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IPropsGlobal, IStateData } from "interfaces/components.interface";
 import { LoadingDefault } from "components/Loading";
 import { SelectMenu } from "components/Select";
@@ -8,11 +8,13 @@ import { Cities } from "assets/data/filters";
 import { formatKeyTypes } from "util/function";
 import PDefault from "components/Popups";
 import RegisterUser from "components/Popups/subContent/registerUser";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch } from "app/store";
 import {
   filterCity,
   filterSearch,
   filterTypeUser,
+  cleanFilters
 } from "app/reducers/user/userSlice";
 import { ContainerPainel } from "../css/styled";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
@@ -25,21 +27,36 @@ export function Listagem({
   configsSets,
 }: // types,
 
-IPropsGlobal) {
+  IPropsGlobal) {
   const { userTypes, users } = useSelector((state: IStateData) => state);
   const [OpenUserCard, setOpenUserCard] = useState(false);
+  const [reset, setReset] = useState(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const cleanAllFilters = () => {
+    if (users.touched) {
+      setReset(true);
+      dispatch(cleanFilters());
+
+      setTimeout(() => {
+        setReset(false);
+      }, 10)
+    }
+  }
+
   return (
     <ContainerPainel>
       <LoadingDefault active={users.loading || userTypes.loading} />
       <PDefault
-        height="700"
+        height="90%"
         width="517"
         title="Cadastro de usuário"
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenUserCard}
         trigger={OpenUserCard}
       >
-        <RegisterUser />
+        <RegisterUser modal={OpenUserCard} />
       </PDefault>
       <MenuRight />
       <div className="container">
@@ -53,6 +70,7 @@ IPropsGlobal) {
             />
           </div>
           <InputSearch
+            reset={reset}
             background="#cecece"
             text="Pesquisar usuário"
             size="83%"
@@ -66,15 +84,9 @@ IPropsGlobal) {
             <SelectMenu
               setSelected={filterTypeUser}
               iconFinal={recent}
+              disabled={reset}
               background="rgba(0, 0, 0, 0.33)"
-              options={[
-                {
-                  id: "0",
-                  name: "Todos os usuários",
-                  iDBack: "0",
-                },
-                ...userTypes.types,
-              ]}
+              options={formatKeyTypes(["Todos os usuários", ...userTypes.types], {})}
               width="200px"
               color="white"
             />
@@ -82,14 +94,16 @@ IPropsGlobal) {
             <SelectMenu
               setSelected={filterCity}
               iconFinal={recent}
+              disabled={reset}
               background="rgba(0, 0, 0, 0.33)"
               options={formatKeyTypes(["Municípios", ...Cities], {})}
               color="white"
               width="200px"
             />
             <button
+              style={{ opacity: (users.touched) ? 1 : 0.35, cursor: (users.touched) ? "pointer" : "initial"}}
               className="btn-click-clear clear"
-              onClick={() => configsSets && configsSets.setFour(true)}
+              onClick={() => cleanAllFilters()}
             >
               Limpar filtros
             </button>

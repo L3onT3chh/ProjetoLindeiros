@@ -1,7 +1,7 @@
 import { Container } from "./style";
 import { FaTimes } from "react-icons/fa";
 import { BsFillTrash2Fill, BsCheckLg, BsStopwatch } from "react-icons/bs";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineArrowLeft, AiOutlineUser } from "react-icons/ai";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import { useEffect, useState } from "react";
 import { GetMonth } from "util/getMonth";
@@ -10,6 +10,7 @@ import { AppDispatch } from "app/store";
 import { findOneDemands } from "API/Demand/find.demand";
 import { updateProposal } from "API/Demand/Proposital/crud.proposal";
 import { findProposal } from "API/Demand/Proposital/find.proposal";
+import { findTeam } from "API/Team/find.team";
 
 interface IProposalList {
     state: boolean;
@@ -21,7 +22,7 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
     const dispatch = useDispatch<AppDispatch>();
     const [list, setList] = useState<any>();
     const [demandId, setDemandId] = useState<any>();
-    const [details, setDetails] = useState<IProposal>();
+    const [details, setDetails] = useState<any>();
 
 
     useEffect(() => {
@@ -44,7 +45,6 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
             refreshProposal();
         }
     }, [list, demandId]);
-
 
     function dataFormat(data: string): string {
         let format = new Date(data);
@@ -70,9 +70,12 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
         }
     }
 
-    const openProposalData = (item: IProposal) => {
-        if(item){
-            setDetails(item)
+    const openProposalData = async (item: IProposal) => {
+        if (item) {
+            let data = await findTeam(item.id);
+            let fullData: any = item;
+            fullData['team'] = data;
+            setDetails(fullData);
         }
     }
 
@@ -84,17 +87,21 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
                         <h1>Lista de Propostas</h1>
                         <h3>{data?.name}</h3>
                     </div>
-                    <span style={{ cursor: "pointer" }} onClick={() => setState(false)}><FaTimes size={25} color="#8f9497" /></span>
+                    <span style={{ cursor: "pointer" }} onClick={() => { setState(false); setDetails(undefined) }}><FaTimes size={25} color="#8f9497" /></span>
                 </div>
                 <div className="content">
                     {details &&
                         (
                             <div className="details">
-                                <p className="subTitle"><span>{details.Details.numberInvolved}</span> Participantes</p>
+                                <button className="backButton" onClick={() => setDetails(undefined)}><AiOutlineArrowLeft /> Voltar</button>
+                                <p className="subTitle"><span>{parseInt(details.Details.numberInvolved) + 1}</span> Participantes</p>
                                 <div className="participants">
-                                    <span><AiOutlineUser/>Guilherme</span>
-                                    <span><AiOutlineUser/>Arlete</span>
-                                    <span><AiOutlineUser/>Gustavo</span>
+                                    <span style={{ borderColor: '#ffcd56', color: '#ffcd56' }}><AiOutlineUser color="#ffcd56" />{details.name.trim()}</span>
+                                    {details.team.map((item: any, index: number) => (
+                                        <span key={index}><AiOutlineUser />{item.name}</span>
+                                    ))
+                                    }
+
                                 </div>
                                 <p className="subTitle">Plano proposto</p>
                                 <p className="text">{details.description}</p>
@@ -122,7 +129,7 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
                                             {list &&
                                                 list.map((item: any, index: number) => (
                                                     <tr key={index}>
-                                                        <td onClick={() => openProposalData(item)}>{item.Details.numberInvolved}</td>
+                                                        <td onClick={() => openProposalData(item)}>{parseInt(item.Details.numberInvolved) + 1}</td>
                                                         <td>{dataFormat(item.Details.deadline)}</td>
                                                         <td>{setCurrency(item.Details.value)}</td>
                                                         <td className={(item.isAproved == 1) ? "aproved" : "await"}>{(item.isAproved == 1) ? "Aprovado" : "Pendente"}</td>

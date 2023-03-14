@@ -1,6 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useReducer, useState } from "react";
 import { BiFilter } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";

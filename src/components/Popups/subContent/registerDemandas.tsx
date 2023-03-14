@@ -38,7 +38,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
   const { onChange, values } = useForm(initialValues);
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
-    if (userAxes === "" || userCity === "" || userText === "" || userPriority === "" || userPriority === "*"  || userDescription === "") {
+    if (userAxes === "" || userCity === "" || userText === "" || userPriority === "" || userPriority === "*" || userDescription === "") {
       showErrorMessage("Preencha todos os campos", "error");
       return;
     }
@@ -59,16 +59,20 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
 
   useEffect(() => {
     if (reset === true) {
-      values.name = "";
-      setUserPriority("*");
-      setUserCity("");
-      setUserAxes("");
-      setUserText("");
-      setUserDescription("");
-      setObjective([]);
-      setReset(false);
-    } 
+      clean();
+    }
   }, [reset]);
+
+  const clean = () => {
+    values.name = "";
+    setUserPriority("*");
+    setUserCity("");
+    setUserAxes("");
+    setUserText("");
+    setUserDescription("");
+    setObjective([]);
+    setReset(false);
+  }
 
   return (
     <ContentProfile>
@@ -149,7 +153,9 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
               />
             </div>
             <div className="btns-popup">
-              <button className="btn-close-two">Fechar</button>
+              <button type="button" className="btn-close-two" onClick={() => clean()}>
+                Limpar
+              </button>
               <button className="btn-send" onClick={() => setState(false)}>
                 Enviar dados
               </button>

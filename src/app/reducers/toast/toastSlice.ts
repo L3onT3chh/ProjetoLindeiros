@@ -23,5 +23,6 @@ const toastSlice = createSlice({
 });
 
 export const { setMessageToToast } = toastSlice.actions;
+export const getToast = (state: IDataToast) => state.toasts;
 
 export default toastSlice.reducer;

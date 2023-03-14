@@ -8,9 +8,10 @@ import PDefault from "components/Popups";
 import UpdateUser from "components/Popups/subContent/updateUser";
 import { IStateData } from "interfaces/components.interface";
 import { useDispatch, useSelector } from "react-redux";
-import { mergeFilters } from "app/reducers/user/userSlice";
+import { mergeFilters, cleanFilters, filterSearch, filterCity, filterTypeUser } from "app/reducers/user/userSlice";
 import { AppDispatch } from "app/store";
 import { deleteUserThunk } from "app/reducers/user/thunk";
+import { ContentProfile } from "components/style";
 
 interface IProps {
   fields: string[];
@@ -19,23 +20,45 @@ interface IProps {
 export function TableDefaultUser({ fields }: IProps) {
   const { users } = useSelector((state: IStateData) => state);
   const [newData, setNewData] = useState<IUser[]>(users.users);
+  const [remove, setRemove] = useState(false);
+  const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const [userClicked, setUserClicked] = useState("");
 
   useEffect(() => {
-    dispatch(mergeFilters());
-    setNewData(users.filters.merge);
-  }, [users.filters.city, users.filters.search, users.filters.type]);
+    if (users.filters.merge.length > 0) {
+      dispatch(filterSearch);
+      setNewData(users.filters.merge);
+    }
+  }, [users.filters.search, users.filters.merge]);
 
   useEffect(() => {
+    if (users.filters.merge.length > 0) {
+      dispatch(filterCity);
+      setNewData(users.filters.merge);
+    }
+  }, [users.filters.city, users.filters.merge]);
+
+  useEffect(() => {
+    if (users.filters.merge.length > 0) {
+      dispatch(filterTypeUser);
+      setNewData(users.filters.merge);
+    }
+  }, [users.filters.type, users.filters.merge]);
+
+  useEffect(() => {
+    dispatch(cleanFilters());
     setNewData(users.users);
-  }, users.users);
+  }, []);
 
   const [OpenUserCard, setOpenUserCard] = useState(false);
 
-  const handleRemoveUser = (userId: string) => {
-    dispatch(deleteUserThunk(userId));
-    // document.location.reload();
+  const handleRemoveUser = () => {
+    if (deleteId !== "") {
+      alert(deleteId);
+      dispatch(deleteUserThunk(deleteId));
+      setRemove(false);
+    }
   };
 
   const handleUpdateUser = (userUpdate: string) => {
@@ -45,18 +68,49 @@ export function TableDefaultUser({ fields }: IProps) {
 
     setOpenUserCard(!OpenUserCard);
   };
+
+  const preRemove = (id: string) => {
+    setRemove(true);
+    setDeleteId(id);
+  }
   return newData ? (
     <>
       <div className="data-user-poup">
         <PDefault
-          height="700"
+          height="90%"
           width="517"
           title="Atualização de usuário"
           subtitle="Preencha todos os campos marcados *"
           setTrigger={setOpenUserCard}
           trigger={OpenUserCard}
         >
-          <UpdateUser userId={userClicked} />
+          <UpdateUser userId={userClicked} trigger={OpenUserCard} />
+        </PDefault>
+        <PDefault
+          height="fit-content"
+          width="569"
+          title="Excluir demanda"
+          subtitle="Deseja realmente excluir esse usuario?"
+          setTrigger={setRemove}
+          trigger={remove}
+        >
+          <ContentProfile>
+            <div className="content-default" style={{ padding: 0 }}>
+              <form
+                action=""
+                onSubmit={(e) => {
+                  e.preventDefault();
+                }}
+              >
+                <div className="content-basic-data">
+                  <div className="btns-popup">
+                    <button className="btn-close-two">Fechar</button>
+                    <button className="btn-send" onClick={() => handleRemoveUser()}>Confirmar</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </ContentProfile>
         </PDefault>
       </div>
       <table>
@@ -68,7 +122,7 @@ export function TableDefaultUser({ fields }: IProps) {
         </tr>
         {newData &&
           newData.map((item: IUser, index: any) => (
-            <tr key={item.id?.toString()} className="row-content">
+            <tr key={index} className="row-content">
               <th>{index + 1}</th>
               <th>{item.name}</th>
               <th>{item.email}</th>
@@ -77,10 +131,10 @@ export function TableDefaultUser({ fields }: IProps) {
               <th>
                 <span>
                   <BsFillTrashFill
-                    className="btn-click"
-                    onClick={() => item.id && handleRemoveUser(item.id)}
                     color="red"
+                    className="btn-click"
                     size={30}
+                    onClick={() => item.id && preRemove(item.id)}
                   />
                 </span>{" "}
                 <span className="divisor" />

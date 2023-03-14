@@ -8,6 +8,7 @@ import {
   // updateUserThunk,
   // deleteUserThunk,
 } from "app/reducers/user/thunk";
+import { IStateData } from "interfaces/components.interface";
 import { IDataUser, IUser } from "interfaces/data/user.interface";
 
 const initialState: IDataUser = {
@@ -19,6 +20,7 @@ const initialState: IDataUser = {
     search: [],
     clicked: undefined,
   },
+  touched: false,
   typeMessage: "",
   loading: false,
   users: [],
@@ -49,9 +51,10 @@ export const userSlice = createSlice({
     // CRUD users
     builder.addCase(createUserThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
-
+      state.typeMessage = ``;
       if (payload !== undefined) {
-        state.typeMessage = "success";
+        console.log(payload.status);
+        state.typeMessage = `${payload.status}`;
         state.loading = false;
         state.message = payload.message;
       }
@@ -61,11 +64,11 @@ export const userSlice = createSlice({
       if (payload.idRemove) {
         state.loading = true;
         const dataAux: IUser[] = state.users.filter(
-          (user: IUser) => user.name !== payload.idRemove,
+          (user: IUser) => user.id !== payload.idRemove,
         );
+        state.users = dataAux;
         if (dataAux.length > 0) {
           state.loading = false;
-          state.users = dataAux;
         }
       }
     });
@@ -87,23 +90,55 @@ export const userSlice = createSlice({
     // });
   },
   reducers: {
-    getInfo: () => {},
+    getInfo: () => { },
     filterTypeUser: (state: IDataUser, action) => {
-      state.filters.type = state.users.filter(
-        (user) => user.userType.trim() === action.payload.trim(),
-      );
+      let filter = [];
+      if (state.filters.merge.length == 0) {
+        filter = state.users.filter(
+          (user) => user.userType.trim() === action.payload.trim(),
+        );
+      } else {
+        filter = state.filters.merge.filter(
+          (user) => user.userType.trim() === action.payload.trim(),
+        );
+      }
+
+      state.touched = true;
+      state.filters.merge = filter;
     },
     filterCity: (state: IDataUser, action) => {
-      state.filters.city = state.users.filter(
-        (user) => user.city.trim() === action.payload.trim(),
-      );
+      let filter = [];
+      if (state.filters.merge.length == 0) {
+        filter = state.users.filter(
+          (user) => user.city.trim() === action.payload.trim(),
+        );
+      } else {
+        filter = state.filters.merge.filter(
+          (user) => user.city.trim() === action.payload.trim(),
+        );
+      }
+
+      state.touched = true;
+      state.filters.merge = filter;
     },
     filterSearch: (state: IDataUser, action) => {
-      state.filters.search = state.users.filter((user) =>
-        user.name
-          .toLocaleLowerCase()
-          .includes(action.payload.toLocaleLowerCase().trim()),
-      );
+      let filter = [];
+      if (state.filters.merge.length == 0 || action.payload.length == 0) {
+        filter = state.users.filter((user) =>
+          user.name
+            .toLocaleLowerCase()
+            .includes(action.payload.toLocaleLowerCase().trim()),
+        );
+      } else {
+        filter = state.filters.merge.filter((user) =>
+          user.name
+            .toLocaleLowerCase()
+            .includes(action.payload.toLocaleLowerCase().trim()),
+        );
+      }
+
+      state.touched = true;
+      state.filters.merge = filter;
     },
     mergeFilters: (state: IDataUser) => {
       const { city, type, search } = state.filters;
@@ -121,6 +156,18 @@ export const userSlice = createSlice({
         };
       }
     },
+    cleanFilters: (state: IDataUser) => {
+      state.filters = {
+        ...state.filters,
+        merge: [],
+        search: [],
+        city: [],
+        type: []
+      }
+
+      state.touched = false;
+      state.filters.merge = state.users;
+    },
     filterClicked: (state: IDataUser, action) => {
       const { payload } = action;
 
@@ -128,8 +175,8 @@ export const userSlice = createSlice({
         (user) => user.id === payload,
       )[0];
     },
-    deleteUser: () => {},
-    updateUser: () => {},
+    deleteUser: () => { },
+    updateUser: () => { },
   },
 });
 
@@ -141,6 +188,10 @@ export const {
   filterCity,
   filterSearch,
   mergeFilters,
+  cleanFilters,
 } = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const selectUsersMessage = (state: IStateData) => state.users;
+;

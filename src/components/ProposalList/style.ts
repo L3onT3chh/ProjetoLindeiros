@@ -124,8 +124,13 @@ export const Container = styled.div<Props>`
             }
 
             .details{
+                .backButton{
+                    margin-bottom: 30px;
+                    background: transparent;
+                    color: var(--color-background);
+                }
                 .participants{
-                    padding: 25px 0;
+                    padding: 15px 0 30px;
                     span{
                         padding: 8px 12px;
                         border: 1px solid rgba(0, 0, 0, 0.15);
@@ -133,7 +138,6 @@ export const Container = styled.div<Props>`
                     }
                 }
                 .text{
-                    padding: 10px 0 0;
                     font-size: 1.1rem;
                     text-align: justify;
                     line-height: 30px;

@@ -606,7 +606,7 @@ export const ContainerPainel = styled.div<SContainerProps>`
       .content-filter-painel {
         position: relative;
         display: flex;
-
+        column-gap: 1%;
         flex-direction: row;
         margin: 50px 0px 0;
         width: 100%;

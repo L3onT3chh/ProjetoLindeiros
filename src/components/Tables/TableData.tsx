@@ -38,7 +38,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   useEffect(() => {
     setNewData(demands.demand);
     console.log(demands.demand)
-  }, [demands.demand]);
+  }, []);
 
   const handleClicked = (id: string) => {
     if (id) {
@@ -49,7 +49,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   // Resultando em bug
   // -------------------------------------------
   useEffect(() => {
-    if (demands.demandFilter.search) {
+    if (demands.demandFilter.search && demands.demandFilter.search.length > 0) {
       dispatch(mergeDemandFilter());
       setNewData(demands.demandFilter.search);
     }
@@ -139,7 +139,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
                   className="field-styled field-name"
                   onClick={() => handleClicked(item.id)}
                 >
-                  {item.name}
+                  {(item.name.length > 30) ? item.name.toString().substring(0, 30)+'...' : item.name}
                 </button>
               </th>
               <th>

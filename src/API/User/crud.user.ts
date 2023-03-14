@@ -28,7 +28,7 @@ const RegisterUser = async (userSave: IUserPost) => {
     }
     return {
       status: 400,
-      message: "Tente novamente mais tarde",
+      message: user.error,
     };
   } catch (err: any) {
     return {

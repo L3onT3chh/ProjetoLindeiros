@@ -8,6 +8,7 @@ export interface IUserLogin {
 export interface IUser {
   address: string;
   city: string;
+  city_id?: string;
   cpf: string;
   id?: string;
   email: string;
@@ -16,6 +17,7 @@ export interface IUser {
   phone: string;
   phone_ddd: string;
   born_date: string;
+  userType_id?: string;
   userType: string;
 }
 
@@ -26,10 +28,9 @@ export interface IUserPost {
   cpf: string;
   born_date: string;
   address: string;
-  phone: number;
-  phone_ddd: number;
+  phone: number | string;
+  phone_ddd: number | string;
   userType: string;
-  postalCode: number;
   city: string;
   password: string;
 }
@@ -38,6 +39,7 @@ export interface IDataUser extends IResponseData {
   tryLogin: boolean;
   typeMessage: string;
   users: IUser[];
+  touched?: boolean;
   filters: {
     type: IUser[];
     search: IUser[];

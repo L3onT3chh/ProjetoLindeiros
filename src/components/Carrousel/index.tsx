@@ -18,7 +18,7 @@ function CarrouselComp({ image }: IPropsGlobal) {
       {image &&
         image.map((item: string) => (
           <Carousel.Item key={item}>
-            <img className="d-block w-100" height="500" src={item} alt="Text" />
+            <div className="d-block w-100" style={{backgroundImage: `url(${item})`, backgroundPosition:"left", width: '100%', backgroundSize: 'cover', backgroundRepeat:"no-repeat", height: "500px"}}></div>
             <Carousel.Caption>
               <h3> </h3>
             </Carousel.Caption>
