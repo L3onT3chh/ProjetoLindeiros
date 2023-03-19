@@ -2,7 +2,8 @@ import { AxiosError } from "axios";
 /* eslint-disable consistent-return */
 import API from "API";
 import { HEADERS_DATA, TokenUser } from "config";
-import { IUser, IUserPost } from "interfaces/data/user.interface";
+import { IUser, IUserPost, IUserPostEdit } from "interfaces/data/user.interface";
+import QueryString from "qs";
 
 const RegisterUser = async (userSave: IUserPost) => {
   try {
@@ -38,7 +39,7 @@ const RegisterUser = async (userSave: IUserPost) => {
   }
 };
 
-export const UpdateUser = async (userUpdate: IUser) => {
+export const UpdateUser = async (userUpdate: IUserPostEdit) => {
   try {
     const token = TokenUser();
     const headers = { ...HEADERS_DATA, token: `${token}` };
@@ -46,11 +47,12 @@ export const UpdateUser = async (userUpdate: IUser) => {
     const responseData = await API(`/user/${userUpdate.id}`, {
       headers,
       method: "PUT",
-      data: userUpdate,
+      data: QueryString.stringify(userUpdate),
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
 
+      console.log(responseData)
     if (responseData.data.isValid) {
       return {
         status: 200,
@@ -91,7 +93,7 @@ export const DeleteUser = async (id: string) => {
     }
     return {
       status: 400,
-      message: "Tente novamente mais tarde",
+      message: userDell.error,
     };
   } catch (err: any) {
     return {

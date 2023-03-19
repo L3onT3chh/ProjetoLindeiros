@@ -328,6 +328,14 @@ export const ContainerPage = styled.div<SContainerProps>`
       .left-demandas {
         left: 250px;
 
+        .btnAddDemand{
+          width: 100%;
+          height: 50px;
+          background: var(--color-background);
+          color: #fff;
+          margin-top: 15px;
+        }
+
         @media screen and (max-width: 1500px) {
           left: 200px;
         }

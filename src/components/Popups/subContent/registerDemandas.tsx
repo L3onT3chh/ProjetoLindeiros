@@ -112,7 +112,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
                 height="80px"
                 setState={setUserText}
                 className="form-control-demand"
-                placeholder="Objetivos geral"
+                placeholder="Objetivo geral"
                 title=""
               />
               <div className="double-data">

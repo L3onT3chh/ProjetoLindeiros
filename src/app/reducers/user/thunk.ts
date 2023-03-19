@@ -1,4 +1,4 @@
-import { IUser } from "interfaces/data/user.interface";
+import { IUser, IUserPostEdit } from "interfaces/data/user.interface";
 /* eslint-disable consistent-return */
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import userCrud from "API/User/crud.user";
@@ -27,7 +27,7 @@ export const deleteUserThunk = createAsyncThunk("", async (id: string) => {
   return response;
 });
 
-export const updateUserThunk = createAsyncThunk("", async (user: IUser) => {
+export const updateUserThunk = createAsyncThunk("users/update", async (user: IUserPostEdit) => {
   const response = await userCrud.update(user);
   showErrorMessage(
     response.message,

@@ -26,7 +26,6 @@ import { ProposalList } from "components/ProposalList/ProposalList";
 export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
   const demands = useSelector(selectCurrentDemands);
-  const [newData, setNewData] = useState<IDemand[]>(demands.demand);
   const [proposalData, setProposalData] = useState<IDemand>();
   const [dataUpdated, setDataUpdated] = useState<string>("");
   const [useOpenDemand, setOpenDemand] = useState(false);
@@ -34,11 +33,6 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   const [remove, setRemove] = useState(false);
   const [trigger, setTrigger] = useState(true);
   const [deleteId, setDeleteId] = useState("");
-
-  useEffect(() => {
-    setNewData(demands.demand);
-    console.log(demands.demand)
-  }, []);
 
   const handleClicked = (id: string) => {
     if (id) {
@@ -51,7 +45,6 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   useEffect(() => {
     if (demands.demandFilter.search && demands.demandFilter.search.length > 0) {
       dispatch(mergeDemandFilter());
-      setNewData(demands.demandFilter.search);
     }
   }, [demands.demandFilter.search]);
 
@@ -117,7 +110,8 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
                 }}
               >
                 <div className="content-basic-data">
-                  <div className="btns-popup">
+                  <br/>
+                  <div className="btns-popup" style={{borderTop:0}}>
                     <button className="btn-close-two">Fechar</button>
                     <button className="btn-send" onClick={() => handleRemoveDemand()}>Confirmar</button>
                   </div>
@@ -132,7 +126,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
           {fields && fields.map((field) => <th key={field}>{field}</th>)}
         </tr>
         <tbody className="demandTable">
-          {newData.map((item: IDemand) => (
+          {demands.demand.map((item: IDemand) => (
             <tr key={item.id} className="row-content">
               <th>
                 <button

@@ -6,11 +6,12 @@ export default interface IDocument {
   extension: string;
   path: string;
   fullPath: string;
-  demands_id: string;
+  size: string;
 }
 
 export interface IDataDocument extends IResponseData {
   document: IDocument[];
+  filtered: IDocument[];
   documentSelect: IDocument | undefined;
 }
 
@@ -19,5 +20,5 @@ export interface IDocumentPost {
   extension: string;
   path: string;
   fullPath: string;
-  demands_id: string;
+  size: string;
 }

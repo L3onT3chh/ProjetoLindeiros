@@ -1,3 +1,14 @@
+export const apiUrl = 'https://api-governanca.lindeiros.org.br';
+
+export const allowedExt = [
+  'application/pdf', 
+  'image/png', 
+  'image/jpeg', 
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
+export const maxUploadSize = 2 * 1024 * 1024; // 2MB
+
 export const TokenUser = () => {
   const token = localStorage.getItem("token_jwt");
   return token?.replaceAll('"', "");

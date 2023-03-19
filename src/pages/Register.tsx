@@ -12,10 +12,13 @@ import { lock, loginIconDefault } from "assets/icons";
 import { useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { LoadingDefault } from "components/Loading";
+import InputStyle from "components/Inputs";
 
 function RegisterRepresent() {
   const { city } = useSelector((state: IStateData) => state);
-  const [, setSelectCity] = useState("");
+  const { userTypes } = useSelector((state: IStateData) => state);
+  const [ucity, setSelectCity] = useState("");
+  const [utype, setSelectType] = useState("");
   return (
     <>
       <LoadingDefault active={city.loading} />
@@ -37,9 +40,18 @@ function RegisterRepresent() {
             <div className="forgout-chip form-control-demand-forgout">
               <SelectMenuAlternative
                 title="Lista de representantes"
-                //   setState={setTypeUser}
+                setState={setSelectType}
                 name="userType"
-                //   options={userTypes.types}
+                options={userTypes.types}
+              />
+            </div>
+            <div className="forgout-chip form-control-demand-forgout">
+              <InputStyle
+                type="email"
+                required
+                name="body"
+                placeholder="E-mail pra contato"
+                title="Informações de contato"
               />
             </div>
             <div className="forgout-chip form-control-demand-forgout">
@@ -48,7 +60,7 @@ function RegisterRepresent() {
                 required
                 height="150px"
                 name="body"
-                placeholder="Descrição"
+                placeholder="Descreva sobre sua instituição e motivo da requisição de cadastro"
                 title="Mensagem"
               />
             </div>

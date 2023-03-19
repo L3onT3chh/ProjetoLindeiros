@@ -35,6 +35,20 @@ export interface IUserPost {
   password: string;
 }
 
+export interface IUserPostEdit {
+  id: string;
+  ename: string;
+  email: string;
+  cpf: string;
+  born_date: string;
+  address: string;
+  phone: number | string;
+  phone_ddd: number | string;
+  userType: string;
+  city: string;
+  password: string;
+}
+
 export interface IDataUser extends IResponseData {
   tryLogin: boolean;
   typeMessage: string;

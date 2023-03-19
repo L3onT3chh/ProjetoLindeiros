@@ -1,61 +1,76 @@
 import styled from "styled-components";
 
 export const ContainerDocuments = styled.div`
-  .container {
-    background-color: #fff;
-    padding: 20px;
-
-    @media screen and (max-width: 500px) {
-      padding: 8px;
-    }
-
-    h1 {
-      span {
-        font-size: 30px;
-
-        @media screen and (max-width: 700px) {
+  .container{
+    margin: auto;
+    width: 85%;
+    padding-bottom: 25px;
+    .header-btn{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+      line-height: 80px;
+      margin-top: 30px;
+      h1{
+        font-size: 0;
+        span{
           font-size: 20px;
+          letter-spacing: -1px;
+          font-weight: bold;
         }
+      }
 
-        @media screen and (max-width: 500px) {
-          display: none;
+      .controls{
+        display: flex;
+        height: 40px;
+        input, select{
+          padding: 0 10px;
+          width: 400px;
+          height: 100%;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          margin-right: 10px;
+        }
+        input{
+          margin-right: 0;
+        }
+        button{
+          color: #fff;
+          margin-left: 10px;
+          height: 100%;
+          display: flex;
+          font-size: 14px;
+          font-weight: bold;
+          padding-right: 15px;
+          align-items: center;
+          justify-content: center;
+          background: var(--color-background);
         }
       }
     }
-
-    @media screen and (max-width: 1400px) {
-      width: 100%;
-      max-width: 100%;
+    .content-docs{
+      grid-template-columns: auto auto auto;
+      grid-gap: 20px;
+      .notFound{
+        border: 1px solid #f3f3f3;
+        background: #fbfbfb;
+        width: 100%;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        p{
+          color: #b9b9b9;
+        }
+      }
     }
   }
-
-  .content-docs {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .header-btn {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-
-    .btn-docs {
-      height: 40px;
-      margin-top: 40px;
-    }
-  }
-
-  .right-doc {
-    @media screen and (max-width: 500px) {
+  /* @media screen and (max-width: 500px) {
       .infoIcon {
         display: none;
       }
       .downloadIcon {
         width: 38px;
       }
-    }
-  }
+    } */
 `;

@@ -41,7 +41,12 @@ export function MenuRight() {
 
       <ContainerMenuRight>
         <div className="container-header-painel">
-          <h1 className="title-h1">Painel</h1>
+          <Link
+            to="/painel"
+            style={{color:"#fff"}}
+          >
+            <h1 className="title-h1">Painel</h1>
+          </Link>
           {/* Adicionar o link do react router */}
           <div className="content-logout">
             <Link
@@ -51,7 +56,7 @@ export function MenuRight() {
               }}
             >
               <FiLogOut size={20} color="white" />
-              <span className="title-h2">Logout</span>
+              <span className="title-h2">Sair</span>
             </Link>
           </div>
         </div>
@@ -91,6 +96,10 @@ export function MenuRight() {
                     name: "Lista de Usuários",
                     url: "painel/users",
                   },
+                  {
+                    name: "Pedidos de cadastro",
+                    url: "painel/users",
+                  }
                 ],
               },
               {

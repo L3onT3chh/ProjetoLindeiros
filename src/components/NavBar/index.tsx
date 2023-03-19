@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Dropdown from "react-bootstrap/Dropdown";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { TokenUser } from "config";
 import { NavMobile } from "components/NavBar/NavMobile";
@@ -16,6 +16,7 @@ function NavBar({ className }: IPropsGlobal) {
   const dataA: any = user;
   const dispatch = useDispatch<AppDispatch>();
   const [stateNav, setState] = useState(false);
+
   return (
     <ContentNav className={className}>
       <div className="menu-nav-hamburguer">
@@ -74,9 +75,14 @@ function NavBar({ className }: IPropsGlobal) {
 
                 <Dropdown.Menu>
                   <Dropdown.Item href="/painel">
-                    {logged && dataA.userType !== "Universidade" && (
+                    {logged && dataA.userType === "Administrador" && (
                       <a href="/painel">
                         <span className="text-item">Acessar painel</span>
+                      </a>
+                    )}
+                    {logged && dataA.userType !== "Administrador" && (
+                      <a href="/demandas">
+                        <span className="text-item">Acessar demandas</span>
                       </a>
                     )}
                   </Dropdown.Item>

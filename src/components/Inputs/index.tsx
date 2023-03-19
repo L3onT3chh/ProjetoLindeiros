@@ -5,7 +5,7 @@ import { ContainerInput } from "../style";
 
 interface IPros {
   name?: string;
-  title: string;
+  title?: string;
   placeholder: string;
   type: string;
   required?: boolean;
@@ -34,7 +34,7 @@ function InputStyle({
     <ContainerInput className={className}>
       {title &&
         (
-          <h2 className="title-h3">{title}</h2>
+          <h2 className="title-h3" style={{ fontSize: "16px" }}>{title}</h2>
         )
       }
       <input

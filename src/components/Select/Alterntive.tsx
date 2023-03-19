@@ -23,7 +23,7 @@ export function SelectMenuAlternative({
     <>
       {title &&
         (
-          <h2 className="title-h3" style={{ fontSize: "18px" }}>
+          <h2 className="title-h3" style={{ fontSize: "16px", marginBottom: "0" }}>
             {title}
           </h2>
         )

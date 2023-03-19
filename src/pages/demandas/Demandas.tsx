@@ -24,8 +24,14 @@ import {
   mergeDemandFilter,
 } from "app/reducers/demand/demandSlice";
 import { AppDispatch } from "app/store";
+import { selectCurentUser } from "app/reducers/auth/authSlice";
+import { MdPlaylistAddCheck } from "react-icons/md";
+import PDefault from "components/Popups";
+import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 
 export default function Demandas() {
+  const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
+  const [user, logged] = useSelector(selectCurentUser);
   const dispatch = useDispatch<AppDispatch>();
   const [filterState, setFilterState] = useState(false);
   const { demands, city, axes } = useSelector((state: IStateData) => state);
@@ -104,32 +110,51 @@ export default function Demandas() {
     }
   }, [demand]);
 
-  const handleFilter = () =>{
-    if(filterState === true){
+  const handleFilter = () => {
+    if (filterState === true) {
       setFilterState(false);
-    }else{
+    } else {
       setFilterState(true);
     }
   }
 
+  const checktitle = (title: string) => {
+    let min = title.substring(0, 40) + "...";
+    return (title.length >= 40) ? min : title;
+  }
+
   return (
     <>
+      {logged &&
+        (
+          <PDefault
+            height="90%"
+            width="569"
+            title="Cadastro de demandas"
+            subtitle="Preencha todos os campos marcados *"
+            setTrigger={setOpenPopupDemandas}
+            trigger={openPopupDemandas}
+          >
+            <RegisterDemandas setState={setOpenPopupDemandas} />
+          </PDefault>
+        )
+      }
       <NavBar />
       <ContainerPage>
         <LoadingDefault
           active={demands.loading || axes.loading || city.loading}
         />
         <span className="ResponsiveFilter" onClick={handleFilter}>
-          <BiFilter color="#333" size="35" style={{display:(filterState) ? "none" : "flex"}}/>
-          <FaTimes color="#333" size="35" style={{display:(filterState) ? "flex" : "none"}}/>
+          <BiFilter color="#333" size="35" style={{ display: (filterState) ? "none" : "flex" }} />
+          <FaTimes color="#333" size="35" style={{ display: (filterState) ? "flex" : "none" }} />
         </span>
         <div className="container-banner-demandas">
           <div className="header" />
           <div className="data">
-            <div className="left-demandas" style={{display:(filterState) ? "flex" : "none"}}>
+            <div className="left-demandas" style={{ display: (filterState) ? "flex" : "none" }}>
               <MenuSuspenso className="menu-suspenso-demandas">
                 <>
-                  <div className="filters-demandas-modal">
+                  <div className="filters-demandas-modal" style={{ marginBottom: "20px" }}>
                     <h1 className="title-h2">Pesquisa por municipio</h1>
                     <SelectMenu
                       width="250px"
@@ -141,7 +166,7 @@ export default function Demandas() {
                       className="filterSelect"
                     />
                   </div>
-                  <div className="filters-demandas-modal">
+                  <div className="filters-demandas-modal" style={{ marginBottom: "20px" }}>
                     <h1 className="title-h2">Pesquisa por eixo</h1>
                     <SelectMenu
                       width="250px"
@@ -153,7 +178,7 @@ export default function Demandas() {
                       className="filterSelect"
                     />
                   </div>
-                  <div className="filters-demandas-modal">
+                  <div className="filters-demandas-modal" style={{ marginBottom: "20px" }}>
                     <h1 className="title-h2">Pesquisa por status</h1>
                     <div className="search">
                       <span className="check">
@@ -197,6 +222,11 @@ export default function Demandas() {
                       </span>
                     </div>
                   </div>
+                  {logged &&
+                    (
+                      <button className="btnAddDemand" onClick={() => setOpenPopupDemandas(true)}>Criar demanda <MdPlaylistAddCheck size="25" /></button>
+                    )
+                  }
                 </>
               </MenuSuspenso>
             </div>
@@ -261,7 +291,7 @@ export default function Demandas() {
                                   : "#EF8B8B"
                               }
                               // "Turismo integrado no te..."
-                              title={item.name}
+                              title={checktitle(item.name)}
                               // "Eixo - Negócios e renda"
                               subtitle={item.Axes.name}
                               date="24 Jan 2023"

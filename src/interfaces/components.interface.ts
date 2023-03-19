@@ -69,6 +69,7 @@ export interface IPropsGlobal extends SContainerProps {
   borderRadius?: string;
   borderColor?: string;
   setState?: any;
+  setRefresh?: any;
   state?: boolean;
   configsSets?: ISets;
   dataDemand?: IDemand[];

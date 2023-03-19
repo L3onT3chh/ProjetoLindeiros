@@ -3,7 +3,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -23,6 +23,11 @@
 
 textarea{
     resize: none;
+}
+
+*::placeholder{
+    font-size: 14px;
+    color: #B0B0B0;
 }
 
 .data-user-poup {

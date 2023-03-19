@@ -55,7 +55,6 @@ export function TableDefaultUser({ fields }: IProps) {
 
   const handleRemoveUser = () => {
     if (deleteId !== "") {
-      alert(deleteId);
       dispatch(deleteUserThunk(deleteId));
       setRemove(false);
     }
@@ -89,7 +88,7 @@ export function TableDefaultUser({ fields }: IProps) {
         <PDefault
           height="fit-content"
           width="569"
-          title="Excluir demanda"
+          title="Excluir usuario"
           subtitle="Deseja realmente excluir esse usuario?"
           setTrigger={setRemove}
           trigger={remove}

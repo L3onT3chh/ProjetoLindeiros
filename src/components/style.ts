@@ -822,7 +822,6 @@ export const ContainerMenuSuspenso = styled.div`
   background-color: white;
   justify-content: space-around;
   align-items: center;
-  height: 400px;
   width: 300px;
   z-index: 1;
 `;
@@ -1141,6 +1140,8 @@ export const ContainerPopup = styled.div<SContainerProps>`
   position: fixed;
   width: 100%;
   height: 100%;
+  left: 0;
+  top: 0;
   transition: ease-in-out;
   visibility: ${(props) => (props.active ? "visible" : "hidden")};
   background: rgba(0, 0, 0, 0.5);
@@ -1161,7 +1162,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
   .container-modal-popup {
     position: relative;
     box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 25px;
+    border-radius: 15px;
     z-index: 1;
     width: ${(props) => props.width}px;
     height: ${(props) => props.height};
@@ -1180,17 +1181,19 @@ export const ContainerPopup = styled.div<SContainerProps>`
       border-bottom: 1px solid rgba(0, 0, 0, 0.15);
       display: flex;
       justify-content: space-between;
-      padding: 25px;
+      padding: 15px 20px;
 
       h1 {
         color: var(--color-background);
-        font-size: 21px;
+        font-size: 20px;
+        font-weight: bold;
+        letter-spacing: -1px;
       }
 
       .subtitle-p {
-        font-size: 17px;
-        color: black;
-        margin: -5px 0 10px;
+        font-size: 14px;
+        color: #333;
+        margin: -5px 0 0px;
 
         @media screen and (max-width: 500px) {
           display: none;
@@ -1268,9 +1271,36 @@ export const ContainerPopup = styled.div<SContainerProps>`
 
 export const ContentProfile = styled.div`
   .content-default {
-    padding: 30px;
+    padding: 18px;
 
     .content-basic-data {
+      .fileInfo{
+        padding: 10px 15px;
+        height: 70px;
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: #e9f0ff;
+        border: 1px solid #d0dbed;
+        margin-top: 15px;
+        .left{
+          display: flex;
+          align-items: center;
+          .text{
+            margin-left: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 15px;
+            p{
+              margin-top: 0;
+              font-size: 16px;
+              font-weight: normal;
+            }
+          }
+        }
+      }
       #file_id {
         width: 100%;
         padding: 10px;
@@ -1310,7 +1340,8 @@ export const ContentProfile = styled.div`
     }
     .btns-popup {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
+      column-gap: 2.5%;
       width: 100%;
       margin-top: 10px;
       position: absolute;
@@ -1326,9 +1357,10 @@ export const ContentProfile = styled.div`
       .btn-send,
       .btn-close-two {
         padding: 10px;
-        border-radius: 15px;
-        width: 48%;
-        font-size: 16px;
+        border-radius: 5px;
+        width: 25%;
+        font-size: 14px;
+        font-weight: bold;
         font-family: "Roboto", sans-serif;
       }
 
@@ -1339,6 +1371,8 @@ export const ContentProfile = styled.div`
       .btn-close-two {
         background-color: white;
         border: 1px solid var(--color-background);
+        color: var(--color-background);
+        opacity: 0.7;
       }
     }
   }
@@ -1401,6 +1435,57 @@ export const ContentProfile = styled.div`
       }
     }
   }
+
+  &.content-file{
+    padding: 15px;
+    padding-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 75px);
+    .fileContent{
+      background: transparent;
+      width: 100%;
+      height: 100%;
+      padding: 15px;
+      border: 2px dashed rgba(0, 0, 0, 0.1);
+      border-radius: 2.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-direction: column;
+      &:hover{
+        border-color: rgba(0, 0, 0, 0.3)!important;
+      }
+      p{
+        margin-top: 15px;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: -1px;
+      }
+      span{
+        font-size: 12px;
+        opacity: 0.8;
+      }
+    }
+    .titleContent{
+      height: 60px;
+      h2{
+        margin-top: 20px;
+        font-size: 16px;
+        font-weight: bold;
+        letter-spacing: -1px;
+      }
+      input{
+        height: 40px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        padding: 0 10px;
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export const ContainerEixos = styled.div<SContainerProps>`
@@ -1444,6 +1529,10 @@ export const ContainerCardChipDemandas = styled.div`
     .content-card-demanda .title-h2 {
       font-size: 16px;
       color: black;
+
+      &::first-letter{
+        text-transform: uppercase;
+      }
     }
 
     .content-card-demanda .title-h1-card {
@@ -1712,46 +1801,25 @@ export const CardDocsStyled = styled.div<SContainerProps>`
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 15px;
 
-  .left-doc,
-  .right-doc {
-    display: flex;
-    align-items: center;
-    height: 100%;
-  }
-  .right-doc {
-    width: 30%;
-    justify-content: space-evenly;
-  }
-
-  .left-doc {
-    width: 70%;
-
-    .color-doc {
-      background-color: ${(props) => props.color};
-      margin: 20px;
-      height: 70%;
-      padding: 2px;
-      border-radius: 50px;
-    }
-
-    .data-docs {
+  .left-doc{
+    width: 100%;
+    .top{
       display: flex;
-      flex-direction: column;
-
-      .data-docs-especify {
-        display: flex;
-        flex-direction: row;
-
-        @media screen and (max-width: 500px) {
-          &:last-of-type {
-            display: none;
-          }
-        }
-
-        p {
-          margin-left: 10px;
-        }
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 15px;
+      #dropdown-basic{
+        background: transparent;
+        box-shadow: none!important;
+      }
+    }
+    .data-docs-especify{
+      .size{
+        font-size: 13px;
+        opacity: 0.7;
       }
     }
   }

@@ -60,18 +60,6 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
     }
   }, [demandFilter]);
 
-  useEffect(() => {
-    if (!opened && demandFilter) {
-      setDemandName("");
-      setDemandAxes("");
-      setDemandCity("");
-      setDemandText("");
-      setDemandPriority("");
-      setDemandDescription("");
-      setObjective("");
-    }
-  }, [opened, demandFilter]);
-
   const handleSavedData = async (valuesSave: IDemandPost) => {
     dispatch(
       updateDemandsThunk({

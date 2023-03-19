@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { ContentProfile } from "components/style";
 import InputStyle from "components/Inputs";
 import { useForm } from "util/form/useForm";
-import { createUserThunk } from "app/reducers/user/thunk";
+import { updateUserThunk } from "app/reducers/user/thunk";
 import { AppDispatch } from "app/store";
 import { useDispatch, useSelector } from "react-redux";
 import { IUser, IUserPost } from "interfaces/data/user.interface";
@@ -87,12 +87,22 @@ function UpdateUser({ userId, trigger }: IProps) {
   const { onChange, values } = useForm(initialValue);
   const handleSaveData = async (valuesSave: IUserPost) => {
     dispatch(
-      createUserThunk({
+      updateUserThunk({
         ...valuesSave,
-        userType: typeUser,
-        city: dataCity,
+        ename: name,
+        email: email,
+        cpf: cpf,
+        phone: phone,
+        phone_ddd: ddd,
+        born_date: bDate,
+        address: address,
+        password: password,
+        userType: type,
+        city: uCity,
+        id: userId
       }),
     );
+    setPassword("");
   };
   return (
     userFilter && (
@@ -103,6 +113,7 @@ function UpdateUser({ userId, trigger }: IProps) {
             onSubmit={(e) => {
               e.preventDefault();
               handleSaveData(values);
+              e.currentTarget.password.reset();
             }}
           >
             <div className="content-basic-data">
@@ -202,6 +213,7 @@ function UpdateUser({ userId, trigger }: IProps) {
               <InputStyle
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
+                valueChanges={password}
                 placeholder="mudar senha(opcional)"
                 title=""
                 type="password"
