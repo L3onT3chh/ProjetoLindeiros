@@ -35,6 +35,7 @@ export function ChipCard({ text, optionsMenu, icon }: IPropsGlobal) {
               key={item.title}
               className="btn-popUp"
               onClick={() => item.setTrigger(item.trigger)}
+              style={{marginTop: (item.title === "Meu perfil") ? '5px' : ''}}
             >
               {item.title}
             </button>

@@ -14,6 +14,8 @@ import { useForm } from "util/form/useForm";
 import { IDemand, IDemandPost } from "interfaces/data/demand.interface";
 import { updateDemandsThunk } from "app/reducers/demand/thunk";
 import { PrioriyData } from "assets/data/priority";
+import { selectUserLogged } from "app/reducers/auth/authSlice";
+import { convertToArray } from "util/handleSelectorObj";
 
 interface IProps {
   demandId: string;
@@ -32,8 +34,9 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
   const [demandPriority, setDemandPriority] = useState("");
   const [demandDescription, setDemandDescription] = useState("");
   const [demandObjectives, setObjective] = useState("");
+  const user = useSelector(selectUserLogged);
   const demandFilter = useSelector((state: IStateData) =>
-    state.demands.demand.filter((item) => item.id === demandId),
+    (convertToArray(state.demands.demand) || []).filter((item) => item.id === demandId),
   )[0];
   const initialValues: IDemandPost = {
     description: "",
@@ -43,6 +46,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
     priority: "",
     axes_id: "",
     city_id: "",
+    user_id: ""
   };
 
   const { onChange, values } = useForm(initialValues);
@@ -61,19 +65,22 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
   }, [demandFilter]);
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
-    dispatch(
-      updateDemandsThunk({
-        ...valuesSave,
-        city_id: demandCity,
-        axes_id: demandAxes,
-        description: demandDescription,
-        generalText: demandText,
-        specificText: demandObjectives.toString(),
-        priority: demandPriority,
-        id: demandClicked?.id,
-        name: demandName
-      }),
-    );
+    if (user[0].id) {
+      dispatch(
+        updateDemandsThunk({
+          ...valuesSave,
+          user_id: user[0].id,
+          city_id: demandCity,
+          axes_id: demandAxes,
+          description: demandDescription,
+          generalText: demandText,
+          specificText: demandObjectives.toString(),
+          priority: demandPriority,
+          id: demandClicked?.id,
+          name: demandName
+        }),
+      );
+    }
   };
   const handleSplit = (arrayData: string) => {
     if (arrayData) {

@@ -4,10 +4,10 @@ import { AxiosError } from "axios";
 import { HEADERS_DATA_POST, TokenUser } from "config";
 import { INewsPost } from "interfaces/data/news.interface";
 
-const RegisterNews = async (newsSave: INewsPost) => {
+export const addNews = async (newsSave: any) => {
   try {
     const token = TokenUser();
-    const headers = { ...HEADERS_DATA_POST, token: `${token}` };
+    const headers = { ...HEADERS_DATA_POST, "Content-Type": "multipart/form-data", token: `${token}` };
     const News = await API("/news", {
       headers,
       method: "POST",
@@ -33,6 +33,3 @@ const RegisterNews = async (newsSave: INewsPost) => {
   }
 };
 
-export default {
-  register: RegisterNews,
-};

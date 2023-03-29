@@ -595,8 +595,7 @@ export const ContainerAccessLogin = styled.div<SContainerProps>`
 export const ContainerSublined = styled.div<SContainerProps>`
   h3 {
     font-size: ${(props) => `${props.font}px`};
-    padding-bottom: 15px;
-    border-bottom: 3px solid var(--color-background);
+    letter-spacing: -0.5px;
   }
 `;
 
@@ -691,6 +690,9 @@ export const ContainerH1 = styled.h1<SContainerProps>`
   padding-right: 4px;
   span,
   & {
+    &::first-letter{
+      text-transform: uppercase;
+    }
     z-index: 1;
   }
   color: ${(props) => props.color || "white"};
@@ -698,6 +700,10 @@ export const ContainerH1 = styled.h1<SContainerProps>`
   font-style: normal;
   font-weight: ${(props) => (props.bold ? "700" : "400")};
   font-size: ${(props) => props.font ?? "35"}px;
+
+  &.mainTitle{
+    line-height: 45px;
+  }
 
   @media screen and (max-width: 813px) {
     &.mainTitle {
@@ -1147,6 +1153,8 @@ export const ContainerPopup = styled.div<SContainerProps>`
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
   overflow: hidden;
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
 
   .container-loading {
     display: flex;
@@ -1544,11 +1552,10 @@ export const ContainerCardChipDemandas = styled.div`
 
       p.date-footer {
         border-radius: 15px;
-        width: 120px;
         text-align: center;
         padding: 5px 10px;
         font-weight: 500;
-        font-size: 15px;
+        font-size: 13px;
         color: #9f9999;
         background-color: var(--color-border);
       }
@@ -1803,6 +1810,7 @@ export const CardDocsStyled = styled.div<SContainerProps>`
   height: 100%;
   border: 1px solid rgba(0, 0, 0, 0.05);
   padding: 15px;
+  width: 32%;
 
   .left-doc{
     width: 100%;

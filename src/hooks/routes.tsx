@@ -32,6 +32,9 @@ import Login from "../pages/Login";
 
 import { InicioPainel } from "../pages/painel/Inicio";
 import { Listagem } from "../pages/painel/ListagemUser";
+import { MeuPainel } from "pages/meupainel/Inicio";
+import { NewsItem } from "pages/news/NewsItem";
+import { RetrivePassword } from "pages/retrivePassword";
 
 const fields = ["Ativo", "Nome completo", "Usuário", "Contato", "Tipo"];
 
@@ -41,7 +44,6 @@ const HandleDispatchData = () => {
   useEffect(() => {
     dispatch(fetchCitysThunk());
     dispatch(fetchDocumentsThunk());
-    dispatch(fetchDemandsThunk());
     dispatch(fetchTypesThunk());
     dispatch(fetchNewssThunk());
     dispatch(fetchAxesThunk());
@@ -64,10 +66,46 @@ function Routers() {
         <Route path="/demanda/:name" element={<Demanda />} />
         <Route path="/eixos" element={<Eixos />} />
         <Route path="/noticias" element={<News />} />
+        <Route path="/noticias/:name" element={<NewsItem />} />
         <Route path="/documentos" element={<Documents />} />
         <Route path="/contato" element={<Contato />} />
         <Route path="/register" element={<RegisterRepresent />} />
         <Route path="/forgoutPassword" element={<ForgoutPassword />} />
+        <Route path="/redefinir/:link" element={<RetrivePassword />} />
+
+        <Route
+          path="/meupainel"
+          element={
+            <PrivatRoute>
+              <MeuPainel />
+            </PrivatRoute>
+          }
+        />
+
+        <Route
+          path="/meupainel/demandas"
+          element={
+            <PrivatRoute>
+              <ListagemDemanda
+                type="Demanda"
+                active={demands.loading}
+                setState={setDataSearch}
+              >
+                <TableDefaultData
+                  text={dataSearch}
+                  fields={[
+                    "Nome",
+                    "Áreas relacionadas",
+                    "Prioridade",
+                    "Cidade",
+                    "Ações",
+                    "Propostas",
+                  ]}
+                />
+              </ListagemDemanda>
+            </PrivatRoute>
+          }
+        />
 
         {/* Painel router */}
         <Route

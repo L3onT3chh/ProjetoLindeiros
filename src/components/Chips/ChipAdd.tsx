@@ -32,8 +32,8 @@ function ChipAdd({ className, text, setState, listValue, reset }: IPropsGlobal) 
     <ContainerChipAdd className={className}>
       <InputAdd setState={setData} listValue={data} text={text} />
       <div className="content-chips-add">
-        {data &&
-          data.map((item: string) => (
+        {listValue &&
+          listValue.map((item: string) => (
             <span className="card-chip" key={item}>
               <p>{item.toString().substring(0, 7)}...</p>
               <GrClose size={10} onClick={() => handleRemoveItem(item)} />

@@ -12,6 +12,7 @@ interface IPros {
   name?: string;
   setState?: any;
   value?: string;
+  length?: number;
 }
 
 function TextArea({
@@ -22,6 +23,7 @@ function TextArea({
   required,
   className,
   setState,
+  length,
   value,
 }: IPros) {
   return (
@@ -30,6 +32,7 @@ function TextArea({
         value={value}
         onChange={(e) => setState(e.target.value)}
         name={name}
+        maxLength={length}
         id={`textarea-${title}`}
         placeholder={placeholder}
         required={required || false}

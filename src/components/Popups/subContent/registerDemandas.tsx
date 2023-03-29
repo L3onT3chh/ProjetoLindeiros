@@ -13,6 +13,7 @@ import { IDemandPost } from "interfaces/data/demand.interface";
 import { createDemandsThunk } from "app/reducers/demand/thunk";
 import { PrioriyData } from "assets/data/priority";
 import { showErrorMessage } from "util/function";
+import { selectUserLogged } from "app/reducers/auth/authSlice";
 
 function RegisterDemandas({ setState }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
@@ -23,6 +24,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
   const [userDescription, setUserDescription] = useState("");
   const [userObjectives, setObjective] = useState([]);
   const [reset, setReset] = useState(false);
+  const user = useSelector(selectUserLogged);
 
   const initialValues: IDemandPost = {
     description: "",
@@ -32,6 +34,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
     priority: "",
     axes_id: "",
     city_id: "",
+    user_id: ""
   };
 
   const dispatch = useDispatch<AppDispatch>();
@@ -42,17 +45,21 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
       showErrorMessage("Preencha todos os campos", "error");
       return;
     }
-    dispatch(
-      createDemandsThunk({
-        ...valuesSave,
-        city_id: userCity,
-        axes_id: userAxes,
-        description: userDescription,
-        generalText: userText,
-        specificText: userObjectives.toString(),
-        priority: userPriority,
-      }),
-    );
+
+    if (user[0].id) {
+      dispatch(
+        createDemandsThunk({
+          ...valuesSave,
+          user_id: user[0].id,
+          city_id: userCity,
+          axes_id: userAxes,
+          description: userDescription,
+          generalText: userText,
+          specificText: userObjectives.join('@'),
+          priority: userPriority,
+        }),
+      );
+    }
 
     setReset(true);
   };
@@ -145,6 +152,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
               <TextArea
                 value={userDescription}
                 height="80px"
+                length={150}
                 className="form-control-demand"
                 placeholder="Descrição"
                 title=""

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   selectCurentUser,
@@ -11,14 +11,18 @@ import { history } from "util/_helped";
 function PrivatRoute({ children: Children }: any) {
   const [user, logged] = useSelector(selectCurentUser);
   const jwt = useSelector(selectCurrentToken);
-  if (!logged || !jwt || !user) {
-    return <Navigate to="/login" state={{ from: history.location }} replace />;
-  }
-  const userD: any = user;
-  if (userD.userType !== "Administrador") {
-    return <Navigate to="/" state={{ from: history.location }} replace />;
-    // return <Navigate to="/" state={{ from: history.location }} replace />;
-  }
+
+  useEffect(() => {
+    if (!logged || !jwt || !user) {
+      <Navigate to="/login" state={{ from: history.location }} replace />;
+    }
+    const userD: any = user;
+    if (userD.userType !== "Administrador") {
+      <Navigate to="/" state={{ from: history.location }} replace />;
+    }
+
+  }, [logged, user, jwt])
+
   return Children;
 }
 

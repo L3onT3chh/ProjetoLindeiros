@@ -24,7 +24,7 @@ export const formatKeyTypes = (datas: any[], paramsExtra?: {}) => {
       });
     } else {
       newData.push({
-        id: index.toString(),
+        id: "none",
         name: item,
         ...paramsExtra,
       });
@@ -68,7 +68,7 @@ export const showErrorMessage = (message: string, type: string) => {
 
 export const verifyPermission = (permission: string | undefined) => {
   if (permission) {
-    return permission === "Administrador" || permission === "Universidade";
+    return permission === "Administrador";
   }
   return false;
 };

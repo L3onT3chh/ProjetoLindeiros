@@ -25,6 +25,7 @@ export const findAllDemands = async () => {
 };
 
 export const findOneDemands = async (id: string) => {
+  console.log(id);
   try {
     const headers = { ...HEADERS_DATA };
     const responseDemands = await API(`/demand/${id}`, {
@@ -34,6 +35,35 @@ export const findOneDemands = async (id: string) => {
       .catch((err: AxiosError) => err);
 
     let { Demand } = responseDemands.data;
+
+    console.log(responseDemands.data);
+
+    if (Demand) {
+      return Demand;
+    }
+
+  } catch (err: any) {
+    return {
+      response: "",
+      status: 404,
+      message: "Contate o administrador do sistema",
+    };
+  }
+};
+
+export const findAllByUser = async (id: string) => {
+  console.log(id);
+  try {
+    const headers = { ...HEADERS_DATA };
+    const responseDemands = await API(`/demandByUser/${id}`, {
+      headers,
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+
+    let { Demand } = responseDemands.data;
+
+    console.log(responseDemands.data);
 
     if (Demand) {
       return Demand;

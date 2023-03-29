@@ -53,6 +53,7 @@ export interface IDataUser extends IResponseData {
   tryLogin: boolean;
   typeMessage: string;
   users: IUser[];
+  fullUsers: IUser[];
   touched?: boolean;
   filters: {
     type: IUser[];

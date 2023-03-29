@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { selectUserLogged } from "app/reducers/auth/authSlice";
-import ButtonCard from "components/Buttons/ButtonCard";
+import { AutenticateCard } from "components/AutenticateAdd";
 import NavBar from "components/NavBar";
 import PDefault from "components/Popups";
 import RegisterNews from "components/Popups/subContent/registerNews";
@@ -44,16 +44,6 @@ export function News() {
     <>
       <NavBar />
       <div className="noticias">
-        <PDefault
-          height="470"
-          width="517"
-          title="Cadastro de noticias"
-          subtitle="Preencha todos os campos marcados *"
-          setTrigger={setPNews}
-          trigger={openPNews}
-        >
-          <RegisterNews setState={setPNews} />
-        </PDefault>
         <div className="top">
           <div className="container">
             <div
@@ -65,7 +55,19 @@ export function News() {
                 marginBottom: "10px",
               }}
             />
-            <div className="itens">
+            <AutenticateCard isPublic={false} setState={setPNews} title="Adicionar" text="Clique no botão a direita para realizar o envio de uma nova notícia">
+              <PDefault
+                height="90%"
+                width="517"
+                title="Cadastro de noticias"
+                subtitle="Preencha todos os campos marcados *"
+                setTrigger={setPNews}
+                trigger={openPNews}
+              >
+                <RegisterNews setState={setPNews} />
+              </PDefault>
+            </AutenticateCard>
+            <div className="itens" style={{marginTop: (user) ? "20px" : "0"}}>
               <Link
                 to="itemNews"
                 className="item"
@@ -121,14 +123,6 @@ export function News() {
             </div>
           </div>
         </div>
-        {user?.userType === "Administrador" && (
-          <ButtonCard
-            router="/noticias"
-            state={openPNews}
-            setState={setPNews}
-            value="Adicionar Noticia"
-          />
-        )}
         <div className="body">
           <div className="container">
             <div className="main">
@@ -198,7 +192,7 @@ export function News() {
               </h1>
               <div className="block">
                 {newsData.newsRemaining.map((item) => (
-                  <Link to="itemNews" className="item" key={item.title}>
+                  <Link to={item.title_url} className="item" key={item.title}>
                     <ContainerBackground
                       background={ImagesEixos.default[7].image}
                       className="img"

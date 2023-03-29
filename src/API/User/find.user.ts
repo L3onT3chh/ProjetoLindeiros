@@ -57,3 +57,26 @@ export const findOneUser = async (token: string, id: string) => {
     return [];
   }
 };
+
+export const findOneUserByEmail = async (email: string) => {
+  try {
+    const headers = { ...HEADERS_DATA };
+    const responseUsers = await API("/userByEmail", {
+      headers,
+      method: "POST",
+      data: {email: email},
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+    const resp = await responseUsers.data;
+    console.log(resp);
+    if (resp) {
+      return {
+        response: resp,
+        status: 200,
+      };
+    }
+  } catch (e: any) {
+    return [];
+  }
+};

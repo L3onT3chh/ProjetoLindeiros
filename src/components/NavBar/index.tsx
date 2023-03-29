@@ -74,18 +74,19 @@ function NavBar({ className }: IPropsGlobal) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item href="/painel">
-                    {logged && dataA.userType === "Administrador" && (
+                  {logged && dataA.userType === "Administrador" ? (
+                    <Dropdown.Item href="/painel">
                       <a href="/painel">
-                        <span className="text-item">Acessar painel</span>
+                        <span className="text-item">Acessar Painel</span>
                       </a>
-                    )}
-                    {logged && dataA.userType !== "Administrador" && (
-                      <a href="/demandas">
-                        <span className="text-item">Acessar demandas</span>
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item href="/meupainel">
+                      <a href="/meupainel">
+                        <span className="text-item">Acessar Painel</span>
                       </a>
-                    )}
-                  </Dropdown.Item>
+                    </Dropdown.Item>
+                  )}
                   <Dropdown.Item href="/login">
                     <Link
                       to="/login"

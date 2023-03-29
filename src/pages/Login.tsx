@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable consistent-return */
-import React from "react";
+import React, { useEffect } from "react";
 // import { AppDispatch } from "app/store";
 import { LoadingDefault } from "components/Loading";
 import NavBar from "components/NavBar";
@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "util/form/useForm";
 import ButtonForm from "components/Buttons/ButtonForm";
 import { AppDispatch } from "app/store";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { authLoginThunk } from "app/reducers/auth/thunk";
 // import { selectCurentUser } from "app/reducers/auth/authSlice";
 import { IStateData } from "interfaces/components.interface";
@@ -21,11 +21,12 @@ import WelcomeLogin from "../components/Card/Welcome";
 import InputStyle from "../components/Inputs";
 import SublinedText from "../components/Label/Sublined";
 import { ContainerPage } from "./css/styled";
+import { Link } from "react-router-dom";
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>();
   const navigator = useNavigate();
-  const { users } = useSelector((state: IStateData) => state);
+  const { users, auth } = useSelector((state: IStateData) => state);
 
   // const toastId = useRef();
   const initialState: IUserLogin = {
@@ -40,9 +41,20 @@ function Login() {
         ...data,
       }),
     );
-
-    navigator("/painel", { replace: true });
   };
+
+  useEffect(() => {
+    if (auth.auth.logged) {
+      if (auth.auth.user[0].userType === "Administrador") {
+        console.log("entrou");
+        navigator("/painel");
+        return;
+      } else {
+        navigator("/meupainel", { replace: true });
+        return;
+      }
+    }
+  }, [auth.auth])
 
   return (
     <>
@@ -52,8 +64,6 @@ function Login() {
         <WelcomeLogin />
 
         <div className="login">
-          <SublinedText size="32" title="Login" />
-
           <form
             autoSave="off"
             autoComplete="off"
@@ -68,41 +78,29 @@ function Login() {
               title="Email"
               name="username"
               type="email"
+              height="50px"
               onChange={onChange}
               required
               placeholder="Digite o seu e-mail"
             />
-            <span> </span>
+
             <InputStyle
               onChange={onChange}
               name="password"
               title="Senha"
               type="password"
+              height="50px"
               required
               placeholder="Digite a sua senha"
             />
+            <p className="forgotText"><Link to="/forgoutPassword">Esqueci minha senha</Link></p>
             <ButtonForm width="100%" className="form-control-demand-forgout">
               <p>Enviar dados</p>
             </ButtonForm>{" "}
           </form>
 
           <div className="container-footer">
-            <CardDefault
-              className="accessCard"
-              width="224px"
-              height="fit-content"
-              title="Esqueci minha senha"
-              icon={lock}
-              url="/forgoutPassword"
-            />
-            <CardDefault
-              className="accessCard"
-              width="224px"
-              height="fit-content"
-              title="Não possui cadastro?"
-              icon={addUser}
-              url="/register"
-            />
+            <p className="createAccount">Ainda não possui uma conta? <Link to="/register"><b>clique aqui</b></Link></p>
           </div>
         </div>
         <ToastContainer />

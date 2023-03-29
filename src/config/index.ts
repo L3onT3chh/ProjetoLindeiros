@@ -1,4 +1,5 @@
 export const apiUrl = 'https://api-governanca.lindeiros.org.br';
+export const url = 'https://governanca.lindeiros.org.br/';
 
 export const allowedExt = [
   'application/pdf', 

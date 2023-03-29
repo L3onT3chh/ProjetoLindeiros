@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { findAllDemands } from "API/Demand/find.demand";
+import { findAllByUser, findAllDemands, findOneDemands } from "API/Demand/find.demand";
 import { IDemandPost } from "interfaces/data/demand.interface";
 import demandCrud from "API/Demand/crud.demand";
 import { showErrorMessage } from "util/function";
@@ -34,7 +34,17 @@ export const updateDemandsThunk = createAsyncThunk("/demandas/updateDemand", asy
   }
 });
 
-export const findOneDemandsThunk = createAsyncThunk("", async () => { });
+export const findOneDemandsThunk = createAsyncThunk("demandas/fetchOneDemandas", async (id: string) => {
+  const demand = await findOneDemands(id);
+
+  return demand;
+});
+
+export const findAllByUsersThunk = createAsyncThunk("demandas/fetchAllByUser", async (id: string) => {  
+  const demand = await findAllByUser(id);
+
+  return demand;
+});
 
 export const fetchDemandsThunk = createAsyncThunk(
   "demandas/fetchDemandas",

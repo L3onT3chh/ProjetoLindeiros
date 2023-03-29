@@ -104,7 +104,7 @@ export const DeleteDemand = async (id: string) => {
     }
     return {
       status: 400,
-      message: "Tente novamente mais tarde",
+      message: DemandDell.error,
     };
   } catch (err: any) {
     return {

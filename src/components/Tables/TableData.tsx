@@ -10,11 +10,12 @@ import { MdOutlineTipsAndUpdates } from "react-icons/md";
 // import { CardPropostas } from "components/Card/Propostas";
 // import { cityspcape } from "assets/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteDemandsThunk } from "app/reducers/demand/thunk";
+import { deleteDemandsThunk, fetchDemandsThunk, findAllByUsersThunk, findOneDemandsThunk } from "app/reducers/demand/thunk";
 import { AppDispatch } from "app/store";
 import PDefault from "components/Popups";
 import UpdateDemand from "components/Popups/subContent/updateDemand";
 import {
+  cleanDemand,
   clickedDemand,
   mergeDemandFilter,
   // mergeDemandFilter,
@@ -22,10 +23,14 @@ import {
 } from "app/reducers/demand/demandSlice";
 import { ContentProfile } from "components/style";
 import { ProposalList } from "components/ProposalList/ProposalList";
+import { convertToArray } from "util/handleSelectorObj";
+import { selectCurentUser } from "app/reducers/auth/authSlice";
+import { LoadingDefault } from "components/Loading";
 
 export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
   const demands = useSelector(selectCurrentDemands);
+  const user = useSelector(selectCurentUser)[0];
   const [proposalData, setProposalData] = useState<IDemand>();
   const [dataUpdated, setDataUpdated] = useState<string>("");
   const [useOpenDemand, setOpenDemand] = useState(false);
@@ -43,10 +48,12 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   // Resultando em bug
   // -------------------------------------------
   useEffect(() => {
-    if (demands.demandFilter.search && demands.demandFilter.search.length > 0) {
-      dispatch(mergeDemandFilter());
+    if (user[0].id && user[0].userType !== "Administrador") {
+      dispatch(findAllByUsersThunk(user[0].id));
+    } else {
+      dispatch(fetchDemandsThunk());
     }
-  }, [demands.demandFilter.search]);
+  }, [dispatch])
 
   useEffect(() => {
     setTrigger(!trigger);
@@ -76,23 +83,29 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
     setProposalData(item);
     setProposalOpen(true);
   }
+
   return (
     <>
+      <LoadingDefault active={demands.loading} />
       <div className="data-user-poup">
         {proposalData && (
           <ProposalList state={proposalOpen} setState={setProposalOpen} data={proposalData} />
         )
         }
-        <PDefault
-          height="90%"
-          width="569"
-          title="Editar demanda"
-          subtitle="Altere os dados desejados"
-          setTrigger={setOpenDemand}
-          trigger={useOpenDemand}
-        >
-          <UpdateDemand setState={setOpenDemand} demandId={dataUpdated} opened={useOpenDemand} />
-        </PDefault>
+        {demands.demand.length > 0 &&
+          (
+            <PDefault
+              height="90%"
+              width="569"
+              title="Editar demanda"
+              subtitle="Altere os dados desejados"
+              setTrigger={setOpenDemand}
+              trigger={useOpenDemand}
+            >
+              <UpdateDemand setState={setOpenDemand} demandId={dataUpdated} opened={useOpenDemand} />
+            </PDefault>
+          )
+        }
         <PDefault
           height="fit-content"
           width="569"
@@ -110,8 +123,8 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
                 }}
               >
                 <div className="content-basic-data">
-                  <br/>
-                  <div className="btns-popup" style={{borderTop:0}}>
+                  <br />
+                  <div className="btns-popup" style={{ borderTop: 0 }}>
                     <button className="btn-close-two">Fechar</button>
                     <button className="btn-send" onClick={() => handleRemoveDemand()}>Confirmar</button>
                   </div>
@@ -126,14 +139,14 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
           {fields && fields.map((field) => <th key={field}>{field}</th>)}
         </tr>
         <tbody className="demandTable">
-          {demands.demand.map((item: IDemand) => (
+          {demands.demand.length > 0  && convertToArray(demands.demand).map((item: IDemand) => (
             <tr key={item.id} className="row-content">
               <th>
                 <button
                   className="field-styled field-name"
                   onClick={() => handleClicked(item.id)}
                 >
-                  {(item.name.length > 30) ? item.name.toString().substring(0, 30)+'...' : item.name}
+                  {(item.name.length > 30) ? item.name.toString().substring(0, 30) + '...' : item.name}
                 </button>
               </th>
               <th>

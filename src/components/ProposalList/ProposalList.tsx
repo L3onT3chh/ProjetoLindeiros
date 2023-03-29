@@ -11,24 +11,35 @@ import { findOneDemands } from "API/Demand/find.demand";
 import { updateProposal } from "API/Demand/Proposital/crud.proposal";
 import { findProposal } from "API/Demand/Proposital/find.proposal";
 import { findTeam } from "API/Team/find.team";
+import { dataFormat } from "util/dateFormater";
+import { convertToArray } from "util/handleSelectorObj";
 
 interface IProposalList {
     state: boolean;
     setState: any;
-    data: IDemand;
+    data?: IDemand;
+    outDetails?: any;
 }
 
-export const ProposalList = ({ state, setState, data }: IProposalList) => {
+export const ProposalList = ({ state, setState, data, outDetails }: IProposalList) => {
     const dispatch = useDispatch<AppDispatch>();
     const [list, setList] = useState<any>();
     const [demandId, setDemandId] = useState<any>();
     const [details, setDetails] = useState<any>();
 
+    useEffect(() => {
+        console.log("sdsd");
+        if (outDetails !== undefined) {
+            openProposalData(outDetails);
+        }
+    }, [outDetails, details]);
 
     useEffect(() => {
-        setDemandId(data.id);
-        setList([]);
-    }, [data.id, demandId]);
+        if (data && data.id) {
+            setDemandId(data.id);
+            setList([]);
+        }
+    }, [data, demandId]);
 
     useEffect(() => {
         if (list && list.length === 0) {
@@ -46,13 +57,6 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
             refreshProposal();
         }
     }, [list, demandId]);
-
-    function dataFormat(data: string): string {
-        let format = new Date(data);
-        let text = `${format.getDay()} de ${GetMonth(format.getMonth())}, ${format.getFullYear()}`;
-
-        return text;
-    }
 
     const setCurrency = (num: string) => {
         let fnum = parseFloat(num);
@@ -74,8 +78,14 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
     const openProposalData = async (item: IProposal) => {
         if (item) {
             let data = await findTeam(item.id);
-            let fullData: any = item;
-            fullData['team'] = data;
+            console.log(data);
+            let fullData: any = Object.assign({}, item);
+            fullData['team'] = convertToArray(data);
+
+            if (outDetails !== undefined) {
+                fullData['name'] = item.User.name;
+            }
+            console.log(fullData);
             setDetails(fullData);
         }
     }
@@ -85,7 +95,7 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
             <div className="body">
                 <div className="title">
                     <div className="info">
-                        <h1>Lista de Propostas</h1>
+                        <h1>{(outDetails === undefined) ? "Lista de Propostas" : "Detalhes da Propostas"}</h1>
                         <h3>{data?.name}</h3>
                     </div>
                     <span style={{ cursor: "pointer" }} onClick={() => { setState(false); setDetails(undefined) }}><FaTimes size={25} color="#8f9497" /></span>
@@ -94,7 +104,11 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
                     {details &&
                         (
                             <div className="details">
-                                <button className="backButton" onClick={() => setDetails(undefined)}><AiOutlineArrowLeft /> Voltar</button>
+                                {outDetails === undefined &&
+                                    (
+                                        <button className="backButton" onClick={() => setDetails(undefined)}><AiOutlineArrowLeft /> Voltar</button>
+                                    )
+                                }
                                 <p className="subTitle"><span>{parseInt(details.Details.numberInvolved) + 1}</span> Participantes</p>
                                 <div className="participants">
                                     <span style={{ borderColor: '#ffcd56', color: '#ffcd56' }}><AiOutlineUser color="#ffcd56" />{details.name.trim()}</span>
@@ -102,7 +116,6 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
                                         <span key={index}><AiOutlineUser />{item.name}</span>
                                     ))
                                     }
-
                                 </div>
                                 <p className="subTitle">Plano proposto</p>
                                 <p className="text">{details.description}</p>
@@ -112,58 +125,63 @@ export const ProposalList = ({ state, setState, data }: IProposalList) => {
                     {!details &&
                         (
                             <>
-                                <div className="search">
-                                    <p className="subTitle">Encontrar Proposta</p>
-                                    <input type="text" placeholder="Pesquise por" disabled={(list && list.length > 0) ? false : true} />
-                                </div>
-                                <div className="table">
-                                    <p className="subTitle"><span>{(list) ? list.length : 0}</span> Propostas encontradas<sub style={{ fontSize: "10px", letterSpacing: "-0.5px", fontWeight: "normal" }}>(Clique em "Nº de envolvidos" para consultar detalhes)</sub></p>
-                                    <table>
-                                        <thead>
-                                            <th>Nº envolvidos</th>
-                                            <th>Prazo de execução</th>
-                                            <th>Orçamento</th>
-                                            <th>Situação</th>
-                                            <th>Ações</th>
-                                        </thead>
-                                        <tbody>
-                                            {list &&
-                                                list.map((item: any, index: number) => (
-                                                    <tr key={index}>
-                                                        <td onClick={() => openProposalData(item)}>{parseInt(item.Details.numberInvolved) + 1}</td>
-                                                        <td>{dataFormat(item.Details.deadline)}</td>
-                                                        <td>{setCurrency(item.Details.value)}</td>
-                                                        <td className={(item.isAproved == 1) ? "aproved" : "await"}>{(item.isAproved == 1) ? "Aprovado" : "Pendente"}</td>
-                                                        <td>
-                                                            <span>
-                                                                {item.isAproved == 1 &&
-                                                                    (
-                                                                        <BsStopwatch
-                                                                            color="#1d5e83"
-                                                                            className="btn-click"
-                                                                            size={20}
-                                                                            onClick={() => setProposalState(item.id, "0")}
-                                                                        />
-                                                                    )
-                                                                }
-                                                                {item.isAproved != 1 &&
-                                                                    (
-                                                                        <BsCheckLg
-                                                                            color="#4aea38"
-                                                                            className="btn-click"
-                                                                            size={20}
-                                                                            onClick={() => setProposalState(item.id, "1")}
-                                                                        />
-                                                                    )
-                                                                }
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                )
-                                                )}
-                                        </tbody>
-                                    </table>
-                                </div>
+                                {outDetails === undefined && (
+                                    <>
+                                        <div className="search">
+                                            <p className="subTitle">Encontrar Proposta</p>
+                                            <input type="text" placeholder="Pesquise por" disabled={(list && list.length > 0) ? false : true} />
+                                        </div>
+                                        <div className="table">
+                                            <p className="subTitle"><span>{(list) ? list.length : 0}</span> Propostas encontradas<sub style={{ fontSize: "10px", letterSpacing: "-0.5px", fontWeight: "normal" }}>(Clique em "Nº de envolvidos" para consultar detalhes)</sub></p>
+                                            <table>
+                                                <thead>
+                                                    <th>Nº envolvidos</th>
+                                                    <th>Prazo de execução</th>
+                                                    <th>Orçamento</th>
+                                                    <th>Situação</th>
+                                                    <th>Ações</th>
+                                                </thead>
+                                                <tbody>
+                                                    {list &&
+                                                        list.map((item: any, index: number) => (
+                                                            <tr key={index}>
+                                                                <td onClick={() => openProposalData(item)}>{parseInt(item.Details.numberInvolved) + 1}</td>
+                                                                <td>{dataFormat(item.Details.deadline)}</td>
+                                                                <td>{setCurrency(item.Details.value)}</td>
+                                                                <td className={(item.isAproved == 1) ? "aproved" : "await"}>{(item.isAproved == 1) ? "Aprovado" : "Pendente"}</td>
+                                                                <td>
+                                                                    <span>
+                                                                        {item.isAproved == 1 &&
+                                                                            (
+                                                                                <BsStopwatch
+                                                                                    color="#1d5e83"
+                                                                                    className="btn-click"
+                                                                                    size={20}
+                                                                                    onClick={() => setProposalState(item.id, "0")}
+                                                                                />
+                                                                            )
+                                                                        }
+                                                                        {item.isAproved != 1 &&
+                                                                            (
+                                                                                <BsCheckLg
+                                                                                    color="#4aea38"
+                                                                                    className="btn-click"
+                                                                                    size={20}
+                                                                                    onClick={() => setProposalState(item.id, "1")}
+                                                                                />
+                                                                            )
+                                                                        }
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                        )}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </>
+                                )
+                                }
                             </>
                         )
                     }

@@ -21,6 +21,7 @@ const RegisterProposal = async (proposalSave: IProposalPost) => {
       return {
         status: 200,
         message: "Proposta registrado com sucesso!",
+        data: Proposal.data
       };
     }
     return {

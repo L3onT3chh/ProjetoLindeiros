@@ -18,6 +18,7 @@ import { setCitySelected } from "app/reducers/city/citySlice";
 import { setSelectAxes } from "app/reducers/axes/axesSlice";
 import { isValid } from "util/function";
 import {
+  filterAll,
   filterAxes,
   filterCity,
   filterSearch,
@@ -28,6 +29,9 @@ import { selectCurentUser } from "app/reducers/auth/authSlice";
 import { MdPlaylistAddCheck } from "react-icons/md";
 import PDefault from "components/Popups";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
+import { GetMonth } from "util/getMonth";
+import { fetchDemandsThunk } from "app/reducers/demand/thunk";
+import { AutenticateCard } from "components/AutenticateAdd";
 
 export default function Demandas() {
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
@@ -35,80 +39,97 @@ export default function Demandas() {
   const dispatch = useDispatch<AppDispatch>();
   const [filterState, setFilterState] = useState(false);
   const { demands, city, axes } = useSelector((state: IStateData) => state);
-  const [demand] = useReducer<any>(demands.demand, demands.demand);
-  const [dataNew, setDataNew] = useState<any>();
+  const { demand } = useSelector((state: IStateData) => state.demands);
+
+  const [searchSelector, setSearchSelector] = useState<string>();
+  const [axesSelector, setAxesSelector] = useState<string>();
+  const [citySelector, setCitySelector] = useState<string>();
+  const [stateSelector, setStateSelector] = useState<string>();
   const [dataCheckbox, setCheckbox] = useState({
     a: "0",
     b: "0",
     c: "0",
   });
-  useEffect(() => {
-    if (
-      (axes.axes_selector.includes("Tod") || axes.axes_selector.length === 0) &&
-      (city.city_selector.length === 0 || city.city_selector.includes("Tod"))
-    ) {
-      setDataNew(demands.demand);
-    } else if (
-      dataCheckbox.a !== "0" ||
-      dataCheckbox.b !== "0" ||
-      dataCheckbox.c !== "0"
-    ) {
-      const data = dataNew.filter(
-        (item: IDemand) =>
-          item.status.toString() === dataCheckbox.a ||
-          item.status.toString() === dataCheckbox.b ||
-          (item.status.toString() === dataCheckbox.c && item),
-      );
-      setDataNew(data);
-    } else if (axes.axes_selector || city.city_selector) {
-      if (isValid(axes.axes_selector)) {
-        dispatch(
-          filterAxes({
-            axes: axes.axes_selector,
-            city: city.city_selector,
-          }),
-        );
-      }
-      if (isValid(city.city_selector)) {
-        dispatch(
-          filterCity({
-            axes: axes.axes_selector,
-            city: city.city_selector,
-          }),
-        );
-      }
-      dispatch(mergeDemandFilter());
-    } else {
-      setDataNew(demands.demand);
-    }
-  }, [
-    axes.axes_selector,
-    city.city_selector,
-    demands.demand,
-    dataCheckbox.a,
-    dataCheckbox.b,
-    dataCheckbox.c,
-    filterSearch,
-  ]);
 
   useEffect(() => {
-    if (demands.demandFilter.search.length > 0) {
-      dispatch(mergeDemandFilter());
-    }
-  }, [demands.demandFilter.search]);
+    dispatch(fetchDemandsThunk());
+  }, [dispatch])
 
   useEffect(() => {
-    const data = demands.demandFilter.filtered.filter(
-      (ele, index, self) => index === self.indexOf(ele),
-    );
-    setDataNew(data);
-  }, [demands.demandFilter.filtered]);
+    let axesTemp = axesSelector ?? "none";
+    let cityTemp = citySelector ?? "none";
+    let searchTemp = searchSelector ?? "";
+    let stateTemp = stateSelector ?? "";
 
-  useEffect(() => {
-    if (demand) {
-      setDataNew(demand);
-    }
-  }, [demand]);
+    dispatch(filterAll({ "citySelector": cityTemp, "axesSelector": axesTemp, "searchSelector": searchTemp, "stateSelector": stateTemp }));
+  }, [axesSelector, citySelector, searchSelector, stateSelector, dispatch]);
+  // useEffect(() => {
+  //   if (
+  //     (axes.axes_selector.includes("Tod") || axes.axes_selector.length === 0) &&
+  //     (city.city_selector.length === 0 || city.city_selector.includes("Tod"))
+  //   ) {
+  //     setDataNew(demands.demand);
+  //   } else if (
+  //     dataCheckbox.a !== "0" ||
+  //     dataCheckbox.b !== "0" ||
+  //     dataCheckbox.c !== "0"
+  //   ) {
+  //     const data = dataNew.filter(
+  //       (item: IDemand) =>
+  //         item.status.toString() === dataCheckbox.a ||
+  //         item.status.toString() === dataCheckbox.b ||
+  //         (item.status.toString() === dataCheckbox.c && item),
+  //     );
+  //     setDataNew(data);
+  //   } else if (axes.axes_selector || city.city_selector) {
+  //     if (isValid(axes.axes_selector)) {
+  //       dispatch(
+  //         filterAxes({
+  //           axes: axes.axes_selector,
+  //           city: city.city_selector,
+  //         }),
+  //       );
+  //     }
+  //     if (isValid(city.city_selector)) {
+  //       dispatch(
+  //         filterCity({
+  //           axes: axes.axes_selector,
+  //           city: city.city_selector,
+  //         }),
+  //       );
+  //     }
+  //     dispatch(mergeDemandFilter());
+  //   } else {
+  //     setDataNew(demands.demand);
+  //   }
+  // }, [
+  //   axes.axes_selector,
+  //   city.city_selector,
+  //   demands.demand,
+  //   dataCheckbox.a,
+  //   dataCheckbox.b,
+  //   dataCheckbox.c,
+  //   filterSearch,
+  // ]);
+
+  // useEffect(() => {
+  //   if (demands.demandFilter.search.length > 0) {
+  //     dispatch(mergeDemandFilter());
+  //   }
+  // }, [demands.demandFilter.search]);
+
+  // useEffect(() => {
+  //   const data = demands.demandFilter.filtered.filter(
+  //     (ele, index, self) => index === self.indexOf(ele),
+  //   );
+  //   setDataNew(data);
+  // }, [demands.demandFilter.filtered]);
+
+  // useEffect(() => {
+  //   if (demand) {
+  //     setDataNew(demand);
+  //   }
+  // }, [demand]);
 
   const handleFilter = () => {
     if (filterState === true) {
@@ -123,22 +144,30 @@ export default function Demandas() {
     return (title.length >= 40) ? min : title;
   }
 
+  const handleDemandColor = (status: number) => {
+    if (status == 1) return "#EFBA8B";
+    if (status == 2) return "#8BEFBF";
+    if (status == 3) return "#EF8B8B";
+  }
+
+  const cleanFilter = () => {
+    setAxesSelector("none");
+    setCitySelector("none");
+    setStateSelector("");
+    setSearchSelector("");
+  }
+
+  function dataFormat(data: string): string {
+    let format = new Date(data);
+    let formatString = format.toLocaleDateString("pt-BR").split("/");
+    console.log(parseInt(formatString[1]))
+    let text = `${formatString[0]} de ${GetMonth(parseInt(formatString[1]))}, ${formatString[2]}`;
+
+    return text;
+  }
+
   return (
     <>
-      {logged &&
-        (
-          <PDefault
-            height="90%"
-            width="569"
-            title="Cadastro de demandas"
-            subtitle="Preencha todos os campos marcados *"
-            setTrigger={setOpenPopupDemandas}
-            trigger={openPopupDemandas}
-          >
-            <RegisterDemandas setState={setOpenPopupDemandas} />
-          </PDefault>
-        )
-      }
       <NavBar />
       <ContainerPage>
         <LoadingDefault
@@ -159,7 +188,8 @@ export default function Demandas() {
                     <SelectMenu
                       width="250px"
                       clicked
-                      setSelected={setCitySelected}
+                      setSelected={setCitySelector}
+                      defaultValue={citySelector}
                       options={[...city.city]}
                       background="rgba(0,0,0,0.1)"
                       color="black"
@@ -171,7 +201,8 @@ export default function Demandas() {
                     <SelectMenu
                       width="250px"
                       clicked
-                      setSelected={setSelectAxes}
+                      setSelected={setAxesSelector}
+                      defaultValue={axesSelector}
                       options={[...axes.axes]}
                       background="rgba(0,0,0,0.1)"
                       color="black"
@@ -184,12 +215,11 @@ export default function Demandas() {
                       <span className="check">
                         <input
                           id="execution"
-                          type="checkbox"
+                          type="radio"
+                          name="state"
+                          checked={(stateSelector === "1") ? true : false}
                           onChange={(e) =>
-                            setCheckbox({
-                              ...dataCheckbox,
-                              a: e.target.checked ? "1" : "0",
-                            })
+                            setStateSelector("1")
                           }
                         />
                         <label htmlFor="execution">Em execução</label>
@@ -197,12 +227,11 @@ export default function Demandas() {
                       <span className="check">
                         <input
                           id="close"
-                          type="checkbox"
+                          type="radio"
+                          checked={(stateSelector === "3") ? true : false}
+                          name="state"
                           onChange={(e) =>
-                            setCheckbox({
-                              ...dataCheckbox,
-                              b: e.target.checked ? "2" : "0",
-                            })
+                            setStateSelector("3")
                           }
                         />
                         <label htmlFor="close">Encerrados</label>
@@ -210,91 +239,82 @@ export default function Demandas() {
                       <span className="check">
                         <input
                           id="send"
-                          type="checkbox"
+                          type="radio"
+                          name="state"
+                          checked={(stateSelector === "2") ? true : false}
                           onChange={(e) =>
-                            setCheckbox({
-                              ...dataCheckbox,
-                              c: e.target.checked ? "3" : "0",
-                            })
+                            setStateSelector("2")
                           }
                         />
                         <label htmlFor="send">Recebendo Propostas</label>
                       </span>
                     </div>
                   </div>
-                  {logged &&
-                    (
-                      <button className="btnAddDemand" onClick={() => setOpenPopupDemandas(true)}>Criar demanda <MdPlaylistAddCheck size="25" /></button>
-                    )
-                  }
+                  <button className="btnAddDemand" onClick={() => cleanFilter()}>Limpar filtro <MdPlaylistAddCheck size="25" /></button>
                 </>
               </MenuSuspenso>
             </div>
             <div className="right-demandas">
               <div className="search-demandas">
                 <InputSearch
-                  setState={filterSearch}
-                  size="76%"
+                  setState={setSearchSelector}
+                  size="100%"
                   borderRadius="4px"
                   color="white"
+                  valueDefault={searchSelector}
                   text="Pesquisar"
                   background="#1B4977"
                   height="55px"
                 />
-                <SelectMenu
-                  width="170px"
-                  options={[
-                    {
-                      name: "Recentes",
-                      id: "recentes",
-                    },
-                  ]}
-                  background="#1B4977"
-                />
               </div>
-              <div className="filters-demandas">
-                <ChipFilter
-                  className="filter-header"
-                  text="Em execução"
-                  color="#EFBA8B"
-                />
-                <ChipFilter
-                  className="filter-header"
-                  text="Finalizado"
-                  color="#EF8B8B"
-                />
-                <ChipFilter
-                  className="filter-header"
-                  text="Recentes"
-                  color="#8BEFBF"
-                />
-                {/* <ChipFilter
-                  className="filter-header"
-                  text="Propostas enviadas"
-                />
-                <ChipFilter className="filter-header" text="N° de envolvidos" /> */}
+              <div className="bodyTop" style={{marginTop: (logged) ? "90px" : "70px"}}>
+                <AutenticateCard isPublic={true} setState={setOpenPopupDemandas} title="Adicionar" text="Clique no botão a direita para realizar o cadastro de uma nova demanda">
+                  <PDefault
+                    height="90%"
+                    width="569"
+                    title="Cadastro de demandas"
+                    subtitle="Preencha todos os campos marcados *"
+                    setTrigger={setOpenPopupDemandas}
+                    trigger={openPopupDemandas}
+                  >
+                    <RegisterDemandas setState={setOpenPopupDemandas} />
+                  </PDefault>
+                </AutenticateCard>
+                <div className="filters-demandas">
+                  <ChipFilter
+                    className="filter-header"
+                    text="Em execução"
+                    color="#EFBA8B"
+                  />
+                  <ChipFilter
+                    className="filter-header"
+                    text="Finalizado"
+                    color="#EF8B8B"
+                  />
+                  <ChipFilter
+                    className="filter-header"
+                    text="Recentes"
+                    color="#8BEFBF"
+                  />
+                </div>
               </div>
 
-              {dataNew && dataNew.length > 0 ? (
+              {demand && demand.length > 0 ? (
                 <div className="cards-demandas">
-                  {dataNew &&
-                    dataNew.map((item: IDemand) => {
+                  {demand &&
+                    demand.map((item: IDemand) => {
                       return (
                         <div className="demandaCardItem" key={item.id}>
-                          <Link to={`/demanda/${item.name}`}>
+                          <Link to={`/demanda/${item.url}`}>
                             <CardDemandas
                               key={item.id}
                               className="box-demanda"
-                              color={
-                                item.status.toString() === "1"
-                                  ? "#EFBA8B"
-                                  : "#EF8B8B"
-                              }
+                              color={handleDemandColor(item.status)}
                               // "Turismo integrado no te..."
                               title={checktitle(item.name)}
                               // "Eixo - Negócios e renda"
                               subtitle={item.Axes.name}
-                              date="24 Jan 2023"
+                              date={dataFormat(item.createdAt)}
                             />
                           </Link>
                         </div>

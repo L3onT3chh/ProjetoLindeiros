@@ -4,9 +4,12 @@ import {
   createDemandsThunk,
   deleteDemandsThunk,
   fetchDemandsThunk,
+  findOneDemandsThunk,
+  findAllByUsersThunk,
 } from "app/reducers/demand/thunk";
 import { IStateData } from "interfaces/components.interface";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
+import { convertToArray } from "util/handleSelectorObj";
 
 export const initialState: IDataDemand = {
   demandFilter: {
@@ -18,6 +21,7 @@ export const initialState: IDataDemand = {
   },
   loading: false,
   demand: [],
+  fullDemand: [],
   error: "",
   message: "",
 };
@@ -27,9 +31,21 @@ export const demandSlice = createSlice({
   initialState,
   extraReducers: (builder: ActionReducerMapBuilder<any>) => {
     builder.addCase(
+      findAllByUsersThunk.fulfilled,
+      (state: IDataDemand, action) => {
+        if(action.payload){
+          state.demand = convertToArray(action.payload);
+          state.fullDemand = convertToArray(action.payload);
+        }
+        state.loading = false;
+        state.error = "";
+      },
+    );
+    builder.addCase(
       fetchDemandsThunk.fulfilled,
       (state: IDataDemand, action) => {
-        state.demand = action.payload;
+        state.demand = convertToArray(action.payload);
+        state.fullDemand = convertToArray(action.payload);
         state.loading = false;
         state.error = "";
       },
@@ -52,6 +68,7 @@ export const demandSlice = createSlice({
       (state: IDataDemand, action) => {
         if (action.payload.status === 200 && action.payload.response) {
           state.demand.push(action.payload.response[0]);
+          state.fullDemand.push(action.payload.response[0]);
         }
         state.loading = false;
       },
@@ -67,6 +84,7 @@ export const demandSlice = createSlice({
           let index:any = state.demand.findIndex((item) => item.id === id);
           
           state.demand.splice(index, 1, action.payload.response[0]);
+          state.fullDemand.splice(index, 1, action.payload.response[0]);
         }
         state.loading = false;
       },
@@ -81,6 +99,7 @@ export const demandSlice = createSlice({
         if (action.payload.status === 200) {
           const { idRemove } = action.payload;
           const dataTemp = state.demand.filter((item) => item.id !== idRemove);
+          state.fullDemand = dataTemp;
           state.demand = dataTemp;
         }
       },
@@ -91,7 +110,11 @@ export const demandSlice = createSlice({
   },
   reducers: {
     addDemand: () => { },
-    removeDemand: () => { },
+    cleanDemand: (state: IDataDemand) => { 
+      state.loading = true;
+      state.demand = [];
+      state.fullDemand = [];
+    },
     filterAxes: (state: IDataDemand, action) => {
       let filter: IDemand[] = state.demand.filter(
         (item: IDemand) =>
@@ -135,6 +158,36 @@ export const demandSlice = createSlice({
         (item) => item.id === action.payload,
       )[0];
     },
+    filterAll: (state: IDataDemand, action) => {
+      let { payload } = action;
+
+      let temp = state.fullDemand;
+      let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
+      let axesEmpty = (payload.axesSelector.length == 0 || payload.axesSelector == "none");
+
+      if(!cityEmpty){
+        temp = temp.filter((demand) => demand.Cities.id === payload.citySelector);
+      }
+
+      if(!axesEmpty){
+        temp = temp.filter((demand) => demand.Axes.id === payload.axesSelector);
+      }
+
+      if(payload.searchSelector.length > 0){
+        temp = temp.filter((demand) => demand.name.toLocaleLowerCase()
+        .includes(payload.searchSelector.toLocaleLowerCase()));
+      }
+
+      if(payload.stateSelector.length > 0){
+        temp = temp.filter((demand) => demand.status === payload.stateSelector);
+      }
+
+      if(cityEmpty && axesEmpty && payload.searchSelector.length == 0 && payload.stateSelector.length == 0){
+        temp = state.fullDemand;
+      }
+      
+      state.demand = temp;
+    },
     mergeDemandFilter: (state: IDataDemand) => {
       const { city, axes, search } = state.demandFilter;
       const arr = [...city, ...axes, ...search];
@@ -156,6 +209,8 @@ export const {
   mergeDemandFilter,
   clickedDemand,
   filterSearch,
+  filterAll,
+  cleanDemand
 } = demandSlice.actions;
 
 export default demandSlice.reducer;

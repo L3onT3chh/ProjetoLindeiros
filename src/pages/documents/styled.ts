@@ -49,8 +49,8 @@ export const ContainerDocuments = styled.div`
       }
     }
     .content-docs{
-      grid-template-columns: auto auto auto;
-      grid-gap: 20px;
+      display: flex;
+      grid-gap: 25px;
       .notFound{
         border: 1px solid #f3f3f3;
         background: #fbfbfb;

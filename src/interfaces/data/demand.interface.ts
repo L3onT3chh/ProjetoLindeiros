@@ -1,4 +1,5 @@
 import { IResponseData } from "interfaces/global.interface";
+import { IUser } from "./user.interface";
 
 export interface IDemand {
   id: string;
@@ -9,9 +10,11 @@ export interface IDemand {
   createdAt: string;
   priority: string;
   status: number;
+  url: string;
   Objective: IObjective;
   Axes: IAxes;
   Cities: ICities;
+  User: IUser;
   Proposal?: IProposal[] | IProposal | undefined;
 }
 
@@ -24,6 +27,7 @@ export interface IDemandPost {
   specificText: string;
   city_id: string;
   axes_id: string;
+  user_id: string;
 }
 
 export interface IObjective {
@@ -61,7 +65,9 @@ export interface IProposal {
   description: string;
   priority: string;
   isAproved: string;
+  createdAt: string;
   Details: IDetails;
+  User: IUser;
 }
 
 export interface IEProposal {
@@ -88,6 +94,7 @@ export interface IDataDemand extends IResponseData {
     clicked: IDemand | undefined;
   };
   demand: IDemand[];
+  fullDemand: IDemand[];
 }
 
 export interface IDataProposal extends IResponseData {

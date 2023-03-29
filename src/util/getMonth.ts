@@ -18,5 +18,5 @@ export const GetMonth = (num: number) => {
         num = 1;
     }
 
-    return meses[num];
+    return meses[num-1];
 }

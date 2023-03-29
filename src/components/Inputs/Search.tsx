@@ -16,22 +16,8 @@ export function InputSearch({
   height,
   color,
   setState,
+  valueDefault
 }: IPropsGlobal) {
-  const dispatch = useDispatch<AppDispatch>();
-  const [valueSearch, setValueSearch] = useState(text);
-  const [textValue, setTextValue] = useState("");
-  const handleWriteSearch = (value: string) => {
-    setTextValue(value);
-    setValueSearch(value);
-    dispatch(setState(value.trim()));
-  };
-
-  useEffect(() => {
-    if(reset){
-      setTextValue("");
-    }
-  }, [reset])
-
   return (
     <ContainerSearch
       height={height}
@@ -46,8 +32,8 @@ export function InputSearch({
       <input
         type="text"
         placeholder={text}
-        onChange={(e) => handleWriteSearch(e.target.value)}
-        value={textValue}
+        onChange={(e) => setState(e.target.value)}
+        value={valueDefault}
       />
     </ContainerSearch>
   );

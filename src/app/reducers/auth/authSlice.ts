@@ -4,11 +4,12 @@ import { authLoginThunk } from "app/reducers/auth/thunk";
 import { IStateData } from "interfaces/components.interface";
 import { IDataAuth } from "interfaces/data/auth.interface";
 import { showErrorMessage } from "util/function";
+import { convertToArray } from "util/handleSelectorObj";
 
 const initialState: IDataAuth = {
   auth: {
     jwt: "",
-    user: undefined,
+    user: [],
     tryLogin: false,
     logged: false,
   },
@@ -25,15 +26,17 @@ const authSlice = createSlice({
       const { payload } = action;
 
       if (payload.status === 200) {
-        state.auth.user = payload.user;
+        state.auth.user = convertToArray(payload.user);
         state.auth.logged = true;
         state.auth.jwt = payload.response;
         localStorage.setItem("token_jwt", payload.response);
         showErrorMessage("Usuário autenticado com sucesso!", "success");
+        console.log(state.auth.jwt);
+        console.log(state.auth.logged);
       } else {
         state.auth.logged = false;
         localStorage.clear();
-        state.auth.user = undefined;
+        state.auth.user = [];
         showErrorMessage("Usuário inválido", "error");
       }
     });

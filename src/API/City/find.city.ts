@@ -18,7 +18,7 @@ export const findAllCities = async () => {
       return {
         response: [
           {
-            id: "771a92a1-3070-40bd-acf5-24cf1c0eb2ea",
+            id: "none",
             name: "Todas as cidades",
           },
           ...Cities,

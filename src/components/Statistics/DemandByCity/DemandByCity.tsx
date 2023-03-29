@@ -20,7 +20,7 @@ export const DemandByCity = () => {
 
         const result: any = await FindDemandByCity();
 
-        if (result.status === 200) {
+        if (result.status === 200 && result.response.Statistics.Item) {
             if (result.response) {
                 result.response.Statistics.Item.forEach((item: any) => {
                     if(struct.data.length < 4){

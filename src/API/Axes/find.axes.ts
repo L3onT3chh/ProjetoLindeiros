@@ -18,7 +18,7 @@ export const findAllAxes = async () => {
       return {
         response: [
           {
-            id: "025cbea9-5adb-4c09-ad98-b8f7f07f82b4",
+            id: "none",
             name: "Todos os eixos",
           },
           ...Axes,

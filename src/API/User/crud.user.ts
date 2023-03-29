@@ -25,6 +25,7 @@ const RegisterUser = async (userSave: IUserPost) => {
       return {
         status: 200,
         message: "Usuário registrado com sucesso!",
+        user: user.data.User
       };
     }
     return {
@@ -57,7 +58,7 @@ export const UpdateUser = async (userUpdate: IUserPostEdit) => {
       return {
         status: 200,
         message: "Usuário atualizado com sucesso!",
-        response: userUpdate,
+        response: responseData.data.data.User,
       };
     }
     return {
@@ -94,6 +95,66 @@ export const DeleteUser = async (id: string) => {
     return {
       status: 400,
       message: userDell.error,
+    };
+  } catch (err: any) {
+    return {
+      status: 404,
+      message: err.message,
+    };
+  }
+};
+
+export const createRetriveEmail = async (email: string) => {
+  try {
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
+    const user = await API(`/userGenerateRetriveLink`, {
+      headers,
+      method: "POST",
+      data: {email: email}
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+    if (user.isValid) {
+      return {
+        status: 200,
+        message: "Link criado com sucesso",
+        response: user,
+      };
+    }
+    return {
+      status: 400,
+      message: user.error,
+    };
+  } catch (err: any) {
+    return {
+      status: 404,
+      message: err.message,
+    };
+  }
+};
+
+export const changePassword = async (password: string, link: string) => {
+  try {
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
+    const user = await API(`/userChangePassword`, {
+      headers,
+      method: "POST",
+      data: {password: password, link: link}
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+    if (user.isValid) {
+      return {
+        status: 200,
+        message: "Senha alterada com sucesso",
+        response: user,
+      };
+    }
+    return {
+      status: 400,
+      message: user.error,
     };
   } catch (err: any) {
     return {

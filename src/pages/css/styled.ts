@@ -4,7 +4,7 @@ import { SContainerProps } from "../../interfaces/global.interface";
 export const ContainerPage = styled.div<SContainerProps>`
   width: 100%;
   z-index: 1;
-  background-color: ${(props) => props.backgroundColor || "white"};
+  
 
   .ResponsiveFilter{
     z-index: 9;
@@ -28,6 +28,61 @@ export const ContainerPage = styled.div<SContainerProps>`
     }
   }
 
+  &.notFound{
+    .data-notFound{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .title-main{
+        margin-top: 25px;
+        font-size: 45px!important;
+      }
+      .title-h2{
+        font-size: 18px!important;
+        opacity: 0.9;
+      }
+      .btnInit{
+        padding: 0 15px;
+        height: 50px;
+        margin-top: 35px;
+        background: var(--color-background);
+        color: #fff;
+      }
+    }
+  }
+
+  &.retrive{ 
+    .card{
+      background-color: #fff;
+      width: 30vw;
+      padding: 30px;
+
+      h1{
+        font-size: 22px;
+        color: var(--color-background);
+        margin-bottom: 20px;
+      }
+
+      button{
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        color: #fff;
+        margin: 10px 0;
+        background-color: var(--color-background);
+      }
+
+      .back{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+      }
+    }
+  }
+
   @media screen and (max-width: 1000px) {
     .welcomeLoginCard {
       display: none;
@@ -39,47 +94,228 @@ export const ContainerPage = styled.div<SContainerProps>`
   }
 
   .container-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 35vh;
+    height: 100vh;
     bottom: 0;
-    background: #1b4977;
-    box-shadow: 0px -15px 63px 103px #1b4977;
+    background-image: linear-gradient(120deg, #4bc0c0 0%, #1b4977 100%);
 
     .title-main {
       font-weight: 500;
-      color: #1b4977;
+      color: #143555;
       font-size: 65px;
     }
 
     .title-h2 {
+      color: #143555;
       margin-top: -20px;
       font-size: 23px;
     }
   }
   .form-control-demand-forgout {
-    margin-top: 20px;
+    margin-top: 10px;
+
+    input{
+      margin-bottom: 5px!important;
+    }
   }
 
   .content-demanda {
-    overflow-x: auto;
+    width: 60%;
+    padding-left: 100px;
+    padding-top: 50px;
+
+    .objetivoGeral{
+      margin-bottom: 80px;
+      h1{
+        font-size: 27px;
+        color: #1b4977;
+        font-weight: bold;
+        padding-left: 20px;
+        border-left: 3px solid #1b4977;
+      }
+      .text{
+        margin-top: 40px;
+
+        p{
+          color: #333;
+          font-size: 1.1rem;
+          line-height: 40px;
+          margin-bottom: 15px;
+        }
+      }
+    }
+
+    .objetivoEspecifico{
+      margin-bottom: 80px;
+      h1{
+        font-size: 27px;
+        color: #1b4977;
+        font-weight: bold;
+        padding-left: 20px;
+        border-left: 3px solid #1b4977;
+      }
+      .text{
+        margin-top: 40px;
+
+        ul{
+          padding: 0;
+          li{
+            display: -webkit-box;
+            align-items: center;
+            height: fit-content;
+            padding: 0;
+            margin-bottom: 25px;
+
+            &::before{
+              content: '.';
+              display: block;
+              margin-right: 20px;
+              width: 10px;
+              height: 10px;
+              color: #1b4977;
+              background-color: #1b4977;
+              border-radius: 50%;
+            }
+
+            p{
+              color: #333;
+              font-size: 15px;
+              line-height: 30px;
+            }
+          }
+        }
+      }
+    }
+
+    .proposalList{
+      padding-bottom:  80px;
+      h1{
+        font-size: 27px;
+        color: #1b4977;
+        font-weight: bold;
+        padding-left: 20px;
+        border-left: 3px solid #1b4977;
+      }
+      .content{
+        position: relative;
+        margin-top: 50px;
+        padding: 10px 0 10px 25px;
+        border-left: 2px solid rgba(0, 0, 0, 0.2);
+        .item{
+          cursor: pointer;
+          border-radius: 5px;
+          margin-bottom: 30px;
+          .data{
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+
+            p{
+              position: relative;
+              font-size: 15px;
+              &::before{
+                content: '.';
+                position: absolute;
+                left: -30px;
+                display: block;
+                margin-right: 20px;
+                width: 10px;
+                height: 10px;
+                color: #1b4977;
+                background-color: #1b4977;
+                border-radius: 50%;
+              }
+            }
+          }
+          .detalhe{
+            padding: 15px 50px 15px 25px;
+            width: fit-content;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-radius: 5px;
+            &:hover{
+              border-color: #1f1368;
+            }
+            h4{
+              font-weight: bold;
+              font-size: 15px;
+              letter-spacing: -0.1px;
+              color: #333;
+              margin: 0;
+            }
+            p{
+              margin-top: 2.5px;
+              color: #333;
+              font-size: 0.85rem;
+            }
+          }
+        }
+      }
+    }
+
+
   }
 
   .create-proposal {
     position: absolute;
-    border: 1px solid var(--color-background);
-    padding: 10px;
-    right: 100px;
-    top: 150px;
-    border-radius: 10px;
-    background: white;
-    color: var(--color-background);
-    transition: ease-in-out 0.7s;
-    font-size: 15px;
-    font-weight: 500;
-    z-index: 5;
+    z-index: 3;
+    background: #fff;
+    right: 0;
+    top: 15px;
+    width: 300px;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+    z-index: 1;
 
-    &:hover {
-      transform: scale(105%);
+    .orcamento, .data{
+      margin-top: 15px;
+      padding-left: 25px;
+
+      p{
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+      h2{
+        color: #1f1368;
+        font-size: 1.1rem;
+        margin: 0;
+        font-weight: bold;
+      }
+    }
+
+    .title{
+      color: #1f1368;
+      font-size: 1rem;
+      font-weight: bold;
+      margin: 40px 0 10px 25px;
+    }
+
+    .lista{
+      padding: 0 0 25px 25px;
+
+      li{
+        display: flex;
+        align-items: center;
+        padding-left: 0;
+        height: 30px;
+        line-height: 30px;
+        color: #1f1368;
+        font-size: 0.9rem;
+
+        p{
+          margin-left: 10px;
+          line-height: 15px;
+        }
+      }
+    }
+
+    button{
+      background-color: #1f1368;
+      cursor: pointer;
+      color: #fff;
+      width: 100%;
+      height: 50px;
     }
   }
 
@@ -168,23 +404,37 @@ export const ContainerPage = styled.div<SContainerProps>`
   }
 
   .login {
+    width: 44%;
     right: 0;
     height: 100%;
     max-height: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 35px;
+    padding: 35px 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 
     .form-login {
       .link-painel {
         color: white;
       }
-      margin-top: 50px;
       border-radius: 20px;
-      width: 38vw;
+      width: 100%;
 
       span {
         padding: 10px;
+      }
+
+      .forgotText{
+        width: 100%;
+        text-align: right;
+        color: var(--color-background);
+        letter-spacing: -0.5px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 15px;
       }
     }
 
@@ -226,6 +476,16 @@ export const ContainerPage = styled.div<SContainerProps>`
     column-gap: 5%;
     margin: 30px auto 0;
 
+    .createAccount{
+      font-size: 14px;
+      opacity: 0.8;
+
+      b{
+        color: var(--color-background);
+        cursor: pointer;
+      }
+    }
+
     @media screen and (max-width: 500px) {
       flex-direction: column;
       width: 100%;
@@ -254,28 +514,52 @@ export const ContainerPage = styled.div<SContainerProps>`
     z-index: 1;
     height: 300px;
     background: url(${(props) => props.background});
-    padding: 50px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    padding: 10px;
+    display: flex;
+    align-items: center;
     left: 0;
     right: 0;
     z-index: 0;
 
-    .data-banner {
-      width: 50%;
-      height: 200px;
-      z-index: 1;
+    .content-container{
+      position: relative;
+      width: 90%;
+      margin: 0 auto;
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 15px;
+      align-items: center;
+      .data-banner {
+        width: 70%;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
-      .spacing {
-        padding: 10px;
-      }
+        .demandDescription{
+          width: 80%;
+          opacity: 0.95;
+          line-height: 20px;
+          margin: 15px 0 40px;
+          color: #fff !important;
+          z-index: 1;
+        }
 
-      .data-info {
-        font-size: 18px;
+        .spacing {
+          padding: 10px;
+        }
+
+        .data-info {
+          display: flex;
+          column-gap: 15px;
+          margin-top: 10px;
+          font-size: 18px;
+        }
       }
     }
+
+    
 
     @media screen and (max-width: 813px) {
       display: flex;
@@ -305,6 +589,8 @@ export const ContainerPage = styled.div<SContainerProps>`
   }
 
   .banner-index {
+    backdrop-filter: blur(2.5px);
+    -webkit-backdrop-filter: blur(5px);
     z-index: 1;
     width: 100%;
     height: 300px;
@@ -394,7 +680,7 @@ export const ContainerPage = styled.div<SContainerProps>`
         .filters-demandas {
           border: 1px solid rgba(0, 0, 0, 0.1);
           color: rgba(51, 51, 51, 0.8);
-          margin-top: 100px;
+          margin-top: 30px;
           display: flex;
           justify-content: space-around;
           align-items: center;

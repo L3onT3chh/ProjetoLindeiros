@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
-import { createNewssThunk, fetchNewssThunk } from "app/reducers/news/thunk";
+import {fetchNewssThunk } from "app/reducers/news/thunk";
 import { IDataNews } from "interfaces/data/news.interface";
 
 const initialState: IDataNews = {
@@ -33,14 +33,14 @@ export const newsSlice = createSlice({
       state.error = action.error.message?.toString() || "";
     });
 
-    builder.addCase(createNewssThunk.fulfilled, (state: IDataNews, action) => {
-      const { payload } = action;
+    // builder.addCase(createNewssThunk.fulfilled, (state: IDataNews, action) => {
+    //   const { payload } = action;
 
-      if (payload !== undefined) {
-        state.loading = false;
-        state.message = payload.message;
-      }
-    });
+    //   if (payload !== undefined) {
+    //     state.loading = false;
+    //     state.message = payload.message;
+    //   }
+    // });
   },
   reducers: {
     getNews: () => {},

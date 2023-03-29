@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 // Style
 // import { Container } from "./style";
@@ -12,6 +12,18 @@ import SendEmail from "util/emailJs";
 
 export function Contato() {
   const formContact = useRef(null);
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleEmail = (e: any) => {
+    e.preventDefault();
+    SendEmail(email, subject, message);
+
+    setEmail("");
+    setSubject("");
+    setMessage("");
+  }
   //
   return (
     <>
@@ -43,14 +55,14 @@ export function Contato() {
             <form
               className="form"
               ref={formContact}
-              onSubmit={() => SendEmail(formContact)}
+              onSubmit={handleEmail}
             >
               <label>Seu endereço de e-mail</label>
-              <input type="text" name="reply_to" />
+              <input type="text" onChange={(e) => setEmail(e.currentTarget.value)} value={email} />
               <label>Assunto</label>
-              <input type="text" name="subject_mail" />
+              <input type="text" onChange={(e) => setSubject(e.currentTarget.value)} value={subject} />
               <label>Mensagem</label>
-              <textarea maxLength={500} defaultValue="" name="message" />
+              <textarea maxLength={500} name="message" onChange={(e) => setMessage(e.currentTarget.value)} value={message} />
               <input
                 type="submit"
                 defaultValue="Enviar Mensagem"

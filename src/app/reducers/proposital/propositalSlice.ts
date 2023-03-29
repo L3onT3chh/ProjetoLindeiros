@@ -17,6 +17,10 @@ export const proposalSlice = createSlice({
       createProposalThunk.fulfilled,
       (state: IDataProposal, action) => {
         const { payload } = action;
+        console.log(payload);
+        if(payload.data){
+          console.log(payload.data);
+        }
 
         if (payload !== undefined) {
           state.loading = true;

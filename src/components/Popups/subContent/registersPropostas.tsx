@@ -46,7 +46,11 @@ function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
         numberInvolved: time.length,
       }),
     );
-    window.location.reload();
+
+    setTime([]);
+    setDescription("");
+    setValuFormat("");
+    values.deadline = "";
   };
 
   const handleFormat = (value: string) => {
@@ -71,6 +75,7 @@ function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
             <h1 className="title-h3">Dados básicos</h1>
             <TextArea
               setState={setDescription}
+              value={description}
               required
               height="110px"
               placeholder="Descrição"
@@ -80,6 +85,7 @@ function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
             <div className="double-data">
               <InputStyle
                 onChange={onChange}
+                valueChanges={values.deadline}
                 required
                 placeholder="Prazo de execução"
                 type="date"
@@ -110,6 +116,7 @@ function RegisterProposal({ idDemand, setTrigger, trigger }: IProps) {
               Fechar
             </button>
             <button
+              type="button"
               className="btn-send"
               onClick={() => handleSavedData(values)}
             >

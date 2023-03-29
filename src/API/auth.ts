@@ -24,6 +24,7 @@ const loginUser = async ({
     if (DataAuth.isValid) {
       if (DataAuth.response.User) {
         const { User } = DataAuth.response;
+
         return {
           auth: true,
           status: 200,

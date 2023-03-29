@@ -15,6 +15,7 @@ interface IPros {
   maxLength?: number;
   valueChanges?: string;
   value?: any;
+  height?: any;
 }
 
 function InputStyle({
@@ -29,12 +30,13 @@ function InputStyle({
   value,
   valueChanges,
   required,
+  height
 }: IPros) {
   return (
     <ContainerInput className={className}>
       {title &&
         (
-          <h2 className="title-h3" style={{ fontSize: "16px" }}>{title}</h2>
+          <h2 className="title-h3" style={{ fontSize: "14px", marginBottom: "2.5px", opacity: "0.8" }}>{title}</h2>
         )
       }
       <input
@@ -46,6 +48,7 @@ function InputStyle({
         minLength={minLength}
         maxLength={maxLength}
         type={type}
+        style={{height:height, marginBottom: (height) ? "25px" : "0"}}
         id={`input-${title}`}
         placeholder={placeholder}
         required={required || false}

@@ -1,6 +1,7 @@
 import { SetStateAction } from "react";
 import {
   IDataDemand,
+  IDataProposal,
   IDemand,
   IProposal,
 } from "interfaces/data/demand.interface";
@@ -13,6 +14,7 @@ import { IDataAxes } from "interfaces/data/axes.interface";
 import { IDataAuth } from "interfaces/data/auth.interface";
 import { IDataToast } from "interfaces/data/toast.interface";
 import { SContainerProps } from "./global.interface";
+import { IconType } from "react-icons/lib";
 
 export interface IPropsGlobal extends SContainerProps {
   clicked?: boolean;
@@ -20,12 +22,12 @@ export interface IPropsGlobal extends SContainerProps {
   IInterface?: any;
   proposal?: IProposal;
   value?: string;
-  Icon?: any;
   width?: string;
   valueDefault?: string;
   className?: string;
   listValue?: string[];
   icon?: string;
+  Icon?: any;
   defaultValue?: string;
   disabled?: boolean;
   title?: string;
@@ -75,6 +77,7 @@ export interface IPropsGlobal extends SContainerProps {
   dataDemand?: IDemand[];
   options?: IOptions[];
   types?: ITypes[];
+  isPublic?: boolean;
 }
 
 export interface IOptions {
@@ -145,6 +148,7 @@ export interface IStateData {
   demands: IDataDemand;
   documents: IDataDocument;
   userTypes: IDataTypes;
+  proposalList: IDataProposal;
   city: IDataCity;
   axes: IDataAxes;
   toast: IDataToast;

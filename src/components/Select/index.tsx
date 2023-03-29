@@ -14,21 +14,25 @@ export function SelectMenu({
   iconFinal,
   width,
   setSelected,
+  defaultValue
 }: IPropsGlobal) {
-  const [svalue, sSetValue] = useState(0);
-  const dispatch = useDispatch<AppDispatch>();
 
   const handleClick = (option: string) => {
     if (option !== " ") {
-      dispatch(setSelected(option.trim()));
+      console.log(option);
+      setSelected(option.trim());
     }
   };
 
   useEffect(()=>{
-    if(!disabled){
-      sSetValue(0);
-    }
-  }, [disabled])
+    console.log(options);
+  }, []);
+
+  // useEffect(()=>{
+  //   if(!disabled){
+  //     sSetValue(0);
+  //   }
+  // }, [disabled])
   return (
     <ContainerSelect
       className={className}
@@ -36,14 +40,14 @@ export function SelectMenu({
       color={color}
       icon={iconFinal}
       width={width}
-      onChange={(e) => {handleClick(e.target.selectedOptions[0].outerText); sSetValue(parseInt(e.target.selectedOptions[0].value))}}
+      onChange={(e) => {handleClick(e.target.selectedOptions[0].value)}}
       disabled={disabled}
-      value={svalue}
+      value={defaultValue}
       // onChange={(e) => handleClick(e.target.value)}
     >
       {options &&
         options.map((option: IOptions, index) => (
-          <option value={index} key={option.id}>
+          <option value={option.id} key={option.id}>
             {option.name}
             {"  "}
           </option>

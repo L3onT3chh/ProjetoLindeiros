@@ -18,7 +18,7 @@ function DoubtedCard() {
         </p>
       </div>
       <div className="container-center" />
-      <form ref={formContact} onSubmit={() => SendEmail(formContact)}>
+      <form ref={formContact}>
         <div className="container-right">
           <InputStyle
             width="475px"

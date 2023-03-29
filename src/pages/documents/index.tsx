@@ -14,6 +14,7 @@ import { fetchDemandsThunk } from "app/reducers";
 import { AppDispatch } from "app/store";
 import { findAllDocument } from "API/Document/find.documents";
 import { filterDocuments, refreshDocuments } from "app/reducers/document/documentSlice";
+import { convertToArray } from "util/handleSelectorObj";
 
 export function Documents() {
   const dispatch = useDispatch<AppDispatch>();
@@ -62,14 +63,14 @@ export function Documents() {
 
             <div className="controls">
               <input type="text" placeholder="Pesquisar documento" onChange={(e) => handleSearch(e.target.value)} value={search} />
-              {verifyPermission(user?.userType) && (
+              {user && verifyPermission(user[0].userType) && (
                 <button className="btnUpload" onClick={() => setOpenCard(!openCard)}><BsUpload color="#fff" style={{ width: "40px" }} />Enviar arquivo</button>
               )}
             </div>
           </div>
           {/* Remover os objetivos especificos */}
-          <div className="content-docs" style={{ display: (document && document.length > 0) ? 'grid' : 'block' }}>
-            {document && document.length > 0 ? document.map((item: IDocument, index: any) => (
+          <div className="content-docs" style={{ display: (document && document.length > 0) ? 'flex' : 'block' }}>
+            {document ? convertToArray(document).map((item: IDocument, index: any) => (
               <CardDocs
                 key={index}
                 extension={item.extension}

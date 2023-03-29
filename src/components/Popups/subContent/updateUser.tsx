@@ -12,13 +12,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { IUser, IUserPost } from "interfaces/data/user.interface";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { IStateData } from "interfaces/components.interface";
+import { showErrorMessage } from "util/function";
 
 interface IProps {
   userId: string;
   trigger: boolean;
+  setState: any;
 }
 
-function UpdateUser({ userId, trigger }: IProps) {
+function UpdateUser({ userId, trigger, setState }: IProps) {
   const userFilter = useSelector((state: IStateData) =>
     state.users.users.filter((item) => item.id === userId),
   )[0];
@@ -37,8 +39,10 @@ function UpdateUser({ userId, trigger }: IProps) {
   const [type, setType] = useState("");
   const [uCity, setUcity] = useState("");
   const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
 
   useEffect(() => {
+    console.log(userFilter)
     if (userFilter) {
       setName(userFilter.name);
       setEmail(userFilter.email);
@@ -56,21 +60,7 @@ function UpdateUser({ userId, trigger }: IProps) {
     }
   }, [userFilter]);
 
-  useEffect(() => {
-    if (!trigger && userFilter) {
-      setName("");
-      setEmail("");
-      setCPF("");
-      setDDD("");
-      setPhone("");
-      setBdate("");
-      setAddress("");
-      setUcity("");
-      setType("");
-    }
-  }, [trigger, userFilter])
 
-  const [dataCity, setDataCity] = useState("");
   const initialValue: IUserPost = {
     name: "",
     email: "",
@@ -86,6 +76,10 @@ function UpdateUser({ userId, trigger }: IProps) {
   const { userTypes, city } = useSelector((state: IStateData) => state);
   const { onChange, values } = useForm(initialValue);
   const handleSaveData = async (valuesSave: IUserPost) => {
+    if(password.length > 0 && (confPassword !== password)){
+      showErrorMessage("Senhas não coincidem", "error");
+      return;
+    }
     dispatch(
       updateUserThunk({
         ...valuesSave,
@@ -102,7 +96,9 @@ function UpdateUser({ userId, trigger }: IProps) {
         id: userId
       }),
     );
+    setState(false);
     setPassword("");
+    setConfPassword("");
   };
   return (
     userFilter && (
@@ -113,7 +109,6 @@ function UpdateUser({ userId, trigger }: IProps) {
             onSubmit={(e) => {
               e.preventDefault();
               handleSaveData(values);
-              e.currentTarget.password.reset();
             }}
           >
             <div className="content-basic-data">
@@ -210,11 +205,21 @@ function UpdateUser({ userId, trigger }: IProps) {
                 type="text"
                 className="form-control-demand"
               />
+              <h1 className="title-h3" style={{marginTop: "20px"}}>Editar senha do usuario</h1>
               <InputStyle
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
                 valueChanges={password}
                 placeholder="mudar senha(opcional)"
+                title=""
+                type="password"
+                className="form-control-demand"
+              />
+              <InputStyle
+                name="password"
+                onChange={(e) => setConfPassword(e.target.value)}
+                valueChanges={confPassword}
+                placeholder="Confirmar senha"
                 title=""
                 type="password"
                 className="form-control-demand"

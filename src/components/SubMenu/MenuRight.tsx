@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { MyProfile } from "components/Popups/subContent/Profile";
 import RegisterDemandas from "components/Popups/subContent/registerDemandas";
 import PDefault from "components/Popups";
-import { useDispatch } from "react-redux";
-import { logout } from "app/reducers/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectCurentUser } from "app/reducers/auth/authSlice";
 import { AppDispatch } from "app/store";
 import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
@@ -16,6 +16,7 @@ export function MenuRight() {
   const dispatch = useDispatch<AppDispatch>();
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
+  const [user] = useSelector(selectCurentUser);
 
   return (
     <>
@@ -43,7 +44,7 @@ export function MenuRight() {
         <div className="container-header-painel">
           <Link
             to="/painel"
-            style={{color:"#fff"}}
+            style={{ color: "#fff" }}
           >
             <h1 className="title-h1">Painel</h1>
           </Link>
@@ -85,31 +86,49 @@ export function MenuRight() {
             ]}
             text="Acessos"
           />
-
-          <ChipCard
-            icon={users}
-            optionsMenu={[
-              {
-                title: "Listagem",
-                subitems: [
+          {user[0].userType === "Administrador" &&
+            (
+              <ChipCard
+                icon={users}
+                optionsMenu={[
                   {
-                    name: "Lista de Usuários",
-                    url: "painel/users",
+                    title: "Listagem",
+                    subitems: [
+                      {
+                        name: "Lista de Usuários",
+                        url: "painel/users",
+                      },
+                      {
+                        name: "Pedidos de cadastro",
+                        url: "painel/users",
+                      }
+                    ],
                   },
                   {
-                    name: "Pedidos de cadastro",
-                    url: "painel/users",
-                  }
-                ],
-              },
-              {
-                title: "Meu perfil",
-                activePopUp: true,
-                setTrigger: () => setOpenPopup(!openPopup),
-              },
-            ]}
-            text="Usuario"
-          />
+                    title: "Meu perfil",
+                    activePopUp: true,
+                    setTrigger: () => setOpenPopup(!openPopup),
+                  },
+                ]}
+                text="Usuario"
+              />
+            )
+          }
+          {user[0].userType !== "Administrador" &&
+            (
+              <ChipCard
+                icon={users}
+                optionsMenu={[
+                  {
+                    title: "Meu perfil",
+                    activePopUp: true,
+                    setTrigger: () => setOpenPopup(!openPopup),
+                  },
+                ]}
+                text="Usuario"
+              />
+            )
+          }
 
           <ChipCard
             icon={demands}
@@ -124,7 +143,7 @@ export function MenuRight() {
                 subitems: [
                   {
                     name: "Demandas",
-                    url: "painel/demandas",
+                    url: (user[0].userType === "Administrador") ? "painel/demandas" : "meupainel/demandas",
                   },
                 ],
               },

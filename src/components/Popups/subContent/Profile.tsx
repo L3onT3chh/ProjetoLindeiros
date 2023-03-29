@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContentProfile } from "components/style";
 import { GiModernCity } from "react-icons/gi";
 import { IStateData } from "interfaces/components.interface";
@@ -6,11 +6,17 @@ import { useSelector } from "react-redux";
 
 export function MyProfile() {
   const { auth } = useSelector((state: IStateData) => state);
-  const { user } = auth.auth;
-  const [profile] = useState<any>(user);
+  const { user } = auth.auth.user;
+  const [profile, setProfile] = useState<any>();
   const handleNameSeparator = (name: string, index: number) => {
     return name.split(" ")[index + 1];
   };
+
+  useEffect(()=>{
+    if(auth){
+      setProfile(auth.auth.user[0])
+    }
+  }, [auth])
 
   return (
     <ContentProfile>

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React from "react";
+import React, { useEffect } from "react";
 import { ContainerPopup } from "components/style";
 import { IPopup } from "interfaces/components.interface";
 // import { AiOutlineClose } from "react-icons/ai";

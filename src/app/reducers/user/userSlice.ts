@@ -5,6 +5,7 @@ import {
   createUserThunk,
   deleteUserThunk,
   fetchUsersThunk,
+  updateUserThunk,
   // updateUserThunk,
   // deleteUserThunk,
 } from "app/reducers/user/thunk";
@@ -24,6 +25,7 @@ const initialState: IDataUser = {
   typeMessage: "",
   loading: false,
   users: [],
+  fullUsers: [],
   error: "",
   message: "",
 };
@@ -39,6 +41,7 @@ export const userSlice = createSlice({
       const { payload } = action;
       if (payload !== undefined) {
         state.users = payload.response;
+        state.fullUsers = payload.response;
       }
       state.loading = false;
       state.error = "";
@@ -53,7 +56,8 @@ export const userSlice = createSlice({
       const { payload } = action;
       state.typeMessage = ``;
       if (payload !== undefined) {
-        console.log(payload.status);
+        state.users.push(payload.user);
+        state.fullUsers.push(payload.user);
         state.typeMessage = `${payload.status}`;
         state.loading = false;
         state.message = payload.message;
@@ -67,27 +71,30 @@ export const userSlice = createSlice({
           (user: IUser) => user.id !== payload.idRemove,
         );
         state.users = dataAux;
+        state.fullUsers = dataAux;
         if (dataAux.length > 0) {
           state.loading = false;
         }
       }
     });
-    // builder.addCase(updateUserThunk.fulfilled, (state: IDataUser, actions) => {
-    //   const { payload } = actions;
+    builder.addCase(updateUserThunk.fulfilled, (state: IDataUser, actions) => {
+      const { payload } = actions;
 
-    //   if (payload !== undefined) {
-    //     state.loading = false;
+      if (payload !== undefined) {
+        let index: any = state.users.findIndex((item) => item.id === payload.response.id);
+        state.users[index].name = payload.response.name;
+        state.users[index].email = payload.response.email;
+        state.users[index].phone = '' + payload.response.phone;
+        state.users[index].userType = payload.response.userType;
 
-    //     const dataAux: IUser[] = state.users.filter(
-    //       (item) => item.name !== payload.response.name,
-    //     );
+        state.fullUsers[index].name = payload.response.name;
+        state.fullUsers[index].email = payload.response.email;
+        state.fullUsers[index].phone = '' + payload.response.phone;
+        state.fullUsers[index].userType = payload.response.userType;
 
-    //     if (dataAux.length > 0) {
-    //       state.users = dataAux;
-    //     }
-    //     state.loading = false;
-    //   }
-    // });
+        state.loading = false;
+      }
+    });
   },
   reducers: {
     getInfo: () => { },
@@ -140,6 +147,32 @@ export const userSlice = createSlice({
       state.touched = true;
       state.filters.merge = filter;
     },
+    filterAll: (state: IDataUser, action) => {
+      let { payload } = action;
+      let temp = state.fullUsers;
+      let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
+      let typeEmpty = (payload.typeSelector.length == 0 || payload.typeSelector == "none");
+
+      if(!cityEmpty){
+        temp = temp.filter((user) => user.city_id === payload.citySelector);
+      }
+
+      if(!typeEmpty){
+        temp = temp.filter((user) => user.userType_id === payload.typeSelector);
+      }
+
+      if(payload.searchSelector.length > 0){
+        temp = temp.filter((user) => user.name.toLocaleLowerCase()
+        .includes(payload.searchSelector.toLocaleLowerCase()));
+      }
+
+      console.log(payload);
+      if(cityEmpty && typeEmpty && payload.searchSelector.length == 0){
+        temp = state.fullUsers;
+      }
+      
+      state.users = temp;
+    },
     mergeFilters: (state: IDataUser) => {
       const { city, type, search } = state.filters;
       const arrayNew = [...city, ...type, ...search];
@@ -189,6 +222,7 @@ export const {
   filterSearch,
   mergeFilters,
   cleanFilters,
+  filterAll
 } = userSlice.actions;
 
 export default userSlice.reducer;

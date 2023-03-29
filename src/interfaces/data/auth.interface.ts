@@ -3,7 +3,7 @@ import { IResponseData } from "interfaces/global.interface";
 
 export default interface IAuth {
   jwt: string;
-  user: IUserPost | undefined;
+  user: any;
   tryLogin: boolean;
   logged: boolean;
 }

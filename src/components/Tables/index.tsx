@@ -19,36 +19,31 @@ interface IProps {
 
 export function TableDefaultUser({ fields }: IProps) {
   const { users } = useSelector((state: IStateData) => state);
-  const [newData, setNewData] = useState<IUser[]>(users.users);
   const [remove, setRemove] = useState(false);
   const [deleteId, setDeleteId] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const [userClicked, setUserClicked] = useState("");
 
-  useEffect(() => {
-    if (users.filters.merge.length > 0) {
-      dispatch(filterSearch);
-      setNewData(users.filters.merge);
-    }
-  }, [users.filters.search, users.filters.merge]);
+  // useEffect(() => {
+  //   if (users.filters.merge.length > 0) {
+  //     dispatch(filterSearch);
+  //   }
+  // }, [users.filters.search, users.filters.merge]);
 
-  useEffect(() => {
-    if (users.filters.merge.length > 0) {
-      dispatch(filterCity);
-      setNewData(users.filters.merge);
-    }
-  }, [users.filters.city, users.filters.merge]);
+  // useEffect(() => {
+  //   if (users.filters.merge.length > 0) {
+  //     dispatch(filterCity);
+  //   }
+  // }, [users.filters.city, users.filters.merge]);
 
-  useEffect(() => {
-    if (users.filters.merge.length > 0) {
-      dispatch(filterTypeUser);
-      setNewData(users.filters.merge);
-    }
-  }, [users.filters.type, users.filters.merge]);
+  // useEffect(() => {
+  //   if (users.filters.merge.length > 0) {
+  //     dispatch(filterTypeUser);
+  //   }
+  // }, [users.filters.type, users.filters.merge]);
 
   useEffect(() => {
     dispatch(cleanFilters());
-    setNewData(users.users);
   }, []);
 
   const [OpenUserCard, setOpenUserCard] = useState(false);
@@ -72,7 +67,7 @@ export function TableDefaultUser({ fields }: IProps) {
     setRemove(true);
     setDeleteId(id);
   }
-  return newData ? (
+  return users ? (
     <>
       <div className="data-user-poup">
         <PDefault
@@ -83,7 +78,7 @@ export function TableDefaultUser({ fields }: IProps) {
           setTrigger={setOpenUserCard}
           trigger={OpenUserCard}
         >
-          <UpdateUser userId={userClicked} trigger={OpenUserCard} />
+          <UpdateUser userId={userClicked} trigger={OpenUserCard} setState={setOpenUserCard} />
         </PDefault>
         <PDefault
           height="fit-content"
@@ -101,8 +96,9 @@ export function TableDefaultUser({ fields }: IProps) {
                   e.preventDefault();
                 }}
               >
+                <br />
                 <div className="content-basic-data">
-                  <div className="btns-popup">
+                  <div className="btns-popup" style={{ borderTop: 0 }}>
                     <button className="btn-close-two">Fechar</button>
                     <button className="btn-send" onClick={() => handleRemoveUser()}>Confirmar</button>
                   </div>
@@ -119,35 +115,38 @@ export function TableDefaultUser({ fields }: IProps) {
           ))}
           <th>Ações</th>
         </tr>
-        {newData &&
-          newData.map((item: IUser, index: any) => (
-            <tr key={index} className="row-content">
-              <th>{index + 1}</th>
-              <th>{item.name}</th>
-              <th>{item.email}</th>
-              <th>{`+55 (${item.phone_ddd}) ${item.phone}`}</th>
-              <th>{item.userType}</th>
-              <th>
-                <span>
-                  <BsFillTrashFill
-                    color="red"
-                    className="btn-click"
-                    size={30}
-                    onClick={() => item.id && preRemove(item.id)}
-                  />
-                </span>{" "}
-                <span className="divisor" />
-                <span>
-                  <MdTipsAndUpdates
-                    onClick={() => item.id && handleUpdateUser(item.id)}
-                    className="update-icon btn-click"
-                    color="green"
-                    size={32}
-                  />
-                </span>
-              </th>
-            </tr>
-          ))}
+        <tbody>
+          {users && (
+            users.users && users.users.map((item: IUser, index: any) => (
+              <tr key={index} className="row-content">
+                <th style={{ height: "50px" }}>{index + 1}</th>
+                <th style={{ height: "50px" }}>{item.name}</th>
+                <th style={{ height: "50px" }}>{item.email}</th>
+                <th style={{ height: "50px" }}>{`+55 (${item.phone_ddd}) ${item.phone}`}</th>
+                <th style={{ height: "50px" }}>{item.userType}</th>
+                <th style={{ height: "50px" }}>
+                  <span>
+                    <BsFillTrashFill
+                      color="red"
+                      className="btn-click"
+                      size={30}
+                      onClick={() => item.id && preRemove(item.id)}
+                    />
+                  </span>{" "}
+                  <span className="divisor" />
+                  <span>
+                    <MdTipsAndUpdates
+                      onClick={() => item.id && handleUpdateUser(item.id)}
+                      className="update-icon btn-click"
+                      color="green"
+                      size={32}
+                    />
+                  </span>
+                </th>
+              </tr>
+            ))
+          )}
+        </tbody>
       </table>
     </>
   ) : (
