@@ -7,7 +7,7 @@ export default interface INews {
   body: string;
   createdAt: string;
   city_id: string;
-  axes_id: string[];
+  axes_id: string;
   Photos?: Photos[];
 }
 
@@ -19,11 +19,14 @@ export interface IDataNews extends IResponseData {
 }
 
 export interface INewsPost {
+  id?: string;
   title: string;
-  body: string;
   title_url: string;
+  body: string;
+  createdAt: string;
   city_id: string;
-  axes_id?: string[] | string;
+  axes_id: string;
+  Photos?: Photos[];
 }
 
 export interface Photos {

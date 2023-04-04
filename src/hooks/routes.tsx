@@ -35,8 +35,11 @@ import { Listagem } from "../pages/painel/ListagemUser";
 import { MeuPainel } from "pages/meupainel/Inicio";
 import { NewsItem } from "pages/news/NewsItem";
 import { RetrivePassword } from "pages/retrivePassword";
+import { TableDefaultResquest } from "components/Tables/Request";
+import { CompleteAccount } from "pages/CompleteAccount";
 
 const fields = ["Ativo", "Nome completo", "Usuário", "Contato", "Tipo"];
+const requestFields = ["Status", "Email", "Criado em", "Ver mais"];
 
 const HandleDispatchData = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -72,6 +75,7 @@ function Routers() {
         <Route path="/register" element={<RegisterRepresent />} />
         <Route path="/forgoutPassword" element={<ForgoutPassword />} />
         <Route path="/redefinir/:link" element={<RetrivePassword />} />
+        <Route path="/cadastro/:link" element={<CompleteAccount />} />
 
         <Route
           path="/meupainel"
@@ -122,6 +126,16 @@ function Routers() {
             <PrivatRoute>
               <Listagem active={users.loading} type="Usuários">
                 <TableDefaultUser fields={[...fields]} />
+              </Listagem>
+            </PrivatRoute>
+          }
+        />
+        <Route
+          path="/painel/pedidos"
+          element={
+            <PrivatRoute>
+              <Listagem active={users.loading} type="Pedidos">
+                <TableDefaultResquest fields={[...requestFields]} />
               </Listagem>
             </PrivatRoute>
           }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FiLogOut } from "react-icons/fi";
 import { PMeuPerfil } from "components/Popups/Profile";
 import { Link } from "react-router-dom";
@@ -11,12 +11,57 @@ import { AppDispatch } from "app/store";
 import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
+import { convertToArray } from "util/handleSelectorObj";
 
 export function MenuRight() {
   const dispatch = useDispatch<AppDispatch>();
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
   const [user] = useSelector(selectCurentUser);
+  const [menuAcess, setMenuAcess] = useState<any>({
+    title: "Apresentação",
+    subitems: [
+      {
+        name: "Home",
+        url: "",
+      },
+      {
+        name: "Eixos",
+        url: "eixos/",
+      },
+      {
+        name: "Demandas",
+        url: "demandas/",
+      },
+    ],
+  });
+
+  useEffect(()=>{
+    if(user && convertToArray(user)[0].userType === "Administrador"){
+      setMenuAcess({
+        title: "Apresentação",
+        subitems: [
+          {
+            name: "Home",
+            url: "",
+          },
+          {
+            name: "Eixos",
+            url: "eixos/",
+          },
+          {
+            name: "Demandas",
+            url: "demandas/",
+          },
+          {
+            name: "WebMail",
+            url: "https://webmail.lindeiros.org.br/",
+            extern: true
+          },
+        ],
+      });
+    }
+  }, [user])
 
   return (
     <>
@@ -65,28 +110,10 @@ export function MenuRight() {
         <div className="content-data">
           <ChipCard
             icon={demands}
-            optionsMenu={[
-              {
-                title: "Apresentação",
-                subitems: [
-                  {
-                    name: "Home",
-                    url: "",
-                  },
-                  {
-                    name: "Eixos",
-                    url: "eixos/",
-                  },
-                  {
-                    name: "Demandas",
-                    url: "demandas/",
-                  },
-                ],
-              },
-            ]}
+            optionsMenu={[menuAcess]}
             text="Acessos"
           />
-          {user[0].userType === "Administrador" &&
+          {convertToArray(user)[0].userType === "Administrador" &&
             (
               <ChipCard
                 icon={users}
@@ -100,7 +127,7 @@ export function MenuRight() {
                       },
                       {
                         name: "Pedidos de cadastro",
-                        url: "painel/users",
+                        url: "painel/pedidos",
                       }
                     ],
                   },
@@ -114,7 +141,7 @@ export function MenuRight() {
               />
             )
           }
-          {user[0].userType !== "Administrador" &&
+          {convertToArray(user)[0].userType !== "Administrador" &&
             (
               <ChipCard
                 icon={users}
@@ -143,7 +170,7 @@ export function MenuRight() {
                 subitems: [
                   {
                     name: "Demandas",
-                    url: (user[0].userType === "Administrador") ? "painel/demandas" : "meupainel/demandas",
+                    url: (convertToArray(user)[0].userType === "Administrador") ? "painel/demandas" : "meupainel/demandas",
                   },
                 ],
               },

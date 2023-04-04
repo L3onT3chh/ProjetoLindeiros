@@ -3,6 +3,7 @@ import { ContentProfile } from "components/style";
 import { GiModernCity } from "react-icons/gi";
 import { IStateData } from "interfaces/components.interface";
 import { useSelector } from "react-redux";
+import { convertToArray } from "util/handleSelectorObj";
 
 export function MyProfile() {
   const { auth } = useSelector((state: IStateData) => state);
@@ -14,7 +15,7 @@ export function MyProfile() {
 
   useEffect(()=>{
     if(auth){
-      setProfile(auth.auth.user[0])
+      setProfile(convertToArray(auth.auth.user[0]))
     }
   }, [auth])
 

@@ -195,16 +195,6 @@ function UpdateUser({ userId, trigger, setState }: IProps) {
                   options={city.city}
                 />
               </div>
-              <InputStyle
-                name="address"
-                onChange={(e) => setAddress(e.target.value)}
-                placeholder="Endereço completo"
-                title=""
-                valueChanges={address}
-                value=""
-                type="text"
-                className="form-control-demand"
-              />
               <h1 className="title-h3" style={{marginTop: "20px"}}>Editar senha do usuario</h1>
               <InputStyle
                 name="password"

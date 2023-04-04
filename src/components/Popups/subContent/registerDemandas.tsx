@@ -14,6 +14,7 @@ import { createDemandsThunk } from "app/reducers/demand/thunk";
 import { PrioriyData } from "assets/data/priority";
 import { showErrorMessage } from "util/function";
 import { selectUserLogged } from "app/reducers/auth/authSlice";
+import { convertToArray } from "util/handleSelectorObj";
 
 function RegisterDemandas({ setState }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
@@ -46,16 +47,17 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
       return;
     }
 
-    if (user[0].id) {
+    if (convertToArray(user)[0].id) {
+      let specific = (userObjectives) ? userObjectives.join('@') : userObjectives;
       dispatch(
         createDemandsThunk({
           ...valuesSave,
-          user_id: user[0].id,
+          user_id: convertToArray(user)[0].id,
           city_id: userCity,
           axes_id: userAxes,
           description: userDescription,
           generalText: userText,
-          specificText: userObjectives.join('@'),
+          specificText: specific,
           priority: userPriority,
         }),
       );
@@ -99,6 +101,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
                   valueChanges={values.name}
                   onChange={onChange}
                   name="name"
+                  maxLength={60}
                   placeholder="Nome"
                   title=""
                   type="text"
@@ -116,6 +119,7 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
               <TextArea
                 value={userText}
                 name="generalText"
+                length={30000}
                 height="80px"
                 setState={setUserText}
                 className="form-control-demand"

@@ -20,14 +20,21 @@ export function ChipCard({ text, optionsMenu, icon }: IPropsGlobal) {
               <h5 className="" key={item.title}>
                 {item.title}
               </h5>
-              {item.subitems.map((item2) => (
-                <Link
-                  to={`/${item2.url}`}
-                  key={item2.name}
-                  className="subitens-h5 subtitle-p"
-                >
-                  {item2.name}
-                </Link>
+              {item.subitems.map((item2: any) => (
+                <>
+                  {item2.extern && (
+                    <a href={item2.url} target="_blank" className="subitens-h5 subtitle-p">{item2.name}</a>
+                  )}
+                  {!item2.extern && (
+                    <Link
+                      to={`/${item2.url}`}
+                      key={item2.name}
+                      className="subitens-h5 subtitle-p"
+                    >
+                      {item2.name}
+                    </Link>
+                  )}
+                </>
               ))}
             </span>
           ) : item.activePopUp ? (
@@ -35,7 +42,7 @@ export function ChipCard({ text, optionsMenu, icon }: IPropsGlobal) {
               key={item.title}
               className="btn-popUp"
               onClick={() => item.setTrigger(item.trigger)}
-              style={{marginTop: (item.title === "Meu perfil") ? '5px' : ''}}
+              style={{ marginTop: (item.title === "Meu perfil") ? '5px' : '' }}
             >
               {item.title}
             </button>

@@ -27,6 +27,7 @@
 }
 
 .noticias .main .itens {
+    flex-wrap: wrap;
     column-gap: 3%;
 }
 
@@ -99,8 +100,8 @@
 }
 
 .noticias .body .main .item {
-    width: 50%;
-    height: 350px;
+    width: 48%;
+    margin-bottom: 15px;
 }
 
 .noticias .body .main .item h1 {

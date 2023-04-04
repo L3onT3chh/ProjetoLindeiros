@@ -80,3 +80,26 @@ export const findOneUserByEmail = async (email: string) => {
     return [];
   }
 };
+
+export const findRequestUser = async () => {
+  try {
+    const token = localStorage.getItem("token_jwt");
+    const headers = { ...HEADERS_DATA, token: `${token?.toString()}` };
+    const responseUsers = await API("/userRequest", {
+      headers,
+      method: "GET"
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+    const resp = await responseUsers.data;
+
+    if (resp) {
+      return {
+        response: resp.User,
+        status: 200,
+      };
+    }
+  } catch (e: any) {
+    return [];
+  }
+};

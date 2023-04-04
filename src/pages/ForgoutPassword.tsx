@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import { selectUsersMessage } from "app/reducers/user/userSlice";
 import { findOneUserByEmail } from "API/User/find.user";
 import { forgotPassword } from "util/emailJs";
+import { createRetriveEmail } from "API/User/crud.user";
 
 function ForgoutPassword() {
 
@@ -34,7 +35,9 @@ function ForgoutPassword() {
       return;
     }
 
-    const linkResp = await forgotPassword(email);
+    const linkResp = await createRetriveEmail(email);
+    if (linkResp.status === 200) showErrorMessage("Verifique sua caixa de email!", "success");
+    setEmail("");
   }
   return (
     <>

@@ -4,6 +4,7 @@ import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import {
   createUserThunk,
   deleteUserThunk,
+  fetchRequestUsersThunk,
   fetchUsersThunk,
   updateUserThunk,
   // updateUserThunk,
@@ -25,6 +26,8 @@ const initialState: IDataUser = {
   typeMessage: "",
   loading: false,
   users: [],
+  requestUsers: [],
+  fullRequestUsers: [],
   fullUsers: [],
   error: "",
   message: "",
@@ -36,6 +39,16 @@ export const userSlice = createSlice({
   extraReducers: (builder: ActionReducerMapBuilder<any>) => {
     builder.addCase(fetchUsersThunk.pending, (state: IDataUser) => {
       state.loading = true;
+    });
+    builder.addCase(fetchRequestUsersThunk.fulfilled, (state: IDataUser, action:any) => {
+      const { payload } = action;
+      if (payload !== undefined) {
+        state.requestUsers = payload.response;
+        state.fullRequestUsers = payload.response;
+        console.log(state.requestUsers);
+      }
+      state.loading = false;
+      state.error = "";
     });
     builder.addCase(fetchUsersThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
@@ -149,6 +162,7 @@ export const userSlice = createSlice({
     },
     filterAll: (state: IDataUser, action) => {
       let { payload } = action;
+      console.log(payload);
       let temp = state.fullUsers;
       let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
       let typeEmpty = (payload.typeSelector.length == 0 || payload.typeSelector == "none");
@@ -172,6 +186,33 @@ export const userSlice = createSlice({
       }
       
       state.users = temp;
+    },
+    filterAllRequest: (state: IDataUser, action) => {
+      let { payload } = action;
+
+      let temp = state.fullRequestUsers;
+
+      let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
+      let typeEmpty = (payload.typeSelector.length == 0 || payload.typeSelector == "none");
+
+      if(!cityEmpty){
+        temp = temp.filter((user) => user.city_id === payload.citySelector);
+      }
+
+      if(!typeEmpty){
+        temp = temp.filter((user) => user.userType_id === payload.typeSelector);
+      }
+
+      if(payload.searchSelector.length > 0){
+        temp = temp.filter((user) => user.email.toLocaleLowerCase()
+        .includes(payload.searchSelector.toLocaleLowerCase()));
+      }
+
+      if(cityEmpty && typeEmpty && payload.searchSelector.length == 0){
+        temp = state.fullRequestUsers;
+      }
+      
+      state.requestUsers = temp;
     },
     mergeFilters: (state: IDataUser) => {
       const { city, type, search } = state.filters;
@@ -222,7 +263,8 @@ export const {
   filterSearch,
   mergeFilters,
   cleanFilters,
-  filterAll
+  filterAll,
+  filterAllRequest
 } = userSlice.actions;
 
 export default userSlice.reducer;

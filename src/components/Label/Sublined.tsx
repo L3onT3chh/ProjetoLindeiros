@@ -6,7 +6,7 @@ import { ContainerSublined } from "../style";
 function SublinedText({ title, size, className }: IPropsGlobal) {
   return (
     <ContainerSublined font={size || "30"} className={className}>
-      <h3 className="title-h3">{title}</h3>
+      <h3 className="title-h3" style={{textAlign: "center"}}>{title}</h3>
     </ContainerSublined>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "assets/img/banner";
 import ImageEixos from "assets/icons/eixos";
 import { splitTitle } from "util/function";
@@ -14,22 +14,54 @@ import OtherNews from "../components/Card/OtherNews";
 import ButtonDefault from "../components/Buttons/ButtonDefault";
 import cityOther from "../assets/img/city_retangle.png";
 import SponsorList from "../components/Carrousel/Sponsor";
+import { ListComponent } from "components/ListComponent";
+import { AboutUs } from "components/AboutUs";
+import { useDispatch, useSelector } from "react-redux";
+import { IStateData } from "interfaces/components.interface";
+import { AppDispatch } from "app/store";
+import { fetchDemandsThunk } from "app/reducers";
 
 const TITLE =
   "Conselho dos Lindeiros solidifica parcerias para projetos estruturantes na região";
 
 function Home() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { demands } = useSelector((state: IStateData) => state);
+  const { news } = useSelector((state: IStateData) => state);
+
+  useEffect(()=>{
+    if(demands.demand.length === 0){
+      dispatch(fetchDemandsThunk());
+    }
+  }, []);
   return (
     <>
-      <NavBar />
       <ContainerPage>
-        <CarrouselComp
-          title=""
-          image={[...Banner]}
-          description="dsadadjasdja"
-        />
+        <NavBar text="home" />
+        <div style={{ height: "65vh", position: "relative" }}>
+          <CarrouselComp
+            title=""
+            image={[...Banner]}
+            description="dsadadjasdja"
+          />
+          <div style={{ position: "absolute", top: "0", width: "100%", height: "100%", backgroundImage: "linear-gradient(120deg,#061a2a 0%,#1b4977 100%)", opacity: "0.85" }}></div>
+        </div>
+        <div className="limiter">
+          {demands && (
+            <ListComponent title="Ultimas demandas" link="/demandas" objDemand={demands.demand.slice(0, 3)} />
+          )
+          }
+          {news && (
+            <ListComponent title="Ultimas noticias" link="/noticias" objNews={news.news.slice(0, 3)} />
+          )
+          }
+        </div>
+        <AboutUs />
+        <div className="sponsor-content">
+          <SponsorList />
+        </div>
 
-        <div className="content-about content-body">
+        {/* <div className="content-about content-body">
           <h1 className="title-h1">
             Conheça o <span className="subtitle">programa de governança</span>
           </h1>
@@ -141,7 +173,7 @@ function Home() {
           <SponsorList />
         </div>
 
-        <DoubtedCard />
+        <DoubtedCard /> */}
       </ContainerPage>
     </>
   );

@@ -34,7 +34,7 @@ const RegisterDemand = async (demandSave: IDemandPost) => {
     return {
       response: "",
       status: 400,
-      message: "Tente novamente mais tarde",
+      message: Demand.error,
     };
   } catch (err: any) {
     return {
@@ -73,7 +73,7 @@ const editDemand = async (id: String, demandSave: IDemandPost) => {
     return {
       response: "",
       status: 400,
-      message: "Tente novamente mais tarde",
+      message: Demand.error,
     };
   } catch (err: any) {
     return {

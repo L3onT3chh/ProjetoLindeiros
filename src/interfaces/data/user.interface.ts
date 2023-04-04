@@ -1,8 +1,15 @@
 import { IResponseData } from "interfaces/global.interface";
+import { ICities } from "./demand.interface";
 
 export interface IUserLogin {
   username: string;
   password: string;
+}
+
+export interface IUserType {
+  id: string;
+  name: string;
+  permission: string;
 }
 
 export interface IUser {
@@ -19,6 +26,18 @@ export interface IUser {
   born_date: string;
   userType_id?: string;
   userType: string;
+}
+
+export interface IRequest {
+  id: string;
+  email: string;
+  text: string;
+  city_id: string;
+  userType_id: string;
+  createdAt: string;
+  Cities: ICities;
+  Usertype: IUserType;
+  status: string;
 }
 
 export interface IUserPost {
@@ -54,6 +73,8 @@ export interface IDataUser extends IResponseData {
   typeMessage: string;
   users: IUser[];
   fullUsers: IUser[];
+  requestUsers: IUser[];
+  fullRequestUsers: IUser[];
   touched?: boolean;
   filters: {
     type: IUser[];

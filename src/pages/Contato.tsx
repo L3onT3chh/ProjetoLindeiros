@@ -8,7 +8,8 @@ import "assets/css/index.css";
 
 // Components
 import NavBar from "components/NavBar";
-import SendEmail from "util/emailJs";
+import { sendEmail } from "API/User/crud.user";
+import { showErrorMessage } from "util/function";
 
 export function Contato() {
   const formContact = useRef(null);
@@ -16,18 +17,23 @@ export function Contato() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleEmail = (e: any) => {
+  const handleEmail = async (e: any) => {
     e.preventDefault();
-    SendEmail(email, subject, message);
+    let resp = await sendEmail(email, subject, message);
+    if(resp.status !== 200) {
+      showErrorMessage("Erro ao mandar email","error"); 
+      return;
+    }
 
     setEmail("");
     setSubject("");
     setMessage("");
+    showErrorMessage("Email enviado com sucesso","success"); 
   }
   //
   return (
     <>
-      <NavBar />
+      <NavBar text="contato"/>
       <div>
         <div className="contato">
           <div className="left">

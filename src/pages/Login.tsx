@@ -22,6 +22,7 @@ import InputStyle from "../components/Inputs";
 import SublinedText from "../components/Label/Sublined";
 import { ContainerPage } from "./css/styled";
 import { Link } from "react-router-dom";
+import { convertToArray } from "util/handleSelectorObj";
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>();
@@ -45,7 +46,7 @@ function Login() {
 
   useEffect(() => {
     if (auth.auth.logged) {
-      if (auth.auth.user[0].userType === "Administrador") {
+      if (convertToArray(auth.auth.user)[0].userType === "Administrador") {
         console.log("entrou");
         navigator("/painel");
         return;

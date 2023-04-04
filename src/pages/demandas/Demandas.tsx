@@ -45,11 +45,6 @@ export default function Demandas() {
   const [axesSelector, setAxesSelector] = useState<string>();
   const [citySelector, setCitySelector] = useState<string>();
   const [stateSelector, setStateSelector] = useState<string>();
-  const [dataCheckbox, setCheckbox] = useState({
-    a: "0",
-    b: "0",
-    c: "0",
-  });
 
   useEffect(() => {
     dispatch(fetchDemandsThunk());
@@ -63,73 +58,10 @@ export default function Demandas() {
 
     dispatch(filterAll({ "citySelector": cityTemp, "axesSelector": axesTemp, "searchSelector": searchTemp, "stateSelector": stateTemp }));
   }, [axesSelector, citySelector, searchSelector, stateSelector, dispatch]);
-  // useEffect(() => {
-  //   if (
-  //     (axes.axes_selector.includes("Tod") || axes.axes_selector.length === 0) &&
-  //     (city.city_selector.length === 0 || city.city_selector.includes("Tod"))
-  //   ) {
-  //     setDataNew(demands.demand);
-  //   } else if (
-  //     dataCheckbox.a !== "0" ||
-  //     dataCheckbox.b !== "0" ||
-  //     dataCheckbox.c !== "0"
-  //   ) {
-  //     const data = dataNew.filter(
-  //       (item: IDemand) =>
-  //         item.status.toString() === dataCheckbox.a ||
-  //         item.status.toString() === dataCheckbox.b ||
-  //         (item.status.toString() === dataCheckbox.c && item),
-  //     );
-  //     setDataNew(data);
-  //   } else if (axes.axes_selector || city.city_selector) {
-  //     if (isValid(axes.axes_selector)) {
-  //       dispatch(
-  //         filterAxes({
-  //           axes: axes.axes_selector,
-  //           city: city.city_selector,
-  //         }),
-  //       );
-  //     }
-  //     if (isValid(city.city_selector)) {
-  //       dispatch(
-  //         filterCity({
-  //           axes: axes.axes_selector,
-  //           city: city.city_selector,
-  //         }),
-  //       );
-  //     }
-  //     dispatch(mergeDemandFilter());
-  //   } else {
-  //     setDataNew(demands.demand);
-  //   }
-  // }, [
-  //   axes.axes_selector,
-  //   city.city_selector,
-  //   demands.demand,
-  //   dataCheckbox.a,
-  //   dataCheckbox.b,
-  //   dataCheckbox.c,
-  //   filterSearch,
-  // ]);
 
-  // useEffect(() => {
-  //   if (demands.demandFilter.search.length > 0) {
-  //     dispatch(mergeDemandFilter());
-  //   }
-  // }, [demands.demandFilter.search]);
-
-  // useEffect(() => {
-  //   const data = demands.demandFilter.filtered.filter(
-  //     (ele, index, self) => index === self.indexOf(ele),
-  //   );
-  //   setDataNew(data);
-  // }, [demands.demandFilter.filtered]);
-
-  // useEffect(() => {
-  //   if (demand) {
-  //     setDataNew(demand);
-  //   }
-  // }, [demand]);
+  useEffect(() => {
+    console.log(demand)
+  }, [demand]);
 
   const handleFilter = () => {
     if (filterState === true) {
@@ -168,7 +100,7 @@ export default function Demandas() {
 
   return (
     <>
-      <NavBar />
+      <NavBar text="demandas"/>
       <ContainerPage>
         <LoadingDefault
           active={demands.loading || axes.loading || city.loading}

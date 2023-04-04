@@ -5,6 +5,7 @@ import { IDataTypes } from "interfaces/data/types.interface";
 
 const initialState: IDataTypes = {
   types: [],
+  publicTypes: [],
   loading: false,
   error: "",
 };
@@ -18,6 +19,7 @@ export const typesSlice = createSlice({
     });
     builder.addCase(fetchTypesThunk.fulfilled, (state: IDataTypes, action) => {
       state.types = action.payload;
+      state.publicTypes = action.payload.filter(item => item.name !== "Administrador");
       state.error = "";
       state.loading = false;
     });

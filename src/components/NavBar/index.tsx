@@ -11,7 +11,7 @@ import { AppDispatch } from "app/store";
 import { logout, selectCurentUser } from "app/reducers/auth/authSlice";
 import { ComponenteDropdown, ContainerNavBar, ContentNav } from "../style";
 
-function NavBar({ className }: IPropsGlobal) {
+function NavBar({ className, text }: IPropsGlobal) {
   const [user, logged] = useSelector(selectCurentUser);
   const dataA: any = user;
   const dispatch = useDispatch<AppDispatch>();
@@ -32,32 +32,32 @@ function NavBar({ className }: IPropsGlobal) {
         <div className="content-links">
           <ul>
             <div className="content-link">
-              <Link className="link-btn" to="/" replace>
+              <Link className={`link-btn ${(text === "home") ? "active" : ""}`} to="/" replace>
                 Home
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/eixos" replace>
+              <Link className={`link-btn ${(text === "eixos") ? "active" : ""}`} to="/eixos" replace>
                 Eixos
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/demandas" replace>
+              <Link className={`link-btn ${(text === "demandas") ? "active" : ""}`} to="/demandas" replace>
                 Demandas
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/documentos" replace>
+              <Link className={`link-btn ${(text === "documents") ? "active" : ""}`} to="/documentos" replace>
                 Documentos
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/noticias" replace>
+              <Link className={`link-btn ${(text === "noticia") ? "active" : ""}`} to="/noticias" replace>
                 Notícias
               </Link>
             </div>
             <div className="content-link">
-              <Link className="link-btn" to="/contato" replace>
+              <Link className={`link-btn ${(text === "contato") ? "active" : ""}`} to="/contato" replace>
                 Contato
               </Link>
             </div>

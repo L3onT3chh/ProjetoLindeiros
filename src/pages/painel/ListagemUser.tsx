@@ -15,7 +15,8 @@ import {
   filterSearch,
   filterTypeUser,
   cleanFilters,
-  filterAll
+  filterAll,
+  filterAllRequest
 } from "app/reducers/user/userSlice";
 import { ContainerPainel } from "../css/styled";
 import { MenuRight } from "../../components/SubMenu/MenuRight";
@@ -61,7 +62,11 @@ export function Listagem({
       setDisabled(false);
     }
 
-    dispatch(filterAll({ "citySelector": cityTemp, "typeSelector": typeTemp, "searchSelector": searchTemp }));
+    if(type === "Pedidos"){
+      dispatch(filterAllRequest({ "citySelector": cityTemp, "typeSelector": typeTemp, "searchSelector": searchTemp }));
+    }else{
+      dispatch(filterAll({ "citySelector": cityTemp, "typeSelector": typeTemp, "searchSelector": searchTemp }));
+    }
   }
 
   return (
@@ -92,7 +97,7 @@ export function Listagem({
             reset={reset}
             valueDefault={searchSelector}
             background="#cecece"
-            text="Pesquisar usuário"
+            text={(type === "Pedidos") ? "Pesquisar usuário por e-mail" : "Pesquisar usuário por nome"}
             size="83%"
             borderRadius="40px 0 0 40px"
             setState={setSearchSelector}

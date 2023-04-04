@@ -10,7 +10,7 @@ import { eixoData } from "../assets/data/eixo";
 export function Eixos() {
   return (
     <>
-      <NavBar />
+      <NavBar text="eixos"/>
       <div className="parallax">
         {eixoData.map((item) => {
           const image = ImagesEixos.filter((img) => img.sigle === item.url)[0];

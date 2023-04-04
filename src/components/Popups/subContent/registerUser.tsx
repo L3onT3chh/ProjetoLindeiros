@@ -95,6 +95,7 @@ function RegisterUser({ modal }: props) {
               onChange={onChange}
               name="name"
               placeholder="Nome"
+              maxLength={60}
               title=""
               type="text"
               className="form-control-demand"
@@ -103,6 +104,7 @@ function RegisterUser({ modal }: props) {
               onChange={onChange}
               name="email"
               placeholder="Email"
+              maxLength={80}
               title=""
               type="email"
               className="form-control-demand"
@@ -130,7 +132,7 @@ function RegisterUser({ modal }: props) {
                 onChange={onChange}
                 placeholder="Nº de telefone"
                 title=""
-                maxLength={8}
+                maxLength={9}
                 name="phone"
                 type="phone"
                 className="text-double"
@@ -166,18 +168,10 @@ function RegisterUser({ modal }: props) {
               />
             </div>
             <InputStyle
-              name="address"
-              onChange={onChange}
-              placeholder="Endereço completo"
-              title=""
-              value={addressFull || ""}
-              type="text"
-              className="form-control-demand"
-            />
-            <InputStyle
               name="password"
               onChange={onChange}
               placeholder="Senha"
+              maxLength={60}
               title=""
               type="password"
               className="form-control-demand"

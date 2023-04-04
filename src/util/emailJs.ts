@@ -24,20 +24,21 @@ const SendEmail = (email: string, subject: string, message: string) => {
 
 export const forgotPassword = async (email: string) => {
   const resp = await createRetriveEmail(email);
-  if (resp) {
-    let link = resp.response.data;
-    let template: any = {
-      link: url+"redefinir/"+link,
-      email: email
-    }
+  console.log(resp);
+  // if (resp) {
+  //   let link = resp.response.data;
+  //   let template: any = {
+  //     link: url+"redefinir/"+link,
+  //     email: email
+  //   }
 
-    emailJs
-      .send(SERVICE_ID, 'template_d26cg18', template, PUBLIC_API)
-      .then((response) => {
-        if (response.status === 200) showErrorMessage("Verifique sua caixa de email!", "success");
-      })
-      .catch((err) => showErrorMessage("Ocorreu algum erro inesperado!", "error"));
-  }
+  //   emailJs
+  //     .send(SERVICE_ID, 'template_d26cg18', template, PUBLIC_API)
+  //     .then((response) => {
+  //       if (response.status === 200) showErrorMessage("Verifique sua caixa de email!", "success");
+  //     })
+  //     .catch((err) => showErrorMessage("Ocorreu algum erro inesperado!", "error"));
+  // }
 };
 
 export default SendEmail;

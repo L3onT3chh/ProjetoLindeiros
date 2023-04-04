@@ -17,6 +17,9 @@ import "../../assets/css/noticias.css";
 import * as ImagesEixos from "../../assets/img/eixos";
 // Components
 import { ContainerBackground } from "../css/styled";
+import { dataFormat } from "util/dateFormater";
+import { convertToArray } from "util/handleSelectorObj";
+import { apiUrl } from "config";
 
 interface INewsUseState {
   mainNews: INewsPost[];
@@ -27,10 +30,8 @@ export function News() {
   const [openPNews, setPNews] = useState(false);
   const user = useSelector(selectUserLogged);
   const { news } = useSelector((state: IStateData) => state.news);
-  const [newsData, setNews] = useState<INewsUseState>({
-    mainNews: news.slice(0, 4),
-    newsRemaining: news.slice(5, news.length),
-  });
+  const [newsData, setNews] = useState<INewsUseState>();
+  const [newsRamdom, setNewsRamdom] = useState<INewsPost[]>();
   // Refazer com styled component
 
   useEffect(() => {
@@ -40,9 +41,27 @@ export function News() {
     });
   }, [news]);
 
+  useEffect(() => {
+    if (newsData && newsData.newsRemaining) {
+      let allNews = newsData.newsRemaining;
+      let temp = [];
+      let usedIndex: any = [];
+
+      for (let i = 0; i < 4; i++) {
+        let randomIndex = Math.floor(Math.random() * allNews.length);
+
+        if (allNews.length > i && !usedIndex.includes(randomIndex)) {
+          temp.push(allNews[randomIndex]);
+        }
+      }
+
+      setNewsRamdom(temp);
+    }
+  }, [newsData])
+
   return (
     <>
-      <NavBar />
+      <NavBar text="noticia" />
       <div className="noticias">
         <div className="top">
           <div className="container">
@@ -67,59 +86,22 @@ export function News() {
                 <RegisterNews setState={setPNews} />
               </PDefault>
             </AutenticateCard>
-            <div className="itens" style={{marginTop: (user) ? "20px" : "0"}}>
-              <Link
-                to="itemNews"
-                className="item"
-                style={{
-                  backgroundImage: `url(${ImagesEixos.default[1].image})`,
-                }}
-              >
-                <p>25 de jan, 2022</p>
-                <h1>
-                  Conselho dos Lindeiros solidifica parcerias para projetos
-                  estruturantes na região
-                </h1>
-              </Link>
-              <Link
-                to="itemNews"
-                className="item"
-                style={{
-                  backgroundImage: `url(${ImagesEixos.default[0].image})`,
-                }}
-              >
-                <p>25 de jan, 2022</p>
-                <h1>
-                  Conselho dos Lindeiros solidifica parcerias para projetos
-                  estruturantes na região
-                </h1>
-              </Link>
-              <Link
-                to="itemNews"
-                className="item"
-                style={{
-                  backgroundImage: `url(${ImagesEixos.default[2].image})`,
-                }}
-              >
-                <p>25 de jan, 2022</p>
-                <h1>
-                  Conselho dos Lindeiros solidifica parcerias para projetos
-                  estruturantes na região
-                </h1>
-              </Link>
-              <Link
-                to="itemNews"
-                className="item"
-                style={{
-                  backgroundImage: `url(${ImagesEixos.default[3].image})`,
-                }}
-              >
-                <p>25 de jan, 2022</p>
-                <h1>
-                  Conselho dos Lindeiros solidifica parcerias para projetos
-                  estruturantes na região
-                </h1>
-              </Link>
+            <div className="itens" style={{ marginTop: (user) ? "20px" : "0" }}>
+              {newsRamdom && newsRamdom.map((item, i) => (
+                <Link
+                  to={item.title_url}
+                  className="item"
+                  style={{
+                    backgroundImage: (item.Photos) ? `url(${apiUrl + "/" + convertToArray(item.Photos)[0].path + convertToArray(item.Photos)[0].name})` : `url(${ImagesEixos.default[i].image})`,
+                  }}
+                >
+                  <p>{dataFormat(item.createdAt)}</p>
+                  <h1>
+                    {item.title}
+                  </h1>
+                </Link>
+              ))
+              }
             </div>
           </div>
         </div>
@@ -130,60 +112,22 @@ export function News() {
                 Noticías do momento
               </h1>
               <div className="itens" style={{ marginBottom: "3%" }}>
-                <Link
-                  to="itemNews"
-                  className="item"
-                  style={{
-                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
-                  }}
-                >
-                  <h1>{newsData.mainNews[0].title.substring(0, 15)}...</h1>
-                  <p className="text">
-                    <i className="fas fa-quote-left" />
-                    {newsData.mainNews[0].body}
-                  </p>
-                </Link>
-                <Link
-                  to="itemNews"
-                  className="item"
-                  style={{
-                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
-                  }}
-                >
-                  <h1>{newsData.mainNews[1].title.substring(0, 15)}...</h1>
-                  <p className="text">
-                    <i className="fas fa-quote-left" />
-                    {newsData.mainNews[1].body}
-                  </p>
-                </Link>
-              </div>
-              <div className="itens">
-                <Link
-                  to="itemNews"
-                  className="item"
-                  style={{
-                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
-                  }}
-                >
-                  <h1>{newsData.mainNews[2].title}</h1>
-                  <p className="text">
-                    <i className="fas fa-quote-left" />
-                    {newsData.mainNews[2].body}
-                  </p>
-                </Link>
-                <Link
-                  to="itemNews"
-                  className="item"
-                  style={{
-                    backgroundImage: `url(${ImagesEixos.default[4].image})`,
-                  }}
-                >
-                  <h1>{newsData.mainNews[3].title}</h1>
-                  <p className="text">
-                    <i className="fas fa-quote-left" />
-                    {newsData.mainNews[3].body}
-                  </p>
-                </Link>
+                {newsData && newsData.mainNews.map((item, i) => (
+                  <Link
+                    to={item.title_url}
+                    className="item"
+                    style={{
+                      backgroundImage: (item.Photos) ? `url(${apiUrl + "/" + convertToArray(item.Photos)[0].path + convertToArray(item.Photos)[0].name})` : `url(${ImagesEixos.default[i].image})`,
+                    }}
+                  >
+                    <h1>{item.title.substring(0, 15)}...</h1>
+                    <p className="text">
+                      <i className="fas fa-quote-left" />
+                      {item.title}
+                    </p>
+                  </Link>
+                ))
+                }
               </div>
             </div>
             <aside className="others">
@@ -191,14 +135,14 @@ export function News() {
                 Mais noticías
               </h1>
               <div className="block">
-                {newsData.newsRemaining.map((item) => (
+                {newsData && newsData.newsRemaining.map((item) => (
                   <Link to={item.title_url} className="item" key={item.title}>
                     <ContainerBackground
-                      background={ImagesEixos.default[7].image}
+                      background={(item.Photos) ? `url(${apiUrl + "/" + convertToArray(item.Photos)[0].path + convertToArray(item.Photos)[0].name})` : ImagesEixos.default[7].image}
                       className="img"
                     />
                     <div className="info">
-                      {/* <p>25 de jan, 2022</p> */}
+                      <p>{dataFormat(item.createdAt)}</p>
                       <h1>{item.title}</h1>
                     </div>
                   </Link>

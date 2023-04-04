@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { SContainerProps } from "../interfaces/global.interface";
 
 export const ContainerNavBar = styled.div`
-  box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 0px 10px rgba(0, 0, 0, 0.1);
   width: 100%;
   height: 60px;
   background: var(--color-background);
@@ -25,7 +25,7 @@ export const ContainerNavBar = styled.div`
         color: var(--color-font-primary);
       }
 
-      .link-btn:active,
+      .link-btn.active,
       .link-btn:focus {
         border-radius: 5px;
         background: var(--navbar-color-button);
@@ -343,9 +343,10 @@ export const ContainerCardDemandas = styled.div`
 `;
 
 export const ContainerSponsor = styled.div`
-  width: 80%;
+  width: 90%;
   margin: 85px auto;
   img {
+    max-width: 180px;
     margin: 0 48px;
   }
 `;
@@ -1007,7 +1008,6 @@ export const ContainerSelectAlternative = styled.select<SContainerProps>`
   background: rgba(0, 0, 0, 0);
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 5px;
-  margin-top: 10px;
   color: black;
   padding: 10px;
 
@@ -1677,6 +1677,9 @@ export const ContainerCardInfo = styled.div`
 `;
 
 export const ContentNav = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 10;
   .menu-nav-hamburguer {
     height: 0;
   }

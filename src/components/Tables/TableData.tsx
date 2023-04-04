@@ -48,10 +48,8 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   // Resultando em bug
   // -------------------------------------------
   useEffect(() => {
-    if (user[0].id && user[0].userType !== "Administrador") {
-      dispatch(findAllByUsersThunk(user[0].id));
-    } else {
-      dispatch(fetchDemandsThunk());
+    if (convertToArray(user)[0].id) {
+      dispatch(findAllByUsersThunk(convertToArray(user)[0].id));
     }
   }, [dispatch])
 

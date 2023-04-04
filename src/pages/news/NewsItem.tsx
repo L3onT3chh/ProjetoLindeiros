@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router"
 import { dataFormat } from "util/dateFormater";
+import { convertToArray } from "util/handleSelectorObj";
 
 export const NewsItem = () => {
     let { name } = useParams();
@@ -14,7 +15,7 @@ export const NewsItem = () => {
 
     useEffect(() => {
         if (item.Photos) {
-            setBackground(apiUrl + "/media/news/" + item.Photos[0].name);
+            setBackground(apiUrl + "/media/news/" + convertToArray(item.Photos)[0].name);
         }
     }, [item]);
 
@@ -56,7 +57,7 @@ export const NewsItem = () => {
                             <div className="galeria">
                                 <h2>Ver fotos</h2>
                                 <div className="itens">
-                                    {item.Photos.map((item) => (
+                                    {convertToArray(item.Photos).map((item) => (
                                         <div className="item" style={{ backgroundImage: `url(${apiUrl+"/"+item.path+item.name})` }}></div>
                                     ))
                                     }

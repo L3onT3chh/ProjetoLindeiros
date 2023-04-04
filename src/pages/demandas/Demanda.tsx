@@ -31,6 +31,7 @@ import moment from "moment";
 import 'moment/locale/pt-br'
 import { ProposalList } from "components/ProposalList/ProposalList";
 import { selectUserLogged } from "app/reducers/auth/authSlice";
+import { convertToArray } from "util/handleSelectorObj";
 
 export function Demanda() {
   const { name } = useParams();
@@ -237,7 +238,7 @@ export function Demanda() {
               </h1>
               <div className="text">
                 <ul>
-                  {specific && specific.map((item: any) => (
+                  {specific && convertToArray(specific).map((item: any) => (
                     <li>
                       <p>{item.text}</p>
                     </li>

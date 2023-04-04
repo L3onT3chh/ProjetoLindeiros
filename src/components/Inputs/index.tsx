@@ -16,6 +16,7 @@ interface IPros {
   valueChanges?: string;
   value?: any;
   height?: any;
+  marginB?: string;
 }
 
 function InputStyle({
@@ -30,7 +31,8 @@ function InputStyle({
   value,
   valueChanges,
   required,
-  height
+  height,
+  marginB
 }: IPros) {
   return (
     <ContainerInput className={className}>
@@ -48,7 +50,7 @@ function InputStyle({
         minLength={minLength}
         maxLength={maxLength}
         type={type}
-        style={{height:height, marginBottom: (height) ? "25px" : "0"}}
+        style={{height:height, marginBottom: (marginB) ? marginB : "5px"}}
         id={`input-${title}`}
         placeholder={placeholder}
         required={required || false}

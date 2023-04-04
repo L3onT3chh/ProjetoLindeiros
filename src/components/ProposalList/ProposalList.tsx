@@ -5,7 +5,7 @@ import { AiOutlineArrowLeft, AiOutlineUser } from "react-icons/ai";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import { useEffect, useState } from "react";
 import { GetMonth } from "util/getMonth";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { findOneDemands } from "API/Demand/find.demand";
 import { updateProposal } from "API/Demand/Proposital/crud.proposal";
@@ -13,6 +13,7 @@ import { findProposal } from "API/Demand/Proposital/find.proposal";
 import { findTeam } from "API/Team/find.team";
 import { dataFormat } from "util/dateFormater";
 import { convertToArray } from "util/handleSelectorObj";
+import { selectCurentUser } from "app/reducers/auth/authSlice";
 
 interface IProposalList {
     state: boolean;
@@ -28,7 +29,6 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
     const [details, setDetails] = useState<any>();
 
     useEffect(() => {
-        console.log("sdsd");
         if (outDetails !== undefined) {
             openProposalData(outDetails);
         }

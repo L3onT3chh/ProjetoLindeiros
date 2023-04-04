@@ -1,13 +1,13 @@
 import NavBar from "components/NavBar";
 import { ContainerPage } from "pages/css/styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import imgNotFound from "assets/img/image 16.png";
 import ButtonDefault from "components/Buttons/ButtonDefault";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import InputStyle from "components/Inputs";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { showErrorMessage } from "util/function";
-import { changePassword } from "API/User/crud.user";
+import { changePassword, linkVerify } from "API/User/crud.user";
 
 export function RetrivePassword() {
   const nav = useNavigate();
@@ -15,6 +15,19 @@ export function RetrivePassword() {
 
   const [senha, setSenha] = useState("");
   const [confSenha, setConfSenha] = useState("");
+
+  useEffect(()=>{
+    if(link){
+      verifyLink(link);
+    }
+  }, [link]);
+
+  const verifyLink = async (link:string) =>{
+    let resp = await linkVerify(link);
+    if(!resp.response){
+      nav("/");
+    }
+  }
 
   const retrivePassword = async () => {
     if(senha.length === 0 || confSenha.length === 0){

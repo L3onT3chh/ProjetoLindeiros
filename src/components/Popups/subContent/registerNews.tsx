@@ -22,6 +22,8 @@ function RegisterNews({ setState }: IPropsGlobal) {
     city_id: "",
     title_url: "",
     axes_id: "",
+    createdAt: "",
+    Photos: []
   };
   const dispatch = useDispatch<AppDispatch>();
   const [file, setFile] = useState<File[]>();

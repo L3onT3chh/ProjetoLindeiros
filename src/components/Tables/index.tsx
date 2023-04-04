@@ -10,7 +10,7 @@ import { IStateData } from "interfaces/components.interface";
 import { useDispatch, useSelector } from "react-redux";
 import { mergeFilters, cleanFilters, filterSearch, filterCity, filterTypeUser } from "app/reducers/user/userSlice";
 import { AppDispatch } from "app/store";
-import { deleteUserThunk } from "app/reducers/user/thunk";
+import { deleteUserThunk, fetchUsersThunk } from "app/reducers/user/thunk";
 import { ContentProfile } from "components/style";
 
 interface IProps {
@@ -24,26 +24,8 @@ export function TableDefaultUser({ fields }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [userClicked, setUserClicked] = useState("");
 
-  // useEffect(() => {
-  //   if (users.filters.merge.length > 0) {
-  //     dispatch(filterSearch);
-  //   }
-  // }, [users.filters.search, users.filters.merge]);
-
-  // useEffect(() => {
-  //   if (users.filters.merge.length > 0) {
-  //     dispatch(filterCity);
-  //   }
-  // }, [users.filters.city, users.filters.merge]);
-
-  // useEffect(() => {
-  //   if (users.filters.merge.length > 0) {
-  //     dispatch(filterTypeUser);
-  //   }
-  // }, [users.filters.type, users.filters.merge]);
-
   useEffect(() => {
-    dispatch(cleanFilters());
+    dispatch(fetchUsersThunk());
   }, []);
 
   const [OpenUserCard, setOpenUserCard] = useState(false);

@@ -23,9 +23,7 @@ export function SelectMenuAlternative({
     <>
       {title &&
         (
-          <h2 className="title-h3" style={{ fontSize: "16px", marginBottom: "0" }}>
-            {title}
-          </h2>
+          <h2 className="title-h3" style={{ fontSize: "14px", marginBottom: "2.5px", opacity: "0.8" }}>{title}</h2>
         )
       }
       <ContainerSelectAlternative

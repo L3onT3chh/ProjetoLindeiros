@@ -6,7 +6,7 @@ import { CardDocs } from "components/CardDocs";
 import IDocument from "interfaces/data/document.interface";
 import PDefault from "components/Popups";
 import RegisterDocument from "components/Popups/subContent/registerDocument";
-import { selectUserLogged } from "app/reducers/auth/authSlice";
+import { selectCurentUser, selectUserLogged } from "app/reducers/auth/authSlice";
 import { verifyPermission } from "util/function";
 import { ContainerDocuments } from "./styled";
 import { BsUpload } from "react-icons/bs";
@@ -22,7 +22,19 @@ export function Documents() {
   const [search, setSearch] = useState("");
   const [refresh, setRefresh] = useState(false);
   const [openCard, setOpenCard] = useState(false);
-  const user = useSelector(selectUserLogged);
+  const [user, logged] = useSelector(selectCurentUser);
+  const [allowed, setAllowed] = useState(false);
+
+  useEffect(() => {
+    if (logged) {
+      if (user) {
+        if (convertToArray(user)[0].userType === "Administrador") {
+          setAllowed(true);
+        }
+      }
+    }
+  }, [user, logged, allowed])
+
 
   useEffect(() => {
     if (refresh) {
@@ -43,7 +55,7 @@ export function Documents() {
 
   return (
     <>
-      <NavBar />
+      <NavBar text="documents" />
       <ContainerDocuments>
         <PDefault
           height="80%"
@@ -63,7 +75,7 @@ export function Documents() {
 
             <div className="controls">
               <input type="text" placeholder="Pesquisar documento" onChange={(e) => handleSearch(e.target.value)} value={search} />
-              {user && verifyPermission(user[0].userType) && (
+              {allowed ?? (
                 <button className="btnUpload" onClick={() => setOpenCard(!openCard)}><BsUpload color="#fff" style={{ width: "40px" }} />Enviar arquivo</button>
               )}
             </div>

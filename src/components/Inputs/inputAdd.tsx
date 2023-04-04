@@ -17,6 +17,7 @@ function InputAdd({ setState, listValue, text }: IPropsGlobal) {
   return (
     <ContainerInputAdd>
       <input
+        maxLength={400}
         type="text"
         className="input-add-btn text-popup"
         placeholder={text || "Adicione um novo item"}

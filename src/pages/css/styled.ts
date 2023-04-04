@@ -28,6 +28,27 @@ export const ContainerPage = styled.div<SContainerProps>`
     }
   }
 
+  .limiter{
+    width: 80vw;
+    max-width: 1920px;
+    margin: auto;
+  }
+
+  .double-data{
+    display: flex;
+    column-gap: 10px;
+  }
+
+  &.complete{
+    .card{
+      max-height: 95%;
+      overflow: hidden auto !important;
+      h1{
+        font-size: 18px!important;
+      }
+    }
+  }
+
   &.notFound{
     .data-notFound{
       display: flex;
@@ -140,6 +161,7 @@ export const ContainerPage = styled.div<SContainerProps>`
         margin-top: 40px;
 
         p{
+          text-align: justify;
           color: #333;
           font-size: 1.1rem;
           line-height: 40px;
@@ -167,7 +189,7 @@ export const ContainerPage = styled.div<SContainerProps>`
             align-items: center;
             height: fit-content;
             padding: 0;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
 
             &::before{
               content: '.';
@@ -182,7 +204,7 @@ export const ContainerPage = styled.div<SContainerProps>`
 
             p{
               color: #333;
-              font-size: 15px;
+              font-size: 1.1rem;
               line-height: 30px;
             }
           }
@@ -411,11 +433,25 @@ export const ContainerPage = styled.div<SContainerProps>`
     overflow-y: auto;
     overflow-x: hidden;
     padding: 35px 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
 
+    .message{
+      h1{
+        font-size: 25px;
+        margin-bottom: 10px;
+        color: rgb(75, 209, 151);
+      }
+      p{
+        text-align: justify;
+        font-size: 14px;
+        line-height: 25px;
+        opacity: 0.9;
+        &:last-of-type{
+          margin-top: 15px;
+          font-size: 12px;
+          font-weight: bold;
+        }
+      }
+    }
     .form-login {
       .link-painel {
         color: white;
@@ -966,6 +1002,7 @@ export const ContainerPainel = styled.div<SContainerProps>`
       }
 
       .field-button {
+        max-width: 150px;
         width: 80%;
         color: #fff;
         padding: 5px 0;

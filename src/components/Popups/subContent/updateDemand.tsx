@@ -33,7 +33,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
   const [demandText, setDemandText] = useState("");
   const [demandPriority, setDemandPriority] = useState("");
   const [demandDescription, setDemandDescription] = useState("");
-  const [demandObjectives, setObjective] = useState("");
+  const [demandObjectives, setObjective] = useState([]);
   const user = useSelector(selectUserLogged);
   const demandFilter = useSelector((state: IStateData) =>
     (convertToArray(state.demands.demand) || []).filter((item) => item.id === demandId),
@@ -65,27 +65,22 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
   }, [demandFilter]);
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
-    if (user[0].id) {
+    if (convertToArray(user)[0].id) {
+      let specific = (demandObjectives) ? demandObjectives.join('@') : demandObjectives;
       dispatch(
         updateDemandsThunk({
           ...valuesSave,
-          user_id: user[0].id,
+          user_id: convertToArray(user)[0].id,
           city_id: demandCity,
           axes_id: demandAxes,
           description: demandDescription,
           generalText: demandText,
-          specificText: demandObjectives.toString(),
+          specificText: specific,
           priority: demandPriority,
           id: demandClicked?.id,
           name: demandName
         }),
       );
-    }
-  };
-  const handleSplit = (arrayData: string) => {
-    if (arrayData) {
-      const aux = arrayData.toString().split(",");
-      return aux;
     }
   };
 
@@ -109,6 +104,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
                     name="name"
                     required
                     valueChanges={demandName}
+                    maxLength={60}
                     placeholder="Nome"
                     title=""
                     type="text"
@@ -126,6 +122,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
                   name="generalText"
                   height="80px"
                   value={demandClicked && demandText}
+                  length={30000}
                   setState={setDemandText}
                   required
                   className="form-control-demand"
@@ -152,9 +149,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
                   <h1 className="title-h3">Objetivo da demanda</h1>
                   <div className="form-control-demand">
                     <ChipAdd
-                      listValue={
-                        demandClicked && handleSplit(demandObjectives)
-                      }
+                      listValue={demandClicked && demandObjectives}
                       reset={opened}
                       text="Objetivo especifico"
                       setState={setObjective}
@@ -167,6 +162,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
                   height="80px"
                   className="form-control-demand"
                   placeholder="Descrição"
+                  length={150}
                   title=""
                   setState={setDemandDescription}
                   name="description"
@@ -174,7 +170,7 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
               </div>{" "}
               <div className="btns-popup">
                 <button className="btn-close-two">Fechar</button>
-                <button className="btn-send" onClick={() => setState(false)}>
+                <button className="btn-send">
                   Enviar dados
                 </button>
               </div>

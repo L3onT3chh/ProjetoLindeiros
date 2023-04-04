@@ -3,6 +3,7 @@ import { IPropsGlobal } from "interfaces/components.interface"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import { Container } from "./style"
+import { convertToArray } from "util/handleSelectorObj"
 
 export const AutenticateCard = ({ children, text, title, setState, isPublic }: IPropsGlobal) => {
     const [user, logged] = useSelector(selectCurentUser);
@@ -15,7 +16,7 @@ export const AutenticateCard = ({ children, text, title, setState, isPublic }: I
                 return;
             }
             if (!isPublic && user) {
-                if (user[0].userType !== "Administrador") {
+                if (convertToArray(user)[0].userType !== "Administrador") {
                     setAllowed(false);
                 } else {
                     setAllowed(true);
@@ -26,7 +27,7 @@ export const AutenticateCard = ({ children, text, title, setState, isPublic }: I
     return allowed ? (
         <Container>
             <div className="contentArea">
-                <h1>Seja bem vindo, {(user) ? user[0].name : ''}</h1>
+                <h1>Seja bem vindo, {(user) ? convertToArray(user)[0].name : ''}</h1>
                 <p>{text}</p>
             </div>
             <div className="buttonArea">
