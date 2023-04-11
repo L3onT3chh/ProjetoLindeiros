@@ -41,7 +41,7 @@ export function MeuPainel() {
     dispatch(cleanDemand());
     dispatch(findAllByUsersThunk(auth.auth.user[0].id));
 
-    if(auth.auth.user[0].Notify){
+    if (auth.auth.user[0].Notify) {
       setNotificationObj(convertToArray(auth.auth.user[0].Notify));
     }
     // nav("/meupainel/demandas");
@@ -73,8 +73,8 @@ export function MeuPainel() {
   }
 
   const cleanNotifications = async () => {
-    if(notificationObj.length > 0){
-      let ids:string[] = notificationObj.map(notification => notification.id);
+    if (notificationObj.length > 0) {
+      let ids: string[] = notificationObj.map(notification => notification.id);
       let resp = await cleanUserNotify(ids);
 
       setNotificationObj([]);
@@ -86,18 +86,22 @@ export function MeuPainel() {
     <ContainerPainel>
       <MenuRight />
       <div className="container home nonadmin">
-        <PDefault
-          height="90%"
-          width="569"
-          title="Editar dados do usuario"
-          subtitle="Altere os dados desejados"
-          setTrigger={setUserUpdate}
-          trigger={userUpdate}
-          setPrimaryState={setSendUser}
-          primaryValue={sendUser}
-        >
-          <UpdateUser setPrimary={setSendUser} primaryValue={sendUser} setState={setUserUpdate} trigger={userUpdate} userId={auth.auth.user[0].id} removeSelects={true} />
-        </PDefault>
+        {auth.auth.user[0].id &&
+          (
+            <PDefault
+              height="90%"
+              width="569"
+              title="Editar dados do usuario"
+              subtitle="Altere os dados desejados"
+              setTrigger={setUserUpdate}
+              trigger={userUpdate}
+              setPrimaryState={setSendUser}
+              primaryValue={sendUser}
+            >
+              <UpdateUser setPrimary={setSendUser} primaryValue={sendUser} setState={setUserUpdate} trigger={userUpdate} userId={auth.auth.user[0].id} removeSelects={true} />
+            </PDefault>
+          )
+        }
         {notificationObj &&
           (
             <PDefault
