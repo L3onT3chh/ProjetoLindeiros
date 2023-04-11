@@ -16,7 +16,7 @@ import { showErrorMessage } from "util/function";
 import { selectUserLogged } from "app/reducers/auth/authSlice";
 import { convertToArray } from "util/handleSelectorObj";
 
-function RegisterDemandas({ setState }: IPropsGlobal) {
+function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
   const [userCity, setUserCity] = useState("");
   const [userAxes, setUserAxes] = useState("");
@@ -65,6 +65,13 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
 
     setReset(true);
   };
+
+  useEffect(() => {
+    if (primaryValue) {
+      setPrimary(false);
+      handleSavedData(values);
+    }
+  }, [primaryValue]);
 
   useEffect(() => {
     if (reset === true) {
@@ -163,14 +170,6 @@ function RegisterDemandas({ setState }: IPropsGlobal) {
                 setState={setUserDescription}
                 name="description"
               />
-            </div>
-            <div className="btns-popup">
-              <button type="button" className="btn-close-two" onClick={() => clean()}>
-                Limpar
-              </button>
-              <button className="btn-send" onClick={() => setState(false)}>
-                Enviar dados
-              </button>
             </div>
           </div>
         </form>

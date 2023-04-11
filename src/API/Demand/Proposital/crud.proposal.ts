@@ -1,19 +1,17 @@
 import API from "API";
 import { AxiosError } from "axios";
-import { HEADERS_DATA_POST, TokenUser } from "config";
+import { HEADERS_DATA, HEADERS_DATA_POST, TokenUser } from "config";
 import { IEProposal, IProposal, IProposalPost } from "interfaces/data/demand.interface";
 import QueryString from "qs";
 
 const RegisterProposal = async (proposalSave: IProposalPost) => {
   try {
-    const token = TokenUser()?.toString();
-    const headers = {
-      ...HEADERS_DATA_POST,
-      token: token?.trim(),
-    };
-    const Proposal = await API.post("/proposal", {
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
+    const Proposal = await API("/proposal", {
       headers,
-      form: { ...proposalSave },
+      method: "POST",
+      data: proposalSave,
     })
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
@@ -26,7 +24,7 @@ const RegisterProposal = async (proposalSave: IProposalPost) => {
     }
     return {
       status: 400,
-      message: "Tente novamente mais tarde",
+      message: Proposal.error,
     };
   } catch (err: any) {
     return {

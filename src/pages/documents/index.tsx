@@ -19,16 +19,18 @@ import { convertToArray } from "util/handleSelectorObj";
 export function Documents() {
   const dispatch = useDispatch<AppDispatch>();
   const document: any = useSelector((state: IStateData) => state.documents.filtered);
+  const { auth } = useSelector((state: IStateData) => state);
   const [search, setSearch] = useState("");
   const [refresh, setRefresh] = useState(false);
   const [openCard, setOpenCard] = useState(false);
   const [user, logged] = useSelector(selectCurentUser);
   const [allowed, setAllowed] = useState(false);
+  const [sendDocument, setSendDocument] = useState(false);
 
   useEffect(() => {
     if (logged) {
-      if (user) {
-        if (convertToArray(user)[0].userType === "Administrador") {
+      if (auth.auth.user) {
+        if (auth.auth.user[0].userType === "Administrador") {
           setAllowed(true);
         }
       }
@@ -45,6 +47,7 @@ export function Documents() {
 
   const refreshData = async () => {
     let resp = await findAllDocument();
+    console.log(resp);
     dispatch(refreshDocuments(resp));
   }
 
@@ -64,8 +67,10 @@ export function Documents() {
           subtitle="Preencha todos os campos marcados *"
           setTrigger={setOpenCard}
           trigger={openCard}
+          setPrimaryState={setSendDocument}
+          primaryValue={sendDocument}
         >
-          <RegisterDocument setState={setOpenCard} setRefresh={setRefresh} />
+          <RegisterDocument setPrimary={setSendDocument} primaryValue={sendDocument} setState={setOpenCard} setRefresh={setRefresh} />
         </PDefault>
         <div className="container">
           <div className="header-btn">
@@ -75,7 +80,7 @@ export function Documents() {
 
             <div className="controls">
               <input type="text" placeholder="Pesquisar documento" onChange={(e) => handleSearch(e.target.value)} value={search} />
-              {allowed ?? (
+              {allowed && (
                 <button className="btnUpload" onClick={() => setOpenCard(!openCard)}><BsUpload color="#fff" style={{ width: "40px" }} />Enviar arquivo</button>
               )}
             </div>

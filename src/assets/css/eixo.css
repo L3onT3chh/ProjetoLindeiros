@@ -78,7 +78,8 @@ html{
     justify-content: center;
     bottom: 50px;
     right: 50px;
-    z-index: 3;
+    z-index: 30;
+    background: var(--color-background);
     cursor: pointer;
     box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.65);
 }

@@ -100,6 +100,36 @@ export const sendEmail = async (email:string, subject:string, message:string) =>
   }
 };
 
+export const cleanUserNotify = async (ids: any) => {
+  try {
+    const token = TokenUser();
+    const headers = { ...HEADERS_DATA, token: `${token}` };
+
+    const user = await API("/userCleanNotify", {
+      headers,
+      method: "DELETE",
+      data: QueryString.stringify({notify:ids.toString()}),
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+    if (user.isValid) {
+      return {
+        status: 200,
+        message: "Ação realizada com sucesso!"
+      };
+    }
+    return {
+      status: 400,
+      message: user.error,
+    };
+  } catch (err: any) {
+    return {
+      status: 404,
+      message: err.message,
+    };
+  }
+};
+
 export const UpdateUser = async (userUpdate: IUserPostEdit) => {
   try {
     const token = TokenUser();

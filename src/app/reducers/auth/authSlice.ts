@@ -5,6 +5,7 @@ import { IStateData } from "interfaces/components.interface";
 import { IDataAuth } from "interfaces/data/auth.interface";
 import { showErrorMessage } from "util/function";
 import { convertToArray } from "util/handleSelectorObj";
+import { updateUserThunk } from "../user/thunk";
 
 const initialState: IDataAuth = {
   auth: {
@@ -38,6 +39,17 @@ const authSlice = createSlice({
         localStorage.clear();
         state.auth.user = [];
         showErrorMessage("Usuário inválido", "error");
+      }
+    });
+    builder.addCase(updateUserThunk.fulfilled, (state: IDataAuth, actions) => {
+      const { payload } = actions;
+
+      if (payload !== undefined) {
+        let temp:any = convertToArray(payload.response)[0];
+
+        if(temp.id === state.auth.user[0].id){
+          state.auth.user = convertToArray(payload.response);
+        }
       }
     });
   },

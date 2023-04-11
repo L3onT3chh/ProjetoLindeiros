@@ -29,10 +29,8 @@ function Home() {
   const { demands } = useSelector((state: IStateData) => state);
   const { news } = useSelector((state: IStateData) => state);
 
-  useEffect(()=>{
-    if(demands.demand.length === 0){
-      dispatch(fetchDemandsThunk());
-    }
+  useEffect(() => {
+    dispatch(fetchDemandsThunk());
   }, []);
   return (
     <>

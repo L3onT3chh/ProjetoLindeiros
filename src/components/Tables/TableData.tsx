@@ -39,6 +39,8 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
   const [trigger, setTrigger] = useState(true);
   const [deleteId, setDeleteId] = useState("");
 
+  const [editDemanded, setEditDemanded] = useState(false);
+
   const handleClicked = (id: string) => {
     if (id) {
       dispatch(clickedDemand(id));
@@ -99,8 +101,10 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
               subtitle="Altere os dados desejados"
               setTrigger={setOpenDemand}
               trigger={useOpenDemand}
+              setPrimaryState={setEditDemanded}
+              primaryValue={editDemanded}
             >
-              <UpdateDemand setState={setOpenDemand} demandId={dataUpdated} opened={useOpenDemand} />
+              <UpdateDemand setPrimary={setEditDemanded} primaryValue={editDemanded} setState={setOpenDemand} demandId={dataUpdated} opened={useOpenDemand} />
             </PDefault>
           )
         }
@@ -113,7 +117,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
           trigger={remove}
         >
           <ContentProfile>
-            <div className="content-default" style={{ padding: 0 }}>
+            <div className="content-default" style={{ padding: 0, height: "80px" }}>
               <form
                 action=""
                 onSubmit={(e) => {

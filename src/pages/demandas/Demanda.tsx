@@ -38,6 +38,7 @@ export function Demanda() {
   const { auth } = useSelector((state: IStateData) => state);
   const proposalList = useSelector((state: IStateData) => state.proposalList);
 
+  const [sendProposal, setSendProposal] = useState(false);
   const [OpenProposalCad, setOpenProposalCad] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string>("");
   const [specific, setSpecific] = useState<any>();
@@ -145,11 +146,15 @@ export function Demanda() {
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenProposalCad}
         trigger={OpenProposalCad}
+        setPrimaryState={setSendProposal}
+        primaryValue={sendProposal}
       >
         <RegisterProposal
           idDemand={demand.id}
           setTrigger={setOpenProposalCad}
           trigger={OpenProposalCad}
+          primaryValue={sendProposal}
+          setPrimary={setSendProposal}
         />
       </PDefault>
       <NavBar />

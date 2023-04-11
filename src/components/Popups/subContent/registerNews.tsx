@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputStyle from "components/Inputs";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { ContentProfile } from "components/style";
@@ -14,7 +14,7 @@ import { UploadBox } from "components/UploadBox";
 import { showErrorMessage } from "util/function";
 import { addNews } from "API/News/crud.news";
 
-function RegisterNews({ setState }: IPropsGlobal) {
+function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
   const initialState: INewsPost = {
     title: "",
@@ -54,17 +54,24 @@ function RegisterNews({ setState }: IPropsGlobal) {
     data.append("axes_id", axesId);
 
     let resp = await addNews(data);
-    console.log(resp);
-    // dispatch(
-    //   createNewssThunk({
-    //     ...valuesSave,
-    //     body: description,
-    //     city_id: cityId,
-    //     axes_id: axesId,
-    //   }),
-    // );
-    // setState(false);
+    
+    if(resp.status === 200){
+      showErrorMessage(resp.message, "success");
+      setName("");
+      setSelectAxes("none");
+      setSelectCity("none");
+      setSelectDescription("");
+      setFile(undefined);
+      setState(false);
+    }
   };
+
+  useEffect(() => {
+    if (primaryValue) {
+      setPrimary(false);
+      handleSavedData(values);
+    }
+  }, [primaryValue]);
 
   return (
     <ContentProfile>
@@ -116,10 +123,6 @@ function RegisterNews({ setState }: IPropsGlobal) {
             />
             <h1 className="title-h3">Imagens</h1>
             <UploadBox file={file} setFile={setFile} isMultiple={true} />
-            <div className="btns-popup">
-              <button className="btn-close-two">Fechar</button>
-              <button className="btn-send">Enviar dados</button>
-            </div>
           </div>
         </form>
       </div>

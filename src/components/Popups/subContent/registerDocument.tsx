@@ -1,5 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ContentProfile } from "components/style";
 import { useForm } from "util/form/useForm";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +14,7 @@ import { showErrorMessage } from "util/function";
 import { allowedExt, maxUploadSize } from "config";
 import { RegisterDocumenty } from "../../../API/Document/crud.documents";
 
-function RegisterDocument({ setState, setRefresh }: IPropsGlobal) {
+function RegisterDocument({ setState, setRefresh, primaryValue, setPrimary }: IPropsGlobal) {
   let input: any = useRef("");
   const { demands } = useSelector((state: IStateData) => state);
   const initialState: IDocumentPost = {
@@ -57,12 +57,22 @@ function RegisterDocument({ setState, setRefresh }: IPropsGlobal) {
 
     let resp = await RegisterDocumenty(data);
 
-    setState(false);
-    setTitle("");
-    cleanFile();
-    setRefresh(true);
+    if (resp && resp.status === 200) {
+      showErrorMessage(resp.message, "success");
+      setState(false);
+      setTitle("");
+      cleanFile();
+      setRefresh(true);
+    }
     // setState(false);
   };
+
+  useEffect(() => {
+    if (primaryValue) {
+      setPrimary(false);
+      handleSavedData(values);
+    }
+  }, [primaryValue]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -133,10 +143,6 @@ function RegisterDocument({ setState, setRefresh }: IPropsGlobal) {
             <div className="titleContent">
               <h2>Titulo documento</h2>
               <input type="text" name="name" onChange={(e) => setTitle(e.currentTarget.value)} value={title} placeholder="digite o titulo" />
-            </div>
-            <div className="btns-popup">
-              <button className="btn-close-two">Fechar</button>
-              <button className="btn-send">Enviar dados</button>
             </div>
           </div>
         </form>

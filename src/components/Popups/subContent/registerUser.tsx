@@ -16,13 +16,16 @@ import { getToast, setMessageToToast } from "app/reducers/toast/toastSlice";
 import cep from "cep-promise";
 import { showErrorMessage } from "util/function";
 import { selectUsersMessage } from "app/reducers/user/userSlice";
+import { exit } from "process";
 // import { findByCep } from "API/Cep";
 
 interface props {
   modal: any;
+  setPrimary: any;
+  primaryValue: any;
 }
 
-function RegisterUser({ modal }: props) {
+function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
   const [cityUser, setCity] = useState("");
@@ -34,7 +37,6 @@ function RegisterUser({ modal }: props) {
     email: "",
     cpf: "",
     born_date: "",
-    address: "",
     phone: "",
     phone_ddd: "",
     userType: "",
@@ -44,7 +46,7 @@ function RegisterUser({ modal }: props) {
   const { userTypes, city } = useSelector((state: IStateData) => state);
   const { onChange, values } = useForm(initialValue);
   const form: any = useRef();
-  const handleSaveData = async (form: any, valuesSave: IUserPost) => {
+  const handleSaveData = async (valuesSave: IUserPost) => {
     let pass = true;
     valuesSave.city = cityUser;
     valuesSave.userType = typeUser;
@@ -60,16 +62,27 @@ function RegisterUser({ modal }: props) {
       return;
     }
 
+    if (valuesSave.password !== valuesSave.confPassword) {
+      showErrorMessage("Senhas não coincidem", "error");
+      return;
+    }
+
     dispatch(
       createUserThunk({
         ...valuesSave,
-        userType: typeUser,
-        city: cityUser,
+        userType: typeUser
       }),
     );
 
     form.target.reset();
   };
+
+  useEffect(() => {
+    if (primaryValue) {
+      setPrimary(false);
+      handleSaveData(values);
+    }
+  }, [primaryValue]);
 
   useEffect(() => {
     if (form) {
@@ -85,7 +98,6 @@ function RegisterUser({ modal }: props) {
           action=""
           onSubmit={(e) => {
             e.preventDefault();
-            handleSaveData(e, values);
           }}
           ref={form}
         >
@@ -111,11 +123,11 @@ function RegisterUser({ modal }: props) {
             />
             <InputStyle
               onChange={onChange}
-              placeholder="CPF"
+              placeholder="CPF (somente numeros)"
               name="cpf"
               title=""
               maxLength={11}
-              type="number"
+              type="text"
               className="form-control-demand"
             />
             <div className="double-data" style={{ marginTop: "15px" }}>
@@ -125,7 +137,7 @@ function RegisterUser({ modal }: props) {
                 title=""
                 maxLength={2}
                 name="phone_ddd"
-                type="number"
+                type="text"
                 className="text-double"
               />
               <InputStyle
@@ -134,7 +146,7 @@ function RegisterUser({ modal }: props) {
                 title=""
                 maxLength={9}
                 name="phone"
-                type="phone"
+                type="text"
                 className="text-double"
               />
             </div>
@@ -142,7 +154,7 @@ function RegisterUser({ modal }: props) {
               onChange={onChange}
               placeholder="Data de nascimento"
               name="born_date"
-              title=""
+              title="Data de nascimento"
               type="date"
               className="form-control-demand"
             />
@@ -167,6 +179,7 @@ function RegisterUser({ modal }: props) {
                 options={city.city}
               />
             </div>
+            <h1 className="title-h3" style={{ marginTop: "20px" }}>Senha do usuario</h1>
             <InputStyle
               name="password"
               onChange={onChange}
@@ -176,13 +189,15 @@ function RegisterUser({ modal }: props) {
               type="password"
               className="form-control-demand"
             />
+            <InputStyle
+              name="confPassword"
+              onChange={onChange}
+              placeholder="Confirmar senha"
+              title=""
+              type="password"
+              className="form-control-demand"
+            />
           </div>
-          <div className="form-control-demand" />
-          <div className="btns-popup">
-            <button className="btn-close-two">Limpar</button>
-            <button className="btn-send">Enviar dados</button>
-          </div>
-          <div />
         </form>
       </div>
     </ContentProfile>

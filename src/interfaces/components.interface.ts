@@ -53,6 +53,8 @@ export interface IPropsGlobal extends SContainerProps {
   iconFinal?: any;
   author?: string;
   path?: string;
+  primaryValue?: any;
+  setPrimary?: any;
   reset?: boolean;
   setSelected?: SetStateAction<any>;
   eixos?: Array<string>;
@@ -107,6 +109,10 @@ export interface IPopup {
   trigger?: boolean;
   title?: string;
   subtitle?: string;
+  primaryText?: string;
+  setPrimaryState?: any;
+  primaryValue?: any;
+  primaryBlocked?: boolean;
   children?: JSX.Element;
 }
 

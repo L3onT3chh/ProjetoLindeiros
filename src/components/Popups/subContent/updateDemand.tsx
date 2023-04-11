@@ -21,9 +21,11 @@ interface IProps {
   demandId: string;
   setState: any;
   opened: boolean;
+  setPrimary: any;
+  primaryValue: any;
 }
 
-function UpdateDemand({ demandId, setState, opened }: IProps) {
+function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [demandClicked, setDemandClicked] = useState<IDemand>();
   const { city, axes } = useSelector((state: IStateData) => state);
@@ -63,6 +65,13 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
       setObjective(demandFilter.Objective.SpecificText.text);
     }
   }, [demandFilter]);
+
+  useEffect(() => {
+    if (primaryValue) {
+      setPrimary(false);
+      handleSavedData(values);
+    }
+  }, [primaryValue]);
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
     if (convertToArray(user)[0].id) {
@@ -168,12 +177,6 @@ function UpdateDemand({ demandId, setState, opened }: IProps) {
                   name="description"
                 />
               </div>{" "}
-              <div className="btns-popup">
-                <button className="btn-close-two">Fechar</button>
-                <button className="btn-send">
-                  Enviar dados
-                </button>
-              </div>
             </div>
           </form>
         </div>

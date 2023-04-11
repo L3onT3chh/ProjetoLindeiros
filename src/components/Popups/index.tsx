@@ -14,7 +14,12 @@ function PDefault({
   title,
   alternativeText,
   subtitle,
+  primaryText,
+  setPrimaryState,
+  primaryValue,
+  primaryBlocked
 }: IPopup) {
+
   return (
     <ContainerPopup
       className={className}
@@ -30,7 +35,15 @@ function PDefault({
           </div>
           <p className="btn-close" onClick={() => setTrigger(!trigger)} />
         </div>
-        <div className="container-popup">{children}</div>
+        <div className="container-popup" style={{height: (setPrimaryState) ? `calc(100% - ${(subtitle) ? "160" : "130"}px)` : "100%"}}>{children}</div>
+        {setPrimaryState &&
+          (
+            <div className="container-footer">
+              <button className="btn-close-two" onClick={() => setTrigger(!trigger)}>Fechar</button>
+              <button className="btn-send" onClick={() => { (!primaryBlocked) ? setPrimaryState(!primaryValue) : console.log("") }} disabled={primaryBlocked} style={{opacity: (primaryBlocked) ? "0.5" : "1"}}>{(primaryText) ?? "Enviar"}</button>
+            </div>
+          )
+        }
       </div>
     </ContainerPopup>
   );

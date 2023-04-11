@@ -34,6 +34,15 @@ export interface INotification {
   level: "success" | "error";
 }
 
+export interface ISystemNotify {
+  id: string;
+  createdAt: string;
+  user_id: string;
+  sender_id: string;
+  visited: string;
+  sendername?: string;
+}
+
 export interface IFilters {
   type: string;
   local: string;

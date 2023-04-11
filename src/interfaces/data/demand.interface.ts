@@ -15,7 +15,7 @@ export interface IDemand {
   Axes: IAxes;
   Cities: ICities;
   User: IUser;
-  Proposal?: IProposal[] | IProposal | undefined;
+  Proposal?: IProposal[] | IProposal;
 }
 
 export interface IDemandPost {
@@ -52,7 +52,7 @@ export interface ICities {
 }
 
 export interface IProposalPost {
-  time: string[];
+  time: string;
   description: string;
   value: string;
   deadline: string;

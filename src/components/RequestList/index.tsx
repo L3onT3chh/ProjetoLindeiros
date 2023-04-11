@@ -19,6 +19,7 @@ import { IRequest } from "interfaces/data/user.interface";
 import { requestAccept, requestDenied } from "API/User/crud.user";
 import { showErrorMessage } from "util/function";
 import { fetchRequestUsersThunk } from "app/reducers/user/thunk";
+import { CircleLoading } from "components/circleLoading";
 
 interface IProposalList {
     state: boolean;
@@ -28,24 +29,30 @@ interface IProposalList {
 
 export const RequestList = ({ state, setState, data }: IProposalList) => {
     const dispatch = useDispatch<AppDispatch>();
+    const [loading, setLoading] = useState(false);
+    const [loadingDenied, setLoadingDenied] = useState(false);
     const [list, setList] = useState<any>();
     const [demandId, setDemandId] = useState<any>();
     const [details, setDetails] = useState<any>();
 
     const acceptRequest = async (id:string) => {
         if(id && data.status === "1"){
+          setLoading(true);
           const resp = await requestAccept(id);
           if (resp.status === 200) showErrorMessage("Email enviado com sucesso!", "success");
           setState(false);
+          setLoading(false);
           dispatch(fetchRequestUsersThunk());
         }
     }
     const deniedRequest = async (id:string) => {
         // eslint-disable-next-line no-restricted-globals
         if(id && confirm("Tem certeza que deseja realizar essa ação?")){
+          setLoadingDenied(true);
           const resp = await requestDenied(id);
           if (resp.status === 200) showErrorMessage("Ação realizada com sucesso!", "success");
           setState(false);
+          setLoadingDenied(false);
           dispatch(fetchRequestUsersThunk());
         }
     }
@@ -71,8 +78,8 @@ export const RequestList = ({ state, setState, data }: IProposalList) => {
                     </div>
                 </div>
                 <div className="footer">
-                    <button className={"accept "+(data.status === "2" ? "disabled" : "")} onClick={() => acceptRequest(data.id)}>Aceitar</button>
-                    <button className="denied" onClick={() => deniedRequest(data.id)}>Negar</button>
+                    <button className={"accept "+(data.status === "2" ? "disabled" : "")} onClick={() => acceptRequest(data.id)} disabled={(loading || loadingDenied) ? true : false}>{(loading) ? <CircleLoading color="#fff"/> : "Aceitar"}</button>
+                    <button className="denied" onClick={() => deniedRequest(data.id)} disabled={(loading || loadingDenied) ? true : false}>{(loadingDenied) ? <CircleLoading color="#555"/> : "Negar"}</button>
                 </div>
             </div>
         </Container>

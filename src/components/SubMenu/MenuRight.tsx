@@ -12,12 +12,17 @@ import { demands, users } from "../../assets/icons";
 import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 import { convertToArray } from "util/handleSelectorObj";
+import { BiPaperPlane, BiPaperclip, BiUser, BiUserX } from "react-icons/bi";
+import { FaUsers } from "react-icons/fa";
+import { GrDocumentText } from "react-icons/gr";
+import { HiDocumentText } from "react-icons/hi";
 
 export function MenuRight() {
   const dispatch = useDispatch<AppDispatch>();
   const [openPopup, setOpenPopup] = useState(false);
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
   const [user] = useSelector(selectCurentUser);
+  const [addDemanded, setAddDemanded] = useState(false);
   const [menuAcess, setMenuAcess] = useState<any>({
     title: "Apresentação",
     subitems: [
@@ -37,6 +42,7 @@ export function MenuRight() {
   });
 
   useEffect(()=>{
+    console.log(convertToArray(user)[0]);
     if(user && convertToArray(user)[0].userType === "Administrador"){
       setMenuAcess({
         title: "Apresentação",
@@ -81,14 +87,16 @@ export function MenuRight() {
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenPopupDemandas}
         trigger={openPopupDemandas}
+        setPrimaryState={setAddDemanded}
+        primaryValue={addDemanded}
       >
-        <RegisterDemandas setState={setOpenPopupDemandas} />
+        <RegisterDemandas primaryValue={addDemanded} setPrimary={setAddDemanded} setState={setOpenPopupDemandas} />
       </PDefault>
 
       <ContainerMenuRight>
         <div className="container-header-painel">
           <Link
-            to="/painel"
+            to={(convertToArray(user)[0].userType === "Administrador") ? "/painel" : "/meupainel"}
             style={{ color: "#fff" }}
           >
             <h1 className="title-h1">Painel</h1>
@@ -109,20 +117,20 @@ export function MenuRight() {
 
         <div className="content-data">
           <ChipCard
-            icon={demands}
+            Icon={()=> <BiPaperPlane size={18}/>}
             optionsMenu={[menuAcess]}
             text="Acessos"
           />
           {convertToArray(user)[0].userType === "Administrador" &&
             (
               <ChipCard
-                icon={users}
+                Icon={()=> <FaUsers size={18}/>}
                 optionsMenu={[
                   {
                     title: "Listagem",
                     subitems: [
                       {
-                        name: "Lista de Usuários",
+                        name: "Listar Usuários",
                         url: "painel/users",
                       },
                       {
@@ -144,7 +152,7 @@ export function MenuRight() {
           {convertToArray(user)[0].userType !== "Administrador" &&
             (
               <ChipCard
-                icon={users}
+                Icon={()=> <BiUser size={18}/>}
                 optionsMenu={[
                   {
                     title: "Meu perfil",
@@ -158,10 +166,10 @@ export function MenuRight() {
           }
 
           <ChipCard
-            icon={demands}
+            Icon={()=> <HiDocumentText size={18} color="#fff"/>}
             optionsMenu={[
               {
-                title: "Inserir",
+                title: "Inserir demanda",
                 activePopUp: true,
                 setTrigger: () => setOpenPopupDemandas(!openPopupDemandas),
               },
@@ -169,7 +177,7 @@ export function MenuRight() {
                 title: "Listagem",
                 subitems: [
                   {
-                    name: "Demandas",
+                    name: "Listar demandas",
                     url: (convertToArray(user)[0].userType === "Administrador") ? "painel/demandas" : "meupainel/demandas",
                   },
                 ],

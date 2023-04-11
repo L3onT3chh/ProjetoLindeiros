@@ -944,7 +944,7 @@ export const ContainerSelect = styled.select<SContainerProps>`
 `;
 
 export const ContainerMenuRight = styled.div<SContainerProps>`
-  position: relative;
+  position: fixed;
   width: 300px;
   height: 100vh;
   color: white;
@@ -1106,6 +1106,44 @@ export const ButtonMenu = styled.button<SContainerProps>`
   border-bottom-right-radius: 9px;
 `;
 
+export const NotificationContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  .notFound{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p{
+      color: #777;
+    }
+  }
+  .item{
+    width: 100%;
+    display: grid;
+    padding: 20px;
+    grid-template-columns: 50px auto;
+    grid-gap: 25px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    .icon{
+      background-color: #c6f2ec;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .info{
+      .time{
+        font-size: 14px;
+        color: #888;
+      }
+    }
+  }
+`
+
 export const ContainerChipLeft = styled.div`
   display: flex;
   flex-direction: row;
@@ -1155,6 +1193,9 @@ export const ContainerPopup = styled.div<SContainerProps>`
   overflow: hidden;
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .container-loading {
     display: flex;
@@ -1176,6 +1217,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
     height: ${(props) => props.height};
     margin: 30px auto;
     background: white;
+    max-height: 800px;
     overflow: hidden;
 
     @media screen and (max-width: 1000px) {
@@ -1226,8 +1268,6 @@ export const ContainerPopup = styled.div<SContainerProps>`
 
     .container-popup {
       width: 100%;
-      height: 78%;
-      padding-bottom: 60px;
       overflow-y: auto;
 
       &::-webkit-scrollbar {
@@ -1245,6 +1285,44 @@ export const ContainerPopup = styled.div<SContainerProps>`
 
       &::-webkit-scrollbar-thumb:hover {
         background: #777;
+      }
+    }
+
+    .container-footer{
+      display: flex;
+      justify-content: flex-end;
+      column-gap: 2.5%;
+      width: 100%;
+      margin-top: 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      height: 80px;
+      background: #fff;
+
+      .btn-send,
+      .btn-close-two {
+        padding: 10px;
+        border-radius: 5px;
+        width: 25%;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: "Roboto", sans-serif;
+      }
+
+      .btn-send {
+        background-color: var(--color-background);
+        color: white;
+      }
+      .btn-close-two {
+        background-color: white;
+        border: 1px solid var(--color-background);
+        color: var(--color-background);
+        opacity: 0.7;
       }
     }
   }
@@ -1278,6 +1356,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
 `;
 
 export const ContentProfile = styled.div`
+  height: 100%;
   .content-default {
     padding: 18px;
 

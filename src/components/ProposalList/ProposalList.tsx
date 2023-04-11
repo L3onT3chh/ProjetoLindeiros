@@ -49,7 +49,7 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
 
                     if (proposal.data) {
                         console.log(proposal.data.ProposalList)
-                        setList(proposal.data.ProposalList);
+                        setList(convertToArray(proposal.data.ProposalList));
                     }
                 }
             }

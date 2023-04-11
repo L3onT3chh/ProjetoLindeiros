@@ -24,6 +24,9 @@ export function TableDefaultUser({ fields }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
   const [userClicked, setUserClicked] = useState("");
 
+  const [editUser, setEditUser] = useState(false);
+  const [deleteUser, setDeleteUser] = useState(false);
+
   useEffect(() => {
     dispatch(fetchUsersThunk());
   }, []);
@@ -49,6 +52,13 @@ export function TableDefaultUser({ fields }: IProps) {
     setRemove(true);
     setDeleteId(id);
   }
+
+  useEffect(() => {
+    if (deleteUser) {
+      setDeleteUser(false);
+      handleRemoveUser();
+    }
+  }, [deleteUser]);
   return users ? (
     <>
       <div className="data-user-poup">
@@ -59,8 +69,10 @@ export function TableDefaultUser({ fields }: IProps) {
           subtitle="Preencha todos os campos marcados *"
           setTrigger={setOpenUserCard}
           trigger={OpenUserCard}
+          setPrimaryState={setEditUser}
+          primaryValue={editUser}
         >
-          <UpdateUser userId={userClicked} trigger={OpenUserCard} setState={setOpenUserCard} />
+          <UpdateUser primaryValue={editUser} setPrimary={setEditUser} userId={userClicked} trigger={OpenUserCard} setState={setOpenUserCard} />
         </PDefault>
         <PDefault
           height="fit-content"
@@ -69,22 +81,17 @@ export function TableDefaultUser({ fields }: IProps) {
           subtitle="Deseja realmente excluir esse usuario?"
           setTrigger={setRemove}
           trigger={remove}
+          setPrimaryState={setDeleteUser}
+          primaryValue={deleteUser}
         >
           <ContentProfile>
-            <div className="content-default" style={{ padding: 0 }}>
+            <div className="content-default" style={{ padding: 0, height: "80px" }}>
               <form
                 action=""
                 onSubmit={(e) => {
                   e.preventDefault();
                 }}
               >
-                <br />
-                <div className="content-basic-data">
-                  <div className="btns-popup" style={{ borderTop: 0 }}>
-                    <button className="btn-close-two">Fechar</button>
-                    <button className="btn-send" onClick={() => handleRemoveUser()}>Confirmar</button>
-                  </div>
-                </div>
               </form>
             </div>
           </ContentProfile>

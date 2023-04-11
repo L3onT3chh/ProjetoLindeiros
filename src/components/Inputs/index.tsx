@@ -9,6 +9,7 @@ interface IPros {
   placeholder: string;
   type: string;
   required?: boolean;
+  autocomplete?: boolean;
   className?: string;
   onChange?: (event: any) => void;
   minLength?: number;
@@ -32,10 +33,11 @@ function InputStyle({
   valueChanges,
   required,
   height,
-  marginB
+  marginB,
+  autocomplete
 }: IPros) {
   return (
-    <ContainerInput className={className}>
+    <ContainerInput className={className} style={{height: (type === "hidden") ? "1px" : "initial" }}>
       {title &&
         (
           <h2 className="title-h3" style={{ fontSize: "14px", marginBottom: "2.5px", opacity: "0.8" }}>{title}</h2>
@@ -48,6 +50,7 @@ function InputStyle({
         value={valueChanges}
         className="text-popup"
         minLength={minLength}
+        autoComplete={(!autocomplete) ? "on" : "new-password"}
         maxLength={maxLength}
         type={type}
         style={{height:height, marginBottom: (marginB) ? marginB : "5px"}}

@@ -15,7 +15,7 @@ export function MyProfile() {
 
   useEffect(()=>{
     if(auth){
-      setProfile(convertToArray(auth.auth.user[0]))
+      setProfile(convertToArray(auth.auth.user)[0])
     }
   }, [auth])
 

@@ -32,6 +32,8 @@ export function News() {
   const { news } = useSelector((state: IStateData) => state.news);
   const [newsData, setNews] = useState<INewsUseState>();
   const [newsRamdom, setNewsRamdom] = useState<INewsPost[]>();
+  const [sendNews, setSendNews] = useState(false);
+
   // Refazer com styled component
 
   useEffect(() => {
@@ -82,8 +84,10 @@ export function News() {
                 subtitle="Preencha todos os campos marcados *"
                 setTrigger={setPNews}
                 trigger={openPNews}
+                setPrimaryState={setSendNews}
+                primaryValue={sendNews}
               >
-                <RegisterNews setState={setPNews} />
+                <RegisterNews primaryValue={sendNews} setPrimary={setSendNews} setState={setPNews} />
               </PDefault>
             </AutenticateCard>
             <div className="itens" style={{ marginTop: (user) ? "20px" : "0" }}>
@@ -138,7 +142,7 @@ export function News() {
                 {newsData && newsData.newsRemaining.map((item) => (
                   <Link to={item.title_url} className="item" key={item.title}>
                     <ContainerBackground
-                      background={(item.Photos) ? `url(${apiUrl + "/" + convertToArray(item.Photos)[0].path + convertToArray(item.Photos)[0].name})` : ImagesEixos.default[7].image}
+                      background={(item.Photos) ? apiUrl + "/" + convertToArray(item.Photos)[0].path + convertToArray(item.Photos)[0].name : ImagesEixos.default[7].image}
                       className="img"
                     />
                     <div className="info">

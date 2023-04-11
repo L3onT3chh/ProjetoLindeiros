@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerChipCard } from "../style";
 
-export function ChipCard({ text, optionsMenu, icon }: IPropsGlobal) {
+export function ChipCard({ text, optionsMenu, Icon }: IPropsGlobal) {
   return (
     <ContainerChipCard>
       <div className="content-body-painel">
-        <img src={icon} alt="icon" />
+        <Icon/>
         <h2 className="title-h2">{text}</h2>
       </div>
       <div className="content-options-painel">

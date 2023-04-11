@@ -1,4 +1,4 @@
-import { IResponseData } from "interfaces/global.interface";
+import { INotification, IResponseData, ISystemNotify } from "interfaces/global.interface";
 import { ICities } from "./demand.interface";
 
 export interface IUserLogin {
@@ -13,7 +13,6 @@ export interface IUserType {
 }
 
 export interface IUser {
-  address: string;
   city: string;
   city_id?: string;
   cpf: string;
@@ -26,6 +25,7 @@ export interface IUser {
   born_date: string;
   userType_id?: string;
   userType: string;
+  Notify?: ISystemNotify[] | ISystemNotify;
 }
 
 export interface IRequest {
@@ -46,11 +46,11 @@ export interface IUserPost {
   email: string;
   cpf: string;
   born_date: string;
-  address: string;
   phone: number | string;
   phone_ddd: number | string;
   userType: string;
   city: string;
+  confPassword?: string;
   password: string;
 }
 
@@ -60,7 +60,6 @@ export interface IUserPostEdit {
   email: string;
   cpf: string;
   born_date: string;
-  address: string;
   phone: number | string;
   phone_ddd: number | string;
   userType: string;

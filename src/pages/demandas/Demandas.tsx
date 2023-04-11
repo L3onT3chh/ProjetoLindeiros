@@ -38,6 +38,7 @@ export default function Demandas() {
   const [user, logged] = useSelector(selectCurentUser);
   const dispatch = useDispatch<AppDispatch>();
   const [filterState, setFilterState] = useState(false);
+  const [sendDemand, setSendDemand] = useState(false);
   const { demands, city, axes } = useSelector((state: IStateData) => state);
   const { demand } = useSelector((state: IStateData) => state.demands);
 
@@ -208,8 +209,10 @@ export default function Demandas() {
                     subtitle="Preencha todos os campos marcados *"
                     setTrigger={setOpenPopupDemandas}
                     trigger={openPopupDemandas}
+                    setPrimaryState={setSendDemand}
+                    primaryValue={sendDemand}
                   >
-                    <RegisterDemandas setState={setOpenPopupDemandas} />
+                    <RegisterDemandas setState={setOpenPopupDemandas} setPrimary={setSendDemand} primaryValue={sendDemand} />
                   </PDefault>
                 </AutenticateCard>
                 <div className="filters-demandas">

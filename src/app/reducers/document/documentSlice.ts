@@ -74,7 +74,9 @@ export const documentSlice = createSlice({
     },
     refreshDocuments(state: IDataDocument, action) {
       let temp = action.payload;
+
       state.document = temp;
+      state.filtered = temp;
     },
     filterDocuments(state: IDataDocument, action) {
       const { payload } = action;

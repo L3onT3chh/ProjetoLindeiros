@@ -37,6 +37,7 @@ export function Listagem({
   const [typeSelector, setTypeSelector] = useState<string>();
   const [searchSelector, setSearchSelector] = useState<string>();
   const [disabled, setDisabled] = useState<boolean>(false);
+  const [addUser, setAddUser] = useState(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -56,15 +57,15 @@ export function Listagem({
     let typeTemp = typeSelector ?? "none";
     let searchTemp = searchSelector ?? "";
 
-    if(cityTemp !== "none" || typeTemp !== "none" || searchTemp !== ""){
+    if (cityTemp !== "none" || typeTemp !== "none" || searchTemp !== "") {
       setDisabled(true);
-    }else{
+    } else {
       setDisabled(false);
     }
 
-    if(type === "Pedidos"){
+    if (type === "Pedidos") {
       dispatch(filterAllRequest({ "citySelector": cityTemp, "typeSelector": typeTemp, "searchSelector": searchTemp }));
-    }else{
+    } else {
       dispatch(filterAll({ "citySelector": cityTemp, "typeSelector": typeTemp, "searchSelector": searchTemp }));
     }
   }
@@ -79,27 +80,33 @@ export function Listagem({
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenUserCard}
         trigger={OpenUserCard}
+        setPrimaryState={setAddUser}
+        primaryValue={addUser}
       >
-        <RegisterUser modal={OpenUserCard} />
+        <RegisterUser primaryValue={addUser} setPrimary={setAddUser} modal={OpenUserCard} />
       </PDefault>
       <MenuRight />
       <div className="container">
         <div className="content-header">
-          <div className="btn-header">
-            <ButtonCard
-              router="/painel/users/"
-              state={OpenUserCard}
-              setState={setOpenUserCard}
-              value={`Adicionar ${type}`}
-            />
-          </div>
+          {type !== "Pedidos" &&
+            (
+              <div className="btn-header">
+                <ButtonCard
+                  router="/painel/users/"
+                  state={OpenUserCard}
+                  setState={setOpenUserCard}
+                  value={`Adicionar ${type}`}
+                />
+              </div>
+            )
+          }
           <InputSearch
             reset={reset}
             valueDefault={searchSelector}
             background="#cecece"
             text={(type === "Pedidos") ? "Pesquisar usuário por e-mail" : "Pesquisar usuário por nome"}
-            size="83%"
-            borderRadius="40px 0 0 40px"
+            size={(type === "Pedidos") ? "100%" : "83%"}
+            borderRadius={(type === "Pedidos") ? "40px" : "40px 0 0 40px"}
             setState={setSearchSelector}
           />
         </div>

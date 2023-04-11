@@ -50,7 +50,8 @@ export const ContainerDocuments = styled.div`
     }
     .content-docs{
       display: flex;
-      grid-gap: 25px;
+      grid-gap: 22px;
+      flex-wrap: wrap;
       .notFound{
         border: 1px solid #f3f3f3;
         background: #fbfbfb;

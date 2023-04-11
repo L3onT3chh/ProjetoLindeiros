@@ -17,13 +17,14 @@ export const RegisterDocumenty = async (documentPost: any) => {
       .then((response) => response.data)
       .catch((err: AxiosError) => err);
 
+      console.log(document);
     if (document.error) {
       return {
         response: 400,
         message: document.error,
       };
     }
-    if (document.status === 200) {
+    if (document.isValid) {
       return {
         status: 200,
         message: "Documento registrado com sucesso!",

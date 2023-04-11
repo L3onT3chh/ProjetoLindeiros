@@ -2,6 +2,7 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import {
+  createUserRequestThunk,
   createUserThunk,
   deleteUserThunk,
   fetchRequestUsersThunk,
@@ -40,7 +41,7 @@ export const userSlice = createSlice({
     builder.addCase(fetchUsersThunk.pending, (state: IDataUser) => {
       state.loading = true;
     });
-    builder.addCase(fetchRequestUsersThunk.fulfilled, (state: IDataUser, action:any) => {
+    builder.addCase(fetchRequestUsersThunk.fulfilled, (state: IDataUser, action: any) => {
       const { payload } = action;
       if (payload !== undefined) {
         state.requestUsers = payload.response;
@@ -68,12 +69,25 @@ export const userSlice = createSlice({
     builder.addCase(createUserThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
       state.typeMessage = ``;
-      if (payload !== undefined) {
+      console.log(payload);
+      if (payload !== undefined && payload.status !== 400) {
         state.users.push(payload.user);
         state.fullUsers.push(payload.user);
         state.typeMessage = `${payload.status}`;
         state.loading = false;
         state.message = payload.message;
+      }
+    });
+    builder.addCase(createUserRequestThunk.fulfilled, (state: IDataUser, action) => {
+      const { payload } = action;
+      state.typeMessage = ``;
+
+      if (payload.status === 400) {
+        state.error = payload.message;
+      }
+
+      if (payload.status === 200) {
+        state.error = "";
       }
     });
     builder.addCase(deleteUserThunk.fulfilled, (state: IDataUser, action) => {
@@ -167,24 +181,24 @@ export const userSlice = createSlice({
       let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
       let typeEmpty = (payload.typeSelector.length == 0 || payload.typeSelector == "none");
 
-      if(!cityEmpty){
+      if (!cityEmpty) {
         temp = temp.filter((user) => user.city_id === payload.citySelector);
       }
 
-      if(!typeEmpty){
+      if (!typeEmpty) {
         temp = temp.filter((user) => user.userType_id === payload.typeSelector);
       }
 
-      if(payload.searchSelector.length > 0){
+      if (payload.searchSelector.length > 0) {
         temp = temp.filter((user) => user.name.toLocaleLowerCase()
-        .includes(payload.searchSelector.toLocaleLowerCase()));
+          .includes(payload.searchSelector.toLocaleLowerCase()));
       }
 
       console.log(payload);
-      if(cityEmpty && typeEmpty && payload.searchSelector.length == 0){
+      if (cityEmpty && typeEmpty && payload.searchSelector.length == 0) {
         temp = state.fullUsers;
       }
-      
+
       state.users = temp;
     },
     filterAllRequest: (state: IDataUser, action) => {
@@ -195,24 +209,33 @@ export const userSlice = createSlice({
       let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
       let typeEmpty = (payload.typeSelector.length == 0 || payload.typeSelector == "none");
 
-      if(!cityEmpty){
+      if (!cityEmpty) {
         temp = temp.filter((user) => user.city_id === payload.citySelector);
       }
 
-      if(!typeEmpty){
+      if (!typeEmpty) {
         temp = temp.filter((user) => user.userType_id === payload.typeSelector);
       }
 
-      if(payload.searchSelector.length > 0){
+      if (payload.searchSelector.length > 0) {
         temp = temp.filter((user) => user.email.toLocaleLowerCase()
-        .includes(payload.searchSelector.toLocaleLowerCase()));
+          .includes(payload.searchSelector.toLocaleLowerCase()));
       }
 
-      if(cityEmpty && typeEmpty && payload.searchSelector.length == 0){
+      if (cityEmpty && typeEmpty && payload.searchSelector.length == 0) {
         temp = state.fullRequestUsers;
       }
-      
+
       state.requestUsers = temp;
+    },
+    cleanNotification: (state: IDataUser, action) => {
+      const { payload } = action;
+
+      let temp = state.fullUsers.filter(user => user.id === payload)[0];
+      
+      if(temp.Notify){
+        temp.Notify = [];
+      }
     },
     mergeFilters: (state: IDataUser) => {
       const { city, type, search } = state.filters;
@@ -249,6 +272,9 @@ export const userSlice = createSlice({
         (user) => user.id === payload,
       )[0];
     },
+    cleanMessage: (state: IDataUser) => {
+      state.error = "";
+    },
     deleteUser: () => { },
     updateUser: () => { },
   },
@@ -264,10 +290,13 @@ export const {
   mergeFilters,
   cleanFilters,
   filterAll,
-  filterAllRequest
+  filterAllRequest,
+  cleanMessage,
+  cleanNotification
 } = userSlice.actions;
 
 export default userSlice.reducer;
 
 export const selectUsersMessage = (state: IStateData) => state.users;
+export const usersErrors = (state: IStateData) => state.users.error;
 ;

@@ -21,6 +21,7 @@ export function ListagemDemanda({
 }: IPropsGlobal) {
   let dispatch = useDispatch<AppDispatch>();
   const [openPopupDemandas, setOpenPopupDemandas] = useState(false);
+  const [addDemanded, setAddDemanded] = useState(false);
   const [search, setSearch] = useState<any>();
 
   useEffect(() => {
@@ -38,8 +39,10 @@ export function ListagemDemanda({
         subtitle="Preencha todos os campos marcados *"
         setTrigger={setOpenPopupDemandas}
         trigger={openPopupDemandas}
+        setPrimaryState={setAddDemanded}
+        primaryValue={addDemanded}
       >
-        <RegisterDemandas setState={setOpenPopupDemandas} />
+        <RegisterDemandas primaryValue={addDemanded} setPrimary={setAddDemanded} setState={setOpenPopupDemandas} />
       </PDefault>
 
       <MenuRight />
