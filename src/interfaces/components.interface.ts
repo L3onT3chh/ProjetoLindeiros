@@ -154,7 +154,7 @@ export interface IStateData {
   demands: IDataDemand;
   documents: IDataDocument;
   userTypes: IDataTypes;
-  proposalList: IDataProposal;
+  proposal: IDataProposal;
   city: IDataCity;
   axes: IDataAxes;
   toast: IDataToast;

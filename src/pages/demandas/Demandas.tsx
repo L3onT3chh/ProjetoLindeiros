@@ -211,6 +211,7 @@ export default function Demandas() {
                     trigger={openPopupDemandas}
                     setPrimaryState={setSendDemand}
                     primaryValue={sendDemand}
+                    primaryBlocked={sendDemand}
                   >
                     <RegisterDemandas setState={setOpenPopupDemandas} setPrimary={setSendDemand} primaryValue={sendDemand} />
                   </PDefault>

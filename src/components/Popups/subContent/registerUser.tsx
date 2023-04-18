@@ -23,14 +23,18 @@ interface props {
   modal: any;
   setPrimary: any;
   primaryValue: any;
+  setState?: any;
 }
 
-function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
+function RegisterUser({ modal, setPrimary, primaryValue, setState  }: props) {
   const dispatch = useDispatch<AppDispatch>();
+  const loading = useSelector((state: IStateData) => state.users.loading);
   const [typeUser, setTypeUser] = useState("");
   const [cityUser, setCity] = useState("");
   const [cityDefault, setCityDefault] = useState("");
   const [addressFull, setAddressFul] = useState("");
+
+  const [reset, setReset] = useState(false);
 
   const initialValue: IUserPost = {
     name: "",
@@ -74,12 +78,19 @@ function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
       }),
     );
 
+    setReset(true);
     form.target.reset();
   };
 
+  useEffect(()=>{
+    if(!loading && reset){
+      setState(false);
+      setPrimary(false);
+    }
+  }, [loading, reset, setReset, setPrimary])
+
   useEffect(() => {
     if (primaryValue) {
-      setPrimary(false);
       handleSaveData(values);
     }
   }, [primaryValue]);
@@ -101,6 +112,7 @@ function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
           }}
           ref={form}
         >
+          <input type="hidden" value="something" />
           <div className="content-basic-data">
             <h1 className="title-h3">Dados básicos</h1>
             <InputStyle
@@ -116,6 +128,7 @@ function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
               onChange={onChange}
               name="email"
               placeholder="Email"
+              autocomplete
               maxLength={80}
               title=""
               type="email"
@@ -184,6 +197,7 @@ function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
               name="password"
               onChange={onChange}
               placeholder="Senha"
+              autocomplete
               maxLength={60}
               title=""
               type="password"
@@ -193,6 +207,7 @@ function RegisterUser({ modal, setPrimary, primaryValue  }: props) {
               name="confPassword"
               onChange={onChange}
               placeholder="Confirmar senha"
+              autocomplete
               title=""
               type="password"
               className="form-control-demand"

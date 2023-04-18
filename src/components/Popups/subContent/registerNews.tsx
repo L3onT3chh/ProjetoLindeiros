@@ -16,6 +16,8 @@ import { addNews } from "API/News/crud.news";
 
 function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
+  const { loading } = useSelector((state: IStateData) => state.news);
+  const [reset, setReset] = useState(false);
   const initialState: INewsPost = {
     title: "",
     body: "",
@@ -63,12 +65,18 @@ function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
       setSelectDescription("");
       setFile(undefined);
       setState(false);
+      setReset(true);
     }
   };
 
+  useEffect(()=>{
+    if(!loading && reset){
+      setPrimary(false);
+    }
+  }, [loading, reset, setReset, setPrimary])
+
   useEffect(() => {
     if (primaryValue) {
-      setPrimary(false);
       handleSavedData(values);
     }
   }, [primaryValue]);

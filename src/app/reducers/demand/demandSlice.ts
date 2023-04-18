@@ -216,3 +216,4 @@ export const {
 export default demandSlice.reducer;
 
 export const selectCurrentDemands = (state: IStateData) => state.demands;
+export const demandLoading = (state: IStateData) => state.demands.loading;

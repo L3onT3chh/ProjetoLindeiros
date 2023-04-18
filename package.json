@@ -30,6 +30,7 @@
     "react-loadings": "^1.0.0",
     "react-notification": "^6.8.5",
     "react-notification-provider": "^0.6.0",
+    "react-paginate": "^8.2.0",
     "react-redux-loading-bar": "^5.0.4",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",

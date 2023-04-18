@@ -10,10 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { logout, selectCurentUser } from "app/reducers/auth/authSlice";
 import { ComponenteDropdown, ContainerNavBar, ContentNav } from "../style";
+import { convertToArray } from "util/handleSelectorObj";
 
 function NavBar({ className, text }: IPropsGlobal) {
   const [user, logged] = useSelector(selectCurentUser);
-  const dataA: any = user;
+  const dataA: any = convertToArray(user)[0];
   const dispatch = useDispatch<AppDispatch>();
   const [stateNav, setState] = useState(false);
 
@@ -74,18 +75,12 @@ function NavBar({ className, text }: IPropsGlobal) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  {logged && dataA.userType === "Administrador" ? (
-                    <Dropdown.Item href="/painel">
-                      <a href="/painel">
-                        <span className="text-item">Acessar Painel</span>
-                      </a>
-                    </Dropdown.Item>
-                  ) : (
+                  {logged && (
                     <Dropdown.Item href="/meupainel">
-                      <a href="/meupainel">
-                        <span className="text-item">Acessar Painel</span>
-                      </a>
-                    </Dropdown.Item>
+                    <a href="/meupainel">
+                      <span className="text-item">Acessar Painel</span>
+                    </a>
+                  </Dropdown.Item>
                   )}
                   <Dropdown.Item href="/login">
                     <Link

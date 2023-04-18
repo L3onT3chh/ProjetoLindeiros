@@ -27,6 +27,7 @@ interface IProps {
 
 function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: IProps) {
   const dispatch = useDispatch<AppDispatch>();
+  const loading = useSelector((state: IStateData) => state.demands.loading);
   const [demandClicked, setDemandClicked] = useState<IDemand>();
   const { city, axes } = useSelector((state: IStateData) => state);
   const [demandName, setDemandName] = useState("");
@@ -40,6 +41,7 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
   const demandFilter = useSelector((state: IStateData) =>
     (convertToArray(state.demands.demand) || []).filter((item) => item.id === demandId),
   )[0];
+  const [reset, setReset] = useState(false);
   const initialValues: IDemandPost = {
     description: "",
     generalText: "",
@@ -68,10 +70,16 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
 
   useEffect(() => {
     if (primaryValue) {
-      setPrimary(false);
       handleSavedData(values);
     }
   }, [primaryValue]);
+
+  useEffect(()=>{
+    if(!loading && reset){
+      setState(false);
+      setPrimary(false);
+    }
+  }, [loading, reset, setReset, setPrimary])
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
     if (convertToArray(user)[0].id) {
@@ -90,6 +98,7 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
           name: demandName
         }),
       );
+      setReset(true);
     }
   };
 

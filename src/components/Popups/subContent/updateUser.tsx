@@ -28,9 +28,12 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
     state.users.users.filter((item) => item.id === userId),
   )[0];
 
+  const loading = useSelector((state: IStateData) => state.users.loading);
+
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
   const [userFiltered, setUserFiltered] = useState<IUser>();
+  const [reset, setReset] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -110,14 +113,20 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
         }),
       );
     }
-    setState(false);
+    setReset(true);
     setPassword("");
     setConfPassword("");
   };
 
+  useEffect(()=>{
+    if(!loading && reset){
+      setPrimary(false);
+      setState(false);
+    }
+  }, [loading, reset, setReset, setPrimary])
+
   useEffect(() => {
     if (primaryValue) {
-      setPrimary(false);
       handleSaveData(values);
     }
   }, [primaryValue]);
@@ -133,6 +142,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
               handleSaveData(values);
             }}
           >
+            <input type="hidden" value="something" />
             <div className="content-basic-data">
               <h1 className="title-h3">Dados básicos</h1>
               <InputStyle
@@ -226,6 +236,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
                 onChange={(e) => setPassword(e.target.value)}
                 valueChanges={password}
                 placeholder="Nova senha (opcional)"
+                autocomplete
                 title=""
                 type="password"
                 className="form-control-demand"
@@ -235,6 +246,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
                 onChange={(e) => setConfPassword(e.target.value)}
                 valueChanges={confPassword}
                 placeholder="Confirmar senha"
+                autocomplete
                 title=""
                 type="password"
                 className="form-control-demand"

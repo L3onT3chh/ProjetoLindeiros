@@ -113,14 +113,6 @@ function Routers() {
 
         {/* Painel router */}
         <Route
-          path="/painel"
-          element={
-            <PrivatRoute>
-              <InicioPainel />
-            </PrivatRoute>
-          }
-        />
-        <Route
           path="/painel/users"
           element={
             <PrivatRoute>

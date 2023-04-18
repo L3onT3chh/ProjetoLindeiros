@@ -2,6 +2,7 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { IDataProposal } from "interfaces/data/demand.interface";
 import { createProposalThunk } from "./thunk";
+import { IStateData } from "interfaces/components.interface";
 
 const initialState: IDataProposal = {
   loading: false,
@@ -26,6 +27,14 @@ export const proposalSlice = createSlice({
           state.loading = true;
           state.message = payload.message;
         }
+
+        state.loading = false;
+      },
+    );
+    builder.addCase(
+      createProposalThunk.pending,
+      (state: IDataProposal) => {
+        state.loading = true;
       },
     );
   },

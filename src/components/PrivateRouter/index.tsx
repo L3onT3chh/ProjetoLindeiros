@@ -5,25 +5,25 @@ import {
   selectCurrentToken,
 } from "app/reducers/auth/authSlice";
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { history } from "util/_helped";
 
 function PrivatRoute({ children: Children }: any) {
   const [user, logged] = useSelector(selectCurentUser);
   const jwt = useSelector(selectCurrentToken);
+  const nav = useNavigate();
 
   useEffect(() => {
     if (!logged || !jwt || !user) {
-      <Navigate to="/login" state={{ from: history.location }} replace />;
-    }
-    const userD: any = user;
-    if (userD.userType !== "Administrador") {
-      <Navigate to="/" state={{ from: history.location }} replace />;
+      nav("/login", { replace: true });
+      return;
     }
 
   }, [logged, user, jwt])
 
-  return Children;
+  if(logged && jwt){
+    return Children;
+  }
 }
 
 export default PrivatRoute;

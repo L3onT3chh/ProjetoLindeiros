@@ -96,7 +96,7 @@ export function MenuRight() {
       <ContainerMenuRight>
         <div className="container-header-painel">
           <Link
-            to={(convertToArray(user)[0].userType === "Administrador") ? "/painel" : "/meupainel"}
+            to="/meupainel"
             style={{ color: "#fff" }}
           >
             <h1 className="title-h1">Painel</h1>

@@ -15,6 +15,7 @@ import usersReducer from "./user/userSlice";
 import demandReducer from "./demand/demandSlice";
 import userTypesReducer from "./userTypes/userTypes";
 import authReducer from "./auth/authSlice";
+import proposalReducer from "app/reducers/proposital/propositalSlice";
 
 const rootReducer = combineReducers({
   news: persistReducer(persistConfig("news"), newsReducer),
@@ -26,7 +27,7 @@ const rootReducer = combineReducers({
   city: cityReducer,
   axes: axesReducer,
   auth: persistReducer(persistConfig("auth"), authReducer),
-  // proposals: proposalSlice,
+  proposal: proposalReducer,
 });
 /*
   auth: persistReducer(persistConfig, newsReducer),

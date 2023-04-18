@@ -921,6 +921,11 @@ export const ContainerPainel = styled.div<SContainerProps>`
       }
     }
 
+    .statistic{
+      flex-direction: column;
+      margin-left: 0;
+    }
+
     .card-header {
       background: rgba(0, 0, 0, 0);
       border: 0;

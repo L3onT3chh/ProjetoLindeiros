@@ -46,14 +46,8 @@ function Login() {
 
   useEffect(() => {
     if (auth.auth.logged) {
-      if (convertToArray(auth.auth.user)[0].userType === "Administrador") {
-        console.log("entrou");
-        navigator("/painel");
-        return;
-      } else {
-        navigator("/meupainel", { replace: true });
-        return;
-      }
+      navigator("/meupainel", { replace: true });
+      return;
     }
   }, [auth.auth])
 

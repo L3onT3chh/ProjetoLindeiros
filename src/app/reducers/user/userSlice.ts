@@ -78,6 +78,9 @@ export const userSlice = createSlice({
         state.message = payload.message;
       }
     });
+    builder.addCase(createUserThunk.pending, (state: IDataUser) => {
+      state.loading = true;
+    });
     builder.addCase(createUserRequestThunk.fulfilled, (state: IDataUser, action) => {
       const { payload } = action;
       state.typeMessage = ``;
@@ -104,6 +107,9 @@ export const userSlice = createSlice({
         }
       }
     });
+    builder.addCase(deleteUserThunk.pending, (state: IDataUser) => {
+      state.loading = true;
+    });
     builder.addCase(updateUserThunk.fulfilled, (state: IDataUser, actions) => {
       const { payload } = actions;
 
@@ -121,6 +127,9 @@ export const userSlice = createSlice({
 
         state.loading = false;
       }
+    });
+    builder.addCase(updateUserThunk.pending, (state: IDataUser) => {
+      state.loading = true;
     });
   },
   reducers: {
@@ -232,8 +241,8 @@ export const userSlice = createSlice({
       const { payload } = action;
 
       let temp = state.fullUsers.filter(user => user.id === payload)[0];
-      
-      if(temp.Notify){
+
+      if (temp.Notify) {
         temp.Notify = [];
       }
     },

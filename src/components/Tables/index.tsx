@@ -71,6 +71,7 @@ export function TableDefaultUser({ fields }: IProps) {
           trigger={OpenUserCard}
           setPrimaryState={setEditUser}
           primaryValue={editUser}
+          primaryBlocked={editUser}
         >
           <UpdateUser primaryValue={editUser} setPrimary={setEditUser} userId={userClicked} trigger={OpenUserCard} setState={setOpenUserCard} />
         </PDefault>

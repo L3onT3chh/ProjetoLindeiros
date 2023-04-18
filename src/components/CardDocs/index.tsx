@@ -48,7 +48,7 @@ export function CardDocs(documentSelect: IDocument) {
 
 
   return (
-    <CardDocsStyled color="red" ref={item}>
+    <CardDocsStyled color="red" ref={item} style={{display: (!documentSelect.visible) ? "none" : "flex"}}>
       <PDefault
         height="fit-content"
         width="517"

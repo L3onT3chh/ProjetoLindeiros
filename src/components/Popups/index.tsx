@@ -40,7 +40,7 @@ function PDefault({
           (
             <div className="container-footer">
               <button className="btn-close-two" onClick={() => setTrigger(!trigger)}>Fechar</button>
-              <button className="btn-send" onClick={() => { (!primaryBlocked) ? setPrimaryState(!primaryValue) : console.log("") }} disabled={primaryBlocked} style={{opacity: (primaryBlocked) ? "0.5" : "1"}}>{(primaryText) ?? "Enviar"}</button>
+              <button className="btn-send" onClick={() => { (!primaryBlocked) ? setPrimaryState(!primaryValue) : console.log("") }} disabled={primaryBlocked} style={{opacity: (primaryBlocked) ? "0.5" : "1"}}>{(primaryText) ? `${(primaryValue) ? 'carregando...' : `${primaryText}`}` : `${(primaryValue) ? 'carregando...' : 'Enviar'}`}</button>
             </div>
           )
         }

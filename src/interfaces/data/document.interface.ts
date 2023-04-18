@@ -7,12 +7,15 @@ export default interface IDocument {
   path: string;
   fullPath: string;
   size: string;
+  visible?: boolean;
 }
 
 export interface IDataDocument extends IResponseData {
   document: IDocument[];
   filtered: IDocument[];
   documentSelect: IDocument | undefined;
+  min: number;
+  max: number;
 }
 
 export interface IDocumentPost {

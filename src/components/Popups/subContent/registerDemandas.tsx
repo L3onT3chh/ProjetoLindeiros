@@ -15,9 +15,11 @@ import { PrioriyData } from "assets/data/priority";
 import { showErrorMessage } from "util/function";
 import { selectUserLogged } from "app/reducers/auth/authSlice";
 import { convertToArray } from "util/handleSelectorObj";
+import { demandLoading } from "app/reducers/demand/demandSlice";
 
 function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
+  const loading = useSelector(demandLoading);
   const [userCity, setUserCity] = useState("");
   const [userAxes, setUserAxes] = useState("");
   const [userText, setUserText] = useState("");
@@ -49,6 +51,7 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
 
     if (convertToArray(user)[0].id) {
       let specific = (userObjectives) ? userObjectives.join('@') : userObjectives;
+      setReset(true);
       dispatch(
         createDemandsThunk({
           ...valuesSave,
@@ -62,22 +65,20 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
         }),
       );
     }
-
-    setReset(true);
   };
+
+  useEffect(()=>{
+    if(!loading && reset){
+      setPrimary(false);
+      clean();
+    }
+  }, [loading, reset, setReset, setPrimary])
 
   useEffect(() => {
     if (primaryValue) {
-      setPrimary(false);
       handleSavedData(values);
     }
   }, [primaryValue]);
-
-  useEffect(() => {
-    if (reset === true) {
-      clean();
-    }
-  }, [reset]);
 
   const clean = () => {
     values.name = "";

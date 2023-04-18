@@ -14,6 +14,14 @@ export const NewsItem = () => {
     const [background, setBackground] = useState<string>("https://www.lindeiros.org.br/upload/170932336561ea00084f57c2.95845073.jpeg");
 
     useEffect(() => {
+        scrollToTop();
+    }, []);
+
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
+    useEffect(() => {
         if (item.Photos) {
             setBackground(apiUrl + "/media/news/" + convertToArray(item.Photos)[0].name);
         }
@@ -58,7 +66,7 @@ export const NewsItem = () => {
                                 <h2>Ver fotos</h2>
                                 <div className="itens">
                                     {convertToArray(item.Photos).map((item) => (
-                                        <div className="item" style={{ backgroundImage: `url(${apiUrl+"/"+item.path+item.name})` }}></div>
+                                        <div className="item" style={{ backgroundImage: `url(${apiUrl + "/" + item.path + item.name})` }}></div>
                                     ))
                                     }
                                 </div>

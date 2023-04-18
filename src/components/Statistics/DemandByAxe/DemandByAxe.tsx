@@ -23,8 +23,12 @@ export const DemandByAxe = () => {
 
         if (result.status === 200) {
             if (result.response) {
+                result.response.Statistics.Item.sort(function (a:any, b:any) {
+                    return b.qtd - a.qtd;
+                });
+
                 result.response.Statistics.Item.forEach((item: Item) => {
-                    if(struct.data.length < 4){
+                    if (struct.data.length < 4) {
                         struct.labels.push(item.name);
                         struct.data.push(item.qtd);
                     }

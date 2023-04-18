@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavBar from "components/NavBar";
 import { useDispatch, useSelector } from "react-redux";
+import ReactPaginate from 'react-paginate';
 import { IStateData } from "interfaces/components.interface";
 import { CardDocs } from "components/CardDocs";
 import IDocument from "interfaces/data/document.interface";
@@ -13,8 +14,9 @@ import { BsUpload } from "react-icons/bs";
 import { fetchDemandsThunk } from "app/reducers";
 import { AppDispatch } from "app/store";
 import { findAllDocument } from "API/Document/find.documents";
-import { filterDocuments, refreshDocuments } from "app/reducers/document/documentSlice";
+import { filterDocuments, navigate, refreshDocuments } from "app/reducers/document/documentSlice";
 import { convertToArray } from "util/handleSelectorObj";
+import { PaginatedItems } from "components/Paginate";
 
 export function Documents() {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,6 +28,8 @@ export function Documents() {
   const [user, logged] = useSelector(selectCurentUser);
   const [allowed, setAllowed] = useState(false);
   const [sendDocument, setSendDocument] = useState(false);
+
+  const [pag, setPag] = useState();
 
   useEffect(() => {
     if (logged) {
@@ -45,6 +49,12 @@ export function Documents() {
     }
   }, [refresh])
 
+  useEffect(()=>{
+    if(pag !== undefined) {
+      dispatch(filterDocuments(Object.assign({text: search}, pag)));
+    }
+  }, [pag, setPag]);
+
   const refreshData = async () => {
     let resp = await findAllDocument();
     console.log(resp);
@@ -53,7 +63,10 @@ export function Documents() {
 
   const handleSearch = (text: string) => {
     setSearch(text);
-    dispatch(filterDocuments(text));
+
+    let pagObj = (pag) ?? {min:0, max:9}
+    dispatch(filterDocuments(Object.assign({text}, pagObj)));
+    console.log(convertToArray(document).length);
   }
 
   return (
@@ -69,6 +82,7 @@ export function Documents() {
           trigger={openCard}
           setPrimaryState={setSendDocument}
           primaryValue={sendDocument}
+          primaryBlocked={sendDocument}
         >
           <RegisterDocument setPrimary={setSendDocument} primaryValue={sendDocument} setState={setOpenCard} setRefresh={setRefresh} />
         </PDefault>
@@ -96,6 +110,7 @@ export function Documents() {
                 path={item.path}
                 size={item.size}
                 id={item.id}
+                visible={item.visible}
               />
             )) : (
               <div className="notFound">
@@ -103,6 +118,11 @@ export function Documents() {
               </div>
             )}
           </div>
+          {convertToArray(document).length > 9 &&
+            (
+              <PaginatedItems itemsPerPage={9} max={convertToArray(document).length} setPag={setPag}/>
+            )
+          }
         </div>
       </ContainerDocuments>
     </>

@@ -22,6 +22,9 @@ export const DemandByCity = () => {
 
         if (result.status === 200 && result.response.Statistics.Item) {
             if (result.response) {
+                result.response.Statistics.Item.sort(function (a:any, b:any) {
+                    return b.qtd - a.qtd;
+                });
                 result.response.Statistics.Item.forEach((item: any) => {
                     if(struct.data.length < 4){
                         struct.labels.push(item.name);

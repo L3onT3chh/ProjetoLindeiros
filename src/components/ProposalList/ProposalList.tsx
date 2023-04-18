@@ -147,7 +147,7 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
                                                             <tr key={index}>
                                                                 <td onClick={() => openProposalData(item)}>{parseInt(item.Details.numberInvolved) + 1}</td>
                                                                 <td>{dataFormat(item.Details.deadline)}</td>
-                                                                <td>{setCurrency(item.Details.value)}</td>
+                                                                <td>{item.Details.value}</td>
                                                                 <td className={(item.isAproved == 1) ? "aproved" : "await"}>{(item.isAproved == 1) ? "Aprovado" : "Pendente"}</td>
                                                                 <td>
                                                                     <span>

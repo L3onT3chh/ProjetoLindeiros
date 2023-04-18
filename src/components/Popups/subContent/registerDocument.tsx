@@ -64,12 +64,12 @@ function RegisterDocument({ setState, setRefresh, primaryValue, setPrimary }: IP
       cleanFile();
       setRefresh(true);
     }
-    // setState(false);
+    
+    setPrimary(false);
   };
 
   useEffect(() => {
     if (primaryValue) {
-      setPrimary(false);
       handleSavedData(values);
     }
   }, [primaryValue]);

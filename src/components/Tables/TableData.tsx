@@ -103,6 +103,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
               trigger={useOpenDemand}
               setPrimaryState={setEditDemanded}
               primaryValue={editDemanded}
+              primaryBlocked={editDemanded}
             >
               <UpdateDemand setPrimary={setEditDemanded} primaryValue={editDemanded} setState={setOpenDemand} demandId={dataUpdated} opened={useOpenDemand} />
             </PDefault>

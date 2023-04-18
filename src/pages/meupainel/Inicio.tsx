@@ -8,10 +8,10 @@ import { cleanDemand, selectCurrentDemands } from "app/reducers/demand/demandSli
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { IStateData } from "interfaces/components.interface";
-import { BiBell, BiEditAlt, BiNavigation, BiUser } from "react-icons/bi";
+import { BiBell, BiEditAlt, BiNavigation, BiUser, BiUserPlus } from "react-icons/bi";
 import img from "../../assets/img/painelimg.svg";
 import { HiDocumentAdd, HiDocumentDuplicate } from "react-icons/hi";
-import { FaHandshake } from "react-icons/fa";
+import { FaHandshake, FaUsers } from "react-icons/fa";
 import { findAllByUsersThunk } from "app/reducers/demand/thunk";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import moment from "moment";
@@ -23,6 +23,9 @@ import { Notification } from "components/Popups/subContent/notification";
 import { IUser } from "interfaces/data/user.interface";
 import { ISystemNotify } from "interfaces/global.interface";
 import { cleanUserNotify } from "API/User/crud.user";
+import { StatisticGraph } from "components/Card/Statistic";
+import { DemandByAxe } from "components/Statistics/DemandByAxe/DemandByAxe";
+import { DemandByCity } from "components/Statistics/DemandByCity/DemandByCity";
 
 export function MeuPainel() {
   const dispatch = useDispatch<AppDispatch>();
@@ -97,6 +100,7 @@ export function MeuPainel() {
               trigger={userUpdate}
               setPrimaryState={setSendUser}
               primaryValue={sendUser}
+              primaryBlocked={sendUser}
             >
               <UpdateUser setPrimary={setSendUser} primaryValue={sendUser} setState={setUserUpdate} trigger={userUpdate} userId={auth.auth.user[0].id} removeSelects={true} />
             </PDefault>
@@ -162,9 +166,49 @@ export function MeuPainel() {
                   </div>
                   <p>Para consultar as propostas de cada demanda clique no botão <b>Ver mais</b> na tela de <b>Listar demandas</b>, la é possivel consultar os dados, aprovar ou deixar pendente uma proposta.</p>
                 </div>
+                {auth.auth.user[0].userType === "Administrador" &&
+                  (
+                    <>
+                      <div className="item">
+                        <div className="icon">
+                          <FaUsers color="#63b6ff" size={30} />
+                        </div>
+                        <p>Clique em <b>Listar Usuarios</b> para consultar a conta de todos usuarios cadastrados no sistema, assim como adicionar, editar e deletar os mesmos.</p>
+                      </div>
+                      <div className="item">
+                        <div className="icon">
+                          <BiUserPlus color="#63b6ff" size={30} />
+                        </div>
+                        <p>Acesse o menu de <b>Pedidos de cadastro</b> para consultar quem solicitou cadastro no sistema, onde é possivel analisar a proposta e aceitar ou negar a conta.</p>
+                      </div>
+                    </>
+                  )
+                }
               </div>
             </div>
           </div>
+          {auth.auth.user[0].userType === "Administrador" &&
+            (
+              <div className="statistic">
+                <StatisticGraph
+                  className="content-box left"
+                  title="Nº de demandas por eixos"
+                  width="100%"
+                  height="fit-content"
+                >
+                  <DemandByAxe />
+                </StatisticGraph>
+                <StatisticGraph
+                  className="content-box right"
+                  title="Nº de demandas por cidade"
+                  width="100%"
+                  height="fit-content"
+                >
+                  <DemandByCity />
+                </StatisticGraph>
+              </div>
+            )
+          }
         </main>
         <aside>
           <div className="profile">

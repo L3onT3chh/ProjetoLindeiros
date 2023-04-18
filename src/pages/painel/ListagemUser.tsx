@@ -82,8 +82,9 @@ export function Listagem({
         trigger={OpenUserCard}
         setPrimaryState={setAddUser}
         primaryValue={addUser}
+        primaryBlocked={addUser}
       >
-        <RegisterUser primaryValue={addUser} setPrimary={setAddUser} modal={OpenUserCard} />
+        <RegisterUser primaryValue={addUser} setPrimary={setAddUser} modal={OpenUserCard} setState={setOpenUserCard} />
       </PDefault>
       <MenuRight />
       <div className="container">

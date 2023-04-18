@@ -39,8 +39,9 @@ export function News() {
   useEffect(() => {
     setNews({
       mainNews: news.slice(0, 4),
-      newsRemaining: news.slice(5, news.length),
+      newsRemaining: news.slice(4, news.length),
     });
+    console.log(newsData);
   }, [news]);
 
   useEffect(() => {
@@ -86,12 +87,13 @@ export function News() {
                 trigger={openPNews}
                 setPrimaryState={setSendNews}
                 primaryValue={sendNews}
+                primaryBlocked={sendNews}
               >
                 <RegisterNews primaryValue={sendNews} setPrimary={setSendNews} setState={setPNews} />
               </PDefault>
             </AutenticateCard>
             <div className="itens" style={{ marginTop: (user) ? "20px" : "0" }}>
-              {newsRamdom && newsRamdom.map((item, i) => (
+              {newsData && newsData.mainNews.map((item, i) => (
                 <Link
                   to={item.title_url}
                   className="item"
@@ -116,7 +118,7 @@ export function News() {
                 Noticías do momento
               </h1>
               <div className="itens" style={{ marginBottom: "3%" }}>
-                {newsData && newsData.mainNews.map((item, i) => (
+                {newsData && newsData.newsRemaining.map((item, i) => (
                   <Link
                     to={item.title_url}
                     className="item"
@@ -136,10 +138,10 @@ export function News() {
             </div>
             <aside className="others">
               <h1 className="title border-left-secondary color-secondary">
-                Mais noticías
+                Todas noticías
               </h1>
               <div className="block">
-                {newsData && newsData.newsRemaining.map((item) => (
+                {news && news.map((item) => (
                   <Link to={item.title_url} className="item" key={item.title}>
                     <ContainerBackground
                       background={(item.Photos) ? apiUrl + "/" + convertToArray(item.Photos)[0].path + convertToArray(item.Photos)[0].name : ImagesEixos.default[7].image}

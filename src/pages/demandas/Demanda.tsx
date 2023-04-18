@@ -36,7 +36,7 @@ import { convertToArray } from "util/handleSelectorObj";
 export function Demanda() {
   const { name } = useParams();
   const { auth } = useSelector((state: IStateData) => state);
-  const proposalList = useSelector((state: IStateData) => state.proposalList);
+  const proposalList = useSelector((state: IStateData) => state.proposal);
 
   const [sendProposal, setSendProposal] = useState(false);
   const [OpenProposalCad, setOpenProposalCad] = useState(false);
@@ -148,6 +148,7 @@ export function Demanda() {
         trigger={OpenProposalCad}
         setPrimaryState={setSendProposal}
         primaryValue={sendProposal}
+        primaryBlocked={sendProposal}
       >
         <RegisterProposal
           idDemand={demand.id}

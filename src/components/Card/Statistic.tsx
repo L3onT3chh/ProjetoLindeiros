@@ -11,12 +11,12 @@ export function StatisticGraph({
   className,
 }: IPropsGlobal) {
   return (
-    <Card width={width} height={height} className={className}>
+    <Card width={width} height={height} className={className} style={{marginBottom: "20px"}}>
       <div className="container-header">
         <h1 className="title-h2">{title}</h1>
       </div>
 
-      <div className="childrens-statistic">{children}</div>
+      <div className="childrens-statistic" style={{padding: "20px"}}>{children}</div>
     </Card>
   );
 }
