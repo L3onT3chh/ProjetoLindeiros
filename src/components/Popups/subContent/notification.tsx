@@ -8,12 +8,13 @@ interface Iprops {
 }
 
 export const Notification = ({ data }: Iprops) => {
+    console.log(data);
     return (
         <ContentProfile>
             <div className="content-default" style={{ width: "100%", height: "100%", padding: 0 }}>
                 <div className="content-basic-data" style={{ width: "100%", height: "100%" }}>
                     <NotificationContainer>
-                        {data.length >= 1 ? data.map((item: ISystemNotify) => (
+                        {data.length >= 1 && data[0] !== undefined ? data.map((item: ISystemNotify) => (
                             <div className="item">
                                 <div className="icon">
                                     <HiDocumentText size={23} color="#fff" />

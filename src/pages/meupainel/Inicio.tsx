@@ -45,8 +45,8 @@ export function MeuPainel() {
     dispatch(cleanDemand());
     dispatch(findAllByUsersThunk(auth.auth.user[0].id));
 
-    if (auth.auth.user[0].Notify) {
-      setNotificationObj(convertToArray(auth.auth.user[0].Notify));
+    if (typeof auth.auth.user[0].Notify === "object") {
+      setNotificationObj(convertToArray(auth.auth.user[0].Notify.Notify));
     }
     // nav("/meupainel/demandas");
   }, []);
@@ -118,7 +118,7 @@ export function MeuPainel() {
               trigger={userNotification}
               setPrimaryState={cleanNotifications}
               primaryText="Limpar"
-              primaryBlocked={(auth.auth.user[0].Notify && notificationObj.length > 0) ? false : true}
+              primaryBlocked={(auth.auth.user[0].Notify && notificationObj.length > 0 && notificationObj[0] !== undefined) ? false : true}
             >
               <Notification data={notificationObj} />
             </PDefault>
@@ -131,9 +131,9 @@ export function MeuPainel() {
               <p>Seja muito bem vindo</p>
             </div>
             <div className="bell" onClick={() => setUserNotification(true)}>
-              {notificationObj.length > 0 &&
+              {notificationObj.length > 0 && notificationObj[0] !== undefined &&
                 (
-                  <div className="notify">{convertToArray(auth.auth.user[0].Notify).length}</div>
+                  <div className="notify">{(notificationObj.length > 9) ? "+9" : notificationObj.length}</div>
                 )
               }
               <BiBell size={25} color="#b1b1b1" />
