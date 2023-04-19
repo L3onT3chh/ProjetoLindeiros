@@ -148,25 +148,25 @@ export function MeuPainel() {
                   <div className="icon">
                     <BiNavigation color="#63b6ff" size={30} />
                   </div>
-                  <p>Utilize o menu lateral para navegar entre as paginas do site na aba acesso, e controle suas demandas na aba demandas e consulte seus dados na aba usuario.</p>
+                  <p>Utilize o menu lateral para navegar entre as paginas do site na aba acesso, e controle suas demandas na aba demandas e consulte seus dados na aba usuário.</p>
                 </div>
                 <div className="item">
                   <div className="icon">
                     <HiDocumentAdd color="#63b6ff" size={30} />
                   </div>
-                  <p><b>Inserir demanda</b> é um atalho ao formulario de cadastro de demandas, clique nele, preencha os dados para inserir sua nova demanda.</p>
+                  <p><b>Inserir demanda</b> é um atalho ao formulário de cadastro de demandas, clique nele, preencha os dados para inserir sua nova demanda.</p>
                 </div>
                 <div className="item">
                   <div className="icon">
                     <HiDocumentDuplicate color="#63b6ff" size={30} />
                   </div>
-                  <p><b>Listar demandas</b> é a pagina onde contem todas as demandas cadastradas por você, lá é possivel deletar, editar-las assim como consultar as propostas da sua demanda.</p>
+                  <p><b>Listar demandas</b> é a pagina onde contem todas as demandas cadastradas por você, lá é possível deletar, editar e consultar as propostas da sua demanda.</p>
                 </div>
                 <div className="item">
                   <div className="icon">
                     <FaHandshake color="#63b6ff" size={30} />
                   </div>
-                  <p>Para consultar as propostas de cada demanda clique no botão <b>Ver mais</b> na tela de <b>Listar demandas</b>, la é possivel consultar os dados, aprovar ou deixar pendente uma proposta.</p>
+                  <p>Para consultar as propostas de cada demanda clique no botão Ver mais na tela de <b>Listar demandas</b>, lá é possível consultar os dados, aprovar ou deixar pendente uma proposta.</p>
                 </div>
                 {auth.auth.user[0].userType === "Administrador" &&
                   (
@@ -175,13 +175,13 @@ export function MeuPainel() {
                         <div className="icon">
                           <FaUsers color="#63b6ff" size={30} />
                         </div>
-                        <p>Clique em <b>Listar Usuarios</b> para consultar a conta de todos usuarios cadastrados no sistema, assim como adicionar, editar e deletar os mesmos.</p>
+                        <p>Clique em <b>Listar Usuários</b> para consultar a conta de todos usuários cadastrados no sistema, adicionar, editar ou deletar.</p>
                       </div>
                       <div className="item">
                         <div className="icon">
                           <BiUserPlus color="#63b6ff" size={30} />
                         </div>
-                        <p>Acesse o menu de <b>Pedidos de cadastro</b> para consultar quem solicitou cadastro no sistema, onde é possivel analisar a proposta e aceitar ou negar a conta.</p>
+                        <p>Acesse o menu de Pedidos de cadastro para consultar quem solicitou cadastro no sistema, onde é possível analisar a proposta e aceitar ou negar.</p>
                       </div>
                     </>
                   )

@@ -78,14 +78,14 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
     const openProposalData = async (item: IProposal) => {
         if (item) {
             let data = await findTeam(item.id);
-            console.log(data);
+
             let fullData: any = Object.assign({}, item);
             fullData['team'] = convertToArray(data);
 
             if (outDetails !== undefined) {
                 fullData['name'] = item.User.name;
             }
-            console.log(fullData);
+
             setDetails(fullData);
         }
     }
@@ -112,10 +112,9 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
                                 <p className="subTitle"><span>{parseInt(details.Details.numberInvolved) + 1}</span> Participantes</p>
                                 <div className="participants">
                                     <span style={{ borderColor: '#ffcd56', color: '#ffcd56' }}><AiOutlineUser color="#ffcd56" />{details.name.trim()}</span>
-                                    {details.team.map((item: any, index: number) => (
-                                        <span key={index}><AiOutlineUser />{item.name}</span>
-                                    ))
-                                    }
+                                    {details.team[0] !== undefined && convertToArray(details.team).map((item: any, index: number) => (
+                                        <span key={index} onClick={()=> console.log(item)}><AiOutlineUser />{item.name}</span>
+                                    ))}
                                 </div>
                                 <p className="subTitle">Plano proposto</p>
                                 <p className="text">{details.description}</p>
