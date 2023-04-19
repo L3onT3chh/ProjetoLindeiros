@@ -13,6 +13,7 @@ import { IUser, IUserPost } from "interfaces/data/user.interface";
 import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { IStateData } from "interfaces/components.interface";
 import { showErrorMessage } from "util/function";
+import { convertToArray } from "util/handleSelectorObj";
 
 interface IProps {
   userId: string;
@@ -24,11 +25,10 @@ interface IProps {
 }
 
 function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, primaryValue }: IProps) {
-  const userFilter = useSelector((state: IStateData) =>
-    state.users.users.filter((item) => item.id === userId),
-  )[0];
+  const userFilter = useSelector((state: IStateData) => state.users.users);
 
   const loading = useSelector((state: IStateData) => state.users.loading);
+  const auth = useSelector((state: IStateData) => state.auth.auth.user);
 
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
@@ -47,20 +47,29 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
   const [confPassword, setConfPassword] = useState("");
 
   useEffect(() => {
-    if (userFilter) {
-      setName(userFilter.name);
-      setEmail(userFilter.email);
-      setCPF(userFilter.cpf);
-      setDDD(userFilter.phone_ddd);
-      setPhone(userFilter.phone);
-      setBdate(userFilter.born_date);
+    if (userFilter && trigger) {
+      let tempUser;
+      if(removeSelects){
+        tempUser = auth[0];
+      }else{
+        tempUser = userFilter.filter((item) => item.id === userId)[0];
+      }
 
-      if (userFilter.city_id && userFilter.userType_id) {
-        setUcity(userFilter.city_id);
-        setType(userFilter.userType_id);
+      if (tempUser) {
+        setName(tempUser.name);
+        setEmail(tempUser.email);
+        setCPF(tempUser.cpf);
+        setDDD(tempUser.phone_ddd);
+        setPhone(tempUser.phone);
+        setBdate(tempUser.born_date);
+
+        if (tempUser.city_id && tempUser.userType_id) {
+          setUcity(tempUser.city_id);
+          setType(tempUser.userType_id);
+        }
       }
     }
-  }, [userFilter]);
+  }, [userFilter, trigger]);
 
 
   const initialValue: IUserPost = {
@@ -82,7 +91,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
       return;
     }
 
-    if(removeSelects){
+    if (removeSelects) {
       dispatch(
         updateUserThunk({
           ...valuesSave,
@@ -96,7 +105,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
           id: userId
         }),
       );
-    }else{
+    } else {
       dispatch(
         updateUserThunk({
           ...valuesSave,
@@ -118,8 +127,8 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
     setConfPassword("");
   };
 
-  useEffect(()=>{
-    if(!loading && reset){
+  useEffect(() => {
+    if (!loading && reset) {
       setPrimary(false);
       setState(false);
     }

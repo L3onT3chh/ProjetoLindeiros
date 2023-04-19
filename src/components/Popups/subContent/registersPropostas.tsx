@@ -4,7 +4,6 @@
 import { AppDispatch } from "app/store";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InputMask from 'react-input-mask';
 import { createProposalThunk } from "app/reducers/proposital/thunk";
 import ChipAdd from "components/Chips/ChipAdd";
 import InputStyle from "components/Inputs";

@@ -63,10 +63,13 @@ const authSlice = createSlice({
       state.auth.logged = false;
       localStorage.clear();
     },
+    cleanNotification: (state: IDataAuth) => {
+      state.auth.user[0].Notify = [];
+    }
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, cleanNotification } = authSlice.actions;
 
 export default authSlice.reducer;
 

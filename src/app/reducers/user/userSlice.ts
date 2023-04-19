@@ -237,15 +237,6 @@ export const userSlice = createSlice({
 
       state.requestUsers = temp;
     },
-    cleanNotification: (state: IDataUser, action) => {
-      const { payload } = action;
-
-      let temp = state.fullUsers.filter(user => user.id === payload)[0];
-
-      if (temp.Notify) {
-        temp.Notify = [];
-      }
-    },
     mergeFilters: (state: IDataUser) => {
       const { city, type, search } = state.filters;
       const arrayNew = [...city, ...type, ...search];
@@ -300,8 +291,7 @@ export const {
   cleanFilters,
   filterAll,
   filterAllRequest,
-  cleanMessage,
-  cleanNotification
+  cleanMessage
 } = userSlice.actions;
 
 export default userSlice.reducer;

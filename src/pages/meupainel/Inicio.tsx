@@ -16,7 +16,7 @@ import { findAllByUsersThunk } from "app/reducers/demand/thunk";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import moment from "moment";
 import UpdateUser from "components/Popups/subContent/updateUser";
-import { cleanNotification, updateUser } from "app/reducers/user/userSlice";
+import { updateUser } from "app/reducers/user/userSlice";
 import PDefault from "components/Popups";
 import { convertToArray } from "util/handleSelectorObj";
 import { Notification } from "components/Popups/subContent/notification";
@@ -26,6 +26,7 @@ import { cleanUserNotify } from "API/User/crud.user";
 import { StatisticGraph } from "components/Card/Statistic";
 import { DemandByAxe } from "components/Statistics/DemandByAxe/DemandByAxe";
 import { DemandByCity } from "components/Statistics/DemandByCity/DemandByCity";
+import { cleanNotification } from "app/reducers/auth/authSlice";
 
 export function MeuPainel() {
   const dispatch = useDispatch<AppDispatch>();
@@ -51,8 +52,9 @@ export function MeuPainel() {
   }, []);
 
   useEffect(() => {
-    if ((demands && proposal === undefined) || (proposal && proposal.length === 0)) {
+    if (demands.demand.length !== 0) {
       let temp: any[] = [];
+      console.log(demands.demand);
       demands.demand.forEach((item: IDemand) => {
         if (item.Proposal) {
           convertToArray(item.Proposal).forEach((prop) => {
@@ -67,7 +69,7 @@ export function MeuPainel() {
 
       setProposal(temp);
     }
-  }, [])
+  }, [demands.demand])
 
   const handleDateAgo = (status: string) => {
     moment.locale('pt-br');
@@ -81,7 +83,7 @@ export function MeuPainel() {
       let resp = await cleanUserNotify(ids);
 
       setNotificationObj([]);
-      dispatch(cleanNotification(auth.auth.user[0].id));
+      dispatch(cleanNotification());
     }
   }
 
@@ -116,7 +118,7 @@ export function MeuPainel() {
               trigger={userNotification}
               setPrimaryState={cleanNotifications}
               primaryText="Limpar"
-              primaryBlocked={(auth.auth.user[0].Notify) ? false : true}
+              primaryBlocked={(auth.auth.user[0].Notify && notificationObj.length > 0) ? false : true}
             >
               <Notification data={notificationObj} />
             </PDefault>
