@@ -94,12 +94,6 @@ export const Container = styled.div<Props>`
                             border-bottom: 1px solid rgba(0, 0, 0, 0.15);
                             padding-left: 30px;
 
-                            &:first-of-type{
-                                text-decoration: underline;
-                                cursor: pointer;
-                                color: #0000EE;
-                            }
-
                             &:nth-of-type(3){
                                 opacity: 0.75;
                             }

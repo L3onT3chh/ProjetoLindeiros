@@ -36,7 +36,6 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
   const [demandText, setDemandText] = useState("");
   const [demandPriority, setDemandPriority] = useState("");
   const [demandDescription, setDemandDescription] = useState("");
-  const [demandObjectives, setObjective] = useState([]);
   const user = useSelector(selectUserLogged);
   const demandFilter = useSelector((state: IStateData) =>
     (convertToArray(state.demands.demand) || []).filter((item) => item.id === demandId),
@@ -46,7 +45,6 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
     description: "",
     generalText: "",
     name: "",
-    specificText: "",
     priority: "",
     axes_id: "",
     city_id: "",
@@ -64,7 +62,6 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
       setDemandText(demandFilter.Objective.general);
       setDemandPriority(demandFilter.priority);
       setDemandDescription(demandFilter.description);
-      setObjective(demandFilter.Objective.SpecificText.text);
     }
   }, [demandFilter]);
 
@@ -83,7 +80,6 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
 
   const handleSavedData = async (valuesSave: IDemandPost) => {
     if (convertToArray(user)[0].id) {
-      let specific = (demandObjectives) ? demandObjectives.join('@') : demandObjectives;
       dispatch(
         updateDemandsThunk({
           ...valuesSave,
@@ -92,7 +88,6 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
           axes_id: demandAxes,
           description: demandDescription,
           generalText: demandText,
-          specificText: specific,
           priority: demandPriority,
           id: demandClicked?.id,
           name: demandName
@@ -123,7 +118,7 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
                     required
                     valueChanges={demandName}
                     maxLength={60}
-                    placeholder="Nome"
+                    placeholder="Título da demanda"
                     title=""
                     type="text"
                     className="form-control-demand popup"
@@ -138,9 +133,9 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
                 </div>
                 <TextArea
                   name="generalText"
-                  height="80px"
+                  height="100px"
                   value={demandClicked && demandText}
-                  length={30000}
+                  length={150}
                   setState={setDemandText}
                   required
                   className="form-control-demand"
@@ -163,24 +158,13 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
                     options={axes.axes}
                   />
                 </div>
-                <div className="content-data-time">
-                  <h1 className="title-h3">Objetivo da demanda</h1>
-                  <div className="form-control-demand">
-                    <ChipAdd
-                      listValue={demandClicked && demandObjectives}
-                      reset={opened}
-                      text="Objetivo especifico"
-                      setState={setObjective}
-                    />
-                  </div>
-                </div>
                 <TextArea
                   required
                   value={demandClicked && demandDescription}
-                  height="80px"
+                  height="150px"
                   className="form-control-demand"
                   placeholder="Descrição"
-                  length={150}
+                  length={30000}
                   title=""
                   setState={setDemandDescription}
                   name="description"

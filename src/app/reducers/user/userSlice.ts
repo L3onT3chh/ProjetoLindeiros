@@ -32,6 +32,7 @@ const initialState: IDataUser = {
   fullUsers: [],
   error: "",
   message: "",
+  status: 0
 };
 
 export const userSlice = createSlice({
@@ -74,9 +75,10 @@ export const userSlice = createSlice({
         state.users.push(payload.user);
         state.fullUsers.push(payload.user);
         state.typeMessage = `${payload.status}`;
-        state.loading = false;
         state.message = payload.message;
       }
+      state.loading = false;
+      state.status = payload.status;
     });
     builder.addCase(createUserThunk.pending, (state: IDataUser) => {
       state.loading = true;
@@ -102,10 +104,8 @@ export const userSlice = createSlice({
         );
         state.users = dataAux;
         state.fullUsers = dataAux;
-        if (dataAux.length > 0) {
-          state.loading = false;
-        }
       }
+      state.loading = false;
     });
     builder.addCase(deleteUserThunk.pending, (state: IDataUser) => {
       state.loading = true;
@@ -113,20 +113,26 @@ export const userSlice = createSlice({
     builder.addCase(updateUserThunk.fulfilled, (state: IDataUser, actions) => {
       const { payload } = actions;
 
+      console.log(payload);
       if (payload !== undefined) {
-        let index: any = state.users.findIndex((item) => item.id === payload.response.id);
-        state.users[index].name = payload.response.name;
-        state.users[index].email = payload.response.email;
-        state.users[index].phone = '' + payload.response.phone;
-        state.users[index].userType = payload.response.userType;
 
-        state.fullUsers[index].name = payload.response.name;
-        state.fullUsers[index].email = payload.response.email;
-        state.fullUsers[index].phone = '' + payload.response.phone;
-        state.fullUsers[index].userType = payload.response.userType;
+        if (payload.status == 200) {
+          let index: any = state.users.findIndex((item) => item.id === payload.response.id);
+          state.users[index].name = payload.response.name;
+          state.users[index].email = payload.response.email;
+          state.users[index].phone = '' + payload.response.phone;
+          state.users[index].userType = payload.response.userType;
 
-        state.loading = false;
+          state.fullUsers[index].name = payload.response.name;
+          state.fullUsers[index].email = payload.response.email;
+          state.fullUsers[index].phone = '' + payload.response.phone;
+          state.fullUsers[index].userType = payload.response.userType;
+        }
+
+        state.status = payload.status;
       }
+
+      state.loading = false;
     });
     builder.addCase(updateUserThunk.pending, (state: IDataUser) => {
       state.loading = true;
@@ -298,4 +304,5 @@ export default userSlice.reducer;
 
 export const selectUsersMessage = (state: IStateData) => state.users;
 export const usersErrors = (state: IStateData) => state.users.error;
+export const usersStatus = (state: IStateData) => state.users.status;
 ;

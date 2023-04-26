@@ -75,6 +75,7 @@ export interface IDataUser extends IResponseData {
   requestUsers: IUser[];
   fullRequestUsers: IUser[];
   touched?: boolean;
+  status: number;
   filters: {
     type: IUser[];
     search: IUser[];

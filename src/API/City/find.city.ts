@@ -19,7 +19,7 @@ export const findAllCities = async () => {
         response: [
           {
             id: "none",
-            name: "Todas as cidades",
+            name: "Selecione uma cidade",
           },
           ...Cities,
         ],

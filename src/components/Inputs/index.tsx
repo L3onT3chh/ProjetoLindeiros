@@ -18,6 +18,7 @@ interface IPros {
   value?: any;
   height?: any;
   marginB?: string;
+  limitBefore?: boolean;
 }
 
 function InputStyle({
@@ -34,10 +35,19 @@ function InputStyle({
   required,
   height,
   marginB,
-  autocomplete
+  autocomplete,
+  limitBefore
 }: IPros) {
+  const currentDate = () => {
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
+    
+    return `${ano}-${mes}-${dia}`;
+  }
   return (
-    <ContainerInput className={className} style={{height: (type === "hidden") ? "1px" : "initial" }}>
+    <ContainerInput className={className} style={{ height: (type === "hidden") ? "1px" : "initial" }}>
       {title &&
         (
           <h2 className="title-h3" style={{ fontSize: "14px", marginBottom: "2.5px", opacity: "0.8" }}>{title}</h2>
@@ -47,13 +57,14 @@ function InputStyle({
         defaultValue={value}
         onChange={onChange}
         name={name}
+        min={(limitBefore) ? currentDate() : "0"}
         value={valueChanges}
         className="text-popup"
         minLength={minLength}
         autoComplete={(!autocomplete) ? "on" : "new-password"}
         maxLength={maxLength}
         type={type}
-        style={{height:height, marginBottom: (marginB) ? marginB : "5px"}}
+        style={{ height: height, marginBottom: (marginB) ? marginB : "5px" }}
         id={`input-${title}`}
         placeholder={placeholder}
         required={required || false}

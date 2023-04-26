@@ -38,7 +38,7 @@ export function MyProfile() {
         </span>
         <p className="charge-box">{profile?.userType}</p>
         <p className="job-box">
-          +55 {`(${profile?.phone_ddd}) 9 ${profile?.phone}`}
+          +55 {`(${profile?.phone_ddd}) ${profile?.phone}`}
         </p>
         <p className="contact-box">{profile?.email}</p>
 

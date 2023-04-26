@@ -166,6 +166,7 @@ export const ContainerPage = styled.div<SContainerProps>`
           font-size: 1.1rem;
           line-height: 40px;
           margin-bottom: 15px;
+          line-break: anywhere;
         }
       }
     }
@@ -320,14 +321,15 @@ export const ContainerPage = styled.div<SContainerProps>`
         display: flex;
         align-items: center;
         padding-left: 0;
-        height: 30px;
-        line-height: 30px;
+        height: 40px;
+        line-height: 40px;
         color: #1f1368;
         font-size: 0.9rem;
 
         p{
           margin-left: 10px;
           line-height: 15px;
+          line-break: anywhere;
         }
       }
     }
@@ -580,6 +582,7 @@ export const ContainerPage = styled.div<SContainerProps>`
           margin: 15px 0 40px;
           color: #fff !important;
           z-index: 1;
+          line-break: anywhere;
         }
 
         .spacing {

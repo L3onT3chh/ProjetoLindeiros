@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from "react";
 import { IPropsGlobal } from "interfaces/components.interface";
 import { IDemand } from "interfaces/data/demand.interface";
-import { BsFillTrash2Fill } from "react-icons/bs";
+import { BsFillPencilFill, BsFillTrash2Fill } from "react-icons/bs";
 import { MdOutlineTipsAndUpdates } from "react-icons/md";
 // import { PMeuPerfil } from "components/Popups/Profile";
 // import { CardPropostas } from "components/Card/Propostas";
@@ -166,17 +166,17 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
                   <BsFillTrash2Fill
                     color="red"
                     className="btn-click"
-                    size={30}
+                    size={22}
                     onClick={() => preRemove(item.id)}
                   />
                 </span>{" "}
                 &nbsp;&nbsp;
                 <span>
-                  <MdOutlineTipsAndUpdates
+                  <BsFillPencilFill
                     onClick={() => item.id && handleUpdateDemand(item.id)}
                     className="update-icon btn-click"
-                    color="green"
-                    size={32}
+                    color="#3679bc"
+                    size={22}
                   />
                 </span>
               </th>

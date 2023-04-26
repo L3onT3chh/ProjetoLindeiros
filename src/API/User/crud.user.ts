@@ -153,7 +153,7 @@ export const UpdateUser = async (userUpdate: IUserPostEdit) => {
     }
     return {
       status: 400,
-      message: "Erro ao atualizar!",
+      message: responseData.data.error,
       response: userUpdate,
     };
   } catch (err: any) {

@@ -19,7 +19,7 @@ export const findAllAxes = async () => {
         response: [
           {
             id: "none",
-            name: "Todos os eixos",
+            name: "Selecione um eixo",
           },
           ...Axes,
         ],

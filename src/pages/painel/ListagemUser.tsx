@@ -93,7 +93,7 @@ export function Listagem({
             (
               <div className="btn-header">
                 <ButtonCard
-                  router="/painel/users/"
+                  router="/painel/users"
                   state={OpenUserCard}
                   setState={setOpenUserCard}
                   value={`Adicionar ${type}`}

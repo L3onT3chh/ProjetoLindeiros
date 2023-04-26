@@ -108,7 +108,8 @@ export const RegisterProposal = ({ idDemand, setTrigger, trigger, setPrimary, pr
             value={description}
             required
             height="110px"
-            placeholder="Descrição"
+            placeholder="Descreva sua proposta..."
+            length={30000}
             title=""
             className="form-control-demand text-areax"
           />
@@ -117,9 +118,10 @@ export const RegisterProposal = ({ idDemand, setTrigger, trigger, setPrimary, pr
               onChange={onChange}
               valueChanges={values.deadline}
               required
-              placeholder="Prazo de execução"
+              limitBefore
+              placeholder="Prazo para conclusão"
               type="date"
-              title="Prazo de execução"
+              title="Prazo para conclusão"
               name="deadline"
               className="text-double"
             />
@@ -136,9 +138,9 @@ export const RegisterProposal = ({ idDemand, setTrigger, trigger, setPrimary, pr
           </div>
         </div>
         <div className="content-data-time">
-          <h1 className="title-h3">Dados da equipe</h1>
+          <h1 className="title-h3">Equipe executora</h1>
           <div className="form-control-demand">
-            <ChipAdd setState={setTime} listValue={time} reset={timeReset} />
+            <ChipAdd setState={setTime} listValue={time} reset={timeReset} text="Adicione o membro da equipe" />
           </div>
         </div>
       </div>

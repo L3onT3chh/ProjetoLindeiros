@@ -15,11 +15,12 @@ import { PrioriyData } from "assets/data/priority";
 import { showErrorMessage } from "util/function";
 import { selectUserLogged } from "app/reducers/auth/authSlice";
 import { convertToArray } from "util/handleSelectorObj";
-import { demandLoading } from "app/reducers/demand/demandSlice";
+import { demandLoading, demandStatus } from "app/reducers/demand/demandSlice";
 
 function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
   const loading = useSelector(demandLoading);
+  const status = useSelector(demandStatus);
   const [userCity, setUserCity] = useState("");
   const [userAxes, setUserAxes] = useState("");
   const [userText, setUserText] = useState("");
@@ -33,7 +34,6 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
     description: "",
     generalText: "",
     name: "",
-    specificText: "",
     priority: "",
     axes_id: "",
     city_id: "",
@@ -46,11 +46,11 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
   const handleSavedData = async (valuesSave: IDemandPost) => {
     if (userAxes === "" || userCity === "" || userText === "" || userPriority === "" || userPriority === "*" || userDescription === "") {
       showErrorMessage("Preencha todos os campos", "error");
+      setPrimary(false);
       return;
     }
 
     if (convertToArray(user)[0].id) {
-      let specific = (userObjectives) ? userObjectives.join('@') : userObjectives;
       setReset(true);
       dispatch(
         createDemandsThunk({
@@ -60,7 +60,6 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
           axes_id: userAxes,
           description: userDescription,
           generalText: userText,
-          specificText: specific,
           priority: userPriority,
         }),
       );
@@ -70,9 +69,12 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
   useEffect(()=>{
     if(!loading && reset){
       setPrimary(false);
-      clean();
+
+      if(status === 200){
+        clean();
+      }
     }
-  }, [loading, reset, setReset, setPrimary])
+  }, [loading, reset, status, setReset, setPrimary])
 
   useEffect(() => {
     if (primaryValue) {
@@ -110,7 +112,8 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
                   onChange={onChange}
                   name="name"
                   maxLength={60}
-                  placeholder="Nome"
+                  marginB="0px"
+                  placeholder="Título da demanda"
                   title=""
                   type="text"
                   className="form-control-demand popup"
@@ -127,8 +130,8 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
               <TextArea
                 value={userText}
                 name="generalText"
-                length={30000}
-                height="80px"
+                length={150}
+                height="100px"
                 setState={setUserText}
                 className="form-control-demand"
                 placeholder="Objetivo geral"
@@ -150,23 +153,12 @@ function RegisterDemandas({ setState, setPrimary, primaryValue }: IPropsGlobal) 
                   options={axes.axes}
                 />
               </div>
-              <div className="content-data-time">
-                <h1 className="title-h3">Objetivo da demanda</h1>
-                <div className="form-control-demand">
-                  <ChipAdd
-                    text="Objetivo especifico"
-                    setState={setObjective}
-                    listValue={userObjectives}
-                    reset={reset}
-                  />
-                </div>
-              </div>
               <TextArea
                 value={userDescription}
-                height="80px"
-                length={150}
+                height="150px"
+                length={30000}
                 className="form-control-demand"
-                placeholder="Descrição"
+                placeholder="Descrição detalhada"
                 title=""
                 setState={setUserDescription}
                 name="description"

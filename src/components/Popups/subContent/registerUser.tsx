@@ -15,7 +15,7 @@ import { IStateData } from "interfaces/components.interface";
 import { getToast, setMessageToToast } from "app/reducers/toast/toastSlice";
 import cep from "cep-promise";
 import { showErrorMessage } from "util/function";
-import { selectUsersMessage } from "app/reducers/user/userSlice";
+import { selectUsersMessage, usersStatus } from "app/reducers/user/userSlice";
 import { exit } from "process";
 // import { findByCep } from "API/Cep";
 
@@ -29,6 +29,7 @@ interface props {
 function RegisterUser({ modal, setPrimary, primaryValue, setState  }: props) {
   const dispatch = useDispatch<AppDispatch>();
   const loading = useSelector((state: IStateData) => state.users.loading);
+  const status = useSelector(usersStatus);
   const [typeUser, setTypeUser] = useState("");
   const [cityUser, setCity] = useState("");
   const [cityDefault, setCityDefault] = useState("");
@@ -63,11 +64,13 @@ function RegisterUser({ modal, setPrimary, primaryValue, setState  }: props) {
 
     if (!pass || valuesSave.userType === "standard") {
       showErrorMessage("Todos os campos são obrigatórios", "error");
+      setPrimary(false);
       return;
     }
 
     if (valuesSave.password !== valuesSave.confPassword) {
       showErrorMessage("Senhas não coincidem", "error");
+      setPrimary(false);
       return;
     }
 
@@ -79,13 +82,15 @@ function RegisterUser({ modal, setPrimary, primaryValue, setState  }: props) {
     );
 
     setReset(true);
-    form.target.reset();
   };
 
   useEffect(()=>{
     if(!loading && reset){
-      setState(false);
       setPrimary(false);
+
+      if(status === 200){
+        setState(false);  
+      }
     }
   }, [loading, reset, setReset, setPrimary])
 

@@ -88,6 +88,7 @@ export const Container = styled.div`
                     font-size: 13px;
                     line-height: 20px;
                     text-align: justify;
+                    line-break: anywhere;
                 }
             }
             .footer{

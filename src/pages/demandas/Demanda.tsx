@@ -14,7 +14,7 @@ import ButtonCard from "components/Buttons/ButtonCard";
 import CardProposta from "components/Card/CardProposta";
 import NavBar from "components/NavBar";
 import { useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
 import PDefault from "components/Popups";
@@ -32,16 +32,20 @@ import 'moment/locale/pt-br'
 import { ProposalList } from "components/ProposalList/ProposalList";
 import { selectUserLogged } from "app/reducers/auth/authSlice";
 import { convertToArray } from "util/handleSelectorObj";
+import { BsHeadset } from "react-icons/bs";
+import { AppDispatch } from "app/store";
+import { fetchDemandsThunk } from "app/reducers/demand/thunk";
 
 export function Demanda() {
   const { name } = useParams();
   const { auth } = useSelector((state: IStateData) => state);
+  const { demands } = useSelector((state: IStateData) => state);
   const proposalList = useSelector((state: IStateData) => state.proposal);
+  const dispatch = useDispatch<AppDispatch>();
 
   const [sendProposal, setSendProposal] = useState(false);
   const [OpenProposalCad, setOpenProposalCad] = useState(false);
   const [backgroundImage, setBackgroundImage] = useState<string>("");
-  const [specific, setSpecific] = useState<any>();
   const [proposal, setProposal] = useState<IProposal[]>([]);
   const [proposalOpen, setProposalOpen] = useState(false);
   const [proposalSelected, setProposalSelected] = useState<IProposal>();
@@ -58,35 +62,42 @@ export function Demanda() {
   const demand = useSelector((state: IStateData) =>
     state.demands.demand.filter((item) => item.url === name),
   )[0];
+
   const [data, setData] = useState<IDemand[]>();
 
+  useEffect(() => {
+    if (demands.demand.length === 0) {
+      dispatch(fetchDemandsThunk());
+    }
+  }, []);
 
   useEffect(() => {
-    console.log(demand);
     if (demand) {
-      setSpecific(demand.Objective.SpecificText);
       if (demand.Proposal !== undefined) {
+        let proposalList;
         if (Array.isArray(demand.Proposal)) {
-          setProposal([...demand.Proposal]);
+          proposalList = [...demand.Proposal];
         } else {
-          setProposal([demand.Proposal]);
+          proposalList = [demand.Proposal];
         }
+        proposalList.sort(function (a, b) {
+          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+        setProposal(proposalList);
       } else {
         setProposal([]);
       }
-
-      console.log(proposal);
     }
   }, [demand, name]);
 
   useEffect(() => {
-    if (demand) {
+    if (demands.demand.length > 0) {
       let temp = eixoData.filter(item => item.title === demand.Axes.name);
       let image = ImagesEixos.filter(item => item.sigle === temp[0].url);
 
       setBackgroundImage(image[0].image);
     }
-  }, [data])
+  }, [demands.demand])
 
   useEffect(() => {
     if (aux.proposal !== undefined) {
@@ -94,13 +105,6 @@ export function Demanda() {
       setopenCard(!openCard);
     }
   }, [aux]);
-
-  const handleSpecific = (text: string) => {
-    if (text) {
-      console.log(text);
-      setSpecific(text.split("@"));
-    }
-  }
 
   const handleStatus = (status: number) => {
     if (status == 1) return "Em execução";
@@ -209,6 +213,14 @@ export function Demanda() {
                       <FaRegHandshake size={20} />
                       <p>{(proposal) ? proposal.length : '0'} propostas recebidas</p>
                     </li>
+                    {auth.auth.logged &&
+                      (
+                        <li>
+                          <BsHeadset size={20} />
+                          <p>{demand.User.email}</p>
+                        </li>
+                      )
+                    }
                   </ul>
                 </div>
                 {auth.auth.logged &&
@@ -229,7 +241,7 @@ export function Demanda() {
         <div className="content-demanda">
           <div className="objetivoGeral">
             <h1>
-              Objetivo Geral
+              Descrição
             </h1>
             <div className="text">
               <p>
@@ -237,24 +249,6 @@ export function Demanda() {
               </p>
             </div>
           </div>
-          {specific && (
-            <div className="objetivoEspecifico">
-              <h1 className="color-secondary">
-                Objetivo Específico
-              </h1>
-              <div className="text">
-                <ul>
-                  {specific && convertToArray(specific).map((item: any) => (
-                    <li>
-                      <p>{item.text}</p>
-                    </li>
-                  ))
-                  }
-                </ul>
-              </div>
-            </div>
-          )
-          }
           {proposal.length > 0 && (
             <div className="proposalList">
               <h1>
@@ -282,6 +276,6 @@ export function Demanda() {
       </ContainerPage>
     </>
   ) : (
-    <div className="notFound" />
+    <p>Carregando...</p>
   );
 }

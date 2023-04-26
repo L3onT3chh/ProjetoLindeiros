@@ -131,11 +131,11 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
                                             <input type="text" placeholder="Pesquise por" disabled={(list && list.length > 0) ? false : true} />
                                         </div>
                                         <div className="table">
-                                            <p className="subTitle"><span>{(list) ? list.length : 0}</span> Propostas encontradas<sub style={{ fontSize: "10px", letterSpacing: "-0.5px", fontWeight: "normal" }}>(Clique em "Nº de envolvidos" para consultar detalhes)</sub></p>
+                                            <p className="subTitle"><span>{(list) ? list.length : 0}</span> Propostas encontradas<sub style={{ fontSize: "10px", letterSpacing: "-0.5px", fontWeight: "normal" }}>(Clique em "Ver mais" para consultar detalhes)</sub></p>
                                             <table>
                                                 <thead>
-                                                    <th>Nº envolvidos</th>
-                                                    <th>Prazo de execução</th>
+                                                    <th>Proposta</th>
+                                                    <th>Prazo para conclusão</th>
                                                     <th>Orçamento</th>
                                                     <th>Situação</th>
                                                     <th>Ações</th>
@@ -144,7 +144,7 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
                                                     {list &&
                                                         list.map((item: any, index: number) => (
                                                             <tr key={index}>
-                                                                <td onClick={() => openProposalData(item)}>{parseInt(item.Details.numberInvolved) + 1}</td>
+                                                                <td onClick={() => openProposalData(item)} style={{paddingLeft:0}}><p className="field-button" style={{textAlign: "center"}}>Ver mais</p></td>
                                                                 <td>{dataFormat(item.Details.deadline)}</td>
                                                                 <td>{item.Details.value}</td>
                                                                 <td className={(item.isAproved == 1) ? "aproved" : "await"}>{(item.isAproved == 1) ? "Aprovado" : "Pendente"}</td>

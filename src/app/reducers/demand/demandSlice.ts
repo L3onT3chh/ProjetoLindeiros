@@ -24,6 +24,7 @@ export const initialState: IDataDemand = {
   fullDemand: [],
   error: "",
   message: "",
+  status: 0
 };
 
 export const demandSlice = createSlice({
@@ -48,6 +49,7 @@ export const demandSlice = createSlice({
         state.fullDemand = convertToArray(action.payload);
         state.loading = false;
         state.error = "";
+        console.log(convertToArray(action.payload));
       },
     );
     builder.addCase(fetchDemandsThunk.pending, (state: IDataDemand) => {
@@ -71,6 +73,7 @@ export const demandSlice = createSlice({
           state.fullDemand.push(action.payload.response[0]);
         }
         state.loading = false;
+        state.status = action.payload.status;
       },
     );
     builder.addCase(createDemandsThunk.pending, (state: IDataDemand) => {
@@ -217,3 +220,4 @@ export default demandSlice.reducer;
 
 export const selectCurrentDemands = (state: IStateData) => state.demands;
 export const demandLoading = (state: IStateData) => state.demands.loading;
+export const demandStatus = (state: IStateData) => state.demands.status;

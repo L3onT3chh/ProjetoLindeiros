@@ -50,7 +50,7 @@ export const fetchDemandsThunk = createAsyncThunk(
   "demandas/fetchDemandas",
   async () => {
     const demand = await findAllDemands();
-
+    console.log(demand);
     return demand;
   },
 );

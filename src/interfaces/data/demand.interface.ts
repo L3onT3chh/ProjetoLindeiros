@@ -24,7 +24,6 @@ export interface IDemandPost {
   description: string;
   priority: string;
   generalText: string;
-  specificText: string;
   city_id: string;
   axes_id: string;
   user_id: string;
@@ -95,6 +94,7 @@ export interface IDataDemand extends IResponseData {
   };
   demand: IDemand[];
   fullDemand: IDemand[];
+  status: number;
 }
 
 export interface IDataProposal extends IResponseData {

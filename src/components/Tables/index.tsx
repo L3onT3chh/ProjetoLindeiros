@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { IUser } from "interfaces/data/user.interface";
-import { BsFillTrashFill } from "react-icons/bs";
+import { BsFillPencilFill, BsFillTrashFill } from "react-icons/bs";
 import { MdTipsAndUpdates } from "react-icons/md";
 import { NotFound } from "components/Notfound";
 import PDefault from "components/Popups";
@@ -119,17 +119,17 @@ export function TableDefaultUser({ fields }: IProps) {
                     <BsFillTrashFill
                       color="red"
                       className="btn-click"
-                      size={30}
+                      size={22}
                       onClick={() => item.id && preRemove(item.id)}
                     />
                   </span>{" "}
                   <span className="divisor" />
                   <span>
-                    <MdTipsAndUpdates
+                    <BsFillPencilFill
                       onClick={() => item.id && handleUpdateUser(item.id)}
                       className="update-icon btn-click"
-                      color="green"
-                      size={32}
+                      color="#3679bc"
+                      size={22}
                     />
                   </span>
                 </th>

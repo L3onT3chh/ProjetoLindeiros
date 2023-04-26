@@ -14,7 +14,7 @@ import { IStateData } from "interfaces/components.interface";
 import { LoadingDefault } from "components/Loading";
 import InputStyle from "components/Inputs";
 import { Link } from "react-router-dom";
-import { showErrorMessage } from "util/function";
+import { formatKeyTypes, showErrorMessage } from "util/function";
 import { requestAccount } from "API/User/crud.user";
 
 function RegisterRepresent() {
@@ -22,8 +22,8 @@ function RegisterRepresent() {
   const { userTypes } = useSelector((state: IStateData) => state);
   const [uemail, setEmail] = useState("");
   const [uText, setText] = useState("");
-  const [ucity, setSelectCity] = useState("");
-  const [utype, setSelectType] = useState("");
+  const [ucity, setSelectCity] = useState("none");
+  const [utype, setSelectType] = useState("none");
   const [message, setMessage] = useState(false);
 
   const handleRequest = async (e: any) => {
@@ -35,7 +35,7 @@ function RegisterRepresent() {
     }
 
     let resp = await requestAccount(uText, uemail, utype, ucity);
-    console.log(resp);
+
     if(resp.status !== 200){
       showErrorMessage(resp.message, "error");
       return;
@@ -85,7 +85,7 @@ function RegisterRepresent() {
               value={utype}
               setState={setSelectType}
               name="userType"
-              options={userTypes.publicTypes}
+              options={formatKeyTypes(["Selecione um valor", ...userTypes.publicTypes], {})}
             />
           </div>
           <div className="forgout-chip form-control-demand-forgout">

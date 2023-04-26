@@ -14,6 +14,7 @@ import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { IStateData } from "interfaces/components.interface";
 import { showErrorMessage } from "util/function";
 import { convertToArray } from "util/handleSelectorObj";
+import { usersStatus } from "app/reducers/user/userSlice";
 
 interface IProps {
   userId: string;
@@ -29,6 +30,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
 
   const loading = useSelector((state: IStateData) => state.users.loading);
   const auth = useSelector((state: IStateData) => state.auth.auth.user);
+  const status = useSelector(usersStatus);
 
   const dispatch = useDispatch<AppDispatch>();
   const [typeUser, setTypeUser] = useState("");
@@ -88,6 +90,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
   const handleSaveData = async (valuesSave: IUserPost) => {
     if (password.length > 0 && (confPassword !== password)) {
       showErrorMessage("Senhas não coincidem", "error");
+      setState(false);
       return;
     }
 
@@ -123,16 +126,19 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
       );
     }
     setReset(true);
-    setPassword("");
-    setConfPassword("");
   };
 
   useEffect(() => {
     if (!loading && reset) {
       setPrimary(false);
-      setState(false);
+
+      if(status === 200){
+        setState(false);
+        setPassword("");
+        setConfPassword("");
+      }
     }
-  }, [loading, reset, setReset, setPrimary])
+  }, [loading, reset, status, setReset, setPrimary])
 
   useEffect(() => {
     if (primaryValue) {
@@ -198,7 +204,7 @@ function UpdateUser({ userId, trigger, setState, removeSelects, setPrimary, prim
                   placeholder="Nº de telefone"
                   title=""
                   valueChanges={phone}
-                  maxLength={8}
+                  maxLength={9}
                   name="phone"
                   type="phone"
                   className="text-double"
