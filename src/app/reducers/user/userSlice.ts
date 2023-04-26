@@ -87,6 +87,7 @@ export const userSlice = createSlice({
       const { payload } = action;
       state.typeMessage = ``;
 
+      state.status = payload.status;
       if (payload.status === 400) {
         state.error = payload.message;
       }
@@ -281,6 +282,9 @@ export const userSlice = createSlice({
     cleanMessage: (state: IDataUser) => {
       state.error = "";
     },
+    cleanStatus: (state: IDataUser) => {
+      state.status = 0;
+    },
     deleteUser: () => { },
     updateUser: () => { },
   },
@@ -297,7 +301,8 @@ export const {
   cleanFilters,
   filterAll,
   filterAllRequest,
-  cleanMessage
+  cleanMessage,
+  cleanStatus
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -12,12 +12,12 @@ import { SelectMenuAlternative } from "components/Select/Alterntive";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { createUserRequestThunk } from "app/reducers/user/thunk";
-import { cleanMessage, usersErrors } from "app/reducers/user/userSlice";
+import { cleanMessage, cleanStatus, usersErrors, usersStatus } from "app/reducers/user/userSlice";
 import { IStateData } from "interfaces/components.interface";
 
 export function CompleteAccount() {
   const dispatch = useDispatch<AppDispatch>();
-  const errors = useSelector(usersErrors);
+  const status = useSelector(usersStatus);
   const { error } = useSelector((state: IStateData) => state.users);
   const nav = useNavigate();
   const form: any = useRef();
@@ -32,6 +32,10 @@ export function CompleteAccount() {
   const [confPassword, setConfPassword] = useState("");
 
   const [finish, setFinish] = useState(false);
+
+  useEffect(()=>{
+    dispatch(cleanStatus());
+  }, [])
 
   useEffect(() => {
     if (link) {
@@ -48,6 +52,7 @@ export function CompleteAccount() {
 
   const handleRegister = async (e: any) => {
     e.preventDefault();
+    dispatch(cleanStatus());
 
     if (name.length === 0 || cpf.length === 0 || phone_ddd.length === 0 || phone.length === 0 || born_date.length === 0 || password.length === 0 || confPassword.length === 0) {
       showErrorMessage("Preencha todos os campos", "error");
@@ -72,10 +77,11 @@ export function CompleteAccount() {
   }
 
   useEffect(() => {
-    if(error.length === 0 && finish){
+    console.log(status);
+    if(status === 200 && finish){
       nav("/login");
     }
-  }, [error]);
+  }, [status, finish]);
 
   const verifyLink = async (link: string) => {
     let resp = await linkVerify(link);
