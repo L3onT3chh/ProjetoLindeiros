@@ -987,6 +987,7 @@ export const ContainerPainel = styled.div<SContainerProps>`
           color: white;
           width: 200px;
           text-align: center;
+          
         }
 
         #title-name,

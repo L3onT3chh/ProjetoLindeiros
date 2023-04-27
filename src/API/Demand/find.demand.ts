@@ -2,6 +2,7 @@
 import { AxiosError } from "axios";
 import { HEADERS_DATA } from "config";
 import API from "API";
+import { parseToUrl } from "util/parseUrl";
 
 export const findAllDemands = async () => {
   try {
@@ -68,6 +69,43 @@ export const findAllByUser = async (id: string) => {
     if (Demand) {
       return Demand;
     }
+
+  } catch (err: any) {
+    return {
+      response: "",
+      status: 404,
+      message: "Contate o administrador do sistema",
+    };
+  }
+};
+
+export const findAllByUrl = async (url: string) => {
+  console.log(parseToUrl(url));
+  try {
+    const headers = { ...HEADERS_DATA };
+    const responseDemands = await API(`/demandByUrl/${parseToUrl(url)}`, {
+      headers,
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+
+    let { Demand } = responseDemands.data;
+
+    console.log(responseDemands);
+
+    if (Demand) {
+      return {
+        response: Demand,
+        status: 200,
+        message: "",
+      };
+    }
+
+    return {
+      response: [],
+      status: 400,
+      message: responseDemands.error,
+    };
 
   } catch (err: any) {
     return {

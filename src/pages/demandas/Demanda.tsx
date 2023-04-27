@@ -13,7 +13,7 @@ import TextArea from "components/Textarea";
 import ButtonCard from "components/Buttons/ButtonCard";
 import CardProposta from "components/Card/CardProposta";
 import NavBar from "components/NavBar";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { IStateData } from "interfaces/components.interface";
 import { IDemand, IProposal } from "interfaces/data/demand.interface";
@@ -34,12 +34,17 @@ import { selectUserLogged } from "app/reducers/auth/authSlice";
 import { convertToArray } from "util/handleSelectorObj";
 import { BsHeadset } from "react-icons/bs";
 import { AppDispatch } from "app/store";
-import { fetchDemandsThunk } from "app/reducers/demand/thunk";
+import { fetchDemandsThunk, findAllByUrlThunk } from "app/reducers/demand/thunk";
+import { LoadingScreen } from "components/LoadingScreen";
+import { cleanItem } from "app/reducers/demand/demandSlice";
+import { showErrorMessage } from "util/function";
 
 export function Demanda() {
+  const nav = useNavigate();
   const { name } = useParams();
   const { auth } = useSelector((state: IStateData) => state);
   const { demands } = useSelector((state: IStateData) => state);
+  const [localLoading, setLocalLoading] = useState(true);
   const proposalList = useSelector((state: IStateData) => state.proposal);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -59,26 +64,34 @@ export function Demanda() {
   });
   const [demandClicked, setDemandClicked] = useState<IProposal>();
 
-  const demand = useSelector((state: IStateData) =>
-    state.demands.demand.filter((item) => item.url === name),
-  )[0];
+  const [demand, setDemand] = useState<IDemand>();
 
   const [data, setData] = useState<IDemand[]>();
 
   useEffect(() => {
-    if (demands.demand.length === 0) {
-      dispatch(fetchDemandsThunk());
+    if (name) {
+      dispatch(cleanItem());
+      dispatch(findAllByUrlThunk(name));
     }
   }, []);
 
   useEffect(() => {
-    if (demand) {
-      if (demand.Proposal !== undefined) {
+    if (demands.status !== 200 && demands.status !== 0) {
+      showErrorMessage("A demanda que você procura não existe. Redirecionando...", "error");
+      setTimeout(()=>{
+        nav("/demandas");
+      }, 5000);
+    }
+  }, [demands.status]);
+
+  useEffect(() => {
+    if (demands.item.length === 1) {
+      if (demands.item[0].Proposal !== undefined) {
         let proposalList;
-        if (Array.isArray(demand.Proposal)) {
-          proposalList = [...demand.Proposal];
+        if (Array.isArray(demands.item[0].Proposal)) {
+          proposalList = [...demands.item[0].Proposal];
         } else {
-          proposalList = [demand.Proposal];
+          proposalList = [demands.item[0].Proposal];
         }
         proposalList.sort(function (a, b) {
           return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
@@ -87,24 +100,21 @@ export function Demanda() {
       } else {
         setProposal([]);
       }
-    }
-  }, [demand, name]);
 
-  useEffect(() => {
-    if (demands.demand.length > 0) {
-      let temp = eixoData.filter(item => item.title === demand.Axes.name);
+      let temp = eixoData.filter(item => item.title === demands.item[0].Axes.name);
       let image = ImagesEixos.filter(item => item.sigle === temp[0].url);
 
       setBackgroundImage(image[0].image);
+      setLocalLoading(false);
     }
-  }, [demands.demand])
+  }, [demands.item]);
 
-  useEffect(() => {
-    if (aux.proposal !== undefined) {
-      setDemandClicked(aux.proposal);
-      setopenCard(!openCard);
-    }
-  }, [aux]);
+  // useEffect(() => {
+  //   if (aux.proposal !== undefined) {
+  //     setDemandClicked(aux.proposal);
+  //     setopenCard(!openCard);
+  //   }
+  // }, [aux]);
 
   const handleStatus = (status: number) => {
     if (status == 1) return "Em execução";
@@ -125,7 +135,8 @@ export function Demanda() {
   }
 
   const [idNav, setIdNav] = useState(1);
-  return demand ? (
+
+  return (!demands.loading && demands.status === 200 && !localLoading) ? (
     <>
       {proposalSelected && (
         <ProposalList state={proposalOpen} setState={setProposalOpen} outDetails={proposalSelected} />
@@ -155,7 +166,7 @@ export function Demanda() {
         primaryBlocked={sendProposal}
       >
         <RegisterProposal
-          idDemand={demand.id}
+          idDemand={demands.item[0].id}
           setTrigger={setOpenProposalCad}
           trigger={OpenProposalCad}
           primaryValue={sendProposal}
@@ -169,45 +180,45 @@ export function Demanda() {
           <div className="content-container">
             <div className="data-banner">
               <TitleDefault
-                name={demand.name}
+                name={demands.item[0].name}
                 bold
                 font="40"
                 className="mainTitle"
               />
-              <p className="demandDescription">{demand.description}</p>
+              <p className="demandDescription">{demands.item[0].description}</p>
               <TextSublined
                 font="15"
                 name="Criado por: "
-                subtitle={demand.User.name}
+                subtitle={demands.item[0].User.name}
                 bold
               />
               {/* 
                   setTrigger: () => setOpenProposalCad(!OpenProposalCad),
               */}
               <div className="data-info">
-                <TitleDefault name={"Última atualização em " + dataFormat(demand.createdAt)} font="16" Icon={() => <AiOutlineCalendar />} />
+                <TitleDefault name={"Última atualização em " + dataFormat(demands.item[0].createdAt)} font="16" Icon={() => <AiOutlineCalendar />} />
 
-                <TitleDefault name={"Prioridade: " + demand.priority} font="16" Icon={() => <RiErrorWarningFill />} />
+                <TitleDefault name={"Prioridade: " + demands.item[0].priority} font="16" Icon={() => <RiErrorWarningFill />} />
               </div>
               <div className="create-proposal">
                 <div className="info">
                   <div className="orcamento">
                     <p>Status</p>
-                    <h2>{handleStatus(demand.status)}</h2>
+                    <h2>{handleStatus(demands.item[0].status)}</h2>
                   </div>
                   <div className="data">
                     <p>Criado em</p>
-                    <h2>{dataFormat(demand.createdAt)}</h2>
+                    <h2>{dataFormat(demands.item[0].createdAt)}</h2>
                   </div>
                   <h3 className="title">Mais detalhes</h3>
                   <ul className="lista">
                     <li>
                       <FaCity size={20} />
-                      <p>Aplicado em {demand.Cities.name}</p>
+                      <p>Aplicado em {demands.item[0].Cities.name}</p>
                     </li>
                     <li>
                       <HiOutlineLightBulb size={20} />
-                      <p>Eixo {demand.Axes.name}</p>
+                      <p>Eixo {demands.item[0].Axes.name}</p>
                     </li>
                     <li>
                       <FaRegHandshake size={20} />
@@ -217,7 +228,7 @@ export function Demanda() {
                       (
                         <li>
                           <BsHeadset size={20} />
-                          <p>{demand.User.email}</p>
+                          <p>{demands.item[0].User.email}</p>
                         </li>
                       )
                     }
@@ -245,7 +256,7 @@ export function Demanda() {
             </h1>
             <div className="text">
               <p>
-                {demand.Objective.general}
+                {demands.item[0].Objective.general}
               </p>
             </div>
           </div>
@@ -276,6 +287,6 @@ export function Demanda() {
       </ContainerPage>
     </>
   ) : (
-    <p>Carregando...</p>
+    <LoadingScreen></LoadingScreen>
   );
 }

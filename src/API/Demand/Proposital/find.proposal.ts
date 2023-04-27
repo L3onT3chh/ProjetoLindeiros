@@ -5,7 +5,7 @@ import { HEADERS_DATA } from "config";
 export const findProposal = async (id: string) => {
   try {
     const headers = { ...HEADERS_DATA };
-    const responseProposital = await API.get(`/proposal/${id}`, {
+    const responseProposital = await API.get(`/proposalGetOne/${id}`, {
       headers,
     })
       .then((response) => Promise.resolve(response.data))

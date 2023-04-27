@@ -1,13 +1,14 @@
 /* eslint-disable no-param-reassign */
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { IDataProposal } from "interfaces/data/demand.interface";
-import { createProposalThunk } from "./thunk";
+import { createProposalThunk, findOneProposal, updateProposal } from "./thunk";
 import { IStateData } from "interfaces/components.interface";
 
 const initialState: IDataProposal = {
   loading: false,
   proposal: [],
   error: "",
+  status: 0
 };
 
 export const proposalSlice = createSlice({
@@ -19,7 +20,7 @@ export const proposalSlice = createSlice({
       (state: IDataProposal, action) => {
         const { payload } = action;
         console.log(payload);
-        if(payload.data){
+        if (payload.data) {
           console.log(payload.data);
         }
 
@@ -37,13 +38,44 @@ export const proposalSlice = createSlice({
         state.loading = true;
       },
     );
+    builder.addCase(
+      findOneProposal.pending,
+      (state: IDataProposal) => {
+        state.loading = true;
+      },
+    );
+    builder.addCase(
+      findOneProposal.fulfilled,
+      (state: IDataProposal, action) => {
+        const { payload } = action;
+        
+        state.proposal = payload.response.Proposal;
+        state.loading = false;
+      },
+    );
+    builder.addCase(
+      updateProposal.pending,
+      (state: IDataProposal) => {
+        state.loading = true;
+      },
+    );
+    builder.addCase(
+      updateProposal.fulfilled,
+      (state: IDataProposal, action) => {
+        state.loading = false;
+        state.status = action.payload.status;
+      },
+    );
+
   },
   reducers: {
-    insertProposal: () => {},
-    allProposal: () => {},
+    insertProposal: () => { },
+    allProposal: () => { },
   },
 });
 
 export const { insertProposal, allProposal } = proposalSlice.actions;
 
 export default proposalSlice.reducer;
+export const proposalStatus = (state: IStateData) => state.proposal.status;
+

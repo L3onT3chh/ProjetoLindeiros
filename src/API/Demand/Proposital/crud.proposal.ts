@@ -65,5 +65,6 @@ export const updateProposal = async (proposalSave: IEProposal) => {
 };
 
 export default {
-  register: RegisterProposal
+  register: RegisterProposal,
+  update: updateProposal
 };

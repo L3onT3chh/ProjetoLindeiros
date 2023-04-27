@@ -13,7 +13,7 @@ import { ChipCard } from "../Chips/ChipCard";
 import { ContainerMenuRight } from "../style";
 import { convertToArray } from "util/handleSelectorObj";
 import { BiPaperPlane, BiPaperclip, BiUser, BiUserX } from "react-icons/bi";
-import { FaUsers } from "react-icons/fa";
+import { FaRegHandshake, FaUsers } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
 import { HiDocumentText } from "react-icons/hi";
 
@@ -41,9 +41,9 @@ export function MenuRight() {
     ],
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(convertToArray(user)[0]);
-    if(user && convertToArray(user)[0].userType === "Administrador"){
+    if (user && convertToArray(user)[0].userType === "Administrador") {
       setMenuAcess({
         title: "Apresentação",
         subitems: [
@@ -93,7 +93,7 @@ export function MenuRight() {
         <RegisterDemandas primaryValue={addDemanded} setPrimary={setAddDemanded} setState={setOpenPopupDemandas} />
       </PDefault>
 
-      <ContainerMenuRight>
+      <ContainerMenuRight className="scroll">
         <div className="container-header-painel">
           <Link
             to="/meupainel"
@@ -117,14 +117,14 @@ export function MenuRight() {
 
         <div className="content-data">
           <ChipCard
-            Icon={()=> <BiPaperPlane size={18}/>}
+            Icon={() => <BiPaperPlane size={18} />}
             optionsMenu={[menuAcess]}
             text="Acessos"
           />
           {convertToArray(user)[0].userType === "Administrador" &&
             (
               <ChipCard
-                Icon={()=> <FaUsers size={18}/>}
+                Icon={() => <FaUsers size={18} />}
                 optionsMenu={[
                   {
                     title: "Listagem",
@@ -152,7 +152,7 @@ export function MenuRight() {
           {convertToArray(user)[0].userType !== "Administrador" &&
             (
               <ChipCard
-                Icon={()=> <BiUser size={18}/>}
+                Icon={() => <BiUser size={18} />}
                 optionsMenu={[
                   {
                     title: "Meu perfil",
@@ -166,7 +166,7 @@ export function MenuRight() {
           }
 
           <ChipCard
-            Icon={()=> <HiDocumentText size={18} color="#fff"/>}
+            Icon={() => <HiDocumentText size={18} color="#fff" />}
             optionsMenu={[
               {
                 title: "Inserir demanda",
@@ -184,6 +184,22 @@ export function MenuRight() {
               },
             ]}
             text="Demandas"
+          />
+
+          <ChipCard
+            Icon={() => <FaRegHandshake size={18} />}
+            optionsMenu={[
+              {
+                title: "Listagem",
+                subitems: [
+                  {
+                    name: "Listar propostas",
+                    url: "painel/propostas",
+                  },
+                ],
+              },
+            ]}
+            text="Minhas Propostas"
           />
         </div>
       </ContainerMenuRight>

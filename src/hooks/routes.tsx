@@ -37,6 +37,8 @@ import { NewsItem } from "pages/news/NewsItem";
 import { RetrivePassword } from "pages/retrivePassword";
 import { TableDefaultResquest } from "components/Tables/Request";
 import { CompleteAccount } from "pages/CompleteAccount";
+import { ListagemProposta } from "pages/painel/ListagemProposta";
+import { TableProposal } from "components/Tables/TableProposal";
 
 const fields = ["Ativo", "Nome completo", "Usuário", "Contato", "Tipo"];
 const requestFields = ["Status", "Email", "Criado em", "Ver mais"];
@@ -153,6 +155,26 @@ function Routers() {
                   ]}
                 />
               </ListagemDemanda>
+            </PrivatRoute>
+          }
+        />
+        <Route
+          path="/painel/propostas"
+          element={
+            <PrivatRoute>
+              <ListagemProposta
+                type="Demanda"
+              >
+                <TableProposal
+                  fields={[
+                    "Status",
+                    "Descrição",
+                    "Orçamento",
+                    "Nº de participantes",
+                    "Editar"
+                  ]}
+                />
+              </ListagemProposta>
             </PrivatRoute>
           }
         />

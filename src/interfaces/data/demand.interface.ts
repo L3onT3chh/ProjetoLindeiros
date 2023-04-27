@@ -93,10 +93,12 @@ export interface IDataDemand extends IResponseData {
     clicked: IDemand | undefined;
   };
   demand: IDemand[];
+  item: IDemand[];
   fullDemand: IDemand[];
   status: number;
 }
 
 export interface IDataProposal extends IResponseData {
   proposal: IProposal[];
+  status: number;
 }

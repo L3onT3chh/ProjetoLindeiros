@@ -18,6 +18,7 @@ import { setCitySelected } from "app/reducers/city/citySlice";
 import { setSelectAxes } from "app/reducers/axes/axesSlice";
 import { isValid } from "util/function";
 import {
+  cleanItem,
   filterAll,
   filterAxes,
   filterCity,
@@ -48,6 +49,7 @@ export default function Demandas() {
   const [stateSelector, setStateSelector] = useState<string>();
 
   useEffect(() => {
+    dispatch(cleanItem());
     dispatch(fetchDemandsThunk());
   }, [dispatch])
 

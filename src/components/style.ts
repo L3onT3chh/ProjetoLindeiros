@@ -950,6 +950,8 @@ export const ContainerMenuRight = styled.div<SContainerProps>`
   color: white;
   background-color: var(--navbar-color-button);
   z-index: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   .container-header-painel {
     display: flex;
@@ -1018,6 +1020,7 @@ export const ContainerSelectAlternative = styled.select<SContainerProps>`
 
 export const ContainerChipCard = styled.div`
   width: 100%;
+  margin-bottom: 20px;
 
   .content-body-painel {
     display: flex;

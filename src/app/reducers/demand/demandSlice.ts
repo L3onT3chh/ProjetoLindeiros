@@ -6,6 +6,7 @@ import {
   fetchDemandsThunk,
   findOneDemandsThunk,
   findAllByUsersThunk,
+  findAllByUrlThunk,
 } from "app/reducers/demand/thunk";
 import { IStateData } from "interfaces/components.interface";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
@@ -22,6 +23,7 @@ export const initialState: IDataDemand = {
   loading: false,
   demand: [],
   fullDemand: [],
+  item: [],
   error: "",
   message: "",
   status: 0
@@ -34,7 +36,7 @@ export const demandSlice = createSlice({
     builder.addCase(
       findAllByUsersThunk.fulfilled,
       (state: IDataDemand, action) => {
-        if(action.payload){
+        if (action.payload) {
           state.demand = convertToArray(action.payload);
           state.fullDemand = convertToArray(action.payload);
         }
@@ -50,6 +52,22 @@ export const demandSlice = createSlice({
         state.loading = false;
         state.error = "";
         console.log(convertToArray(action.payload));
+      },
+    );
+    builder.addCase(
+      findAllByUrlThunk.fulfilled,
+      (state: IDataDemand, action) => {
+        console.log(convertToArray(action.payload.response))
+        state.item = convertToArray(action.payload.response);
+        state.loading = false;
+        state.status = action.payload.status;
+        state.error = "";
+      },
+    );
+    builder.addCase(
+      findAllByUrlThunk.pending,
+      (state: IDataDemand) => {
+        state.loading = true;
       },
     );
     builder.addCase(fetchDemandsThunk.pending, (state: IDataDemand) => {
@@ -84,8 +102,8 @@ export const demandSlice = createSlice({
       (state: IDataDemand, action) => {
         if (action.payload && action.payload.status === 200 && action.payload.response) {
           let id = action.payload.response[0].id;
-          let index:any = state.demand.findIndex((item) => item.id === id);
-          
+          let index: any = state.demand.findIndex((item) => item.id === id);
+
           state.demand.splice(index, 1, action.payload.response[0]);
           state.fullDemand.splice(index, 1, action.payload.response[0]);
         }
@@ -113,7 +131,7 @@ export const demandSlice = createSlice({
   },
   reducers: {
     addDemand: () => { },
-    cleanDemand: (state: IDataDemand) => { 
+    cleanDemand: (state: IDataDemand) => {
       state.loading = true;
       state.demand = [];
       state.fullDemand = [];
@@ -150,9 +168,9 @@ export const demandSlice = createSlice({
     },
     filterSearch: (state: IDataDemand, action) => {
       const filter = state.demand.filter((item: IDemand) =>
-          item.name
-            .toLocaleLowerCase()
-            .match(action.payload.toLocaleLowerCase().trim()) && item,
+        item.name
+          .toLocaleLowerCase()
+          .match(action.payload.toLocaleLowerCase().trim()) && item,
       );
       state.demandFilter.search = filter;
     },
@@ -168,27 +186,27 @@ export const demandSlice = createSlice({
       let cityEmpty = (payload.citySelector.length == 0 || payload.citySelector == "none");
       let axesEmpty = (payload.axesSelector.length == 0 || payload.axesSelector == "none");
 
-      if(!cityEmpty){
+      if (!cityEmpty) {
         temp = temp.filter((demand) => demand.Cities.id === payload.citySelector);
       }
 
-      if(!axesEmpty){
+      if (!axesEmpty) {
         temp = temp.filter((demand) => demand.Axes.id === payload.axesSelector);
       }
 
-      if(payload.searchSelector.length > 0){
+      if (payload.searchSelector.length > 0) {
         temp = temp.filter((demand) => demand.name.toLocaleLowerCase()
-        .includes(payload.searchSelector.toLocaleLowerCase()));
+          .includes(payload.searchSelector.toLocaleLowerCase()));
       }
 
-      if(payload.stateSelector.length > 0){
+      if (payload.stateSelector.length > 0) {
         temp = temp.filter((demand) => demand.status === payload.stateSelector);
       }
 
-      if(cityEmpty && axesEmpty && payload.searchSelector.length == 0 && payload.stateSelector.length == 0){
+      if (cityEmpty && axesEmpty && payload.searchSelector.length == 0 && payload.stateSelector.length == 0) {
         temp = state.fullDemand;
       }
-      
+
       state.demand = temp;
     },
     mergeDemandFilter: (state: IDataDemand) => {
@@ -202,6 +220,10 @@ export const demandSlice = createSlice({
         filtered: [...data],
       };
     },
+    cleanItem: (state: IDataDemand) => {
+      state.status = 0;
+      state.item = [];
+    }
   },
 });
 
@@ -213,7 +235,8 @@ export const {
   clickedDemand,
   filterSearch,
   filterAll,
-  cleanDemand
+  cleanDemand,
+  cleanItem
 } = demandSlice.actions;
 
 export default demandSlice.reducer;
