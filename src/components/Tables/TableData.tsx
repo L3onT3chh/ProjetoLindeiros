@@ -88,7 +88,7 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
     <>
       <LoadingDefault active={demands.loading} />
       <div className="data-user-poup">
-        {proposalData && (
+        {proposalData !== undefined && (
           <ProposalList state={proposalOpen} setState={setProposalOpen} data={proposalData} />
         )
         }

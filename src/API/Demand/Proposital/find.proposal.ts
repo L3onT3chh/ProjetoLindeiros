@@ -15,3 +15,17 @@ export const findProposal = async (id: string) => {
     return undefined;
   }
 };
+
+export const findByDemandProposal = async (id: string) => {
+  try {
+    const headers = { ...HEADERS_DATA };
+    const responseProposital = await API.get(`/proposal/${id}`, {
+      headers,
+    })
+      .then((response) => Promise.resolve(response.data))
+      .catch((err: Error | AxiosError) => Promise.resolve(err));
+    return responseProposital;
+  } catch (e: any) {
+    return undefined;
+  }
+};

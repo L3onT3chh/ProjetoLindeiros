@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "app/store";
 import { findOneDemands } from "API/Demand/find.demand";
 import { updateProposal } from "API/Demand/Proposital/crud.proposal";
-import { findProposal } from "API/Demand/Proposital/find.proposal";
+import { findByDemandProposal, findProposal } from "API/Demand/Proposital/find.proposal";
 import { findTeam } from "API/Team/find.team";
 import { dataFormat } from "util/dateFormater";
 import { convertToArray } from "util/handleSelectorObj";
@@ -45,7 +45,7 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
         if (list && list.length === 0) {
             const refreshProposal = async () => {
                 if (demandId) {
-                    let proposal: any = await findProposal(demandId);
+                    let proposal: any = await findByDemandProposal(demandId);
 
                     if (proposal.data) {
                         console.log(proposal.data.ProposalList)
@@ -86,6 +86,7 @@ export const ProposalList = ({ state, setState, data, outDetails }: IProposalLis
                 fullData['name'] = item.User.name;
             }
 
+            console.log(fullData);
             setDetails(fullData);
         }
     }
