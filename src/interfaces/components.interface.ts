@@ -114,6 +114,7 @@ export interface IPopup {
   primaryValue?: any;
   primaryBlocked?: boolean;
   children?: JSX.Element;
+  footerInvisible?: boolean;
 }
 
 export interface ICard {

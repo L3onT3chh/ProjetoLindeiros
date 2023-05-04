@@ -20,6 +20,8 @@ export interface IResponseData {
   message?: string;
   loading: boolean;
   error: string;
+  qtd?: number;
+  offset?: number;
 }
 
 export interface IDataState {

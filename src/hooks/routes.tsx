@@ -39,6 +39,8 @@ import { TableDefaultResquest } from "components/Tables/Request";
 import { CompleteAccount } from "pages/CompleteAccount";
 import { ListagemProposta } from "pages/painel/ListagemProposta";
 import { TableProposal } from "components/Tables/TableProposal";
+import { NoticiaProposta } from "pages/painel/ListagemNoticia";
+import { TableNews } from "components/Tables/TableNews";
 
 const fields = ["Ativo", "Nome completo", "Usuário", "Contato", "Tipo"];
 const requestFields = ["Status", "Email", "Criado em", "Ver mais"];
@@ -179,42 +181,20 @@ function Routers() {
           }
         />
         <Route
-          path="/painel/popup/demandas/status"
+          path="/painel/news"
           element={
             <PrivatRoute>
-              <MenuRight />
-            </PrivatRoute>
-          }
-        />
-        <Route
-          path="/painel/popup/demandas/add"
-          element={
-            <PrivatRoute>
-              <MenuRight />
-            </PrivatRoute>
-          }
-        />
-        <Route
-          path="/painel/news/add"
-          element={
-            <PrivatRoute>
-              <MenuRight />
-            </PrivatRoute>
-          }
-        />
-        <Route
-          path="/painel/eixos/add"
-          element={
-            <PrivatRoute>
-              <MenuRight />
-            </PrivatRoute>
-          }
-        />
-        <Route
-          path="/painel/docs/add"
-          element={
-            <PrivatRoute>
-              <MenuRight />
+              <NoticiaProposta
+                type="notícia"
+              >
+                <TableNews
+                  fields={[
+                    "Titulo",
+                    "Criada em",
+                    "Ações"
+                  ]}
+                />
+              </NoticiaProposta>
             </PrivatRoute>
           }
         />

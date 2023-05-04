@@ -29,3 +29,33 @@ export const findByDemandProposal = async (id: string) => {
     return undefined;
   }
 };
+
+export const proposalRelatedDemand = async () => {
+  try {
+    const token = localStorage.getItem("token_jwt");
+    const headers = { ...HEADERS_DATA, token: `${token}`  };
+    const responseProposital = await API.get(`/proposalRelatedDemand`, {
+      headers,
+    })
+      .then((response) => Promise.resolve(response.data))
+      .catch((err: Error | AxiosError) => Promise.resolve(err));
+    return responseProposital;
+  } catch (e: any) {
+    return undefined;
+  }
+};
+
+export const proposalRelatedDemandById = async (id: string) => {
+  try {
+    const token = localStorage.getItem("token_jwt");
+    const headers = { ...HEADERS_DATA, token: `${token}`  };
+    const responseProposital = await API.get(`/proposalRelatedDemand/${id}`, {
+      headers,
+    })
+      .then((response) => Promise.resolve(response.data))
+      .catch((err: Error | AxiosError) => Promise.resolve(err));
+    return responseProposital;
+  } catch (e: any) {
+    return undefined;
+  }
+};

@@ -22,3 +22,23 @@ export const findAllDocument = async () => {
     return undefined;
   }
 };
+
+export const findAllDocumentCheck = async (qtd: number, offset: number) => {
+  try {
+    // const token = localStorage.getItem("token_jwt")?.toString();
+    const headers = { ...HEADERS_DATA };
+    const responseDocument = await API.get(`/documentcheck/${qtd}/${offset}`, {
+      method: "GET",
+      headers,
+    })
+      .then((response) => Promise.resolve(response.data))
+      .catch((err: Error | AxiosError) => Promise.resolve(err));
+    const { Document } = await responseDocument.data;
+
+    if (Document) {
+      return Document;
+    }
+  } catch (e: any) {
+    return undefined;
+  }
+};

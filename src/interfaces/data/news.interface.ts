@@ -16,6 +16,9 @@ export interface IDataNews extends IResponseData {
     lastNews: [];
   };
   news: INews[];
+  fullNews: INews[];
+  item: INews | undefined;
+  status: number;
 }
 
 export interface INewsPost {

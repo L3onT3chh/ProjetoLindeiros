@@ -6,7 +6,8 @@ import {
   fetchDemandsThunk,
   findOneDemandsThunk,
   findAllByUsersThunk,
-  findAllByUrlThunk,
+  findAllByIdThunk,
+  myRelatedDemand,
 } from "app/reducers/demand/thunk";
 import { IStateData } from "interfaces/components.interface";
 import { IDataDemand, IDemand } from "interfaces/data/demand.interface";
@@ -34,6 +35,22 @@ export const demandSlice = createSlice({
   initialState,
   extraReducers: (builder: ActionReducerMapBuilder<any>) => {
     builder.addCase(
+      myRelatedDemand.fulfilled,
+      (state: IDataDemand, action) => {
+        if (action.payload) {
+          state.item = convertToArray(action.payload.response);
+        }
+        state.loading = false;
+        state.error = "";
+      },
+    );
+    builder.addCase(
+      myRelatedDemand.pending,
+      (state: IDataDemand) => {
+        state.loading = true;
+      },
+    );
+    builder.addCase(
       findAllByUsersThunk.fulfilled,
       (state: IDataDemand, action) => {
         if (action.payload) {
@@ -55,7 +72,7 @@ export const demandSlice = createSlice({
       },
     );
     builder.addCase(
-      findAllByUrlThunk.fulfilled,
+      findAllByIdThunk.fulfilled,
       (state: IDataDemand, action) => {
         console.log(convertToArray(action.payload.response))
         state.item = convertToArray(action.payload.response);
@@ -65,7 +82,7 @@ export const demandSlice = createSlice({
       },
     );
     builder.addCase(
-      findAllByUrlThunk.pending,
+      findAllByIdThunk.pending,
       (state: IDataDemand) => {
         state.loading = true;
       },

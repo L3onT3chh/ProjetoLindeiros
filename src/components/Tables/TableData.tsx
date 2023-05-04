@@ -26,6 +26,7 @@ import { ProposalList } from "components/ProposalList/ProposalList";
 import { convertToArray } from "util/handleSelectorObj";
 import { selectCurentUser } from "app/reducers/auth/authSlice";
 import { LoadingDefault } from "components/Loading";
+import { NotFound } from "components/Notfound";
 
 export function TableDefaultData({ fields }: IPropsGlobal) {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,10 +47,13 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
       dispatch(clickedDemand(id));
     }
   };
-  // -------------------------------------------
-  // Resultando em bug
-  // -------------------------------------------
   useEffect(() => {
+    dispatch(cleanDemand());
+  }, [])
+
+  useEffect(() => {
+    dispatch(cleanDemand());
+
     if (convertToArray(user)[0].id) {
       dispatch(findAllByUsersThunk(convertToArray(user)[0].id));
     }
@@ -137,56 +141,65 @@ export function TableDefaultData({ fields }: IPropsGlobal) {
           </ContentProfile>
         </PDefault>
       </div>
-      <table>
-        <tr className="one-row-title">
-          {fields && fields.map((field) => <th key={field}>{field}</th>)}
-        </tr>
-        <tbody className="demandTable">
-          {demands.demand.length > 0  && convertToArray(demands.demand).map((item: IDemand) => (
-            <tr key={item.id} className="row-content">
-              <th>
-                <button
-                  className="field-styled field-name"
-                  onClick={() => handleClicked(item.id)}
-                >
-                  {(item.name.length > 30) ? item.name.toString().substring(0, 30) + '...' : item.name}
-                </button>
-              </th>
-              <th>
-                <p className="field-styled">{item.Axes.name}</p>
-              </th>
-              <th>
-                <p className="field-styled">{item.priority}</p>
-              </th>
-              <th>
-                <p className="field-styled">{item.Cities.name}</p>
-              </th>
-              <th className="field-styled">
-                <span>
-                  <BsFillTrash2Fill
-                    color="red"
-                    className="btn-click"
-                    size={22}
-                    onClick={() => preRemove(item.id)}
-                  />
-                </span>{" "}
-                &nbsp;&nbsp;
-                <span>
-                  <BsFillPencilFill
-                    onClick={() => item.id && handleUpdateDemand(item.id)}
-                    className="update-icon btn-click"
-                    color="#3679bc"
-                    size={22}
-                  />
-                </span>
-              </th>
-              <th>
-                <p className="field-button" onClick={() => handlerProposalOpen(item)}>Ver mais</p>
-              </th>
+      {demands.demand.length > 0 ?
+        (
+          <table>
+            <tr className="one-row-title">
+              {fields && fields.map((field) => <th key={field}>{field}</th>)}
             </tr>
-          ))}
-        </tbody>
-      </table>
+            <tbody className="demandTable">
+              {demands.demand.length > 0 && convertToArray(demands.demand).map((item: IDemand) => (
+                <tr key={item.id} className="row-content">
+                  <th>
+                    <button
+                      className="field-styled field-name"
+                      onClick={() => handleClicked(item.id)}
+                    >
+                      {(item.name.length > 30) ? item.name.toString().substring(0, 30) + '...' : item.name}
+                    </button>
+                  </th>
+                  <th>
+                    <p className="field-styled">{item.Axes.name}</p>
+                  </th>
+                  <th>
+                    <p className="field-styled">{item.priority}</p>
+                  </th>
+                  <th>
+                    <p className="field-styled">{item.Cities.name}</p>
+                  </th>
+                  <th className="field-styled">
+                    <span>
+                      <BsFillTrash2Fill
+                        color="red"
+                        className="btn-click"
+                        size={22}
+                        onClick={() => preRemove(item.id)}
+                      />
+                    </span>{" "}
+                    &nbsp;&nbsp;
+                    <span>
+                      <BsFillPencilFill
+                        onClick={() => item.id && handleUpdateDemand(item.id)}
+                        className="update-icon btn-click"
+                        color="#3679bc"
+                        size={22}
+                      />
+                    </span>
+                  </th>
+                  <th>
+                    <p className="field-button" onClick={() => handlerProposalOpen(item)}>Ver mais</p>
+                  </th>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) :
+        (
+          <NotFound title="Nenhuma demanda encontrada" />
+        )
+
+      }
+
       {/* {dataClicked && dataClicked.Proposal && (
         <PMeuPerfil
           height="850"

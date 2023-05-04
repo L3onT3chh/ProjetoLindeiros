@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IEProposal, IProposal, IProposalPost } from "interfaces/data/demand.interface";
 import proposal from "API/Demand/Proposital/crud.proposal";
 import { showErrorMessage } from "util/function";
-import { findProposal } from "API/Demand/Proposital/find.proposal";
+import { findProposal, proposalRelatedDemand, proposalRelatedDemandById } from "API/Demand/Proposital/find.proposal";
 
 export const createProposalThunk = createAsyncThunk(
   "users/create",
@@ -33,3 +33,17 @@ export const findOneProposal = createAsyncThunk("proposal/getById", async (id: s
   console.log(response);
   return {response:response.data};
 });
+
+export const fetchProposalRelatedDemand = createAsyncThunk("proposal/getSendProposal", async () => {
+  const response = await proposalRelatedDemand();
+
+  return {response:response.data};
+});
+
+export const fetchProposalRelatedDemandById = createAsyncThunk("proposal/getSendProposalById", async (id: string) => {
+  const response = await proposalRelatedDemandById(id);
+
+  return {response:response.data};
+});
+
+

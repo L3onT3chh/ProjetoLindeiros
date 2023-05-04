@@ -13,14 +13,17 @@ import { ContainerDocuments } from "./styled";
 import { BsUpload } from "react-icons/bs";
 import { fetchDemandsThunk } from "app/reducers";
 import { AppDispatch } from "app/store";
-import { findAllDocument } from "API/Document/find.documents";
-import { filterDocuments, navigate, refreshDocuments } from "app/reducers/document/documentSlice";
+import { findAllDocument, findAllDocumentCheck } from "API/Document/find.documents";
+import { appendDocuments, filterDocuments, navigate, refreshDocuments } from "app/reducers/document/documentSlice";
 import { convertToArray } from "util/handleSelectorObj";
 import { PaginatedItems } from "components/Paginate";
+import { LoadingDefault } from "components/Loading";
 
 export function Documents() {
   const dispatch = useDispatch<AppDispatch>();
   const document: any = useSelector((state: IStateData) => state.documents.filtered);
+  const { qtd } = useSelector((state: IStateData) => state.documents);
+  const { offset } = useSelector((state: IStateData) => state.documents);
   const { auth } = useSelector((state: IStateData) => state);
   const [search, setSearch] = useState("");
   const [refresh, setRefresh] = useState(false);
@@ -28,6 +31,8 @@ export function Documents() {
   const [user, logged] = useSelector(selectCurentUser);
   const [allowed, setAllowed] = useState(false);
   const [sendDocument, setSendDocument] = useState(false);
+  const [lastPage, setLastPage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [pag, setPag] = useState();
 
@@ -41,6 +46,12 @@ export function Documents() {
     }
   }, [user, logged, allowed])
 
+  useEffect(() => {
+    if (lastPage) {
+      checkData();
+    }
+  }, [lastPage]);
+
 
   useEffect(() => {
     if (refresh) {
@@ -49,29 +60,46 @@ export function Documents() {
     }
   }, [refresh])
 
-  useEffect(()=>{
-    if(pag !== undefined) {
-      dispatch(filterDocuments(Object.assign({text: search}, pag)));
+  useEffect(() => {
+    if (pag !== undefined) {
+      dispatch(filterDocuments(Object.assign({ text: search }, pag)));
     }
   }, [pag, setPag]);
 
   const refreshData = async () => {
+    setLoading(true);
     let resp = await findAllDocument();
-    console.log(resp);
     dispatch(refreshDocuments(resp));
+    setLoading(false);
+  }
+
+  const checkData = async () => {
+    if (qtd !== undefined && offset !== undefined) {
+      setLoading(true);
+      let resp = await findAllDocumentCheck(qtd, offset);
+
+      if (resp !== undefined) {
+        dispatch(appendDocuments(resp));
+      }
+      
+      setLoading(false);
+    }
   }
 
   const handleSearch = (text: string) => {
     setSearch(text);
 
-    let pagObj = (pag) ?? {min:0, max:9}
-    dispatch(filterDocuments(Object.assign({text}, pagObj)));
+    let pagObj = (pag) ?? { min: 0, max: 9 }
+    dispatch(filterDocuments(Object.assign({ text }, pagObj)));
     console.log(convertToArray(document).length);
   }
 
   return (
     <>
       <NavBar text="documents" />
+      <LoadingDefault
+        active={loading}
+      />
       <ContainerDocuments>
         <PDefault
           height="80%"
@@ -120,7 +148,7 @@ export function Documents() {
           </div>
           {convertToArray(document).length > 9 &&
             (
-              <PaginatedItems itemsPerPage={9} max={convertToArray(document).length} setPag={setPag}/>
+              <PaginatedItems itemsPerPage={9} max={convertToArray(document).length} setPag={setPag} setLastPage={setLastPage} />
             )
           }
         </div>

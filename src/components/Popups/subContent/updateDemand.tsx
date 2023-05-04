@@ -55,6 +55,7 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
 
   useEffect(() => {
     if (demandFilter) {
+      console.log(demandFilter);
       setDemandClicked(demandFilter);
       setDemandName(demandFilter.name);
       setDemandAxes(demandFilter.Axes.id);
@@ -134,9 +135,9 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
                 <TextArea
                   name="generalText"
                   height="100px"
-                  value={demandClicked && demandText}
+                  value={demandClicked && demandDescription}
                   length={150}
-                  setState={setDemandText}
+                  setState={setDemandDescription}
                   required
                   className="form-control-demand"
                   placeholder="Objetivos geral"
@@ -160,13 +161,13 @@ function UpdateDemand({ demandId, setState, opened, setPrimary, primaryValue }: 
                 </div>
                 <TextArea
                   required
-                  value={demandClicked && demandDescription}
+                  value={demandClicked && demandText}
                   height="150px"
                   className="form-control-demand"
                   placeholder="Descrição"
                   length={30000}
                   title=""
-                  setState={setDemandDescription}
+                  setState={setDemandText}
                   name="description"
                 />
               </div>{" "}

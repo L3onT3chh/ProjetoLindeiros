@@ -243,7 +243,7 @@ export default function Demandas() {
                     demand.map((item: IDemand) => {
                       return (
                         <div className="demandaCardItem" key={item.id}>
-                          <Link to={`/demanda/${item.url}`}>
+                          <Link to={`/demanda/${item.id}`}>
                             <CardDemandas
                               key={item.id}
                               className="box-demanda"

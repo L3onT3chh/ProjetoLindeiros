@@ -39,7 +39,7 @@ export function News() {
   useEffect(() => {
     setNews({
       mainNews: news.slice(0, 4),
-      newsRemaining: news.slice(4, news.length),
+      newsRemaining: news.slice(4, 8),
     });
     console.log(newsData);
   }, [news]);

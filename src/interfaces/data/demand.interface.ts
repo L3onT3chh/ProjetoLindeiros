@@ -100,5 +100,7 @@ export interface IDataDemand extends IResponseData {
 
 export interface IDataProposal extends IResponseData {
   proposal: IProposal[];
+  secondaryLoading: boolean;
+  item: IProposal | undefined;
   status: number;
 }

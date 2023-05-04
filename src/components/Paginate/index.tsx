@@ -8,14 +8,21 @@ interface IPaginate {
     itemsPerPage: number;
     max: number;
     setPag: any;
+    setLastPage?: any;
 }
 
-export const PaginatedItems = ({ itemsPerPage, max, setPag }: IPaginate) => {
+export const PaginatedItems = ({ itemsPerPage, max, setPag, setLastPage }: IPaginate) => {
     const pageCount = Math.ceil(max / itemsPerPage);
 
     const handlePageClick = (event: any) => {
         const newOffset = (event.selected * itemsPerPage) % max;
         setPag({min: newOffset, max: (newOffset + itemsPerPage)});
+
+        if((event.selected + 1) === pageCount) {
+            setLastPage(true);
+        }else{
+            setLastPage(false);
+        }
     };
 
     return (

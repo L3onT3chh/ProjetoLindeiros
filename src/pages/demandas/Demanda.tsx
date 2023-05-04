@@ -34,7 +34,7 @@ import { selectUserLogged } from "app/reducers/auth/authSlice";
 import { convertToArray } from "util/handleSelectorObj";
 import { BsHeadset } from "react-icons/bs";
 import { AppDispatch } from "app/store";
-import { fetchDemandsThunk, findAllByUrlThunk } from "app/reducers/demand/thunk";
+import { fetchDemandsThunk, findAllByIdThunk } from "app/reducers/demand/thunk";
 import { LoadingScreen } from "components/LoadingScreen";
 import { cleanItem } from "app/reducers/demand/demandSlice";
 import { showErrorMessage } from "util/function";
@@ -71,7 +71,7 @@ export function Demanda() {
   useEffect(() => {
     if (name) {
       dispatch(cleanItem());
-      dispatch(findAllByUrlThunk(name));
+      dispatch(findAllByIdThunk(name));
     }
   }, []);
 

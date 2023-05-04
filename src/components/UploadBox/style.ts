@@ -24,4 +24,29 @@ export const FileContainer = styled.div`
         font-size: 12px;
         opacity: 0.8;
     }
+
+    .imgBigPicture{
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 400px;
+        position: relative;
+
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            color: #fff;
+            background-color: #8abbf7;
+            width: 110px;
+            font-weight: bold;
+            font-size: 14px;
+            height: 40px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 2;
+            border-radius: 5px;
+        }
+    }
 `;

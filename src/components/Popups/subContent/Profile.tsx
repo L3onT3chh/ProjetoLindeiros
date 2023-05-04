@@ -15,6 +15,7 @@ export function MyProfile() {
 
   useEffect(()=>{
     if(auth){
+      console.log(convertToArray(auth.auth.user)[0]);
       setProfile(convertToArray(auth.auth.user)[0])
     }
   }, [auth])
@@ -44,7 +45,7 @@ export function MyProfile() {
 
         <p className="city-box">
           <GiModernCity size={24} />
-          <span>{profile?.city}, PR</span>
+          <span>{profile?.city} - {profile?.state}</span>
         </p>
       </div>
     </ContentProfile>

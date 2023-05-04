@@ -17,7 +17,8 @@ function PDefault({
   primaryText,
   setPrimaryState,
   primaryValue,
-  primaryBlocked
+  primaryBlocked,
+  footerInvisible
 }: IPopup) {
 
   return (
@@ -36,7 +37,7 @@ function PDefault({
           <p className="btn-close" onClick={() => setTrigger(!trigger)} />
         </div>
         <div className="container-popup" style={{height: (setPrimaryState) ? `calc(100% - ${(subtitle) ? "160" : "130"}px)` : "100%"}}>{children}</div>
-        {setPrimaryState &&
+        {(setPrimaryState && !footerInvisible) &&
           (
             <div className="container-footer">
               <button className="btn-close-two" onClick={() => setTrigger(!trigger)}>Fechar</button>

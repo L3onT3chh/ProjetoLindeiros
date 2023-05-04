@@ -79,11 +79,10 @@ export const findAllByUser = async (id: string) => {
   }
 };
 
-export const findAllByUrl = async (url: string) => {
-  console.log(parseToUrl(url));
+export const findAllById = async (id: string) => {
   try {
     const headers = { ...HEADERS_DATA };
-    const responseDemands = await API(`/demandByUrl/${parseToUrl(url)}`, {
+    const responseDemands = await API(`/demandById/${id}`, {
       headers,
     })
       .then((response) => response.data)
@@ -92,6 +91,41 @@ export const findAllByUrl = async (url: string) => {
     let { Demand } = responseDemands.data;
 
     console.log(responseDemands);
+
+    if (Demand) {
+      return {
+        response: Demand,
+        status: 200,
+        message: "",
+      };
+    }
+
+    return {
+      response: [],
+      status: 400,
+      message: responseDemands.error,
+    };
+
+  } catch (err: any) {
+    return {
+      response: "",
+      status: 404,
+      message: "Contate o administrador do sistema",
+    };
+  }
+};
+
+export const findAllMyRelatedDemand = async () => {
+  try {
+    const token = localStorage.getItem("token_jwt");
+    const headers = { ...HEADERS_DATA, token: `${token}`  };
+    const responseDemands = await API(`/demandRelatedDemand`, {
+      headers,
+    })
+      .then((response) => response.data)
+      .catch((err: AxiosError) => err);
+
+    let Demand = responseDemands.data;
 
     if (Demand) {
       return {

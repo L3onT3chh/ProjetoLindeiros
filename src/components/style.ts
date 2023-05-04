@@ -1020,7 +1020,7 @@ export const ContainerSelectAlternative = styled.select<SContainerProps>`
 
 export const ContainerChipCard = styled.div`
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 
   .content-body-painel {
     display: flex;
@@ -1028,17 +1028,21 @@ export const ContainerChipCard = styled.div`
     margin: auto 15px;
     align-items: center;
 
-    border-bottom: 1px solid rgba(234, 234, 234, 0.3);
     h2 {
       color: white;
       margin: 10px;
-      font-size: 20px;
+      margin-left: 0;
+      font-size: 15px;
+      opacity: 0.9;
       padding: 0 10px;
       font-weight: 350;
+    }
 
-      @media screen and (max-width: 1400px) {
-        font-size: 18px;
-      }
+    button{
+      background: transparent;
+      margin-left: auto;
+      display: block;
+      opacity: 0.7;
     }
   }
 
@@ -1057,7 +1061,7 @@ export const ContainerChipCard = styled.div`
       display: block;
       text-align: left;
       font-weight: 200;
-      padding: 0 0 5px 70px;
+      padding: 0 0 10px 60px;
 
       @media screen and (max-width: 1400px) {
         font-size: 14px;
@@ -1359,6 +1363,7 @@ export const ContainerPopup = styled.div<SContainerProps>`
 `;
 
 export const ContentProfile = styled.div`
+  position: relative;
   height: 100%;
   .content-default {
     padding: 18px;
@@ -1377,6 +1382,28 @@ export const ContentProfile = styled.div`
         .left{
           display: flex;
           align-items: center;
+          .imgpreview{
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            position: relative;
+            &::after{
+              content: "Abrir";
+              color: #fff;
+              font-size: 13px;
+              position: absolute;
+              line-height: 70px;
+              text-align: center;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.6);
+              opacity: 0;
+            }
+            &:hover::after{
+              opacity: 1;
+            }
+          }
           .text{
             margin-left: 15px;
             display: flex;
@@ -1511,8 +1538,8 @@ export const ContentProfile = styled.div`
     .city-box {
       flex-direction: row;
       display: flex;
-      margin: 80px auto;
-      width: 160px;
+      margin: 80px auto 0;
+      width: 100%;
 
       justify-content: center;
       align-items: center;
@@ -1650,6 +1677,10 @@ export const ContainerNotFound = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  h4{
+    font-size: 18px;
+  }
 `;
 
 export const ContainerButtonForm = styled.button<SContainerProps>`

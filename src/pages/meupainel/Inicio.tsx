@@ -41,17 +41,17 @@ export function MeuPainel() {
   const [notificationObj, setNotificationObj] = useState<ISystemNotify[] | []>([]);
 
   useEffect(() => {
-    console.log(notificationObj.length);
+    setProposal([]);
     dispatch(cleanDemand());
     dispatch(findAllByUsersThunk(auth.auth.user[0].id));
 
     if (typeof auth.auth.user[0].Notify === "object") {
       setNotificationObj(convertToArray(auth.auth.user[0].Notify.Notify));
     }
-    // nav("/meupainel/demandas");
   }, []);
 
   useEffect(() => {
+    setProposal([]);
     if (demands.demand.length !== 0) {
       let temp: any[] = [];
       console.log(demands.demand);

@@ -15,6 +15,8 @@ const initialState: IDataDocument = {
   error: "",
   min: 0,
   max: 9,
+  qtd: 15,
+  offset: 15,
   documentSelect: undefined,
 };
 
@@ -103,13 +105,37 @@ export const documentSlice = createSlice({
       convertToArray(temp).forEach((item, i) => {
         item.visible = false;
 
-        if (i >= state.min && i < state.max) {
+        if (i >= 0 && i < 9) {
           item.visible = true;
         }
       })
 
       state.document = temp;
       state.filtered = temp;
+    },
+    appendDocuments(state: IDataDocument, action) {
+
+      convertToArray(action.payload).forEach((item, i) => {
+        item.visible = false;
+        state.document.push(item);
+        state.filtered.push(item);
+      })
+
+      state.filtered.forEach((item, i) => {
+        item.visible = false;
+
+        if (i >= state.min && i < state.max) {
+          item.visible = true;
+        }
+      })
+
+      state.document.forEach((item, i) => {
+        item.visible = false;
+
+        if (i >= state.min && i < state.max) {
+          item.visible = true;
+        }
+      })
     },
     filterDocuments(state: IDataDocument, action) {
       let { min, max, text } = action.payload;
@@ -144,6 +170,6 @@ export const documentSlice = createSlice({
   },
 });
 
-export const { getDocument, selectDocument, refreshDocuments, filterDocuments, navigate } = documentSlice.actions;
+export const { getDocument, selectDocument, refreshDocuments, filterDocuments, navigate, appendDocuments } = documentSlice.actions;
 
 export default documentSlice.reducer;

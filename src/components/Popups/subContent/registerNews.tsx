@@ -16,7 +16,7 @@ import { addNews } from "API/News/crud.news";
 
 function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
   const { city, axes } = useSelector((state: IStateData) => state);
-  const { loading } = useSelector((state: IStateData) => state.news);
+  const [loading, setLoading] = useState(false);
   const [reset, setReset] = useState(false);
   const initialState: INewsPost = {
     title: "",
@@ -37,16 +37,18 @@ function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
   const handleSavedData = async (valuesSave: INewsPost) => {
     if (description.length === 0 || cityId === "none" || axesId === "none") {
       showErrorMessage("Preencha todos os campos", "error");
+      setPrimary(false);
       return;
     }
     if (!file || file.length === 0) {
+      setPrimary(false);
       showErrorMessage("Selecione ao menos arquivo", "error");
       return;
     }
 
     const data = new FormData();
 
-    for(let i = 0; i < file.length; i++) {
+    for (let i = 0; i < file.length; i++) {
       data.append("file[]", file[i]);
     }
 
@@ -55,9 +57,10 @@ function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
     data.append("city_id", cityId);
     data.append("axes_id", axesId);
 
+    setLoading(true);
     let resp = await addNews(data);
-    
-    if(resp.status === 200){
+
+    if (resp.status === 200) {
       showErrorMessage(resp.message, "success");
       setName("");
       setSelectAxes("none");
@@ -66,11 +69,16 @@ function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
       setFile(undefined);
       setState(false);
       setReset(true);
+      setLoading(false);
+      return;
     }
+
+    showErrorMessage(resp.message, "error");
+    setPrimary(false);
   };
 
-  useEffect(()=>{
-    if(!loading && reset){
+  useEffect(() => {
+    if (!loading && reset) {
       setPrimary(false);
     }
   }, [loading, reset, setReset, setPrimary])
@@ -123,7 +131,7 @@ function RegisterNews({ setState, primaryValue, setPrimary }: IPropsGlobal) {
               setState={setSelectDescription}
               value={description}
               required
-              height="100px"
+              height="200px"
               name="body"
               className="form-control-demand"
               placeholder="Corpo da noticia"

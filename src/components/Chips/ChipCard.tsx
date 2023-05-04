@@ -1,19 +1,24 @@
 /* eslint-disable react/button-has-type */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { IPropsGlobal } from "../../interfaces/components.interface";
 import { ContainerChipCard } from "../style";
+import { BiMinus, BiPlus } from "react-icons/bi";
 
 export function ChipCard({ text, optionsMenu, Icon }: IPropsGlobal) {
+  const [content, setContent] = useState(false);
   return (
     <ContainerChipCard>
       <div className="content-body-painel">
-        <Icon/>
+        <Icon />
         <h2 className="title-h2">{text}</h2>
+        <button onClick={() => setContent(!content)}>
+          {!content ? (<BiPlus size={20} color="#fff" />) : (<BiMinus size={20} color="#fff" />)}
+        </button>
       </div>
-      <div className="content-options-painel">
+      <div className="content-options-painel" style={{ display: (content) ? "block" : "none" }}>
         {optionsMenu?.map((item, index) =>
           item.subitems && item.subitems.length > 0 ? (
             <span key={index}>
@@ -40,7 +45,7 @@ export function ChipCard({ text, optionsMenu, Icon }: IPropsGlobal) {
           ) : item.activePopUp ? (
             <button
               key={item.title}
-              className="btn-popUp"
+              className="btn-popUp subtitle-p"
               onClick={() => item.setTrigger(item.trigger)}
               style={{ marginTop: (item.title === "Meu perfil") ? '5px' : '' }}
             >
